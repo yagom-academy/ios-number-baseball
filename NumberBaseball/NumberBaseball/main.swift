@@ -7,7 +7,7 @@
 import Foundation
 
 var randomAnswer = [Int]()
-var count: Int = 9
+var gameCount: Int = 9
 
 struct NumberBaseball{
     func generateRandomNumber() -> [Int] {
@@ -33,21 +33,31 @@ struct NumberBaseball{
         return [strike, ball]
     }
     
-    func printGameResult(gameResult:[Int], count: Int) {
+    func printGameResult(userInput: [Int], gameResult: [Int], gameCount: Int) {
+        print("임의의 수: \(userInput[0]) \(userInput[1]) \(userInput[2])")
+        if gameCount == 0 {
+            print("컴퓨터 승리...!")
+        }
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
-        print("남은 기회 : \(count)")
+        if gameResult[0] == 3 {
+            print("사용자 승리!")
+        } else {
+        print("남은 기회 : \(gameCount)")
+        }
     }
     
     func startGame() {
-        count -= 1
+        gameCount -= 1
         let input = generateRandomNumber()
+        let userInput = generateRandomNumber()
         randomAnswer = generateRandomNumber()
         // get userInput
         let gameResult:[Int] = getResult(userInput: input, answer: randomAnswer)
-        printGameResult(gameResult: gameResult, count: count)
-        if count > 0 {
+        printGameResult(userInput: userInput, gameResult: gameResult, gameCount: gameCount)
+        if gameCount > 0 {
             startGame()
         }
     }
 }
 
+NumberBaseball().startGame()
