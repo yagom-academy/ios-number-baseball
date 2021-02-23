@@ -10,7 +10,7 @@ var randomAnswer = [Int]()
 var count: Int = 9
 
 struct NumberBaseball{
-    func randomNumber() -> [Int] {
+    func generateRandomNumber() -> [Int] {
         var result = [Int]()
         while result.count < 3 {
             let number = Int.random(in: 1...9)
@@ -33,11 +33,21 @@ struct NumberBaseball{
         return [strike, ball]
     }
     
+    func printGameResult(gameResult:[Int], count: Int) {
+        print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
+        print("남은 기회 : \(count)")
+    }
+    
     func startGame() {
-        let input = randomNumber()
-        randomAnswer = randomNumber()
-        getResult(userInput: input, answer: randomAnswer)
         count -= 1
+        let input = generateRandomNumber()
+        randomAnswer = generateRandomNumber()
+        // get userInput
+        let gameResult:[Int] = getResult(userInput: input, answer: randomAnswer)
+        printGameResult(gameResult: gameResult, count: count)
+        if count > 0 {
+            startGame()
+        }
     }
 }
 
