@@ -7,5 +7,5 @@
 import Foundation
 
 var inputKey = Int()
-var remaningime : Int = 9
+zzza11123sd12
  Int.random(1...9)
