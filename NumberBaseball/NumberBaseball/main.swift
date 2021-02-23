@@ -8,7 +8,7 @@ import Foundation
 
 class NumberBaseballGame {
     var randomNums: [Int] = []
-    var tryCnt = 9
+
 
     // 1~9 사이의 세 개의 임의의 정수 반환
     func getRandomNums() -> [Int] {
@@ -41,6 +41,8 @@ class NumberBaseballGame {
     
     func startGame() {
         randomNums = getRandomNums()
+        var tryCnt = 9
+        var status = false
         
         for _ in 1...tryCnt {
             tryCnt -= 1
@@ -52,16 +54,24 @@ class NumberBaseballGame {
 
             if gameResult["strike"] == 3 {
                 print("사용자 승리!!")
+                status = true
+                
             }
             else if tryCnt == 0 {
                 print("컴퓨터 승리...!")
+                status = true
             }
 
             print("\(gameResult["strike"]!) 스트라이크, \(gameResult["ball"]!) 볼")
             print("남은 기회 : \(tryCnt)")
+            
+            if status {
+                break
+            }
         }
     }
 }
 
 let test = NumberBaseballGame()
+test.startGame()
 test.startGame()
