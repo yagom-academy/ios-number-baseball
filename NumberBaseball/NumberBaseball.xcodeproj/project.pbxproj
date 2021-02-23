@@ -38,6 +38,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48F0A45625E4DE8A00F278C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		48F0A45725E4DEAB00F278C0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		48F0A45825E4DEB700F278C0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C7A29CEF2551372B00CAC77A = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +78,9 @@
 		C7A29CFA2551372B00CAC77A /* NumberBaseball */ = {
 			isa = PBXGroup;
 			children = (
+				48F0A45825E4DEB700F278C0 /* Model */,
+				48F0A45725E4DEAB00F278C0 /* Controller */,
+				48F0A45625E4DE8A00F278C0 /* View */,
 				C7A29CFB2551372B00CAC77A /* main.swift */,
 			);
 			path = NumberBaseball;
