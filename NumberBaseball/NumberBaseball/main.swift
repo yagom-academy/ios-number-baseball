@@ -6,5 +6,12 @@
 
 import Foundation
 
-print("Hello, World!")
+var randomAnswer: [Int]
+var count: Int = 9
+
+struct NumberBaseball{
+    
+    
+    
+}
 
