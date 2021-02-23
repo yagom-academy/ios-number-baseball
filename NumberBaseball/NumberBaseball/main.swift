@@ -6,7 +6,7 @@
 
 import Foundation
 
-var randomAnswer: [Int]
+var randomAnswer = [Int]()
 var count: Int = 9
 
 struct NumberBaseball{
@@ -32,4 +32,12 @@ struct NumberBaseball{
         }
         return [strike, ball]
     }
+    
+    func startGame() {
+        let input = randomNumber()
+        randomAnswer = randomNumber()
+        getResult(userInput: input, answer: randomAnswer)
+        count -= 1
+    }
 }
+
