@@ -40,9 +40,7 @@ func playGame() {
         remainingChallengeOpportunity -= 1
         let userInput = getUserInput()
         let result = judge(of: userInput)
-        
-        print("임의의 수 : \(userInput[1]) \(userInput[2]) \(userInput[3])")
-        
+                
         if result.strikeCount == 3 {
             print("사용자 승리!")
         }
@@ -76,6 +74,7 @@ func getUserInput() -> [Int] {
         }
         return input
     }
+    
     return [0] + userInput
 }
 
