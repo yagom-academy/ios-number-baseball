@@ -7,9 +7,8 @@ func startGame() {
 }
 
 func playGame() {
-    while  true {
+    while true {
         remainingChallengeOpportunity -= 1
-        
         let userInput = getUserInput()
         let result = judge(of: userInput)
         
@@ -30,7 +29,6 @@ func playGame() {
             break
         }
     }
-    
 }
 
 func getUserInput() -> [Int] {
