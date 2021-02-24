@@ -6,8 +6,12 @@
 
 //import Foundation
 
-var randomValue:[Int] = []
+var randomValue: [Int] = []
 var count = 9
+
+let STRIKEOUT = 3
+let FOURBALL = 4
+
 
 // MARK: - Main Class
 class NumberBaseball {
@@ -22,10 +26,10 @@ class NumberBaseball {
             print("임의의 수 : \(inputNum[0]) \(inputNum[1]) \(inputNum[2])")
             let result = compare(pitch: inputNum)
             
-            if result[0] == 3 {
+            if result[0] == STRIKEOUT {
                 print("사용자 승리!")
                 return
-            } else if result[1] == 4 {
+            } else if result[1] == FOURBALL {
                 break
             } else {
                 print("\(result[0]) 스트라이크, \(result[1]) 볼")
@@ -42,7 +46,7 @@ class NumberBaseball {
 extension NumberBaseball {
     
     func random() -> [Int]{
-        var randomNum:[Int] = []
+        var randomNum: [Int] = []
         
         while randomNum.count != 3 {
             let num = Int.random(in: 1...9)
@@ -58,32 +62,32 @@ extension NumberBaseball {
         return randomNum
     }
     
-    func compare(pitch score:[Int]) -> [Int] {
-        var status:[Int] = []
+    func compare(pitch score: [Int]) -> [Int] {
+        var status: [Int] = []
         
-        status.append(checkStrik(user: score))
+        status.append(checkStrike(user: score))
         status.append(checkBall(user: score))
        
         return status
     }
     
     // MARK: - Check State
-    func checkStrik(user:[Int]) -> Int {
-        var strik = 0
+    func checkStrike(user: [Int]) -> Int {
+        var strike = 0
         
-        for (c, u) in zip(randomValue, user) {
-            if c == u {
-                strik += 1
+        for (com, user) in zip(randomValue, user) {
+            if com == user {
+                strike += 1
             }
         }
         
-        return strik
+        return strike
     }
     
-    func checkBall(user:[Int]) -> Int {
+    func checkBall(user: [Int]) -> Int {
         var ball = 0
         
-        for i in 0..<3 {
+        for i in 0..<randomValue.count {
             if randomValue.contains(user[i]) && (randomValue[i] != user[i]) {
                 ball += 1
             }
