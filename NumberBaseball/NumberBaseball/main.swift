@@ -1,5 +1,9 @@
 import Foundation
 
+enum GameError: Error {
+    case invalidMenu
+    case invalidInput
+}
 var answer:[Int] = [0] + Array(repeating: 0, count: 3)
 var remainingChallengeOpportunity: Int = 9
 
