@@ -1,9 +1,37 @@
+import Foundation
+
 var answer:[Int] = [0] + Array(repeating: 0, count: 3)
 var remainingChallengeOpportunity: Int = 9
 
 func startGame() {
     answer = [0] + makeRandomNumber()
     playGame()
+}
+
+func printMenu() {
+    while true {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        
+        guard let menuInput = readLine() else {
+            return
+        }
+        
+        guard let menuNumber = Int(menuInput) else{
+            return
+        }
+        
+        if menuNumber == 1 {
+            break
+        }
+        else if menuNumber == 2 {
+            exit(0)
+        }
+        else {
+            return
+        }
+    }
 }
 
 func playGame() {
