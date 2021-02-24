@@ -25,7 +25,11 @@ class NumberBaseball {
             if result[0] == 3 {
                 print("사용자 승리!")
                 return
-            } else {
+            }
+            else if result[1] == 4 {
+                break
+            }
+            else {
                 print("\(result[0]) 스트라이크, \(result[1]) 볼")
                 print("남은 기회 : \(count)")
             }
