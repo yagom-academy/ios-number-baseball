@@ -1,32 +1,37 @@
-var answer = [0] + Array(repeating: 0, count: 3)
-var remainingChallengeOpportunity: Int = 9
+var answer:[Int] = [0] + Array(repeating: 0, count: 3)    //1-a
+var remainingChallengeOpportunity: Int = 9          //1-b
 
-func makeRandomNumber() -> [Int] {
-    let first = Int.random(in: 1...9)
-    
-    var second = Int.random(in: 1...9)
-    while second == first{
-        second = Int.random(in: 1...9)
+func makeRandomNumber() -> [Int] {      //2-a
+    var pool = Set<Int>(1...9)
+    guard let first = pool.randomElement() else {
+        return []
     }
+    pool.remove(first)
     
-    var third = Int.random(in: 1...9)
-    while third == second || third == first{
-        third = Int.random(in: 1...9)
+    guard let second = pool.randomElement() else {
+        return []
     }
+    pool.remove(second)
+    
+    guard let third = pool.randomElement() else {
+        return []
+    }
+    pool.remove(third)
     
     let randomArray = [first, second, third]
     return randomArray
 }
 
-func judge(first: Int, second: Int, third: Int) -> (strikeCount: Int, ballCount: Int) {
+func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount = 0
     var ballCount = 0
-    for i in 1...3{
-        for j in 1...3{
-            if first == answer[i]{
+    outer: for i in 1...3{
+        inner: for j in 1...3{
+            if userInput[i] == answer[i] {
                 strikeCount += 1
+                break inner
             }
-            else if first == answer[j]{
+            else if userInput[i] == answer[j] {
                 ballCount += 1
             }
         }
@@ -34,20 +39,43 @@ func judge(first: Int, second: Int, third: Int) -> (strikeCount: Int, ballCount:
     return (strikeCount, ballCount)
 }
 
-func printResult(_ :(Int,Int)){
-    // print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
+func printResult(_ result :(strikeCount: Int, ballCount: Int)) {
+    print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
 }
 
-func playGame(){
-    while remainingChallengeOpportunity > 0{
-        let userNumber = [0] + makeRandomNumber()
-        let result = judge(first: userNumber[1], second: userNumber[2], third: userNumber[3])
+func getUserInput() -> [Int] {
+    let userInput:[Int] = [0] + makeRandomNumber()
+    return userInput
+}
+func playGame() {
+    while  true {
+        remainingChallengeOpportunity -= 1
+        
+        let userInput = getUserInput()
+        let result = judge(of: userInput)
+        
+        print("임의의 수 : \(userInput[1]) \(userInput[2]) \(userInput[3])")
+        
+        if result.strikeCount == 3 {
+            print("사용자 승리!")
+        }
+        else if remainingChallengeOpportunity == 0 {
+            print("컴퓨터 승리...!")
+        }
+        
         printResult(result)
+        
+        print("남은 기회 : \(remainingChallengeOpportunity)")
+        
+        if remainingChallengeOpportunity == 0 || result.strikeCount == 3 {
+            break
+        }
     }
 }
 
 func startGame() {
     answer = [0] + makeRandomNumber()
     playGame()
-    
 }
+
+startGame()
