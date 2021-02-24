@@ -4,6 +4,7 @@ var answer:[Int] = [0] + Array(repeating: 0, count: 3)
 var remainingChallengeOpportunity: Int = 9
 
 func startGame() {
+    printMenu()
     answer = [0] + makeRandomNumber()
     playGame()
 }
