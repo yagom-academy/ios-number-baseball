@@ -22,7 +22,7 @@ func playGame() {
             print("컴퓨터 승리...!")
         }
         
-        printResult(result)
+        print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
         
         print("남은 기회 : \(remainingChallengeOpportunity)")
         
@@ -74,10 +74,6 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
         }
     }
     return (strikeCount, ballCount)
-}
-
-func printResult(_ result :(strikeCount: Int, ballCount: Int)) {
-    print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
 }
 
 startGame()
