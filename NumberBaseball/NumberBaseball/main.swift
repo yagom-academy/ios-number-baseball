@@ -61,8 +61,22 @@ func playGame() {
 }
 
 func getUserInput() -> [Int] {
-    let userInput:[Int] = [0] + makeRandomNumber()
-    return userInput
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    
+    guard let input = readLine() else {
+        return []
+    }
+    
+    let inputArray = input.split(separator: " ")
+    let userInput: [Int] = inputArray.map{
+        guard let input = Int($0) else {
+            return 0
+        }
+        return input
+    }
+    return [0] + userInput
 }
 
 func makeRandomNumber() -> [Int] {
