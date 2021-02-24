@@ -37,7 +37,20 @@ func makeRandomNumber() -> [Int] {
 }
 
 func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
-    return (0, 0)
+    var strikeCount = 0
+    var ballCount = 0
+    outer: for i in 1...3{
+        inner: for j in 1...3{
+            if userInput[i] == answer[i] {
+                strikeCount += 1
+                break inner
+            }
+            else if userInput[i] == answer[j] {
+                ballCount += 1
+            }
+        }
+    }
+    return (strikeCount, ballCount)
 }
 
 func printResult(_ result :(strikeCount: Int, ballCount: Int)) {
