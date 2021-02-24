@@ -4,94 +4,74 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-// 숫자야구를 위한 조건
-// <변수>
-// a. 임의의 정수 3개를 담아둘 전역변수
-// b. 남은 시도를 담아 둘 전역변수 *초기값은 9
-// <함수>
-// a. 1~9 사이의 세 개의 임의의 정수를 생성하여 반환하는 함수 *3개의 숫자는 중복이 없어야 함
-// b. 세 개의 정수를 전달받아 [1-a]의 수와 비교하여 볼과 스트라이크 결과를 반환하는 함수
-// c. 게임시작 함수
-// d. 사용자 메뉴를 출력하고 메뉴를 입력받는 함수 (게임시작, 게임종료)
-// e. 게임 숫자를 입력받는 함수
-// <추가 조건>
-// a. 게임 메뉴 및 사용자가 입력하는 세 개의 숫자의 유효성을 검증하는 과정을 구현합니다
-// b. 사용자가 입력한 수와 임의로 생성한 정수를 비교하는 게임을 진행하도록 구현합니다
-
-
-
 import Foundation
-
-
 
 class NumberBaseBall {
     // <전역변수>
-    var g_arrayNum: [Int] = []   // STEP1 변수 - a. 임의의 수 저장을 위한 빈 배열 선언
-    var g_chance = 9                  // STEP1 변수 - b. 남은 시도 횟수
-
+    var g_standardNums: [Int] = []   // STEP1 변수 - a. 임의의 수 저장을 위한 빈 배열 선언
+    var g_chance: Int = 9                 // STEP1 변수 - b. 남은 시도 횟수
 
     // <함수>
     // STEP1 함수 - a. 1~9 사이의 임의의 수 생성 함수
-    func createRandomThreeNum() -> [Int] {
-        var randomThreeNum: [Int] = []
-        while randomThreeNum.count < 3 {
+    func createRandomNums() -> [Int] {
+        var randomNums: [Int] = []
+        while randomNums.count < 3 {
             let randomNum = Int.random(in: 1...9)
-            if !randomThreeNum.contains(randomNum) { // 중복 체크
-                randomThreeNum.append(randomNum)
+            if !randomNums.contains(randomNum) { // 중복 체크
+                randomNums.append(randomNum)
             }
         }
-        
-        return randomThreeNum
+         
+        return randomNums
     }
     
     // STEP1 함수 - b. 스트라이크 볼 체크 함수
     func checkStrikeBall(standardArray: [Int], compareArray: [Int]) -> [Int] {
-        var strike = 0
-        var ball = 0
-        var result: [Int] = []
+        var strike: Int = 0
+        var ball: Int = 0
+        var results: [Int] = []
         
         for i in 0...2 {
             if standardArray[i] == compareArray[i] {
                 strike += 1
-            } else if g_arrayNum.contains(compareArray[i]) {
+            } else if g_standardNums.contains(compareArray[i]) {
                 ball += 1
             }
         }
         
-        result.append(strike)
-        result.append(ball)
+        results.append(strike)
+        results.append(ball)
         
-        return result
+        return results
     }
 
     // STEP1 함수 - c. 게임 스타트 함수
     func startGame() {
-        var chance = g_chance
-        g_arrayNum = createRandomThreeNum()
+        var chance: Int = g_chance
+        g_standardNums = createRandomNums()
         
         print("exit를 입력하면 게임 메뉴로 돌아갑니다.")
         
         while chance > 0 {
-
+            chance -= 1
+            
             // 사용자 입력 함수 실행
-            let userInput = setInputNum()
-            if userInput[0] == 0 {
+            let userInputs: [Int] = setInputNums()
+            if userInputs[0] == 0 {
                 print("메뉴로 돌아갑니다.")
                 break
             }
             
             // 스트라이크 볼 체크 함수 실행 *인덱스 0: 스트라이크, 1: 볼
-            let checkedSB = checkStrikeBall(standardArray: g_arrayNum, compareArray: userInput)
+            let checkedSB: [Int] = checkStrikeBall(standardArray: g_standardNums, compareArray: userInputs)
             
-            print("\(chance)남은 기회 \(checkedSB[0])스트라이크, \(checkedSB[1])볼")
+            print("\(checkedSB[0])스트라이크, \(checkedSB[1])볼\n\(chance) 남은 기회 ")
             
             // 지정된 숫자와 사용자 입력 숫자가 같을 시
             if checkedSB[0] == 3 {
                 print("사용자 승리!")
                 break
             }
-            
-            chance -= 1
             
             if chance == 0 {
                 print("컴퓨터 승리!")
@@ -102,13 +82,13 @@ class NumberBaseBall {
 
     // STEP2 함수 - a. 사용자 메뉴를 출력하고 메뉴를 입력받는 함수 (게임 시작, 종료)
     func gameMenu() {
-        var gameMenuStatus = true
+        var gameMenuStatus: Bool = true
         
         while gameMenuStatus {
             print("1. 게임시작\n2. 게임 종료")
             print("원하는 기능을 입력해주세요 : ", terminator: "")
         
-            let userChoiceMenu = readLine()
+            let userChoiceMenu: String = readLine() ?? ""
             switch userChoiceMenu {
             case "1":
                 startGame()
@@ -125,28 +105,30 @@ class NumberBaseBall {
     
     // STEP2 함수 - b. 게임숫자를 입력받는 함수
     // *사용자 입력 함수 입력한 값을 정수의 배열로 변환 #1 2 3 -> [1, 2, 3]
-    func setInputNum() -> [Int] {
+    func setInputNums() -> [Int] {
         let warningMessege = "숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다."
-
+        
+        // 반복문을 통해 잘못된 입력을 해도 다시 입력문 실행
         while true {
-            var intArrayNum: [Int] = []
+            var intNums: [Int] = []
             
             print(warningMessege)
             print("입력 : ", terminator: "")
             let inputNum = readLine()!
-            let stringArrayNum: [String] = inputNum.components(separatedBy: " ")
+            let stringNums: [String] = inputNum.components(separatedBy: " ")    // 사용자가 입력한 문자열의 띄어쓰기를 기준으로 문자열 배열로 변환
             
-            // 만약 중단 입력시 중단 리턴
-            if stringArrayNum.contains("exit") {
+            // 문자열 배열 안에 중단 명령어가 있을 경우 게임 종료를 의미하는 0값 배열 리턴
+            if stringNums.contains("exit") {
                 return [0]
             }
             
-            if stringArrayNum.count == 3 {
-                for i in stringArrayNum {
+            // 일단 배열의 원소 갯수가 3개일 경우 for문 실행, 아니라면 continue
+            if stringNums.count == 3 {
+                for i in stringNums {   // for문을 통해 원소를 정수로 형변환
                     guard let num: Int = Int(i) else { continue }
                     
-                    if !intArrayNum.contains(num) { // 중복 체크
-                        intArrayNum.append(num)
+                    if !intNums.contains(num) { // 중복 체크
+                        intNums.append(num)
                     } else {
                         continue // 중복이므로 다시
                     }
@@ -155,8 +137,8 @@ class NumberBaseBall {
                 continue // 3개가 아니므로 다시
             }
             
-            if intArrayNum.count == 3 {
-                return intArrayNum
+            if intNums.count == 3 { // 정상적으로 정수로 바꾼 배열의 원소 갯수가 3일경우 값을 리턴
+                return intNums
             }
         }
     }
