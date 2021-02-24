@@ -1,3 +1,4 @@
+//최신
 import Foundation
 
 enum GameError: Error {
@@ -8,34 +9,44 @@ var answer:[Int] = [0] + Array(repeating: 0, count: 3)
 var remainingChallengeOpportunity: Int = 9
 
 func startGame() {
-    printMenu()
-    answer = [0] + makeRandomNumber()
-    playGame()
+    while true {
+        do {
+            try printMenu()
+            answer = [0] + makeRandomNumber()
+            playGame()
+        }
+        catch {
+            switch error {
+                case GameError.invalidMenu:
+                    print("입력이 잘못되었습니다.")
+                default :
+                    print("입력이 잘못되었습니다.")
+            }
+        }
+    }
 }
 
-func printMenu() {
-    while true {
-        print("1. 게임시작")
-        print("2. 게임종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
+func printMenu() throws {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    guard let menuInput = readLine() else {
+        throw GameError.invalidMenu
+    }
+    
+    guard let menuNumber = Int(menuInput) else{
+        throw GameError.invalidMenu
+    }
+    
+    if menuNumber == 1 {
         
-        guard let menuInput = readLine() else {
-            return
-        }
-        
-        guard let menuNumber = Int(menuInput) else{
-            return
-        }
-        
-        if menuNumber == 1 {
-            break
-        }
-        else if menuNumber == 2 {
-            exit(0)
-        }
-        else {
-            return
-        }
+    }
+    else if menuNumber == 2 {
+        exit(0)
+    }
+    else {
+        throw GameError.invalidMenu
     }
 }
 
