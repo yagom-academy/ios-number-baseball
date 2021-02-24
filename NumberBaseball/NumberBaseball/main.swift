@@ -7,6 +7,29 @@ func startGame() {
 }
 
 func playGame() {
+    while  true {
+        remainingChallengeOpportunity -= 1
+        
+        let userInput = getUserInput()
+        let result = judge(of: userInput)
+        
+        print("임의의 수 : \(userInput[1]) \(userInput[2]) \(userInput[3])")
+        
+        if result.strikeCount == 3 {
+            print("사용자 승리!")
+        }
+        else if remainingChallengeOpportunity == 0 {
+            print("컴퓨터 승리...!")
+        }
+        
+        printResult(result)
+        
+        print("남은 기회 : \(remainingChallengeOpportunity)")
+        
+        if remainingChallengeOpportunity == 0 || result.strikeCount == 3 {
+            break
+        }
+    }
     
 }
 
@@ -54,7 +77,7 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
 }
 
 func printResult(_ result :(strikeCount: Int, ballCount: Int)) {
-    
+    print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
 }
 
 startGame()
