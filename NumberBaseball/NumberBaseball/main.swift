@@ -14,7 +14,24 @@ func getUserInput() -> [Int] {
 }
 
 func makeRandomNumber() -> [Int] {
-    return []
+    var pool = Set<Int>(1...9)
+        guard let first = pool.randomElement() else {
+            return []
+        }
+        pool.remove(first)
+        
+        guard let second = pool.randomElement() else {
+            return []
+        }
+        pool.remove(second)
+        
+        guard let third = pool.randomElement() else {
+            return []
+        }
+        pool.remove(third)
+        
+        let randomArray = [first, second, third]
+        return randomArray
 }
 
 func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
