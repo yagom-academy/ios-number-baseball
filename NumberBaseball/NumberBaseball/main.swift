@@ -11,6 +11,11 @@ var playerNumbers: [Int] = []
 
 var remainingNumber: Int = 9
 
+//enum BallCount: Int{
+//    case strike
+//    case ball
+//}
+
 func makeRandomNumbers () -> [Int] {
     var returnValue: [Int] = []
     var RandomNumber: Int
@@ -22,8 +27,6 @@ func makeRandomNumbers () -> [Int] {
     } while returnValue.count < 3
     return returnValue
 }
-
-computerNumbers = makeRandomNumbers()
 
 func calculateStrikesAndBalls(targetNumbers: [Int], compareNumbers: [Int]) -> (Int, Int) {
     var strikeCount: Int = 0
@@ -42,6 +45,19 @@ func calculateStrikesAndBalls(targetNumbers: [Int], compareNumbers: [Int]) -> (I
     return (strikeCount, ballCount)
 }
 
-calculateStrikesAndBalls(targetNumbers: computerNumbers, compareNumbers: [1, 2, 3])
+func startGame() {
+    computerNumbers = makeRandomNumbers()
+    
+    repeat {
+        playerNumbers = makeRandomNumbers()
+        print("임의의 수 :", playerNumbers)
+        
+        let result = calculateStrikesAndBalls(targetNumbers: computerNumbers, compareNumbers: playerNumbers)
+        print(result.0, " 스트라이크,", result.1, " 볼")
+        
+        remainingNumber -= 1
+        print("남은 기회 :", remainingNumber)
+    } while remainingNumber > 0
+}
 
-
+startGame()
