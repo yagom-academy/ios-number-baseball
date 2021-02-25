@@ -25,4 +25,23 @@ func makeRandomNumbers () -> [Int] {
 
 computerNumbers = makeRandomNumbers()
 
-print(computerNumbers)
+func calculateStrikesAndBalls(targetNumbers: [Int], compareNumbers: [Int]) -> (Int, Int) {
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
+    
+    for (index, element) in compareNumbers.enumerated() {
+        if targetNumbers.contains(element) {
+            if targetNumbers[index] == compareNumbers[index] {
+                strikeCount += 1
+            }
+            else {
+                ballCount += 1
+            }
+        }
+    }
+    return (strikeCount, ballCount)
+}
+
+calculateStrikesAndBalls(targetNumbers: computerNumbers, compareNumbers: [1, 2, 3])
+
+
