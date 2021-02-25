@@ -25,7 +25,7 @@ struct NumberBaseball {
         return randomAnswers
     }
     
-    func getGameResult(_ userAnswers: [Int], _ computerAnswers: [Int]) -> [Int] {
+    func getGameResult(_ userAnswers: [Int]) -> [Int] {
         var strikeCount: Int = 0
         var ballCount: Int = 0
         
@@ -65,7 +65,7 @@ struct NumberBaseball {
         }
         
         gameCount -= 1
-        let gameResult: [Int] = getGameResult(userAnswers, computerAnswers)
+        let gameResult: [Int] = getGameResult(userAnswers)
         printGameResult(userAnswers, gameResult)
         
         if gameCount > 0 {
