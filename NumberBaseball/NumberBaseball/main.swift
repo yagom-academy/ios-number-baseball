@@ -31,21 +31,20 @@ func makeRandomNumbers () -> [Int] {
 }
 
 func calculateStrikesAndBalls(targetNumbers: [Int], compareNumbers: [Int]) -> (Int, Int) {
-    var strikeCount: Int = 0
-    var ballCount: Int = 0
+    var ballCount = (strike: 0, ball: 0)
     
     for (index, element) in compareNumbers.enumerated() {
         if targetNumbers.contains(element) {
             if targetNumbers[index] == compareNumbers[index] {
-                strikeCount += 1
+                ballCount.strike += 1
             }
             else {
-                ballCount += 1
+                ballCount.ball += 1
             }
         }
     }
     
-    return (strikeCount, ballCount)
+    return ballCount
 }
 
 func startGame() {
@@ -55,8 +54,8 @@ func startGame() {
         playerNumbers = makeRandomNumbers()
         print("임의의 수 :", playerNumbers)
         
-        let result = calculateStrikesAndBalls(targetNumbers: computerNumbers, compareNumbers: playerNumbers)
-        print(result.0, " 스트라이크,", result.1, " 볼")
+        let result: (strike: Int, ball: Int) = calculateStrikesAndBalls(targetNumbers: computerNumbers, compareNumbers: playerNumbers)
+        print(result.strike, "스트라이크,", result.ball, "볼")
         
         remainingNumber -= 1
         print("남은 기회 :", remainingNumber)
