@@ -10,7 +10,6 @@ class Baseball {
     
     var gameCount: Int = 9
     var comNums: Array<Int> = []
-
     
     func startGame() {
         comNums = randomNumber()
@@ -27,6 +26,8 @@ class Baseball {
     }
 }
 
+var gameStart: Baseball = Baseball()
+gameStart.startGame()
 
 extension Baseball {
     
@@ -45,7 +46,6 @@ extension Baseball {
         return numArray
     }
     
-    
     func result(user: [Int]) {
         var strikeCount: Int = 0
         var ballCount: Int = 0
@@ -62,8 +62,3 @@ extension Baseball {
         print("\(strikeCount) 스트라이크 \(ballCount) 볼")
     }
 }
-
-
-var ball: Baseball = Baseball()
-ball.startGame()
-
