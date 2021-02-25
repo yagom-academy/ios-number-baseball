@@ -23,20 +23,20 @@ class NumberBaseball {
             }
             inputNumber = checkRepeat(userInput: inputNumber)
             gameCount -= 1
-
-            print("임의의 수 : \(inputNumber[0]) \(inputNumber[1]) \(inputNumber[2])")
-            let result = compare(pitch: inputNumber)
             
-            if result[0] == strike_out {
+            print("임의의 수 : \(inputNumber[0]) \(inputNumber[1]) \(inputNumber[2])")
+            let strikeBallResult = checkStrikeOrBall(pitch: inputNumber)
+            
+            if strikeBallResult[0] == strike_out {
                 print("사용자 승리!")
                 restartGame()
                 return
                 
             } else {
-                print("\(result[0]) 스트라이크, \(result[1]) 볼")
+                print("\(strikeBallResult[0]) 스트라이크, \(strikeBallResult[1]) 볼")
                 print("남은 기회 : \(gameCount)")
-                }
-    }
+            }
+        }
         print("컴퓨터 승리...!")
     }
     
@@ -44,15 +44,15 @@ class NumberBaseball {
         print("1. 게임시작")
         print("2. 게임 종료")
         print("원하는 기능을 선택해주세요", terminator: ": ")
-      
+        
         if let userInput = readLine() {
             switch userInput {
             case "1":
                 startGame()
-              
+                
             case "2":
                 print("게임을 종료합니다")
-              
+                
             default:
                 print("입력이 잘못되었습니다")
                 chooseGame()
@@ -65,9 +65,9 @@ class NumberBaseball {
         for index in userInput {
             if nonRepNumbers.contains(index) {
                 startGame()
-              
+                
             } else {
-            nonRepNumbers.append(index)
+                nonRepNumbers.append(index)
             }
         }
         return nonRepNumbers
@@ -117,12 +117,12 @@ extension NumberBaseball {
         return randomPitches
     }
     
-    func compare(pitch score: [Int]) -> [Int] {
+    func checkStrikeOrBall(pitch score: [Int]) -> [Int] {
         var status: [Int] = []
         
         status.append(checkStrike(user: score))
         status.append(checkBall(user: score))
-       
+        
         return status
     }
     
