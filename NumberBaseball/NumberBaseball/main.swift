@@ -33,7 +33,7 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var ballCount = 0
     
     for i in 1...3 {
-        if userInput[i] == answer[i] { 
+        if userInput[i] == answer[i] {
             strikeCount += 1
         }
         else if answer.contains(userInput[i]) {
@@ -139,6 +139,10 @@ func getUserInput() throws -> [Int] {
         return input
     }
     
+    if arrayInRangeOneToNine.count != Set(arrayInRangeOneToNine).count {
+        throw GameError.invalidInput
+    }
+        
     if arrayInRangeOneToNine.count != 3 {
         throw GameError.invalidInput
     }
