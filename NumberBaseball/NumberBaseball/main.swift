@@ -45,10 +45,6 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     return (strikeCount, ballCount)
 }
 
-func printResult(_ result :(strikeCount: Int, ballCount: Int)) {
-    print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
-}
-
 func playGame() {
     while true {
         do {
