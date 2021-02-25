@@ -6,54 +6,62 @@
 
 import Foundation
 
-var randomAnswer = [Int]()
+var computerAnswers: [Int] = [Int]()
 var gameCount: Int = 9
 
-struct NumberBaseball{
-    func generateRandomNumber() -> [Int] {
-        var result = [Int]()
-        while result.count < 3 {
-            let number = Int.random(in: 1...9)
-            if result.contains(number) { continue }
-            result.append(number)
+struct NumberBaseball {
+    func isUserWin(strikeCount: Int) -> Bool { return strikeCount == 3 }
+    func isComputerWin() -> Bool { return gameCount == 0 }
+    
+    func generateRandomAnswers() -> [Int] {
+        var randomAnswers: [Int] = [Int]()
+        
+        while randomAnswers.count < 3 {
+            let randomAnswer: Int = Int.random(in: 1...9)
+            if randomAnswers.contains(randomAnswer) { continue }
+            randomAnswers.append(randomAnswer)
         }
-        return result
+        
+        return randomAnswers
     }
     
-    func getResult(userInput: [Int], answer: [Int]) -> [Int] {
-        var strike: Int = 0
-        var ball: Int = 0
-        for i in 0..<userInput.count {
-            if userInput[i] == answer[i] {
-                strike += 1
-            } else if answer.contains(userInput[i]){
-                ball += 1
+    func getGameResult(_ userAnswers: [Int], _ computerAnswers: [Int]) -> [Int] {
+        var strikeCount: Int = 0
+        var ballCount: Int = 0
+        
+        for index in 0..<userAnswers.count {
+            if userAnswers[index] == computerAnswers[index] {
+                strikeCount += 1
+            } else if computerAnswers.contains(userAnswers[index]) {
+                ballCount += 1
             }
         }
-        return [strike, ball]
+        
+        return [strikeCount, ballCount]
     }
     
-    func printGameResult(userInput: [Int], gameResult: [Int], gameCount: Int) {
-        print("임의의 수: \(userInput[0]) \(userInput[1]) \(userInput[2])")
-        if gameCount == 0 {
+    func printGameResult(_ userAnswers: [Int], _ gameResult: [Int]) {
+        print("임의의 수: \(userAnswers[0]) \(userAnswers[1]) \(userAnswers[2])")
+        
+        if isComputerWin() {
             print("컴퓨터 승리...!")
         }
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
-        if gameResult[0] == 3 {
+        if isUserWin(strikeCount: gameResult[0]) {
             print("사용자 승리!")
         } else {
-        print("남은 기회 : \(gameCount)")
+            print("남은 기회 : \(gameCount)")
         }
     }
     
     func startGame() {
         gameCount -= 1
-        let input = generateRandomNumber()
-        let userInput = generateRandomNumber()
-        randomAnswer = generateRandomNumber()
-        // get userInput
-        let gameResult:[Int] = getResult(userInput: input, answer: randomAnswer)
-        printGameResult(userInput: userInput, gameResult: gameResult, gameCount: gameCount)
+        let userAnswers = generateRandomAnswers()
+        computerAnswers = generateRandomAnswers()
+
+        let gameResult:[Int] = getGameResult(userAnswers, computerAnswers)
+        printGameResult(userAnswers, gameResult)
+        
         if gameCount > 0 {
             startGame()
         }
