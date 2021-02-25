@@ -12,13 +12,13 @@ class Baseball {
     var computerNumbers: [Int] = []
     
     func startGame() {
-        computerNumbers = randomNumbers()
+        computerNumbers = returnRandomNumbers()
         
         for _ in 1 ..< gameCount {
-            let userNums: [Int] = randomNumbers()
-            print("임의의 수 : \(userNums[0]) \(userNums[1]) \(userNums[2])")
+            let userNumbers: [Int] = returnRandomNumbers()
+            print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
             
-            result(with: userNums)
+            result(with: userNumbers)
             
             self.gameCount -= 1
             print("남은 기회 : \(gameCount)")
@@ -31,29 +31,29 @@ baseball.startGame()
 
 extension Baseball {
     // 1 ~ 9까지의 임의의 수 3개 생성
-    func randomNumbers() -> [Int] {
-        var numArray: [Int] = []
+    func returnRandomNumbers() -> [Int] {
+        var numberArray: [Int] = []
         
         for _ in 0...2 {
-            var num: Int
+            var randomElement: Int
             
             repeat {
-                num = Int.random(in: 1...9)
-            } while numArray.contains(num)
-            numArray.append(num)
+                randomElement = Int.random(in: 1...9)
+            } while numArray.contains(randomElement)
+            numArray.append(randomElement)
         }
         
-        return numArray
+        return numberArray
     }
     
-    func result(with userNumbers: [Int]) {
+    func result(with userArray: [Int]) {
         var strikeCount: Int = 0
         var ballCount: Int = 0
         
         for index in 0...2 {
-            if computerNumbers[index] == userNumbers[index] {
+            if computerNumbers[index] == userArray[index] {
                 strikeCount += 1
-            } else if computerNumbers.contains(userNumbers[index]) {
+            } else if computerNumbers.contains(userArray[index]) {
                 ballCount += 1
             }
         }
