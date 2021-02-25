@@ -1,15 +1,15 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
 class NumberBaseBall {
     // <전역변수>
-    var g_standardNums: [Int] = []   // STEP1 변수 - a. 임의의 수 저장을 위한 빈 배열 선언
-    var g_chance: Int = 9                 // STEP1 변수 - b. 남은 시도 횟수
+    var standardNums: [Int] = []   // STEP1 변수 - a. 임의의 수 저장을 위한 빈 배열 선언
+    var chance: Int = 9                 // STEP1 변수 - b. 남은 시도 횟수
 
     // <함수>
     // STEP1 함수 - a. 1~9 사이의 임의의 수 생성 함수
@@ -26,54 +26,49 @@ class NumberBaseBall {
     }
     
     // STEP1 함수 - b. 스트라이크 볼 체크 함수
-    func checkStrikeBall(standardArray: [Int], compareArray: [Int]) -> [Int] {
-        var strike: Int = 0
-        var ball: Int = 0
-        var results: [Int] = []
+    func checkStrikeBall(standardArray: [Int], compareArray: [Int]) -> Dictionary<String, Int> {
+        var gameResult = ["strike": 0, "ball": 0]
         
         for i in 0...2 {
             if standardArray[i] == compareArray[i] {
-                strike += 1
-            } else if g_standardNums.contains(compareArray[i]) {
-                ball += 1
+                gameResult["strike"]! += 1
+            } else if standardNums.contains(compareArray[i]) {
+                gameResult["ball"]! += 1
             }
         }
         
-        results.append(strike)
-        results.append(ball)
-        
-        return results
+        return gameResult
     }
 
     // STEP1 함수 - c. 게임 스타트 함수
     func startGame() {
-        var chance: Int = g_chance
-        g_standardNums = createRandomNums()
+        var mChance: Int = chance
+        standardNums = createRandomNums()
         
         print("exit를 입력하면 게임 메뉴로 돌아갑니다.")
         
-        while chance > 0 {
-            chance -= 1
+        while mChance > 0 {
+            mChance -= 1
             
             // 사용자 입력 함수 실행
-            let userInputs: [Int] = setInputNums()
-            if userInputs[0] == 0 {
+            guard let userInputs = setInputNums(),
+                  userInputs[0] != 0 else {
                 print("메뉴로 돌아갑니다.")
                 break
             }
             
             // 스트라이크 볼 체크 함수 실행 *인덱스 0: 스트라이크, 1: 볼
-            let checkedSB: [Int] = checkStrikeBall(standardArray: g_standardNums, compareArray: userInputs)
+            let chkStrikeBall: Dictionary<String, Int> = checkStrikeBall(standardArray: standardNums, compareArray: userInputs)
             
-            print("\(checkedSB[0])스트라이크, \(checkedSB[1])볼\n\(chance) 남은 기회 ")
+            print("\(chkStrikeBall["strike"]!) 스트라이크, \(chkStrikeBall["ball"]!) 볼\n남은 기회 : \(mChance)")
             
             // 지정된 숫자와 사용자 입력 숫자가 같을 시
-            if checkedSB[0] == 3 {
+            if chkStrikeBall["strike"] == 3 {
                 print("사용자 승리!")
                 break
             }
             
-            if chance == 0 {
+            if mChance == 0 {
                 print("컴퓨터 승리!")
                 break
             }
@@ -105,22 +100,22 @@ class NumberBaseBall {
     
     // STEP2 함수 - b. 게임숫자를 입력받는 함수
     // *사용자 입력 함수 입력한 값을 정수의 배열로 변환 #1 2 3 -> [1, 2, 3]
-    func setInputNums() -> [Int] {
-        let warningMessege = "숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다."
+    func setInputNums() -> [Int]? {
         
         // 반복문을 통해 잘못된 입력을 해도 다시 입력문 실행
         while true {
             var intNums: [Int] = []
             
-            print(warningMessege)
+            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
             print("입력 : ", terminator: "")
-            let inputNum = readLine()!
-            let stringNums: [String] = inputNum.components(separatedBy: " ")    // 사용자가 입력한 문자열의 띄어쓰기를 기준으로 문자열 배열로 변환
             
-            // 문자열 배열 안에 중단 명령어가 있을 경우 게임 종료를 의미하는 0값 배열 리턴
-            if stringNums.contains("exit") {
+            guard let inputNum = readLine(),
+                  inputNum != "exit" else {
                 return [0]
             }
+            
+            // 사용자가 입력한 문자열의 띄어쓰기를 기준으로 문자열 배열로 변환
+            let stringNums: [String] = inputNum.components(separatedBy: " ")
             
             // 일단 배열의 원소 갯수가 3개일 경우 for문 실행, 아니라면 continue
             if stringNums.count == 3 {
@@ -145,7 +140,6 @@ class NumberBaseBall {
     
     
 }
-
 
 var testGame = NumberBaseBall()
 
