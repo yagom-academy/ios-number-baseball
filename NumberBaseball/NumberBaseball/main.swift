@@ -4,10 +4,10 @@ enum GameError: Error {
     case exitInput
     case unknownError
 }
-var answer: [Int] = [0] + Array(repeating: 0, count: 3)    //1-a
-var remainingChallengeOpportunity: Int = 9          //1-b
+var answer: [Int] = [0] + Array(repeating: 0, count: 3)
+var remainingChallengeOpportunity: Int = 9
 
-func makeRandomNumber() throws -> [Int] {      //2-a
+func makeRandomNumber() throws -> [Int] {
     var pool = Set<Int>(1...9)
     guard let first = pool.randomElement() else {
         throw GameError.unknownError
@@ -32,10 +32,10 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount = 0
     var ballCount = 0
     for i in 1...3 {
-        if userInput[i] == answer[i] {
+        if userInput.index(userInput.startIndex, offsetBy: i) == answer.index(answer.startIndex, offsetBy: i) {
             strikeCount += 1
         }
-        else if answer.contains(userInput[i]) {
+        else if answer.contains(userInput.index(userInput.startIndex, offsetBy: i)) {
             ballCount += 1
         }
     }
@@ -102,8 +102,8 @@ func selectGameStartOrEnd() throws {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
-    let userInput = readLine()
     
+    let userInput = readLine()
     guard let menuInput = userInput else {
         throw GameError.invalidMenu
     }
@@ -123,27 +123,26 @@ func getUserInput() throws -> [Int] {
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     
-    let input1 = readLine()
-    guard let input = input1 else {
+    let userInputArray = readLine()?.split(separator: " ")
+    guard let inputArray = userInputArray else {
         throw GameError.unknownError
     }
     
-    let inputArray = input.split(separator: " ")
-    let userInput: [Int] = try inputArray.map{
+    let arrayInRangeOneToNine: [Int] = try inputArray.map {
         guard let input = Int($0) else {
             throw GameError.invalidInput
         }
-        if input > 9 || input < 0{
+        if input > 9 || input < 1 {
             throw GameError.invalidInput
         }
         return input
     }
     
-    if userInput.count != 3 {
+    if arrayInRangeOneToNine.count != 3 {
         throw GameError.invalidInput
     }
     
-    return [0] + userInput
+    return [0] + arrayInRangeOneToNine
 }
 
 startGame()
