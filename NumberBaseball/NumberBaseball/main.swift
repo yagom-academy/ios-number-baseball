@@ -10,3 +10,13 @@ import Foundation
 
 print("Hello, World!")
 
+var RandomNum : [Int] = []
+
+var GameCount : Int = 9
+
+
+func initRandom
+
+func returnResult
+
+func startGame
