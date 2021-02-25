@@ -31,15 +31,12 @@ func makeRandomNumber() throws -> [Int] {      //2-a
 func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount = 0
     var ballCount = 0
-    outer: for i in 1...3{
-        inner: for j in 1...3{
-            if userInput[i] == answer[i] {
-                strikeCount += 1
-                break inner
-            }
-            else if userInput[i] == answer[j] {
-                ballCount += 1
-            }
+    for i in 1...3 {
+        if userInput[i] == answer[i] {
+            strikeCount += 1
+        }
+        else if answer.contains(userInput[i]) {
+            ballCount += 1
         }
     }
     return (strikeCount, ballCount)
@@ -79,21 +76,19 @@ func playGame() {
 }
 
 func startGame() {
-    while true {
-        do {
-            try printMenu()
-            try answer = [0] + makeRandomNumber()
-            playGame()
-        }
-        catch {
-            switch error {
-            case GameError.invalidMenu:
-                print("입력이 잘못되었습니다.")
-            case GameError.exitInput:
-                return
-            default :
-                print("입력이 잘못되었습니다.")
-            }
+    do {
+        try printMenu()
+        try answer = [0] + makeRandomNumber()
+        playGame()
+    }
+    catch {
+        switch error {
+        case GameError.invalidMenu:
+            print("입력이 잘못되었습니다.")
+        case GameError.exitInput:
+            return
+        default :
+            print("입력이 잘못되었습니다.")
         }
     }
 }
