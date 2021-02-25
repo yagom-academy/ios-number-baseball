@@ -48,7 +48,7 @@ func initialize() {
         try answer = [0] + makeRandomNumber()
     }
     catch {
-       print("알 수 없는 오류")
+        print("알 수 없는 오류")
     }
 }
 
@@ -84,7 +84,7 @@ func startGame() {
     while true {
         initialize()
         do {
-            try printMenu()
+            try selectGameStartOrEnd()
             playGame()
         }
         catch {
@@ -98,7 +98,7 @@ func startGame() {
     }
 }
 
-func printMenu() throws {
+func selectGameStartOrEnd() throws {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
@@ -108,13 +108,12 @@ func printMenu() throws {
         throw GameError.invalidMenu
     }
     
-    if menuInput == "1" {
-        
-    }
-    else if menuInput == "2" {
+    switch menuInput {
+    case "1":
+        return
+    case "2":
         throw GameError.exitInput
-    }
-    else {
+    default:
         throw GameError.invalidMenu
     }
 }
@@ -124,13 +123,17 @@ func getUserInput() throws -> [Int] {
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     
-    guard let input = readLine() else {
-        return []
+    let input1 = readLine()
+    guard let input = input1 else {
+        throw GameError.unknownError
     }
     
     let inputArray = input.split(separator: " ")
     let userInput: [Int] = try inputArray.map{
         guard let input = Int($0) else {
+            throw GameError.invalidInput
+        }
+        if input > 9 || input < 0{
             throw GameError.invalidInput
         }
         return input
@@ -140,11 +143,6 @@ func getUserInput() throws -> [Int] {
         throw GameError.invalidInput
     }
     
-    for i in 0..<3 {
-        if userInput[i] > 9 || userInput[i] < 1 {
-            throw GameError.invalidInput
-        }
-    }
     return [0] + userInput
 }
 
