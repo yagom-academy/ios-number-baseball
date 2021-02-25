@@ -18,13 +18,15 @@ var remainingNumber: Int = 9
 
 func makeRandomNumbers () -> [Int] {
     var returnValue: [Int] = []
-    var RandomNumber: Int
+    var randomNumber: Int
+    
     repeat {
-        RandomNumber = Int.random(in: 1...9)
-        if !returnValue.contains(RandomNumber) {
-            returnValue.append(RandomNumber)
+        randomNumber = Int.random(in: 1...9)
+        if !returnValue.contains(randomNumber) {
+            returnValue.append(randomNumber)
         }
     } while returnValue.count < 3
+    
     return returnValue
 }
 
@@ -42,6 +44,7 @@ func calculateStrikesAndBalls(targetNumbers: [Int], compareNumbers: [Int]) -> (I
             }
         }
     }
+    
     return (strikeCount, ballCount)
 }
 
