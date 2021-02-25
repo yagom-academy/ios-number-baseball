@@ -1,4 +1,9 @@
-var answer:[Int] = [0] + Array(repeating: 0, count: 3)    //1-a
+enum GameError: Error {
+    case invalidMenu
+    case invalidInput
+    case exitInput
+}
+var answer: [Int] = [0] + Array(repeating: 0, count: 3)    //1-a
 var remainingChallengeOpportunity: Int = 9          //1-b
 
 func makeRandomNumber() -> [Int] {      //2-a
@@ -74,8 +79,43 @@ func playGame() {
 }
 
 func startGame() {
-    answer = [0] + makeRandomNumber()
-    playGame()
+    while true {
+        do {
+            try printMenu()
+            answer = [0] + makeRandomNumber()
+            playGame()
+        }
+        catch {
+            switch error {
+            case GameError.invalidMenu:
+                print("입력이 잘못되었습니다.")
+            case GameError.exitInput:
+                return
+            default :
+                print("입력이 잘못되었습니다.")
+            }
+        }
+    }
 }
 
+func printMenu() throws {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    let userInput = readLine()
+    
+    guard let menuInput = userInput else {
+        throw GameError.invalidMenu
+    }
+    
+    if menuInput == "1" {
+        
+    }
+    else if menuInput == "2" {
+        throw GameError.exitInput
+    }
+    else {
+        throw GameError.invalidMenu
+    }
+}
 startGame()
