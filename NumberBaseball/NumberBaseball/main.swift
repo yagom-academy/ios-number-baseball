@@ -16,22 +16,20 @@ class NumberBaseball {
     }
     func startGame() {
         while gameCount > 0 {
-            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-            print("중복 숫자는 허용하지 않습니다.")
-            print("입력", terminator: ":")
+            printInstruction()
             var inputNumber = readLine()!.split(separator: " ").map { Int(String($0)) ?? -1 }
-            checkInput(userInput: inputNumber)
+            if !checkInput(userInput: inputNumber) {
+                continue
+            }
             inputNumber = checkRepeat(userInput: inputNumber)
             gameCount -= 1
-            dump(inputNumber)
-            dump(gameCount)
+
             print("임의의 수 : \(inputNumber[0]) \(inputNumber[1]) \(inputNumber[2])")
             let result = compare(pitch: inputNumber)
             
             if result[0] == strike_out {
                 print("사용자 승리!")
-                print("1. 게임시작")
-                print("2. 게임 종료")
+                restartGame()
                 return
                 
             } else {
@@ -75,18 +73,28 @@ class NumberBaseball {
         return nonRepNumbers
     }
     
-    func checkInput(userInput: [Int]) {
+    func checkInput(userInput: [Int]) -> Bool {
         if userInput.count == 3 && !userInput.contains(-1) {
-            return
+            return true
         }
         else {
             printError()
-            startGame()
+            return false
         }
+    }
+    
+    func printInstruction() {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력", terminator: ":")
     }
     
     func printError() {
         print("입력이 잘못되었습니다.")
+    }
+    func restartGame() {
+        gameCount = 9
+        chooseGame()
     }
 }
 
