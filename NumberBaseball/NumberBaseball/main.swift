@@ -42,6 +42,16 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     return (strikeCount, ballCount)
 }
 
+func initialize() {
+    remainingChallengeOpportunity = 9
+    do {
+        try answer = [0] + makeRandomNumber()
+    }
+    catch {
+       print("알 수 없는 오류")
+    }
+}
+
 func playGame() {
     while true {
         do {
@@ -61,34 +71,29 @@ func playGame() {
             print("남은 기회 : \(remainingChallengeOpportunity)")
             
             if remainingChallengeOpportunity == 0 || result.strikeCount == 3 {
-                break
+                return
             }
         }
         catch {
-            switch error {
-            case GameError.invalidInput:
-                print("입력이 잘못되었습니다.")
-            default:
-                print("입력이 잘못되었습니다.")
-            }
+            print("입력이 잘못되었습니다.")
         }
     }
 }
 
 func startGame() {
-    do {
-        try printMenu()
-        try answer = [0] + makeRandomNumber()
-        playGame()
-    }
-    catch {
-        switch error {
-        case GameError.invalidMenu:
-            print("입력이 잘못되었습니다.")
-        case GameError.exitInput:
-            return
-        default :
-            print("입력이 잘못되었습니다.")
+    while true {
+        initialize()
+        do {
+            try printMenu()
+            playGame()
+        }
+        catch {
+            switch error {
+            case GameError.exitInput:
+                return
+            default:
+                print("입력이 잘못되었습니다.")
+            }
         }
     }
 }
