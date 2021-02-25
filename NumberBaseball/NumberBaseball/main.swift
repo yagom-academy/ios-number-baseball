@@ -9,52 +9,51 @@ import Foundation
 class Baseball {
     
     var gameCount: Int = 9
-    var comNums: Array<Int> = []
+    var computerNumbers: [Int] = []
     
     func startGame() {
-        comNums = randomNumber()
+        computerNumbers = randomNumbers()
         
-        while gameCount > 0 {
-            let userNums: Array<Int> = randomNumber()
+        for _ in 1 ..< gameCount {
+            let userNums: [Int] = randomNumbers()
             print("임의의 수 : \(userNums[0]) \(userNums[1]) \(userNums[2])")
             
-            result(user: userNums)
+            result(with: userNums)
             
-            gameCount -= 1
+            self.gameCount -= 1
             print("남은 기회 : \(gameCount)")
         }
     }
 }
 
-var gameStart: Baseball = Baseball()
-gameStart.startGame()
+let baseball = Baseball()
+baseball.startGame()
 
 extension Baseball {
-    
-    func randomNumber() -> Array<Int> {
-        var numArray: Array<Int> = []
+    // 1 ~ 9까지의 임의의 수 3개 생성
+    func randomNumbers() -> [Int] {
+        var numArray: [Int] = []
         
         for _ in 0...2 {
             var num: Int
             
             repeat {
                 num = Int.random(in: 1...9)
-            } while numArray.contains(num) == true
+            } while numArray.contains(num)
             numArray.append(num)
         }
         
         return numArray
     }
     
-    func result(user: [Int]) {
+    func result(with userNumbers: [Int]) {
         var strikeCount: Int = 0
         var ballCount: Int = 0
         
-        for i in 0...2 {
-            if comNums[i] == user[i] {
+        for index in 0...2 {
+            if computerNumbers[index] == userNumbers[index] {
                 strikeCount += 1
-                
-            }else if comNums.contains(user[i]) {
+            } else if computerNumbers.contains(userNumbers[index]) {
                 ballCount += 1
             }
         }
