@@ -2,23 +2,20 @@
 //  NumberBaseball - main.swift
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
-// 
-
-//import Foundation
+//
 
 var randomValue: [Int] = []
-var count = 9
+var gameCount = 9
 
-let STRIKEOUT = 3
-let FOURBALL = 4
-
+let strike_out = 3
+let four_ball = 4
 
 // MARK: - Main Class
 class NumberBaseball {
-  
+    
     func startGame() {
-        randomValue = createRandom()
-        
+        randomValue = createRandom()     
+
         while count != 0 {
             print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
             print("중복 숫자는 허용하지 않습니다.")
@@ -55,12 +52,15 @@ class NumberBaseball {
         print("1. 게임시작")
         print("2. 게임 종료")
         print("원하는 기능을 선택해주세요", terminator: ": ")
+      
         if let userInput = readLine() {
             switch userInput {
             case "1":
                 startGame()
+              
             case "2":
                 print("게임을 종료합니다")
+              
             default:
                 print("입력이 잘못되었습니다")
                 chooseGame()
@@ -69,10 +69,12 @@ class NumberBaseball {
     }
     func checkRepeat(userInput: [Int]) -> [Int] {
         var nonRepNums: [Int] = [Int]()
+      
         for idx in userInput {
             if nonRepNums.contains(idx) {
                 startGame()
-        } else {
+              
+            } else {
             nonRepNums.append(idx)
             }
         }
@@ -86,18 +88,18 @@ extension NumberBaseball {
     func createRandom() -> [Int] {
         var randomNum: [Int] = []
         
-        while randomNum.count != 3 {
+        while randomPitches.count != 3 {
             let num = Int.random(in: 1...9)
             
-            if randomNum.contains(num) {
+            if randomPitches.contains(num) {
                 continue
                 
             } else {
-                randomNum.append(num)
+                randomPitches.append(num)
             }
         }
         
-        return randomNum
+        return randomPitches
     }
     
     func compare(pitch score: [Int]) -> [Int] {
@@ -113,8 +115,8 @@ extension NumberBaseball {
     func checkStrike(user: [Int]) -> Int {
         var strike = 0
         
-        for (com, user) in zip(randomValue, user) {
-            if com == user {
+        for (com, pitcher) in zip(randomValue, user) {
+            if com == pitcher {
                 strike += 1
             }
         }
@@ -137,5 +139,4 @@ extension NumberBaseball {
 
 // MARK: - Create Instance && Start
 let NBGame = NumberBaseball()
-
 NBGame.chooseGame()
