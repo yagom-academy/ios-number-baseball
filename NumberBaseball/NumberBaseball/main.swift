@@ -55,16 +55,18 @@ struct NumberBaseball {
     }
     
     func startGame() {
+        let userAnswers: [Int] = generateRandomAnswers()
+        
+        if gameCount == 9 {
+            computerAnswers = generateRandomAnswers()
+        }
+        
         gameCount -= 1
-        let userAnswers = generateRandomAnswers()
-        computerAnswers = generateRandomAnswers()
-
-        let gameResult:[Int] = getGameResult(userAnswers, computerAnswers)
+        let gameResult: [Int] = getGameResult(userAnswers, computerAnswers)
         printGameResult(userAnswers, gameResult)
         
-        if gameCount > 0 {
-            startGame()
-        }
+        if isComputerWin() { return }
+        startGame()
     }
 }
 
