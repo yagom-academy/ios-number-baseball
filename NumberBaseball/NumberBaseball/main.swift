@@ -9,11 +9,11 @@ import Foundation
 class NumberBaseBall {
     // <전역변수>
     var standardNums: [Int] = []   // STEP1 변수 - a. 임의의 수 저장을 위한 빈 배열 선언
-    var chance: Int = 9                 // STEP1 변수 - b. 남은 시도 횟수
+    var chance: Int = 9            // STEP1 변수 - b. 남은 시도 횟수
 
     // <함수>
     // STEP1 함수 - a. 1~9 사이의 임의의 수 생성 함수
-    func createRandomNums() -> [Int] {
+    private func createRandomNums() -> [Int] {
         var randomNums: [Int] = []
         while randomNums.count < 3 {
             let randomNum = Int.random(in: 1...9)
@@ -26,13 +26,13 @@ class NumberBaseBall {
     }
     
     // STEP1 함수 - b. 스트라이크 볼 체크 함수
-    func checkStrikeBall(standardArray: [Int], compareArray: [Int]) -> Dictionary<String, Int> {
+    private func checkStrikeBall(standardNums: [Int], compareNums: [Int]) -> Dictionary<String, Int> {
         var gameResult = ["strike": 0, "ball": 0]
         
         for i in 0...2 {
-            if standardArray[i] == compareArray[i] {
+            if standardNums[i] == compareNums[i] {
                 gameResult["strike"]! += 1
-            } else if standardNums.contains(compareArray[i]) {
+            } else if standardNums.contains(compareNums[i]) {
                 gameResult["ball"]! += 1
             }
         }
@@ -41,7 +41,7 @@ class NumberBaseBall {
     }
 
     // STEP1 함수 - c. 게임 스타트 함수
-    func startGame() {
+    private func startGame() {
         var mChance: Int = chance
         standardNums = createRandomNums()
         
@@ -58,8 +58,7 @@ class NumberBaseBall {
             }
             
             // 스트라이크 볼 체크 함수 실행 *인덱스 0: 스트라이크, 1: 볼
-            let chkStrikeBall: Dictionary<String, Int> = checkStrikeBall(standardArray: standardNums, compareArray: userInputs)
-            
+            let chkStrikeBall: Dictionary<String, Int> = checkStrikeBall(standardNums: standardNums, compareNums: userInputs)
             print("\(chkStrikeBall["strike"]!) 스트라이크, \(chkStrikeBall["ball"]!) 볼\n남은 기회 : \(mChance)")
             
             // 지정된 숫자와 사용자 입력 숫자가 같을 시
@@ -87,7 +86,6 @@ class NumberBaseBall {
             switch userChoiceMenu {
             case "1":
                 startGame()
-
             case "2":
                 print("게임을 종료합니다")
                 gameMenuStatus = false
@@ -100,7 +98,7 @@ class NumberBaseBall {
     
     // STEP2 함수 - b. 게임숫자를 입력받는 함수
     // *사용자 입력 함수 입력한 값을 정수의 배열로 변환 #1 2 3 -> [1, 2, 3]
-    func setInputNums() -> [Int]? {
+    private func setInputNums() -> [Int]? {
         
         // 반복문을 통해 잘못된 입력을 해도 다시 입력문 실행
         while true {
@@ -120,7 +118,9 @@ class NumberBaseBall {
             // 일단 배열의 원소 갯수가 3개일 경우 for문 실행, 아니라면 continue
             if stringNums.count == 3 {
                 for i in stringNums {   // for문을 통해 원소를 정수로 형변환
-                    guard let num: Int = Int(i) else { continue }
+                    guard let num: Int = Int(i) else {
+                        continue
+                    }
                     
                     if !intNums.contains(num) { // 중복 체크
                         intNums.append(num)
@@ -137,8 +137,6 @@ class NumberBaseBall {
             }
         }
     }
-    
-    
 }
 
 var testGame = NumberBaseBall()
