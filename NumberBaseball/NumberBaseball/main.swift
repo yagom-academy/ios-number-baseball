@@ -31,11 +31,12 @@ func makeRandomNumber() throws -> [Int] {
 func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount = 0
     var ballCount = 0
+    
     for i in 1...3 {
-        if userInput.index(userInput.startIndex, offsetBy: i) == answer.index(answer.startIndex, offsetBy: i) {
+        if userInput[i] == answer[i] { 
             strikeCount += 1
         }
-        else if answer.contains(userInput.index(userInput.startIndex, offsetBy: i)) {
+        else if answer.contains(userInput[i]) {
             ballCount += 1
         }
     }
