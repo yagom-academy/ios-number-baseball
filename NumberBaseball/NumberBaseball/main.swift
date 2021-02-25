@@ -41,14 +41,17 @@ struct NumberBaseball {
     }
     
     func printGameResult(_ userAnswers: [Int], _ gameResult: [Int]) {
-        print("임의의 수: \(userAnswers[0]) \(userAnswers[1]) \(userAnswers[2])")
+        print("임의의 수 : \(userAnswers[0]) \(userAnswers[1]) \(userAnswers[2])")
         
         if isComputerWin() {
             print("컴퓨터 승리...!")
         }
+        
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
+        
         if isUserWin(strikeCount: gameResult[0]) {
             print("사용자 승리!")
+            gameCount = 0
         } else {
             print("남은 기회 : \(gameCount)")
         }
@@ -65,8 +68,9 @@ struct NumberBaseball {
         let gameResult: [Int] = getGameResult(userAnswers, computerAnswers)
         printGameResult(userAnswers, gameResult)
         
-        if isComputerWin() { return }
-        startGame()
+        if gameCount > 0 {
+            startGame()
+        }
     }
 }
 
