@@ -2,24 +2,25 @@ enum GameError: Error {
     case invalidMenu
     case invalidInput
     case exitInput
+    case unknownError
 }
 var answer: [Int] = [0] + Array(repeating: 0, count: 3)    //1-a
 var remainingChallengeOpportunity: Int = 9          //1-b
 
-func makeRandomNumber() -> [Int] {      //2-a
+func makeRandomNumber() throws -> [Int] {      //2-a
     var pool = Set<Int>(1...9)
     guard let first = pool.randomElement() else {
-        return []
+        throw GameError.unknownError
     }
     pool.remove(first)
     
     guard let second = pool.randomElement() else {
-        return []
+        throw GameError.unknownError
     }
     pool.remove(second)
     
     guard let third = pool.randomElement() else {
-        return []
+        throw GameError.unknownError
     }
     pool.remove(third)
     
@@ -85,7 +86,7 @@ func startGame() {
     while true {
         do {
             try printMenu()
-            answer = [0] + makeRandomNumber()
+            try answer = [0] + makeRandomNumber()
             playGame()
         }
         catch {
