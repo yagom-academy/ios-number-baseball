@@ -48,32 +48,35 @@ func printResult(_ result :(strikeCount: Int, ballCount: Int)) {
     print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
 }
 
-func getUserInput() -> [Int] {
-    let userInput:[Int] = [0] + makeRandomNumber()
-    return userInput
-}
 func playGame() {
-    while  true {
-        remainingChallengeOpportunity -= 1
-        
-        let userInput = getUserInput()
-        let result = judge(of: userInput)
-        
-        print("임의의 수 : \(userInput[1]) \(userInput[2]) \(userInput[3])")
-        
-        if result.strikeCount == 3 {
-            print("사용자 승리!")
+    while true {
+        do {
+            let userInput = try getUserInput()
+            let result = judge(of: userInput)
+            remainingChallengeOpportunity -= 1
+            
+            if result.strikeCount == 3 {
+                print("사용자 승리!")
+            }
+            else if remainingChallengeOpportunity == 0 {
+                print("컴퓨터 승리...!")
+            }
+            
+            print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
+            
+            print("남은 기회 : \(remainingChallengeOpportunity)")
+            
+            if remainingChallengeOpportunity == 0 || result.strikeCount == 3 {
+                break
+            }
         }
-        else if remainingChallengeOpportunity == 0 {
-            print("컴퓨터 승리...!")
-        }
-        
-        printResult(result)
-        
-        print("남은 기회 : \(remainingChallengeOpportunity)")
-        
-        if remainingChallengeOpportunity == 0 || result.strikeCount == 3 {
-            break
+        catch {
+            switch error {
+            case GameError.invalidInput:
+                print("입력이 잘못되었습니다.")
+            default:
+                print("입력이 잘못되었습니다.")
+            }
         }
     }
 }
@@ -118,4 +121,34 @@ func printMenu() throws {
         throw GameError.invalidMenu
     }
 }
+
+func getUserInput() throws -> [Int] {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    
+    guard let input = readLine() else {
+        return []
+    }
+    
+    let inputArray = input.split(separator: " ")
+    let userInput: [Int] = try inputArray.map{
+        guard let input = Int($0) else {
+            throw GameError.invalidInput
+        }
+        return input
+    }
+    
+    if userInput.count != 3 {
+        throw GameError.invalidInput
+    }
+    
+    for i in 0..<3 {
+        if userInput[i] > 9 || userInput[i] < 1 {
+            throw GameError.invalidInput
+        }
+    }
+    return [0] + userInput
+}
+
 startGame()
