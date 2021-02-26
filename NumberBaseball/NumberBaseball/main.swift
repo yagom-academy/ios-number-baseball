@@ -55,7 +55,7 @@ func initialize() {
 
 func playGame() {
     while true {
-        var userInput = [0, 0, 0]
+        var userInput = Array<Int>()
         do {
             userInput = try getUserInput()
         }
