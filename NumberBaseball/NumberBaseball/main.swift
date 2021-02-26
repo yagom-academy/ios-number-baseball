@@ -25,6 +25,8 @@ var inputNumberArray: [Int] = [firstInputNumber, secondInputNumber, thirdInputNu
 // ball의 의미가 규칙의 의미와 조금 다릅니다 ㅋㅋ
 var strike: Int = 0
 var ball: Int = 0
+var beforeBall: Int = 0
+
 
 // 남은 게임 횟수
 var chanceToWin: Int = 9
@@ -62,9 +64,9 @@ func compareIndex() {
     if randomNumberArray[2] == inputNumberArray[2] { strike += 1 }
 } // 배열 안에 같은 숫자가 같은 자리에 있는지를 검사하는 함수
 func compareNumber() {
-    if randomNumberArray.contains(firstInputNumber) { ball += 1 } //123, 132
-    if randomNumberArray.contains(secondInputNumber) { ball += 1 }//ball = 3
-    if randomNumberArray.contains(thirdInputNumber) { ball += 1 }
+    if randomNumberArray.contains(firstInputNumber) { beforeBall += 1 } //123, 132
+    if randomNumberArray.contains(secondInputNumber) { beforeBall += 1 }//ball = 3
+    if randomNumberArray.contains(thirdInputNumber) { beforeBall += 1 }
 
 } //배열 안에 같은 숫자가 있는지를 검사하는 함수
 
@@ -79,7 +81,8 @@ while chanceToWin > 0 {
     compareNumber()
 
     //판정
-    print("\(strike) 스트라이크, \(ball - strike) 볼")
+    ball = beforeBall - strike
+    print("\(strike) 스트라이크, \(ball) 볼")
     
     //strike가 세 개라면 사용자 승리
     if strike == 3 {
