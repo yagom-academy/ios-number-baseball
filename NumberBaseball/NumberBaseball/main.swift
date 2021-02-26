@@ -4,55 +4,97 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var randomValue: [Int] = []
-var gameCount = 9
-let strikeOut = 3
+var randomComputerInput: [Int] = []
+var gameCountRemainder = 9
 
 // MARK: - Main Class
 
-class NumberBaseball {
+class NumberBaseballGame {
     init() {
-        randomValue = createRandomNumber()
+        randomComputerInput = createRandomNumber()
     }
+    
     func startGame() {
-        while gameCount > 0 {
+        while gameCountRemainder > 0 {
             printInstruction()
-            var inputNumber = readLine()!.split(separator: " ").map { Int(String($0)) ?? -1 }
-            if !checkInput(userInput: inputNumber) {
+            guard let optionalInputNumber = readLine() else {
+                return
+            }
+            let inputNumber = optionalInputNumber.split(separator: " ").map { Int(String($0)) ?? -1 }
+            if isCheckedInput(userInput: inputNumber) == false {
                 continue
             }
-            inputNumber = checkRepeat(userInput: inputNumber)
-            gameCount -= 1
+            if isCheckedOverlap(userInput: inputNumber) == false {
+                continue
+            }
+            gameCountRemainder -= 1
             print("임의의 수 : \(inputNumber[0]) \(inputNumber[1]) \(inputNumber[2])")
-            let gameResult = checkStrikeOrBall(pitch: inputNumber) 
+            let gameResult = checkStrikeOrBall(score: inputNumber)
             let strikeNumber = gameResult[0]
             let ballNumber = gameResult[1]
-            if strikeNumber == strikeOut {
+            if strikeNumber == 3 {
                 print("사용자 승리!")
                 restartGame()
                 return
             } else {
                 print("\(strikeNumber) 스트라이크, \(ballNumber) 볼")
-                print("남은 기회 : \(gameCount)")
+                print("남은 기회 : \(gameCountRemainder)")
             }
         }
         print("컴퓨터 승리...!")
     }
+}
+
+// MARK: - Extension
+
+extension NumberBaseballGame {
+    func createRandomNumber() -> [Int] {
+        var randomPitches: Set<Int> = []
+        while randomPitches.count != 3 {
+            let number = Int.random(in: 1...9)
+            randomPitches.insert(number)
+        }
+        return Array(randomPitches)
+    }
+    func checkStrikeOrBall(score pitch: [Int]) -> [Int] {
+        var strikeBallCount: [Int] = []
+        strikeBallCount.append(checkStrike(pitcher: pitch))
+        strikeBallCount.append(checkBall(pitcher: pitch))
+        return strikeBallCount
+    }
+    
+    // MARK: - Check State
+    
+    func checkStrike(pitcher user: [Int]) -> Int {
+        var strike = 0
+        for (computerPickedNumber, userPickedNumber) in zip(randomComputerInput, user) {
+            if computerPickedNumber == userPickedNumber {
+                strike += 1
+            }
+        }
+        return strike
+    }
+    func checkBall(pitcher user: [Int]) -> Int {
+        var ball = 0
+        for index in 0..<randomComputerInput.count {
+            if randomComputerInput.contains(user[index]) && (randomComputerInput[index] != user[index]) {
+                ball += 1
+            }
+        }
+        return ball
+    }
     
     // MARK: - Check
     
-    func checkRepeat(userInput: [Int]) -> [Int] {
-        var nonRepNumbers: [Int] = []
-        for index in userInput {
-            if nonRepNumbers.contains(index) {
-                startGame()
-            } else {
-                nonRepNumbers.append(index)
-            }
+    func isCheckedOverlap(userInput: [Int]) -> Bool {
+        let nonRepeatingNumbers = Set(userInput)
+        if nonRepeatingNumbers.count == 3 {
+            return true
+        } else {
+            return false
         }
-        return nonRepNumbers
     }
-    func checkInput(userInput: [Int]) -> Bool {
+    func isCheckedInput(userInput: [Int]) -> Bool {
         if userInput.count == 3 && !userInput.contains(-1) {
             return true
         }
@@ -92,56 +134,12 @@ class NumberBaseball {
         }
     }
     func restartGame() {
-        gameCount = 9
+        gameCountRemainder = 9
         chooseGame()
-    }
-}
-
-// MARK: - Extension
-
-extension NumberBaseball {
-    func createRandomNumber() -> [Int] {
-        var randomPitches: [Int] = []
-        while randomPitches.count != 3 {
-            let number = Int.random(in: 1...9)
-            if randomPitches.contains(number) {
-                continue
-            } else {
-                randomPitches.append(number)
-            }
-        }
-        return randomPitches
-    }
-    func checkStrikeOrBall(pitch score: [Int]) -> [Int] { // [스트라이크 개수, 볼 개수] 리턴
-        var status: [Int] = []
-        status.append(checkStrike(user: score))
-        status.append(checkBall(user: score))
-        return status
-    }
-    
-    // MARK: - Check State
-    
-    func checkStrike(user: [Int]) -> Int {
-        var strike = 0
-        for (computer, pitcher) in zip(randomValue, user) {
-            if computer == pitcher {
-                strike += 1
-            }
-        }
-        return strike
-    }
-    func checkBall(user: [Int]) -> Int {
-        var ball = 0
-        for index in 0..<randomValue.count {
-            if randomValue.contains(user[index]) && (randomValue[index] != user[index]) {
-                ball += 1
-            }
-        }
-        return ball
     }
 }
 
 // MARK: - Create Instance && Start
 
-let numberBaseballGame = NumberBaseball()
+let numberBaseballGame = NumberBaseballGame()
 numberBaseballGame.chooseGame()
