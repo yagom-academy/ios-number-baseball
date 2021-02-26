@@ -1,6 +1,6 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by Steven, Tak.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -10,11 +10,6 @@ var computerNumbers: [Int] = []
 var playerNumbers: [Int] = []
 
 var remainingNumber: Int = 9
-
-//enum BallCount: Int{
-//    case strike
-//    case ball
-//}
 
 func makeRandomNumbers () -> [Int] {
     var returnValue: [Int] = []
@@ -52,12 +47,23 @@ func startGame() {
     
     repeat {
         playerNumbers = makeRandomNumbers()
-        print("임의의 수 :", playerNumbers)
+        print("임의의 수 : ", terminator: "")
+        for element in playerNumbers {
+            print(element, terminator: " ")
+        }
+        print()
         
         let result: (strike: Int, ball: Int) = calculateStrikesAndBalls(targetNumbers: computerNumbers, compareNumbers: playerNumbers)
+        remainingNumber -= 1
+        if result.strike == 3 {
+            print("사용자 승리...!")
+            break
+        }
+        else if remainingNumber == 0 {
+            print("컴퓨터 승리...!")
+        }
         print(result.strike, "스트라이크,", result.ball, "볼")
         
-        remainingNumber -= 1
         print("남은 기회 :", remainingNumber)
     } while remainingNumber > 0
 }
