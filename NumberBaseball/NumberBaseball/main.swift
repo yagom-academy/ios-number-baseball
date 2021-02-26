@@ -56,25 +56,16 @@ func battingNumChanger() {
     inputNumArray = [inputNum1, inputNum2, inputNum3]
 } // 쓴 세자리 수에서 각 수를 뽑아내는 함수
 func compareIndex() {
-<<<<<<< HEAD
-    if ryuNumArray[0] == inputNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
-    if ryuNumArray[1] == inputNumArray[1] { strike += 1 } // 1strike
-    if ryuNumArray[2] == inputNumArray[2] { strike += 1 }
+
+    if randomNumArr[0] == inputNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
+    if randomNumArr[1] == inputNumArray[1] { strike += 1 } // 1strike
+    if randomNumArr[2] == inputNumArray[2] { strike += 1 }
 } // 배열 안에 같은 숫자가 같은 자리에 있는지를 검사하는 함수
 func compareNum() {
-    if ryuNumArray.contains(inputNum1) { ball += 1 } //123, 132
-    if ryuNumArray.contains(inputNum2) { ball += 1 } //ball = 3
-    if ryuNumArray.contains(inputNum3) { ball += 1 }
-=======
-    if randomNumArr[0] == chooNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
-    if randomNumArr[1] == chooNumArray[1] { strike += 1 } // 1strike
-    if randomNumArr[2] == chooNumArray[2] { strike += 1 }
-} // 배열 안에 같은 숫자가 같은 자리에 있는지를 검사하는 함수
-func compareNum() {
-    if randomNumArr.contains(chooNum1) { ball += 1 } //123, 132
-    if randomNumArr.contains(chooNum2) { ball += 1 } //ball = 3
-    if randomNumArr.contains(chooNum3) { ball += 1 }
->>>>>>> 8444921bb643e095dd5ac7750543cd6ea140f718
+    if randomNumArr.contains(inputNum1) { ball += 1 } //123, 132
+    if randomNumArr.contains(inputNum2) { ball += 1 }//ball = 3
+    if randomNumArr.contains(inputNum3) { ball += 1 }
+
 } //배열 안에 같은 숫자가 있는지를 검사하는 함수
 
 
