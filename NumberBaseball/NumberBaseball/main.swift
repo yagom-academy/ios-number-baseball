@@ -7,11 +7,13 @@
 import Foundation
 
 
-// 컴퓨터가 류현진처럼 공을 던진다는 뜻으로 ryunum
-var ryunom1: Int = 0
-var ryuNum2: Int = 0
-var ryuNum3: Int = 0
-var ryuNumArray: [Int] = [ryunom1, ryuNum2, ryuNum3]
+
+// control+ command+ e   editor-edit all in scope
+var randomNum1: Int = 0
+var randomNum2: Int = 0
+var randomNum3: Int = 0
+var randomNumArr: [Int] = [randomNum1, randomNum2, randomNum3]
+
 
 
 // 사용자가 추신수처럼 공을 친다는 뜻으로 chooNum
@@ -31,15 +33,15 @@ var remainGameNum: Int = 9
 
 // 함수 모음
 func numberMaker() {
-    ryunom1 = Int.random(in: 1...9)
-    ryuNum2 = Int.random(in: 1...9)
-    ryuNum3 = Int.random(in: 1...9)
+    randomNum1 = Int.random(in: 1...9)
+    randomNum2 = Int.random(in: 1...9)
+    randomNum3 = Int.random(in: 1...9)
 } // 변수에 숫자를 할당하는 함수
 func throwTheBall() {
-    while ( ryunom1 == ryuNum2 ) || ( ryunom1 == ryuNum3 ) || ( ryuNum2 == ryuNum3 ) {
+    while ( randomNum1 == randomNum2 ) || ( randomNum1 == randomNum3 ) || ( randomNum2 == randomNum3 ) {
         numberMaker()
     } // 28/243
-    ryuNumArray = [ryunom1, ryuNum2, ryuNum3]
+    randomNumArr = [randomNum1, randomNum2, randomNum3]
 } // 컴퓨터가 생성한 숫자가 겹치지 않도록 만들어주는 함수
 func battingTheBall() {
     print("임의의 수(세 수를 띄어쓰기 없이 입력하세요): ", terminator:"")
@@ -56,14 +58,14 @@ func battingNumChanger() {
     chooNumArray = [chooNum1, chooNum2, chooNum3]
 } // 쓴 세자리 수에서 각 수를 뽑아내는 함수
 func compareIndex() {
-    if ryuNumArray[0] == chooNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
-    if ryuNumArray[1] == chooNumArray[1] { strike += 1 } // 1strike
-    if ryuNumArray[2] == chooNumArray[2] { strike += 1 }
+    if randomNumArr[0] == chooNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
+    if randomNumArr[1] == chooNumArray[1] { strike += 1 } // 1strike
+    if randomNumArr[2] == chooNumArray[2] { strike += 1 }
 } // 배열 안에 같은 숫자가 같은 자리에 있는지를 검사하는 함수
 func compareNum() {
-    if ryuNumArray.contains(chooNum1) { ball += 1 } //123, 132
-    if ryuNumArray.contains(chooNum2) { ball += 1 } //ball = 3
-    if ryuNumArray.contains(chooNum3) { ball += 1 }
+    if randomNumArr.contains(chooNum1) { ball += 1 } //123, 132
+    if randomNumArr.contains(chooNum2) { ball += 1 } //ball = 3
+    if randomNumArr.contains(chooNum3) { ball += 1 }
 } //배열 안에 같은 숫자가 있는지를 검사하는 함수
 
 
