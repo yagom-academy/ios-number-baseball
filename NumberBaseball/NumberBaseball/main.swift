@@ -6,34 +6,35 @@
 
 import Foundation
 
+// 한번에 코딩해서 커밋하지말고 페어 프로그래밍으로 하나씩 메서드를 만들어서 커밋
+// 전역변수 호출명 self 남발 금지
 class GameBaseBall {
-    var randomDigits = [Int]() // 1-A. 3개의 임의의 정수
-    var playCount = 9 // 1-B. 남은 시도 횟수
+    var randomDigits = [Int]()
+    var playCount = 9
     
-    // 2-A. 3개의 임의의 숫자 생성
+    // contains를 활용하여 중복 숫자 제거해보기
+    // 다른 방법으로 중복 숫자 제거해보기
+    // 왜 메모리 누수가 일어난다고 생각했는지 ?
     func digitsGenerator() -> [Int] {
-        var rCount: [Int] = []
+        var rCount: [Int] = [] // 변수명 변경
         
         while rCount.count < 3 {
-            rCount.append(Int.random(in: 1...3))
+            rCount.append(Int.random(in: 1...3)) // 1...9 사이의 3개의 정수를 생성하는것으로 수정
             let removeDuplicationDigit = Array(Set(rCount))
             rCount = removeDuplicationDigit
         }
         return rCount
     }
     
-    // 2-B. 사용자 입력 숫자와 임의의 숫자를 비교해서 카운트 결과를 반환
+    // 메서드명 변경
     func countResult(inputNumber: [Int]) -> (ballCount: Int, strikeCount: Int) {
         var ballCount = 0
         var strikeCount = 0
         
         for index in 0...2 {
             if self.randomDigits[index] == inputNumber[index] {
-                // 생성된 임의의 수 3개의 위치와 유저가 입력한 수 3개의 위치가 같다면
                 strikeCount += 1
-                
-                // 유저가 입력한 수가 생성된 임의의 수에 포함된다면
-            } else if inputNumber.contains(self.randomDigits[index]) {
+            } else if inputNumber.contains(self.randomDigits[index]) { // contains 함수의 정확한 용도 알기
                 ballCount += 1
             }
         }
@@ -41,15 +42,13 @@ class GameBaseBall {
         return (ballCount, strikeCount)
     }
     
-    
-    // 2-C. 숫자야구 게임 시작 -> 게임 숫자를 입력 받는 함수
     func startGame() {
-        self.randomDigits = self.digitsGenerator() // 임의의 정수 3개 생성하여 배열에 저장
+        self.randomDigits = self.digitsGenerator()
 
-        // 유저가 한번만 입력했을때 한번만 실행되게 해야함
+        // 반복문 중첩 간결하게 변경(이중 중첩 X)
         while self.playCount > 0 {
             self.playCount -= 1
-            let autoGameStart = countResult(inputNumber: self.digitsGenerator())
+            let autoGameStart = countResult(inputNumber: self.digitsGenerator()) // 상수명 변경
             
             print("\(autoGameStart.ballCount) 볼, \(autoGameStart.strikeCount) 스트라이크, 남은 기회: \(self.playCount)")
             
