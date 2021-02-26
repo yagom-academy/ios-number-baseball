@@ -67,16 +67,16 @@ func playGame() {
         let result = judge(of: userInput)
         remainingChallengeOpportunity -= 1
         
+        print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
+        
+        print("남은 기회 : \(remainingChallengeOpportunity)")
+        
         if result.strikeCount == 3 {
             print("사용자 승리!")
         }
         else if remainingChallengeOpportunity == 0 {
             print("컴퓨터 승리...!")
         }
-        
-        print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
-        
-        print("남은 기회 : \(remainingChallengeOpportunity)")
         
         if remainingChallengeOpportunity == 0 || result.strikeCount == 3 {
             return
