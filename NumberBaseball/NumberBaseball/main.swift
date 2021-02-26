@@ -17,11 +17,11 @@ var randomNumArr: [Int] = [randomNum1, randomNum2, randomNum3]
 
 
 // 사용자가 추신수처럼 공을 친다는 뜻으로 chooNum
-var chooNum: Int = 0
-var chooNum1: Int = 0
-var chooNum2: Int = 0
-var chooNum3: Int = 0
-var chooNumArray: [Int] = [chooNum1, chooNum2, chooNum3]
+var inputNum: Int = 0
+var inputNum1: Int = 0
+var inputNum2: Int = 0
+var inputNum3: Int = 0
+var inputNumArray: [Int] = [inputNum1, inputNum2, inputNum3]
 
 
 // ball의 의미가 규칙의 의미와 조금 다릅니다 ㅋㅋ
@@ -47,25 +47,27 @@ func battingTheBall() {
     print("임의의 수(세 수를 띄어쓰기 없이 입력하세요): ", terminator:"")
     guard let chooString = readLine() else { return }
     guard let a = Int(chooString) else { return }
-    chooNum = a //123 = 1, 2, 3
+    inputNum = a //123 = 1, 2, 3
 } //숫자 세개를 입력받는 함수
 func battingNumChanger() {
-    chooNum1 = (chooNum - chooNum%100)/100 //choonum = 123, (123-23)/100 =1
-    chooNum2 = (chooNum - chooNum1*100 - chooNum%10)/10 // = 123-100 - 3 = 20/10 = 2
-    chooNum3 = (chooNum - chooNum1*100 - chooNum2*10) // 3
+    inputNum1 = (inputNum - inputNum%100)/100 //choonum = 123, (123-23)/100 =1
+    inputNum2 = (inputNum - inputNum1*100 - inputNum%10)/10 // = 123-100 - 3 = 20/10 = 2
+    inputNum3 = (inputNum - inputNum1*100 - inputNum2*10) // 3
     
-    print(chooNum1, chooNum2, chooNum3)
-    chooNumArray = [chooNum1, chooNum2, chooNum3]
+    print(inputNum1, inputNum2, inputNum3)
+    inputNumArray = [inputNum1, inputNum2, inputNum3]
 } // 쓴 세자리 수에서 각 수를 뽑아내는 함수
 func compareIndex() {
-    if randomNumArr[0] == chooNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
-    if randomNumArr[1] == chooNumArray[1] { strike += 1 } // 1strike
-    if randomNumArr[2] == chooNumArray[2] { strike += 1 }
+
+    if randomNumArr[0] == inputNumArray[0] { strike += 1 } //123, 132 -> [1, 2, 3], [1, 3, 2]
+    if randomNumArr[1] == inputNumArray[1] { strike += 1 } // 1strike
+    if randomNumArr[2] == inputNumArray[2] { strike += 1 }
 } // 배열 안에 같은 숫자가 같은 자리에 있는지를 검사하는 함수
 func compareNum() {
-    if randomNumArr.contains(chooNum1) { ball += 1 } //123, 132
-    if randomNumArr.contains(chooNum2) { ball += 1 } //ball = 3
-    if randomNumArr.contains(chooNum3) { ball += 1 }
+    if randomNumArr.contains(inputNum1) { ball += 1 } //123, 132
+    if randomNumArr.contains(inputNum2) { ball += 1 }//ball = 3
+    if randomNumArr.contains(inputNum3) { ball += 1 }
+
 } //배열 안에 같은 숫자가 있는지를 검사하는 함수
 
 
