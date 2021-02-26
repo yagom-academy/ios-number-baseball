@@ -8,10 +8,10 @@ import Foundation
 
 
 // 컴퓨터가 류현진처럼 공을 던진다는 뜻으로 ryunum
-var ryuNum1: Int = 0
+var ryunom1: Int = 0
 var ryuNum2: Int = 0
 var ryuNum3: Int = 0
-var ryuNumArray: [Int] = [ryuNum1, ryuNum2, ryuNum3]
+var ryuNumArray: [Int] = [ryunom1, ryuNum2, ryuNum3]
 
 
 // 사용자가 추신수처럼 공을 친다는 뜻으로 chooNum
@@ -31,15 +31,15 @@ var remainGameNum: Int = 9
 
 // 함수 모음
 func numberMaker() {
-    ryuNum1 = Int.random(in: 1...9)
+    ryunom1 = Int.random(in: 1...9)
     ryuNum2 = Int.random(in: 1...9)
     ryuNum3 = Int.random(in: 1...9)
 } // 변수에 숫자를 할당하는 함수
 func throwTheBall() {
-    while ( ryuNum1 == ryuNum2 ) || ( ryuNum1 == ryuNum3 ) || ( ryuNum2 == ryuNum3 ) {
+    while ( ryunom1 == ryuNum2 ) || ( ryunom1 == ryuNum3 ) || ( ryuNum2 == ryuNum3 ) {
         numberMaker()
     } // 28/243
-    ryuNumArray = [ryuNum1, ryuNum2, ryuNum3]
+    ryuNumArray = [ryunom1, ryuNum2, ryuNum3]
 } // 컴퓨터가 생성한 숫자가 겹치지 않도록 만들어주는 함수
 func battingTheBall() {
     print("임의의 수(세 수를 띄어쓰기 없이 입력하세요): ", terminator:"")
