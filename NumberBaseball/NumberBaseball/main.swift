@@ -12,7 +12,7 @@ enum ChoiceMenuType: String {
 }
 
 class NumberBaseBall {
-    var computerCreatedNums: [Int] = []
+    var nonoverlapRandomNums: [Int] = []
     var chance: Int = 9
 
     // 게임 메뉴실행
@@ -41,7 +41,7 @@ class NumberBaseBall {
     // 게임 실행
     private func playGame() {
         var remainingChance: Int = chance
-        computerCreatedNums = createRandomNums()
+        nonoverlapRandomNums = createRandomNums()
         
         while remainingChance > 0 {
             remainingChance -= 1
@@ -56,7 +56,7 @@ class NumberBaseBall {
             
             // 게임 결과
             let chkStrikeBall: Dictionary<String, Int> = checkStrikeBall(
-                standardNums: computerCreatedNums,
+                standardNums: nonoverlapRandomNums,
                 compareNums: userInputs)
             
             print("\(chkStrikeBall["strike"]!) 스트라이크, \(chkStrikeBall["ball"]!) 볼")
