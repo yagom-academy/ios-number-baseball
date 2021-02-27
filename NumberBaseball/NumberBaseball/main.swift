@@ -6,23 +6,6 @@
 
 import Foundation
 
-// MARK:- 컴퓨터가 만드는 var storage
-var firstRandomNumber: Int = 0
-var secondRandomNumber: Int = 0
-var thirdRandomNumber: Int = 0
-var randomNumberArray: [Int] = [firstRandomNumber, secondRandomNumber, thirdRandomNumber]
-
-// MARK:- 우리가 입력하는 var storage
-var InputNumber: Int = 0
-var firstInputNumber: Int = 0
-var secondInputNumber: Int = 0
-var thirdInputNumber: Int = 0
-var inputNumberArray: [Int] = [firstInputNumber, secondInputNumber, thirdInputNumber]
-
-// MARK:- 게임의 승패 판정을 나타내기 위한 var storage
-
-
-
 
 
 
@@ -34,7 +17,20 @@ var inputNumberArray: [Int] = [firstInputNumber, secondInputNumber, thirdInputNu
 /// - 남은 게임 횟수를 차감하고, 3strike이 되지 않는 한 게임 횟수가 0이 될때까지 반복합니다.
 func startGame() {
     
-    //MARK:- 함수 내 변수 선언
+    // MARK:- 컴퓨터가 만드는 var storage
+    var firstRandomNumber: Int = 0
+    var secondRandomNumber: Int = 0
+    var thirdRandomNumber: Int = 0
+    var randomNumberArray: [Int] = [firstRandomNumber, secondRandomNumber, thirdRandomNumber]
+    
+    // MARK:- 우리가 입력하는 var storage
+    var InputNumber: Int = 0
+    var firstInputNumber: Int = 0
+    var secondInputNumber: Int = 0
+    var thirdInputNumber: Int = 0
+    var inputNumberArray: [Int] = [firstInputNumber, secondInputNumber, thirdInputNumber]
+    
+    //MARK:- 
     var strike: Int = 0
     var ball: Int = 0
     var beforeBall: Int = 0
