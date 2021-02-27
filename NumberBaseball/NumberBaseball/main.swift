@@ -77,8 +77,8 @@ func startGame() {
     func batBall() {
         print("임의의 수(세 수를 띄어쓰기 없이 입력하세요): ", terminator:"")
         guard let inputString = readLine() else { return }
-        guard let stringStorage = Int(inputString) else { return }
-        InputNumber = stringStorage
+        guard let intStorage = Int(inputString) else { return }
+        InputNumber = intStorage
     }
 
     /// 사용자가 입력한 값을 세 개의 수로 나누어 배열에 저장하는 함수
