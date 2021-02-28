@@ -139,14 +139,14 @@ func getUserInput() throws -> [Int] {
         return input
     }
     
-    if arrayInRangeOneToNine.count != Set(arrayInRangeOneToNine).count {
-        throw GameError.invalidInput
-    }
-        
     if arrayInRangeOneToNine.count != 3 {
         throw GameError.invalidInput
     }
     
+    if arrayInRangeOneToNine.count != Set(arrayInRangeOneToNine).count {
+        throw GameError.invalidInput
+    }
+
     return [0] + arrayInRangeOneToNine
 }
 
