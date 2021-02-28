@@ -35,8 +35,7 @@ func judge(of userInput: [Int]) -> (strikeCount: Int, ballCount: Int) {
     for i in 1...3 {
         if userInput[i] == answer[i] {
             strikeCount += 1
-        }
-        else if answer.contains(userInput[i]) {
+        } else if answer.contains(userInput[i]) {
             ballCount += 1
         }
     }
@@ -73,8 +72,7 @@ func playGame() {
         
         if result.strikeCount == 3 {
             print("사용자 승리!")
-        }
-        else if remainingChallengeOpportunity == 0 {
+        } else if remainingChallengeOpportunity == 0 {
             print("컴퓨터 승리...!")
         }
         
@@ -90,8 +88,7 @@ func startGame() {
         do {
             try selectGameStartOrEnd()
             playGame()
-        }
-        catch {
+        } catch {
             switch error {
             case GameError.exitInput:
                 return
