@@ -40,10 +40,27 @@ func answerJudge(attempt: [Int]) -> String {
     
     ball -= strike
     
+    if strike == 3 {
+        return "사용자 승리...!"
+    }
+    
     return "\(strike) 스트라이크, \(ball) 볼"
     
 }
 
-print("answer : \(answer)")
-print("query : \(query)")
-print(answerJudge(attempt: query))
+
+while leftCount > 0 {
+    leftCount -= 1
+    
+    print("임의의 수 : \(query[0]) \(query[1]) \(query[2])")
+    
+    if leftCount == 0 && answer != query {
+        print("컴퓨터 승리...!")
+    }
+    
+    print(answerJudge(attempt: query))
+    
+    print("남은 기회 : \(leftCount)")
+    
+    query = numGenerator()
+}
