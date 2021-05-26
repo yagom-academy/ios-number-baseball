@@ -24,3 +24,23 @@ func printUserNumbers(userNumbers: Array<UInt>) {
     }
     print("임의의 수 : \(convertedNumber)")
 }
+
+func makeComputerNumbers() {
+    while computerNumbers.count < 3 {
+        makeRandomNumber()
+        if computerNumbers.contains(randomNumber) == false {
+            computerNumbers.append(randomNumber)
+        }
+    }
+}
+
+func makeUserNumbers() -> Array<UInt> {
+    var userNumbers: Array<UInt> = []
+    while userNumbers.count < 3 {
+        makeRandomNumber()
+        if userNumbers.contains(randomNumber) == false {
+            userNumbers.append(randomNumber)
+        }
+    }
+    return userNumbers
+}
