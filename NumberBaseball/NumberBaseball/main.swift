@@ -13,3 +13,7 @@ var strikeCount: UInt = 0
 var randomNumber: UInt = 0
 var isUserWin: Bool = false
 var isComputerWin: Bool = false
+
+func makeRandomNumber() {
+    randomNumber = UInt.random(in: 1...9)
+}
