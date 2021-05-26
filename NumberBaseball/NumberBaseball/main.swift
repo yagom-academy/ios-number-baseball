@@ -6,7 +6,6 @@
 
 import Foundation
 
-//컴퓨터가 만드는 숫자
 func numGenerator() -> [Int] {
     var randomNumbers = [Int]()
     while randomNumbers.count < 3 {
@@ -22,15 +21,10 @@ var answer = numGenerator()
 var query = numGenerator()
 var leftCount = 9
 
-
 func answerJudge(attempt: [Int]) -> String {
     var strike = 0
     var ball = 0
-//    let answerSet = Set(answer)
-//    let querySet = Set(attempt)
-//    let ballNum = answerSet.intersection(querySet)
-//    ball = ballNum.count
-    
+  
     for index in 0...2 {
         if answer[index] == attempt[index] {
             strike += 1
@@ -46,8 +40,6 @@ func answerJudge(attempt: [Int]) -> String {
     return "\(strike) 스트라이크, \(ball) 볼"
     
 }
-
-
 
 func gameStart() {
     while leftCount > 0 {
