@@ -19,11 +19,31 @@ func numGenerator() -> [Int] {
 }
 
 var answer = numGenerator()
-var tryCount = 9
+var query = numGenerator()
+var leftCount = 9
 
 
-//
-func answerJudge(_ try: [Int]) {
+func answerJudge(attempt: [Int]) -> String {
+    
+    var strike = 0
+    var ball = 0
+    let answerSet = Set(answer)
+    let querySet = Set(attempt)
+    let ballNum = answerSet.intersection(querySet)
+    ball = ballNum.count
+    
+    for index in 0...2 {
+        if answer[index] == attempt[index] {
+            strike += 1
+        }
+    }
+    
+    ball -= strike
+    
+    return "\(strike) 스트라이크, \(ball) 볼"
     
 }
 
+print("answer : \(answer)")
+print("query : \(query)")
+print(answerJudge(attempt: query))
