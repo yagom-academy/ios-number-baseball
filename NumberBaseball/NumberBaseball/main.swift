@@ -6,6 +6,24 @@
 
 import Foundation
 
-print("Hello, World!")
+//컴퓨터가 만드는 숫자
+func numGenerator() -> [Int] {
+    var randomNumbers = [Int]()
+    while randomNumbers.count < 3 {
+        let randomNumber = Int.random(in: 1...9)
+        if !randomNumbers.contains(randomNumber) {
+            randomNumbers.append(randomNumber)
+        }
+    }
+    return randomNumbers
+}
 
-print("a")
+var answer = numGenerator()
+var tryCount = 9
+
+
+//
+func answerJudge(_ try: [Int]) {
+    
+}
+
