@@ -1,6 +1,6 @@
-## iOS 커리어 스타터 캠프
+# 숫자야구 프로젝트 저장소
 
-### 숫자야구 프로젝트 저장소
+## Flow Chart
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+![ios-baseball-diagram](https://user-images.githubusercontent.com/39452092/119670193-a85b3c00-be73-11eb-8ef6-af3229a1258d.png)
 
