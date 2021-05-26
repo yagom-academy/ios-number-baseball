@@ -72,6 +72,17 @@ func resetCount() {
     strikeCount = 0
 }
 
+func compareNumber(userNumbers: Array<UInt>) {
+    printUserNumbers(userNumbers: userNumbers)
+    for i in 0...userNumbers.count-1 {
+        if userNumbers[i] == computerNumbers[i] {
+            strikeCount += 1
+        } else if computerNumbers.contains(userNumbers[i]) {
+            ballCount += 1
+        }
+    }
+}
+
 func startGame() {
     makeComputerNumbers()
     while isComputerWin == false && isUserWin == false {
@@ -81,3 +92,5 @@ func startGame() {
         resetCount()
     }
 }
+
+startGame()
