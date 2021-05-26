@@ -43,8 +43,6 @@ func answerJudge(attempt: [Int]) -> String {
 
 func gameStart() {
     while leftCount > 0 {
-        print(answer)
-        print(query)
         leftCount -= 1
         print("임의의 수 : \(query[0]) \(query[1]) \(query[2])")
         
