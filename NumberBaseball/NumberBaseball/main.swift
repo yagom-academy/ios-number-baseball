@@ -66,3 +66,8 @@ func checkGameOver () {
         numberOfTry -= 1
     }
 }
+
+func resetCount() {
+    ballCount = 0
+    strikeCount = 0
+}
