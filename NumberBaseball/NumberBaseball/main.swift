@@ -71,3 +71,13 @@ func resetCount() {
     ballCount = 0
     strikeCount = 0
 }
+
+func startGame() {
+    makeComputerNumbers()
+    while isComputerWin == false && isUserWin == false {
+        compareNumber(userNumbers: makeUserNumbers())
+        checkGameOver()
+        printResult()
+        resetCount()
+    }
+}
