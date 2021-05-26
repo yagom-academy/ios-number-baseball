@@ -62,8 +62,6 @@ func checkGameOver () {
     } else if numberOfTry == 0{
         isComputerWin = true
         return
-    } else {
-        numberOfTry -= 1
     }
 }
 
@@ -81,6 +79,7 @@ func compareNumber(userNumbers: Array<UInt>) {
             ballCount += 1
         }
     }
+    numberOfTry -= 1
 }
 
 func startGame() {
