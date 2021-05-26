@@ -54,3 +54,15 @@ func printResult() {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     print("남은 기회 : \(numberOfTry)")
 }
+
+func checkGameOver () {
+    if strikeCount == 3{
+        isUserWin = true
+        return
+    } else if numberOfTry == 0{
+        isComputerWin = true
+        return
+    } else {
+        numberOfTry -= 1
+    }
+}
