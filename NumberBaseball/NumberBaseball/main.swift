@@ -24,21 +24,20 @@ var leftCount = 9
 
 
 func answerJudge(attempt: [Int]) -> String {
-    
     var strike = 0
     var ball = 0
-    let answerSet = Set(answer)
-    let querySet = Set(attempt)
-    let ballNum = answerSet.intersection(querySet)
-    ball = ballNum.count
+//    let answerSet = Set(answer)
+//    let querySet = Set(attempt)
+//    let ballNum = answerSet.intersection(querySet)
+//    ball = ballNum.count
     
     for index in 0...2 {
         if answer[index] == attempt[index] {
             strike += 1
+        } else if answer.contains(attempt[index]) {
+            ball += 1
         }
     }
-    
-    ball -= strike
     
     if strike == 3 {
         return "사용자 승리...!"
@@ -49,18 +48,22 @@ func answerJudge(attempt: [Int]) -> String {
 }
 
 
-while leftCount > 0 {
-    leftCount -= 1
-    
-    print("임의의 수 : \(query[0]) \(query[1]) \(query[2])")
-    
-    if leftCount == 0 && answer != query {
-        print("컴퓨터 승리...!")
+
+func gameStart() {
+    while leftCount > 0 {
+        print(answer)
+        print(query)
+        leftCount -= 1
+        print("임의의 수 : \(query[0]) \(query[1]) \(query[2])")
+        
+        if leftCount == 0 && answer != query {
+            print("컴퓨터 승리...!")
+        }
+        
+        print(answerJudge(attempt: query))
+        print("남은 기회 : \(leftCount)")
+        query = numGenerator()
     }
-    
-    print(answerJudge(attempt: query))
-    
-    print("남은 기회 : \(leftCount)")
-    
-    query = numGenerator()
 }
+
+gameStart()
