@@ -44,3 +44,13 @@ func makeUserNumbers() -> Array<UInt> {
     }
     return userNumbers
 }
+
+func printResult() {
+    if isUserWin == true {
+        print("유저 승리...!")
+    } else if isComputerWin == true {
+        print("컴퓨터 승리...!")
+    }
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("남은 기회 : \(numberOfTry)")
+}
