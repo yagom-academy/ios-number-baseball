@@ -22,23 +22,27 @@ import Foundation
 //    - 이번 스텝에서는 사용자 입력없이 임의의 수를 생성하여 게임을 진행하도록 구현합니다
 
 
-var answerNumbers = [Int]()
 var tryNumber = 9
 
-func makeAnswer() {
-    
-    while answerNumbers.count < 3 {
-        let number = Int.random(in: 1...9)
-        appendUniqueNumber(number: number)
-
+func makeRandomNumbers() -> [Int] {
+    var randomArray = [Int]()
+    while randomArray.count < 3 {
+        let number = uniqueNumber(from: randomArray)
+        randomArray.append(number)
     }
-    
+    return randomArray
 }
 
-func appendUniqueNumber(number:Int) {
-    if !answerNumbers.contains(number) {
-        answerNumbers.append(number)
+func uniqueNumber(from targetArray: [Int]) -> Int{
+    let number = Int.random(in: 1...9)
+    if !targetArray.contains(number) {
+        return number
     }
+    return uniqueNumber(from: targetArray)
 }
-makeAnswer()
+
+let answerNumbers = makeRandomNumbers()
+
+
 print(answerNumbers)
+
