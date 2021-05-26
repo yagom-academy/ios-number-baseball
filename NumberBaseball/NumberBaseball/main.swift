@@ -26,5 +26,3 @@ func makeThreeRandomNo() -> (Int, Int, Int) {
     
     return (comX, comY, comZ)
 }
-
-print(makeThreeRandomNo())
