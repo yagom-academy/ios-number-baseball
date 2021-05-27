@@ -20,12 +20,15 @@ func makeThreeRandomNo() -> [Int] {
     return tempArray
 }
 
-let comArray = makeThreeRandomNo()
-let userArray = makeThreeRandomNo()
-var strike = 0, ball = 0
-print(comArray,userArray)
 
-func compareComUser(_ com: [Int], _ user: [Int]) {
+
+func compareComUser(_ com: [Int], _ user: [Int]) -> String {
+    var strike = 0, ball = 0
+    
+    if com == user {
+        return "사용자 승리!"
+    }
+    
     for (indexCom, valueCom) in com.enumerated(){
         for (indexUser, valueUser) in user.enumerated(){
             if indexCom == indexUser && valueCom == valueUser {
@@ -35,8 +38,23 @@ func compareComUser(_ com: [Int], _ user: [Int]) {
             }
         }
     }
+    
+    count -= 1
+    return "\(strike) 스트라이크, \(ball) 볼"
 }
 
-compareComUser(comArray, userArray)
+func startGame() {
+    let comArray = makeThreeRandomNo()
+    let userArray = makeThreeRandomNo()
+    
+    print("임의의 수: ", terminator: "")
+    for num in userArray {
+        print(num, terminator: " ")
+    }
+    print("")
+    print(compareComUser(comArray, userArray))
+    print("남은 기회: \(count)")
+}
 
-print(strike, ball)
+startGame()
+
