@@ -6,10 +6,6 @@
 
 import Foundation
 
-
-var userNumbers = [Int]()
-
-
 func generateRandomNumbers() -> [Int] {
     var randomNumbers: Set = Set<Int>()
     while randomNumbers.count < 3 {
@@ -22,39 +18,61 @@ func printNumbers(_ numbers: [Int]){
     print("임의의 수 : \(numbers.map{String($0)}.joined(separator: " "))")
 }
 
-
-func compareComputerNumbers(to number:[Int]){
-    for i in 0...computerNumbers.count{
-        if computerNumbers[i] == number[i]{
-            
-        }
+func checkStrike(userNumbers: [Int], to computerNumbers: [Int], index: Int) -> Int {
+    if(userNumbers[index] == computerNumbers[index]){
+        return 1
+    }else {
+        return 0
     }
 }
 
-// main
-func gameStart(){
-    // 컴퓨터가 제시할 변수 3개 저장
-    let computerNumbers = generateRandomNumbers()
-    // 남은 변수를 담아둘 초기값 9개 설정.
-    var gameCount: Int = 9
-    while gameCount > 0 {
-        // 1-9 사이의 임의의 정수를 생성하여 반환하는 함수.
-        let userNumbers = generateRandomNumbers()
-        // 임의의 난수 출력 함수
-        //    printNumbers(<#T##numbers: [Int]##[Int]#>)
-        
-        // 비교 함수
-        // 결과 출력
-        // 사용자 승리 판정
-        // 남은 기회 감소
-        // 남은 기회 출력 함수
+func checkTotalCalls(userNumbers: [Int], computerNumbers: [Int])-> Int {
+    return Set(userNumbers).intersection(Set(computerNumbers)).count
+}
+
+func oneMatch(userNumbers: [Int],vs computerNumbers: [Int]) -> (Int, Int) {
+    let totalCall = checkTotalCalls(userNumbers: userNumbers, computerNumbers: computerNumbers)
+    if totalCall == 0 {
+        print("0 스트라이크, 0 볼")
+        return (0, 0)
     }
+    var strike = 0
+    for i in 0..<3{
+        strike += checkStrike(userNumbers: userNumbers, to: computerNumbers, index: i)
+    }
+    let ball = totalCall - strike
+    print("\(strike) 스트라이크, \(ball) 볼")
     
-    // 컴퓨터 승리 판정
+    if strike == 3 {
+        printWinner(name: "사용자")
+    }
+    return (strike, ball)
+}
+
+func printWinner(name: String){
+    print("\(name) 승리...!")
 }
 
 
+func gameStart(){
+    let computerNumbers = generateRandomNumbers()
+    printNumbers(computerNumbers)
+    var gameCount: Int = 9
+    var userNumbers = [Int]()
+    var callResult: (strike: Int, ball: Int)
+    while gameCount > 0 {
+        userNumbers = generateRandomNumbers()
+        printNumbers(userNumbers)
+        callResult = oneMatch(userNumbers: userNumbers, vs: computerNumbers)
+        gameCount -= 1
+        print("남은 기회 : \(gameCount)")
+    }
+    printWinner(name: "컴퓨터")
+    
+    return
+}
 
+gameStart()
 
 
 
