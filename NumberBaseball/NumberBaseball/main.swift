@@ -42,17 +42,19 @@ func uniqueNumber(from targetArray: [Int]) -> Int{
     }
     return uniqueNumber(from: targetArray)
 }
+func isAnswer(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> Bool {
+    if guessNumbers == answerNumbers {
+        print("3 스트라이크, 0 볼")
+        print("사용자 승리!")
+        return true
+    }
+    return false
+}
+
 func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryNumber {
-        //guessNumbers 만들기
         let guessNumbers = makeRandomNumbers()
-        
-        
-        //guessNumbers랑 answerNumbers비교하기
-        //같으면 게임종료
-        if guessNumbers == answerNumbers {
-            print("3 스트라이크, 0 볼")
-            print("사용자 승리!")
+        if isAnswer(guessNumbers, answerNumbers) {
             break
         }
         //다르면 스트라이크랑 볼 검사
