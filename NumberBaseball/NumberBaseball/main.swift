@@ -49,11 +49,11 @@ func startGame() {
         chance -= 1
         userNumbers = generateRandomNumbers()
         print("\(StringPrintContents.randomNumber)\(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        strike = countStrikeNumber(user: userNumbers, computer: computerNumbers)
+        ball = countBallNumber(user: userNumbers, computer: computerNumbers) - strike
         if chance < 1 {
             print("\(StringPrintContents.lose)")
         }
-        strike = countStrikeNumber(user: userNumbers, computer: computerNumbers)
-        ball = countBallNumber(user: userNumbers, computer: computerNumbers) - strike
         print("\(strike)\(StringPrintContents.strike)\(ball)\(StringPrintContents.ball)")
         if strike == 3 {
             print("\(StringPrintContents.win)")
