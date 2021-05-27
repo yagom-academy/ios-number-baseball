@@ -22,7 +22,7 @@ import Foundation
 //    - 이번 스텝에서는 사용자 입력없이 임의의 수를 생성하여 게임을 진행하도록 구현합니다
 
 
-var tryNumber = 9
+
 
 //3자리 랜덤 숫자 만들기
 func makeRandomNumbers() -> [Int] {
@@ -43,47 +43,52 @@ func uniqueNumber(from targetArray: [Int]) -> Int{
     return uniqueNumber(from: targetArray)
 }
 
-let answerNumbers = makeRandomNumbers()
-//아래 동작을 9번하기
-
-
-for i in 1...tryNumber {
-    //guessNumbers 만들기
-    var guessNumbers = makeRandomNumbers()
+func gameStart() {
+    var tryNumber = 9
+    let answerNumbers = makeRandomNumbers()
+    //아래 동작을 9번하기
     
     
-    //guessNumbers랑 answerNumbers비교하기
-    //같으면 게임종료
-    if guessNumbers == answerNumbers {
-        print("3 스트라이크, 0 볼")
-        print("사용자 승리!")
-        break
-    }
-    //다르면 스트라이크랑 볼 검사
-    var index = 0
-    var strike = 0
-    var ball = 0
-    while index < 3 {
-        if guessNumbers[index] == answerNumbers[index] {
-            strike += 1
-        } else if guessNumbers.contains(answerNumbers[index]) {
-            ball += 1
+    for i in 1...tryNumber {
+        //guessNumbers 만들기
+        var guessNumbers = makeRandomNumbers()
+        
+        
+        //guessNumbers랑 answerNumbers비교하기
+        //같으면 게임종료
+        if guessNumbers == answerNumbers {
+            print("3 스트라이크, 0 볼")
+            print("사용자 승리!")
+            break
         }
-        index += 1
+        //다르면 스트라이크랑 볼 검사
+        var index = 0
+        var strike = 0
+        var ball = 0
+        while index < 3 {
+            if guessNumbers[index] == answerNumbers[index] {
+                strike += 1
+            } else if guessNumbers.contains(answerNumbers[index]) {
+                ball += 1
+            }
+            index += 1
+        }
+        //현재 라운드의 현황 출력하기
+        print("정답: ", answerNumbers)
+        var printString = ""
+        for i in 0...2 {
+            printString += String(guessNumbers[i]) + " "
+        }
+        printString.removeLast()
+        print("임의의 수 : \(printString)")
+        if i == tryNumber {
+            print("컴퓨터 승리...!")
+        }
+        print("\(strike) 스트라이크, \(ball) 볼")
+        print("남은 기회 : \(tryNumber - i)")
     }
-    //현재 라운드의 현황 출력하기
-    print("정답: ", answerNumbers)
-    var printString = ""
-    for i in 0...2 {
-        printString += String(guessNumbers[i]) + " "
-    }
-    printString.removeLast()
-    print("임의의 수 : \(printString)")
-    if i == tryNumber {
-        print("컴퓨터 승리...!")
-    }
-    print("\(strike) 스트라이크, \(ball) 볼")
-    print("남은 기회 : \(tryNumber - i)")
+    
+    
+    
 }
-
-
+gameStart()
