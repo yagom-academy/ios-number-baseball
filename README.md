@@ -4,3 +4,4 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
+![number-baseball-2a](https://user-images.githubusercontent.com/80380535/119818762-9092bf00-bf2a-11eb-85f3-0c62d979876d.png)
