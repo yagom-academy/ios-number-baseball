@@ -18,6 +18,16 @@ func makeRandomNumber() {
     randomNumber = UInt.random(in: 1...9)
 }
 
+func makeUserNumber() -> Array<UInt> {
+    let userNumber = readLine()!
+    let arr = userNumber.split(separator: " ")
+    let intArr = arr.map{ UInt($0)! }
+    if intArr.count != 3 {
+        makeUserNumber()
+    }
+    return intArr
+}
+
 func printUserNumbers(userNumbers: Array<UInt>) {
     let convertedNumber = userNumbers.map{"\($0)"}.reduce("") {
         return $0 + " " + $1
@@ -82,14 +92,32 @@ func compareNumber(userNumbers: Array<UInt>) {
     numberOfTry -= 1
 }
 
+func selectMenu() {
+    print("1. 게임 시작")
+    print("2. 게임 종료")
+    print("원하는 기능을 선택해 주세요 : ", terminator: " ")
+    guard let menu = readLine() else {
+        return
+    }
+    switch menu {
+    case "1":
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+        startGame()
+    case "2":
+        return
+    default:
+        selectMenu()
+    }
+}
+
 func startGame() {
     makeComputerNumbers()
     while isComputerWin == false && isUserWin == false {
-        compareNumber(userNumbers: makeUserNumbers())
+        compareNumber(userNumbers: makeUserNumber())
         checkGameOver()
         printResult()
         resetCount()
     }
 }
 
-startGame()
+selectMenu()
