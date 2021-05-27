@@ -51,6 +51,7 @@ for i in 1...tryNumber {
     //guessNumbers 만들기
     var guessNumbers = makeRandomNumbers()
     
+    
     //guessNumbers랑 answerNumbers비교하기
     //같으면 게임종료
     if guessNumbers == answerNumbers {
@@ -71,10 +72,14 @@ for i in 1...tryNumber {
         index += 1
     }
     //현재 라운드의 현황 출력하기
-    print("answer: ", answerNumbers, "guess: ", guessNumbers)
-    print("strike: ", strike, "ball: ", ball)
+    print("정답: ", answerNumbers)
+    var printString = ""
+    for i in 0...2 {
+        printString += String(guessNumbers[i]) + " "
+    }
+    printString.removeLast()
+    print("임의의 수 : \(printString)")
+    print("\(strike) 스트라이크, \(ball) 볼")
 }
-
-print("hi")
 
 
