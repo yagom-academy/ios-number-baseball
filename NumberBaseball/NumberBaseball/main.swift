@@ -23,10 +23,10 @@ func compare(answers: [Int], userInputs: [Int]) -> (strikes: Int,balls: Int) {
     
     for i in 0...2 {
         strikes += answers[i] == userInputs[i] ? 1 : 0
-    }
-    for i in 0...2 {
+        
         balls += answers.contains(userInputs[i]) && answers[i] != userInputs[i] ? 1 : 0
     }
+   
     
     return (strikes, balls)
 }
