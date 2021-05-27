@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		CE845FF9265F2D8C0072CE6D /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +42,7 @@
 		C7A29CEF2551372B00CAC77A = {
 			isa = PBXGroup;
 			children = (
+				CE845FF8265F2D7A0072CE6D /* Test */,
 				C7A29CFA2551372B00CAC77A /* NumberBaseball */,
 				C7A29CF92551372B00CAC77A /* Products */,
 			);
@@ -60,6 +62,14 @@
 				C7A29CFB2551372B00CAC77A /* main.swift */,
 			);
 			path = NumberBaseball;
+			sourceTree = "<group>";
+		};
+		CE845FF8265F2D7A0072CE6D /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				CE845FF9265F2D8C0072CE6D /* Test.playground */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -24,6 +24,7 @@ import Foundation
 
 var tryNumber = 9
 
+//3자리 랜덤 숫자 만들기
 func makeRandomNumbers() -> [Int] {
     var randomArray = [Int]()
     while randomArray.count < 3 {
@@ -33,6 +34,7 @@ func makeRandomNumbers() -> [Int] {
     return randomArray
 }
 
+//3자리 랜덤 숫자 만들때 중복 없이 숫자 추가하기
 func uniqueNumber(from targetArray: [Int]) -> Int{
     let number = Int.random(in: 1...9)
     if !targetArray.contains(number) {
@@ -42,6 +44,28 @@ func uniqueNumber(from targetArray: [Int]) -> Int{
 }
 
 let answerNumbers = makeRandomNumbers()
+//아래 동작을 9번하기
+
+//guessNumbers 만들기
+var guessNumbers = makeRandomNumbers()
+
+for i in 1...tryNumber {
+    
+    //guessNumbers랑 answerNumbers비교하기
+    //같으면 게임종료
+    if guessNumbers == answerNumbers {
+        print("3 스트라이크, 0 볼")
+        print("사용자 승리!")
+        break
+    }
+    //다르면 스트라이크랑 볼 검사
+    
+}
+
+
+
+
+
 
 
 print(answerNumbers)
