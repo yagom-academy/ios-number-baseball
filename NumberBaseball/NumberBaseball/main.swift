@@ -28,3 +28,16 @@ func checkStrike(user: [Int], computer: [Int]) -> Int {
     }
     return count
 }
+
+func checkBall(user: [Int], computer: [Int]) -> Int {
+    var count = 0
+    
+    for computerNumber in computer {
+        for userNumber in user {
+            if computerNumber == userNumber {
+                count += 1
+            }
+        }
+    }
+    return count
+}
