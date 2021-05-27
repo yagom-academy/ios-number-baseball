@@ -20,12 +20,27 @@ func makeRandomNumber() {
 
 func makeUserNumber() -> Array<UInt> {
     let userNumber = readLine()!
-    let arr = userNumber.split(separator: " ")
-    let intArr = arr.map{ UInt($0)! }
-    if intArr.count != 3 {
+    let intArr = userNumber.split(separator: " ").map { UInt($0)! }
+    checkUserNumberRange(userNumbers: intArr)
+    checkUserNumberCount(userNumbers: intArr)
+    return intArr
+}
+
+func checkUserNumberRange(userNumbers: Array<UInt>) {
+    for number in userNumbers {
+        if number > 9 && number < 1 {
+            print("입력이 잘못되었습니다.")
+            makeUserNumber()
+        }
+    }
+    
+}
+
+func checkUserNumberCount(userNumbers: Array<UInt>) {
+    if userNumbers.count != 3 {
+        print("입력이 잘못되었습니다.")
         makeUserNumber()
     }
-    return intArr
 }
 
 func printUserNumbers(userNumbers: Array<UInt>) {
@@ -42,6 +57,8 @@ func makeComputerNumbers() {
             computerNumbers.append(randomNumber)
         }
     }
+    print(computerNumbers)
+    
 }
 
 func makeUserNumbers() -> Array<UInt> {
@@ -81,7 +98,7 @@ func resetCount() {
 }
 
 func compareNumber(userNumbers: Array<UInt>) {
-    printUserNumbers(userNumbers: userNumbers)
+//    printUserNumbers(userNumbers: userNumbers)
     for i in 0...userNumbers.count-1 {
         if userNumbers[i] == computerNumbers[i] {
             strikeCount += 1
@@ -92,10 +109,15 @@ func compareNumber(userNumbers: Array<UInt>) {
     numberOfTry -= 1
 }
 
-func selectMenu() {
+func printMenu() {
     print("1. 게임 시작")
     print("2. 게임 종료")
     print("원하는 기능을 선택해 주세요 : ", terminator: " ")
+}
+
+
+func selectMenu() {
+    printMenu()
     guard let menu = readLine() else {
         return
     }
@@ -106,6 +128,7 @@ func selectMenu() {
     case "2":
         return
     default:
+        print("입력이 잘못되었습니다")
         selectMenu()
     }
 }
