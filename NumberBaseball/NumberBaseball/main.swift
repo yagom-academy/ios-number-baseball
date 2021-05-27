@@ -18,16 +18,27 @@ func makeRandomNumber() {
     randomNumber = UInt.random(in: 1...9)
 }
 
-func makeUserNumber() {
+func makeUserNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복 숫자는 허용하지 않습니다.")
     print("입력: ", terminator:" ")
     let userNumber = readLine()!
     let intArr = userNumber.split(separator: " ").map { UInt($0)! }
-    if checkUserNumberRange(userNumbers: intArr) && checkUserNumberCount(userNumbers: intArr) {
+    if checkUserNumberRange(userNumbers: intArr) && checkUserNumberCount(userNumbers: intArr) && checkDuplicatedNumber(userNumbers: intArr) {
         compareNumber(userNumbers: intArr)
     } else {
-        makeUserNumber()
+        makeUserNumbers()
     }
-    //return intArr
+}
+
+func checkDuplicatedNumber(userNumbers: Array<UInt>) -> Bool {
+    let ConvertedNumbers = Set(userNumbers)
+    if(userNumbers.count != ConvertedNumbers.count)
+    {
+        print("입력이 잘못되었습니다")
+        return false
+    }
+    return true
 }
 
 func checkUserNumberRange(userNumbers: Array<UInt>) -> Bool{
@@ -35,7 +46,6 @@ func checkUserNumberRange(userNumbers: Array<UInt>) -> Bool{
         if number > 9 || number < 1 {
             print("입력이 잘못되었습니다.")
             return false
-           // makeUserNumber()
         }
     }
     return true
@@ -45,16 +55,8 @@ func checkUserNumberCount(userNumbers: Array<UInt>) -> Bool {
     if userNumbers.count != 3 {
         print("입력이 잘못되었습니다.")
         return false
-        //makeUserNumber()
     }
     return true
-}
-
-func printUserNumbers(userNumbers: Array<UInt>) {
-    let convertedNumber = userNumbers.map{"\($0)"}.reduce("") {
-        return $0 + " " + $1
-    }
-    print("임의의 수 : \(convertedNumber)")
 }
 
 func makeComputerNumbers() {
@@ -66,17 +68,6 @@ func makeComputerNumbers() {
     }
     print(computerNumbers)
     
-}
-
-func makeUserNumbers() -> Array<UInt> {
-    var userNumbers: Array<UInt> = []
-    while userNumbers.count < 3 {
-        makeRandomNumber()
-        if userNumbers.contains(randomNumber) == false {
-            userNumbers.append(randomNumber)
-        }
-    }
-    return userNumbers
 }
 
 func printResult() {
@@ -105,7 +96,6 @@ func resetCount() {
 }
 
 func compareNumber(userNumbers: Array<UInt>) {
-//    printUserNumbers(userNumbers: userNumbers)
     for i in 0...userNumbers.count-1 {
         if userNumbers[i] == computerNumbers[i] {
             strikeCount += 1
@@ -143,8 +133,7 @@ func selectMenu() {
 func startGame() {
     makeComputerNumbers()
     while isComputerWin == false && isUserWin == false {
-        //compareNumber(userNumbers: makeUserNumber())
-        makeUserNumber()
+        makeUserNumbers()
         checkGameOver()
         printResult()
         resetCount()
