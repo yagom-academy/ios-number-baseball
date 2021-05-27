@@ -1,7 +1,7 @@
 Team 2A - Number baseball
 =========================
-## Step 1
-### 의사코드 Psudo Code
+# Step 1
+### **의사코드 Psudo Code**
 1. 프로그램 시작
 2. 메뉴시작
 3. <출력> : “1. 게임시작\n2.게임종료\n원하는 기능 선택해주세요 : “
@@ -31,5 +31,5 @@ Team 2A - Number baseball
 11. 게임종료 -> 메뉴시작
 12. 메뉴종료 -> 프로그램시작
 
-### 순서도 Flow Chart
+### **순서도 Flow Chart**
 ![number-baseball-2a](https://user-images.githubusercontent.com/80380535/119819931-e451d800-bf2b-11eb-8070-741250ce007f.png)
