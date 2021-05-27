@@ -24,6 +24,7 @@ func compareComUser(_ com: [String], _ user: [String]) -> String {
     var strike = 0, ball = 0
     
     if com == user {
+        count = 0
         return "사용자 승리!"
     }
     
@@ -43,12 +44,18 @@ func compareComUser(_ com: [String], _ user: [String]) -> String {
 
 func startGame() {
     let comArray: [String] = makeThreeRandomNo()
-    let userArray: [String] = makeThreeRandomNo()
-    
-    print("임의의 수: \(userArray.joined(separator: " "))")
-    print(compareComUser(comArray, userArray))
-    print("남은 기회: \(count)")
+    while count != 0 {
+        let userArray: [String] = makeThreeRandomNo()
+        
+        print("임의의 수: \(userArray.joined(separator: " "))")
+        if count == 1 {
+            print("컴퓨터 승리...!")
+        }
+        print(compareComUser(comArray, userArray))
+        print("남은 기회: \(count)")
+    }
 }
+
 
 startGame()
 
