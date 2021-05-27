@@ -21,7 +21,7 @@ func changeNumbersToString(numbers: [Int]) -> String {
     }.joined(separator: " ")
 }
 
-func getStrikesAndBallsNumber(numbersToCheck numberList: [Int]) -> (strike: Int, ball: Int) {
+func getStrikesAndBallsNumber(numbersToCheck numberList: [Int]) -> (strikeCount: Int, ballCount: Int) {
     let answerSet = Set(answerRandomNumbers)
     let attemptSet = Set(numberList)
     
@@ -30,10 +30,10 @@ func getStrikesAndBallsNumber(numbersToCheck numberList: [Int]) -> (strike: Int,
     
     var strikeCount = 0
     
-    for i in 0...2 {
-        let cnt = (answerRandomNumbers[i] == numberList[i] ? 1 : 0)
-        strikeCount += cnt
-        ballCount -= cnt
+    for index in 0...2 {
+        let matchingCount = (answerRandomNumbers[index] == numberList[index] ? 1 : 0)
+        strikeCount += matchingCount
+        ballCount -= matchingCount
     }
     return (strikeCount, ballCount)
 }
