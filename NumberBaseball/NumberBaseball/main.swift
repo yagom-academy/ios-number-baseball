@@ -46,10 +46,10 @@ func uniqueNumber(from targetArray: [Int]) -> Int{
 let answerNumbers = makeRandomNumbers()
 //아래 동작을 9번하기
 
-//guessNumbers 만들기
-var guessNumbers = makeRandomNumbers()
 
 for i in 1...tryNumber {
+    //guessNumbers 만들기
+    var guessNumbers = makeRandomNumbers()
     
     //guessNumbers랑 answerNumbers비교하기
     //같으면 게임종료
@@ -59,14 +59,22 @@ for i in 1...tryNumber {
         break
     }
     //다르면 스트라이크랑 볼 검사
-    
+    var index = 0
+    var strike = 0
+    var ball = 0
+    while index < 3 {
+        if guessNumbers[index] == answerNumbers[index] {
+            strike += 1
+        } else if guessNumbers.contains(answerNumbers[index]) {
+            ball += 1
+        }
+        index += 1
+    }
+    //현재 라운드의 현황 출력하기
+    print("answer: ", answerNumbers, "guess: ", guessNumbers)
+    print("strike: ", strike, "ball: ", ball)
 }
 
+print("hi")
 
-
-
-
-
-
-print(answerNumbers)
 
