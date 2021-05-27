@@ -31,7 +31,9 @@
     - 만약 9회차까지 사용자가 3스트라이크를 내지 못하면 사용자 패배
 
 ### 프로그램 순서도
-![project1_FlowChart](https://user-images.githubusercontent.com/59643667/119586315-64325200-be07-11eb-98b7-7e0b963fc57e.png) 
+![prj1_flowchart](https://user-images.githubusercontent.com/59643667/119791341-b5c60400-bf0f-11eb-8eb1-b0c13613e0d1.png)
+
+
 ### 과제 수행시 제약사항
 
 - 코드에 느낌표(!)를 사용하지 않습니다
