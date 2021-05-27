@@ -6,7 +6,6 @@
 
 import Foundation
 
-let computerNumber: Set<Int>
 var gameCount = 9
 
 func getRandomNumbers() -> [Int] {
@@ -18,7 +17,7 @@ func getRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
-func compareNumbers(computer: [Int], user: [Int]) -> (strike: Int, ball: Int) {
+func compareNumbers(_ computer: [Int], _ user: [Int]) -> (strike: Int, ball: Int) {
     var strike: Int = 0
     var ball: Int = 0
     var diffNumbers = [Int]() // 스트라이크가 아닌 수의 배열
@@ -36,5 +35,24 @@ func compareNumbers(computer: [Int], user: [Int]) -> (strike: Int, ball: Int) {
             ball += 1
         }
     }
+    
+    print("\(strike) 스트라이크, \(ball) 볼")
+    
     return (strike, ball)
 }
+
+func startGame() {
+    let computerNumbers = getRandomNumbers()
+    
+    while gameCount != 0 {
+        var userNumbers = getRandomNumbers()
+        print("임의의 수 : \(userNumbers)")
+        
+        compareNumbers(computerNumbers, userNumbers)
+        
+        gameCount -= 1
+        print("남은 기회 : \(gameCount)")
+    }
+}
+
+startGame()
