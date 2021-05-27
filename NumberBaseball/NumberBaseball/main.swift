@@ -33,12 +33,10 @@ func countBall(user: [Int], computer: [Int]) -> Int {
     var count = 0
     
     for computerNumber in computer {
-        for userNumber in user {
-            if computerNumber == userNumber {
+            if user.contains(computerNumber) {
                 count += 1
             }
         }
-    }
     return count
 }
 
