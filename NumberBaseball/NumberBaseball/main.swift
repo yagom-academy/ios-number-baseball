@@ -18,7 +18,7 @@ func generateRandomNumbers() -> [Int] {
     return numbers
 }
 
-func checkStrike(user: [Int], computer: [Int]) -> Int {
+func countStrike(user: [Int], computer: [Int]) -> Int {
     var count = 0
     
     for number in 0...2 {
@@ -29,7 +29,7 @@ func checkStrike(user: [Int], computer: [Int]) -> Int {
     return count
 }
 
-func checkBall(user: [Int], computer: [Int]) -> Int {
+func countBall(user: [Int], computer: [Int]) -> Int {
     var count = 0
     
     for computerNumber in computer {
@@ -56,8 +56,8 @@ func startGame() {
         if chance < 1 {
             print("\(StringPrintContents.lose)")
         }
-        strike = checkStrike(user: userNumbers, computer: computerNumbers)
-        ball = checkBall(user: userNumbers, computer: computerNumbers) - strike
+        strike = countStrike(user: userNumbers, computer: computerNumbers)
+        ball = countBall(user: userNumbers, computer: computerNumbers) - strike
         print("\(strike)\(StringPrintContents.strike)\(ball)\(StringPrintContents.ball)")
         if strike == 3 {
             print("\(StringPrintContents.win)")
