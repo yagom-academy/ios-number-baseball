@@ -21,7 +21,19 @@ func playGame() {
 
 
 func generateAnswer() -> [Int] {
+    var randomArray: [Int] = []
+    var arrayCount = 0
     
+    while arrayCount < 3 {
+        var randomNo = Int.random(in: 1...9)
+        
+        if randomArray.contains(randomNo) == false {
+            randomArray.append(randomNo)
+        }
+        
+        arrayCount = randomArray.count
+    }
+    return randomArray
 }
 
 func getUserInput() -> [Int] {
