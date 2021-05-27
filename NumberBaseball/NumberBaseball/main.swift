@@ -6,19 +6,22 @@
 
 import Foundation
 
-let computerNumbers = [Int]()
-var userNumbers = [Int]()
-var gameCount: Int = 9
 
-func userNumberGenerator(userNumberArray:[Int])->Set<Int>{
-    if(userNumberArray.count == 0){
-        while userNumberArray.count < 3 {
-            userNumberArray.append(Int.random(in: 1...9))
-            let userNumberSet = Set(userNumberArray)
-        }
+var userNumbers = [Int]()
+
+
+func generateRandomNumbers() -> [Int] {
+    var randomNumbers: Set = Set<Int>()
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
     }
-    return userNumberSet
+    return Array(randomNumbers)
 }
+
+func printNumbers(_ numbers: [Int]){
+    print("임의의 수 : \(numbers.map{String($0)}.joined(separator: " "))")
+}
+
 
 func compareComputerNumbers(to number:[Int]){
     for i in 0...computerNumbers.count{
@@ -28,28 +31,26 @@ func compareComputerNumbers(to number:[Int]){
     }
 }
 
-
-
-while gameCount>0 {
-    userNumberGenerator(userNumberSet: userNumbers)
-    gameCount -= 1
-}
-
 // main
 func gameStart(){
     // 컴퓨터가 제시할 변수 3개 저장
-    
+    let computerNumbers = generateRandomNumbers()
     // 남은 변수를 담아둘 초기값 9개 설정.
-    
-    // 1-9 사이의 임의의 정수를 생성하여 반환하는 함수.
+    var gameCount: Int = 9
+    while gameCount > 0 {
+        // 1-9 사이의 임의의 정수를 생성하여 반환하는 함수.
+        let userNumbers = generateRandomNumbers()
         // 임의의 난수 출력 함수
-    
-    // 비교 함수
+        //    printNumbers(<#T##numbers: [Int]##[Int]#>)
+        
+        // 비교 함수
         // 결과 출력
         // 사용자 승리 판정
         // 남은 기회 감소
         // 남은 기회 출력 함수
-        // 컴퓨터 승리 판정
+    }
+    
+    // 컴퓨터 승리 판정
 }
 
 
