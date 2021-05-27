@@ -30,6 +30,6 @@ Team 2A - Number baseball
             2. False -> <변수 선언 및 변경> 남은기회 -= 1 -> 9번으로
 11. 게임종료 -> 메뉴시작
 12. 메뉴종료 -> 프로그램시작
-
+ 
 ### **순서도 Flow Chart**
 ![number-baseball-2a](https://user-images.githubusercontent.com/80380535/119819931-e451d800-bf2b-11eb-8070-741250ce007f.png)
