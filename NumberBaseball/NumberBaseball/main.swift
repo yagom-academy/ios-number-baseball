@@ -7,9 +7,12 @@
 import Foundation
 
 func generateThreeRandomNumbers() -> [Int] {
+    var numberSet: Set<Int> = Set<Int>()
+    while numberSet.count < 3 {
+        numberSet.insert(Int.random(in: 1...9))
+    }
     
-    
-    return []
+    return Array(numberSet)
 }
 
 func changeNumbersToString(numbers: [Int]) -> String {
@@ -19,12 +22,24 @@ func changeNumbersToString(numbers: [Int]) -> String {
 }
 
 func getStrikesAndBallsNumber(numbersToCheck numberList: [Int]) -> (strike: Int, ball: Int) {
+    let answerSet = Set(answerRandomNumbers)
+    let attemptSet = Set(numberList)
     
-    return (0, 0)
+    let intersectionSet = answerSet.intersection(attemptSet)
+    var ballCount = intersectionSet.count
+    
+    var strikeCount = 0
+    
+    for i in 0...2 {
+        let cnt = (answerRandomNumbers[i] == numberList[i] ? 1 : 0)
+        strikeCount += cnt
+        ballCount -= cnt
+    }
+    return (strikeCount, ballCount)
 }
 
-func printResult() {
-    
+func printResult(numberOfStrikes: Int, numberOfBalls: Int) {
+    print("\(numberOfStrikes) 스트라이크, \(numberOfBalls) 볼")
 }
 
 var answerRandomNumbers: [Int]
@@ -39,7 +54,17 @@ while attemptsRemaining > 0 {
     print("임의의 수 : \(stringSequence)")
     attemptsRemaining -= 1
     
+    let (strikeCount, ballCount) = getStrikesAndBallsNumber(numbersToCheck: attemptRandomNumbers)
     
+    if strikeCount == 3 {
+        print("사용자 승리...!")
+        printResult(numberOfStrikes: strikeCount, numberOfBalls: ballCount)
+        break
+    }
+    else if attemptsRemaining == 0 {
+        print("컴퓨터 승리...!")
+    }
+    printResult(numberOfStrikes: strikeCount, numberOfBalls: ballCount)
     print("남은 기회 : \(attemptsRemaining)")
 }
 
