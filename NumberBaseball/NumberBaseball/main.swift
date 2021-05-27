@@ -17,3 +17,14 @@ func generateRandomNumber() -> [Int] {
     }
     return numbers
 }
+
+func checkStrike(user: [Int], computer: [Int]) -> Int {
+    var count = 0
+    
+    for number in 0...2 {
+        if user[number] == computer[number] {
+            count += 1
+        }
+    }
+    return count
+}
