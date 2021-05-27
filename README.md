@@ -38,8 +38,6 @@
 
 
 ### Naming
-1. comX, comY, comZ: 컴퓨터가 생성하는 랜덤한 정수 3개를 담아둘 상수
-2. userX, userY, userZ: 유저가 입력한 정수 3개를 담아둘 변수
 3. tempNo, tempArray: 함수 내에서 임시적으로 값을 할당하기 위한 정수형, 배열 타입의 변수와 상수
 4. comArray: 컴퓨터가 생성한 랜덤한 정수 3개를 담아둔 배열 상수
 5. userArray: 유저가 입력한 정수 3개를 담아둔 배열 상수
@@ -49,9 +47,9 @@
 ### Step 1
 
 #### 기본 기능
-1.makeThreeRandomNo: func = 겹치지 않는 무작위의 3개의 수를 배열로 생성하여 반환.
-2.compareComUser: func = 컴퓨터가 생성한 수와 유저의 수를 비교하여 스트라이크와 볼을 반환
-
+1. makeThreeRandomNo: func = 겹치지 않는 무작위의 3개의 수를 배열로 생성하여 반환.
+2. compareComUser: func = 컴퓨터가 생성한 수와 유저의 수를 비교하여 스트라이크와 볼을 반환
+3. startGame:func = 게임을 시작하는 함수
 
 
 ### Step2
