@@ -42,16 +42,10 @@ func uniqueNumber(from targetArray: [Int]) -> Int{
     }
     return uniqueNumber(from: targetArray)
 }
-
-func gameStart() {
-    var tryNumber = 9
-    let answerNumbers = makeRandomNumbers()
-    //아래 동작을 9번하기
-    
-    
+func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryNumber {
         //guessNumbers 만들기
-        var guessNumbers = makeRandomNumbers()
+        let guessNumbers = makeRandomNumbers()
         
         
         //guessNumbers랑 answerNumbers비교하기
@@ -87,8 +81,11 @@ func gameStart() {
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(tryNumber - i)")
     }
-    
-    
-    
 }
-gameStart()
+//해결 기준 첫번쨰 들여쓰기를 2까지.
+func main() {
+    let tryNumber = 9
+    let answerNumbers = makeRandomNumbers()
+    gameStart(tryNumber, answerNumbers)
+}
+main()
