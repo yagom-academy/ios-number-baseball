@@ -79,7 +79,9 @@ for i in 1...tryNumber {
     }
     printString.removeLast()
     print("임의의 수 : \(printString)")
+    
     print("\(strike) 스트라이크, \(ball) 볼")
+    print("남은 기회 : \(tryNumber - i)")
 }
 
 
