@@ -52,18 +52,18 @@ func startGame() {
     while chance != 0 {
         chance -= 1
         userNumbers = generateRandomNumber()
-        print("\(Contents.randomNumber)\(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        print("\(StringPrintContents.randomNumber)\(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         if chance < 1 {
-            print("\(Contents.lose)")
+            print("\(StringPrintContents.lose)")
         }
         strike = checkStrike(user: userNumbers, computer: computerNumbers)
         ball = checkBall(user: userNumbers, computer: computerNumbers) - strike
-        print("\(strike)\(Contents.strike)\(ball)\(Contents.ball)")
+        print("\(strike)\(StringPrintContents.strike)\(ball)\(StringPrintContents.ball)")
         if strike == 3 {
-            print("\(Contents.win)")
+            print("\(StringPrintContents.win)")
             break
         }
-        print("\(Contents.chance)\(chance)")
+        print("\(StringPrintContents.chance)\(chance)")
     }
 }
 
