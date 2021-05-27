@@ -7,15 +7,13 @@
 import Foundation
 
 func generateRandomNumbers() -> [Int] {
-    var numbers: [Int] = []
+    var numbers: Set<Int> = []
     
     while numbers.count < 3 {
         let number = Int.random(in: 1...9)
-        if !numbers.contains(number) {
-            numbers.append(number)
-        }
+        numbers.insert(number)
     }
-    return numbers
+    return Array(numbers)
 }
 
 func countStrike(user: [Int], computer: [Int]) -> Int {
