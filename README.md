@@ -1,4 +1,5 @@
-## ⚾️숫자 야구 step-1⚾️
+## shapiro & yun
+## ⚾️숫자 야구 step-2⚾️
+>>>>>>> c4b4cf9d37f1e323bbbc56bbc69766511cac1af2
 
-![스크린샷 2021-05-26 오후 9 18 04](https://user-images.githubusercontent.com/79059747/119658270-e7839000-be67-11eb-8d9b-b8bb1c6a4d7a.png)
-
+![스크린샷 2021-05-27 오후 5 56 32](https://user-images.githubusercontent.com/79059747/119797377-24599080-bf15-11eb-945c-3916d6f647be.png)
