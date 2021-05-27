@@ -6,7 +6,7 @@
 
 import Foundation
 
-func generateRandom3() -> [Int] {
+func createThreeRandomNumbers() -> [Int] {
     var randomSet = Set<Int>()
     
     while randomSet.count < 3 {
@@ -17,42 +17,47 @@ func generateRandom3() -> [Int] {
     
 }
 
-func compare(_ answer: [Int], _ userInput: [Int]) -> (Int,Int) {
-    var strike = 0
-    var ball = 0
+func compare(answers: [Int], userInputs: [Int]) -> (strikes: Int,balls: Int) {
+    var strikes = 0
+    var balls = 0
     
     for i in 0...2 {
-        strike += answer[i] == userInput[i] ? 1 : 0
+        strikes += answers[i] == userInputs[i] ? 1 : 0
     }
     for i in 0...2 {
-        ball += answer.contains(userInput[i]) && answer[i] != userInput[i] ? 1 : 0
+        balls += answers.contains(userInputs[i]) && answers[i] != userInputs[i] ? 1 : 0
     }
     
-    return (strike, ball)
+    return (strikes, balls)
 }
+
+
 
 func starStep1Game() {
     var remainingChances = 9
-    let answer = generateRandom3()
-    var userInput = generateRandom3()
+    let answers = createThreeRandomNumbers()
+    var userInputs = createThreeRandomNumbers()
     
     while remainingChances > 0 {
-        let strikeAndBall = compare(answer, userInput)
-        print("임의의 수 : \(userInput[0]) \(userInput[1]) \(userInput[2])")
-        print("\(strikeAndBall.0) 스트라이크,\(strikeAndBall.1) 볼")
-        
-        if strikeAndBall.0 == 3 {
-            return
-        }
+        let strikeAndBall = compare(answers: answers, userInputs: userInputs)
+        print("임의의 수 : \(userInputs[0]) \(userInputs[1]) \(userInputs[2])")
+        print("\(strikeAndBall.strikes) 스트라이크,\(strikeAndBall.balls) 볼")
         
         remainingChances -= 1
         print("남은 기회 : \(remainingChances)")
-        userInput = generateRandom3()
+        userInputs = createThreeRandomNumbers()
+        
+        remainingChances = strikeAndBall.strikes == 3 ? -1 : remainingChances
+        
     }
+    if remainingChances < 0 {
+        print("사용자 승리!")
+        return
+    }
+    print("컴퓨터 승리!")
     return
     
 }
 starStep1Game()
-
 
 
