@@ -6,7 +6,7 @@
 
 import Foundation
 
-func generateRandomNumber() -> [Int] {
+func generateRandomNumbers() -> [Int] {
     var numbers: [Int] = []
     
     while numbers.count < 3 {
@@ -43,7 +43,7 @@ func checkBall(user: [Int], computer: [Int]) -> Int {
 }
 
 func startGame() {
-    let computerNumbers = generateRandomNumber()
+    let computerNumbers = generateRandomNumbers()
     var userNumbers: [Int]
     var chance = 9
     var strike: Int
@@ -51,7 +51,7 @@ func startGame() {
     
     while chance != 0 {
         chance -= 1
-        userNumbers = generateRandomNumber()
+        userNumbers = generateRandomNumbers()
         print("\(StringPrintContents.randomNumber)\(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         if chance < 1 {
             print("\(StringPrintContents.lose)")
