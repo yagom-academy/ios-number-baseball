@@ -17,6 +17,6 @@
 
 ### Flow Chart
 
-<img width="718" alt="스크린샷 2021-05-25 오후 10 54 23" src="https://user-images.githubusercontent.com/70311145/119510552-91054b80-bdac-11eb-9afd-325651d21a89.png">
+<img width="718" alt="스크린샷 2021-05-25 오후 10 54 23" src="https://user-images.githubusercontent.com/70311145/119510552-91054b80-bdac-11eb-9afd-325651d21a89.png" style="zoom:67%;" >
 
 의사 코드를 먼저 작성 후 Flow Chart를 작성하여서 최대한 의사코드에 맞춰서 작성했습니다.
