@@ -8,11 +8,11 @@ import Foundation
 
 var count: Int = 9
 
-func makeThreeRandomNo() -> [Int] {
-    var tempArray = [Int]()
+func makeThreeRandomNo() -> [String] {
+    var tempArray = [String]()
     
     while tempArray.count < 3 {
-        let tempNo: Int = Int.random(in: 1...9)
+        let tempNo: String = String(Int.random(in: 1...9))
         if !tempArray.contains(tempNo){
             tempArray.append(tempNo)
         }
@@ -20,9 +20,7 @@ func makeThreeRandomNo() -> [Int] {
     return tempArray
 }
 
-
-
-func compareComUser(_ com: [Int], _ user: [Int]) -> String {
+func compareComUser(_ com: [String], _ user: [String]) -> String {
     var strike = 0, ball = 0
     
     if com == user {
@@ -44,14 +42,10 @@ func compareComUser(_ com: [Int], _ user: [Int]) -> String {
 }
 
 func startGame() {
-    let comArray = makeThreeRandomNo()
-    let userArray = makeThreeRandomNo()
+    let comArray: [String] = makeThreeRandomNo()
+    let userArray: [String] = makeThreeRandomNo()
     
-    print("임의의 수: ", terminator: "")
-    for num in userArray {
-        print(num, terminator: " ")
-    }
-    print("")
+    print("임의의 수: \(userArray.joined(separator: " "))")
     print(compareComUser(comArray, userArray))
     print("남은 기회: \(count)")
 }
