@@ -18,29 +18,36 @@ func makeRandomNumber() {
     randomNumber = UInt.random(in: 1...9)
 }
 
-func makeUserNumber() -> Array<UInt> {
+func makeUserNumber() {
+    print("입력: ", terminator:" ")
     let userNumber = readLine()!
     let intArr = userNumber.split(separator: " ").map { UInt($0)! }
-    checkUserNumberRange(userNumbers: intArr)
-    checkUserNumberCount(userNumbers: intArr)
-    return intArr
-}
-
-func checkUserNumberRange(userNumbers: Array<UInt>) {
-    for number in userNumbers {
-        if number > 9 && number < 1 {
-            print("입력이 잘못되었습니다.")
-            makeUserNumber()
-        }
-    }
-    
-}
-
-func checkUserNumberCount(userNumbers: Array<UInt>) {
-    if userNumbers.count != 3 {
-        print("입력이 잘못되었습니다.")
+    if checkUserNumberRange(userNumbers: intArr) && checkUserNumberCount(userNumbers: intArr) {
+        compareNumber(userNumbers: intArr)
+    } else {
         makeUserNumber()
     }
+    //return intArr
+}
+
+func checkUserNumberRange(userNumbers: Array<UInt>) -> Bool{
+    for number in userNumbers {
+        if number > 9 || number < 1 {
+            print("입력이 잘못되었습니다.")
+            return false
+           // makeUserNumber()
+        }
+    }
+    return true
+}
+
+func checkUserNumberCount(userNumbers: Array<UInt>) -> Bool {
+    if userNumbers.count != 3 {
+        print("입력이 잘못되었습니다.")
+        return false
+        //makeUserNumber()
+    }
+    return true
 }
 
 func printUserNumbers(userNumbers: Array<UInt>) {
@@ -136,7 +143,8 @@ func selectMenu() {
 func startGame() {
     makeComputerNumbers()
     while isComputerWin == false && isUserWin == false {
-        compareNumber(userNumbers: makeUserNumber())
+        //compareNumber(userNumbers: makeUserNumber())
+        makeUserNumber()
         checkGameOver()
         printResult()
         resetCount()
