@@ -6,6 +6,8 @@
 
 import Foundation
 
+var number: Int = 6
+
 func getRandomNumbers() -> [Int] {
     var randomNumbers = Set<Int>()
     while randomNumbers.count < 3 {
