@@ -44,7 +44,6 @@ func checkBall(user: [Int], computer: [Int]) -> Int {
 
 func startGame() {
     let computerNumbers = generateRandomNumber()
-    print(computerNumbers)
     var userNumbers: [Int]
     var chance = 9
     var strike: Int
@@ -53,18 +52,18 @@ func startGame() {
     while chance != 0 {
         chance -= 1
         userNumbers = generateRandomNumber()
-        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        print("\(Contents.randomNumber)\(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         if chance < 1 {
-            print("컴퓨터 승리...!")
+            print("\(Contents.lose)")
         }
         strike = checkStrike(user: userNumbers, computer: computerNumbers)
         ball = checkBall(user: userNumbers, computer: computerNumbers) - strike
-        print("\(strike) 스트라이크, \(ball) 볼")
+        print("\(strike)\(Contents.strike)\(ball)\(Contents.ball)")
         if strike == 3 {
-            print("사용자 승리!!")
+            print("\(Contents.win)")
             break
         }
-        print("남은 기회 : \(chance)")
+        print("\(Contents.chance)\(chance)")
     }
 }
 
