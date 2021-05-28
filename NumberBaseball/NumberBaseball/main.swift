@@ -2,32 +2,36 @@ import Foundation
 
 let answer:[Int] = generateRandomArray()
 var trialNumber:Int = 9
+var userWin = false
+var gameEnd = false
+print(answer)
 
-//func playGame() {
-//
-//
-//
-//    return proceedGameRound()
-//}
-
-func proceedGameRound() {
+func playGameRound() {
     let userValue = generateRandomArray()
     trialNumber -= 1
 
     if answer == userValue {
-        endGame()
+        userWin = true
+        gameEnd = true
     } else if trialNumber == 0 {
-        endGame()
+        gameEnd = true
     }
 
-    showResult(userValue: userValue)
-    proceedGameRound()
+    showResult(userValue: userValue, userWin: userWin, gameEnd: gameEnd)
+    if trialNumber > 0 && gameEnd == false {
+        playGameRound()
+    }
 }
 
-func showResult(userValue: [Int]) {
-    print("임의의 수 : \(userValue[0]), \(userValue[1]), \(userValue[2])")
-    print("\(getStrikeCount()) 스트라이크, \(getBallCount()) 볼")
-    print(trialNumber)
+func showResult(userValue: [Int], userWin: Bool, gameEnd: Bool) {
+    print("임의의 수 : \(userValue[0]) \(userValue[1]) \(userValue[2])")
+    if userWin && gameEnd {
+        print("사용자 승리...!")
+    } else if gameEnd {
+        print("컴퓨터 승리...!")
+    }
+    print("\(getStrikeCount(userValue: userValue)) 스트라이크, ")
+    print("남은 기회: \(trialNumber)")
 }
 
 func generateRandomArray() -> [Int] {
@@ -44,44 +48,10 @@ func generateRandomArray() -> [Int] {
     return randomArray
 }
 
-func getUserInput() -> [Int] {
-    guard let input = readLine() else {
-        return getUserInput()
-    }
-
-    if isError(input: input) == true {
-        return getUserInput()
-    } else {
-        return toIntArray(input: input)
-    }
+func getStrikeCount(userValue: [Int]) -> Int {
+    let combined = zip(answer, userValue)
+    let strike = combined.filter{Set([$0.0, $0.1]).count == 1}
+    return strike.count
 }
 
-func toIntArray(input: String) ->[Int] {
-    var intArray: [Int] = []
-
-    var i: Int = 0
-    while i < 5 {
-        let index = input.index(input.startIndex, offsetBy: i)
-        let number: Int = input[index]
-        intArray.append(number)
-    }
-}
-
-func compareAnswer(answer: [Int], userInput: [Int]) -> Int {
-
-}
-
-func didWin() {
-
-}
-
-//func chooseOption() {
-//
-//}
-
-func isError(input: String) -> Bool{
- return false
-}
-
-
-playGame()
+playGameRound()
