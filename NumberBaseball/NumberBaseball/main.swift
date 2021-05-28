@@ -37,14 +37,13 @@ func playOneIning(com: Array<Int>, user: Array<Int>) -> (Int, Int) {
 }
 
 func startGame() {
-    var comPlayer = Array<Int>()
+    var computerNumbers = Array<Int>()
     var tryCount: Int = 9
 
     while tryCount > 0 {
-        comPlayer = makeRandomNumbers()
+        computerNumbers = makeRandomNumbers()
         let autoPlayer = makeRandomNumbers()
-    
-        let (strike, ball) = playOneIning(com: comPlayer, user: autoPlayer)
+        let (strike, ball) = playOneIning(com: computerNumbers, user: autoPlayer)
 
         print("임의의 수 : \(autoPlayer[0]) \(autoPlayer[1]) \(autoPlayer[2])")
         print("\(strike) 스트라이크, \(ball) 볼")
