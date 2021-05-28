@@ -58,7 +58,45 @@ func userMenu() {
     }
     
 }
-userMenu()
+
+func inputThreeRandomNo() {
+    print("입력 : ",terminator: "")
+    
+    let input: String? = readLine()
+    var userNumbers = [String]()
+    
+    if let input: String = input {
+        userNumbers = input.components(separatedBy: " ")
+    }
+    
+    // 중복값을 걸러내는 기능
+    for i in 0..<userNumbers.count-1 {
+        if userNumbers[i] == userNumbers[i+1] {
+            print("입력이 잘못되었습니다")
+            inputThreeRandomNo()
+        }
+    }
+    
+    // 숫자의 범위(1...9)를 걸러내는 기능
+    
+    
+    
+    // 숫자가 아닌 값을 입력한 경우
+
+    
+    
+    // 문자의 유효성을 검증하는 기능
+    switch userNumbers {
+    case userNumbers where userNumbers.count == 3:
+        startGame()
+    default:
+        print("입력이 잘못되었습니다")
+        inputThreeRandomNo()
+    }
+}
+
+inputThreeRandomNo()
+
 
 func startGame() {
     let comArray: [String] = makeThreeRandomNo()
