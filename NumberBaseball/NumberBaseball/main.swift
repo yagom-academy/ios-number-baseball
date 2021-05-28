@@ -38,7 +38,6 @@ func judgeStrikeBall(com: [String], user: [String]) -> String {
             }
         }
     }
-    
     remainCount -= 1
     return "\(strike) 스트라이크, \(ball) 볼"
 }
@@ -57,8 +56,8 @@ func startMenu() {
         print("입력이 잘못되었습니다")
         startMenu()
     }
-    
 }
+
 func inputUserArray() -> [String] {
     print("입력 : ", terminator: "")
     
@@ -70,26 +69,22 @@ func inputUserArray() -> [String] {
     }
     return userNumbers
 }
+
 func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool {
-    
-    // 중복값을 걸러내는 기능
     for i in 0..<userNumbers.count-1 {
         if userNumbers[i] == userNumbers[i+1] {
             print("입력이 잘못되었습니다")
             return false
         }
-        
     }
     
-    // 숫자의 범위(1...9)를 걸러내는 기능
     for i in userNumbers {
         if !(i >= "1" && i <= "9" && i.count < 2 && i.count != 0) {
             print("입력이 잘못되었습니다")
             return false
         }
     }
-    
-    // 문자의 유효성을 검증하는 기능
+
     switch userNumbers {
     case userNumbers where userNumbers.count == 3:
         return true
@@ -97,11 +92,7 @@ func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool {
         print("입력이 잘못되었습니다")
         return false
     }
-    
-    
 }
-
-
 
 func startGame() {
     let comArray: [String] = makeThreeRandomNumber()
@@ -113,7 +104,6 @@ func startGame() {
             print("임의의 수: \(threeRandomNumbers)")
             print(judgeStrikeBall(com: comArray, user: userArray))
         }
-        
         if remainCount == 1 {
             print("컴퓨터 승리...!")
         }
@@ -121,6 +111,4 @@ func startGame() {
     }
 }
 
-
 startMenu()
-
