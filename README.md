@@ -1,10 +1,10 @@
-## iOS 커리어 스타터 캠프
+# 숫자야구 - 애드, 조이
 
-### 숫자야구 프로젝트 저장소
-
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+## 플로우차트
 
 ![unknown](https://user-images.githubusercontent.com/52592748/119810997-91732300-bf21-11eb-8ef4-b81eead1eb68.png)
+
+## 함수 설계
 
 ### 0. 게임 옵션 함수 `chooseOption()`
 
