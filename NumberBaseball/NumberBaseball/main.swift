@@ -50,27 +50,27 @@ func isAnswer(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> Bool {
     }
     return false
 }
-
+func getStrikeAndBall(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> (Int, Int) {
+    var index = 0
+    var strike = 0
+    var ball = 0
+    while index < 3 {
+        if guessNumbers[index] == answerNumbers[index] {
+            strike += 1
+        } else if guessNumbers.contains(answerNumbers[index]) {
+            ball += 1
+        }
+        index += 1
+    }
+    return (strike, ball)
+}
 func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryNumber {
         let guessNumbers = makeRandomNumbers()
         if isAnswer(guessNumbers, answerNumbers) {
             break
         }
-        //다르면 스트라이크랑 볼 검사
-        var index = 0
-        var strike = 0
-        var ball = 0
-        while index < 3 {
-            if guessNumbers[index] == answerNumbers[index] {
-                strike += 1
-            } else if guessNumbers.contains(answerNumbers[index]) {
-                ball += 1
-            }
-            index += 1
-        }
-        //현재 라운드의 현황 출력하기
-        print("정답: ", answerNumbers)
+       let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
         var printString = ""
         for i in 0...2 {
             printString += String(guessNumbers[i]) + " "
