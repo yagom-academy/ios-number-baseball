@@ -25,8 +25,6 @@ func makeRandomNumbers() -> [Int] {
 
 func isAnswer(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> Bool {
     if guessNumbers == answerNumbers {
-        print("3 스트라이크, 0 볼")
-        print("사용자 승리!")
         return true
     }
     return false
@@ -71,6 +69,8 @@ func gameStart(_ tryRound: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryRound {
         let guessNumbers = makeRandomNumbers()
         if isAnswer(guessNumbers, answerNumbers) {
+            print("3 스트라이크, 0 볼")
+            print("사용자 승리!")
             break
         }
         let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
