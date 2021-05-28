@@ -77,6 +77,10 @@ func printMessageIfLastRound(_ i: Int, _ tryNumber: Int) {
         print("컴퓨터 승리...!")
     }
 }
+func printStrikeAndBall(_ strike: Int, _ ball: Int, leftRound: Int) {
+    print("\(strike) 스트라이크, \(ball) 볼")
+    print("남은 기회 : \(leftRound)")
+}
 func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryNumber {
         let guessNumbers = makeRandomNumbers()
@@ -86,8 +90,7 @@ func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
         let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
         printGuessNumbers(guessNumbers)
         printMessageIfLastRound(i, tryNumber)
-        print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(tryNumber - i)")
+        printStrikeAndBall(strike, ball, leftRound: tryNumber - i)
     }
 }
 //해결 기준 첫번쨰 들여쓰기를 2까지.
