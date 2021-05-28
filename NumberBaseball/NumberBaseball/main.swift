@@ -25,7 +25,7 @@ func compareArrays( _ computerNumbers: Array<Int>, _ userNumbers: Array<Int>) ->
     var strike: Int = 0
     var ball: Int = 0
 
-    for index in 0..<3 {
+    for index in 0..<computerNumbers.count {
         if computerNumbers[index] == userNumbers[index] {
             strike += 1
         } else if computerNumbers.contains(userNumbers[index]) {
@@ -59,4 +59,29 @@ func startGame() {
     }
 }
 
-startGame()
+// MARK: --- Step 2
+func selectMenu() {
+    while true {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요", terminator: " : ")
+        
+        guard let inputString = readLine() else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+
+        if let convertNumber = Int(inputString), convertNumber == 1 || convertNumber == 2 {
+            if convertNumber == 1 {
+                startGame()
+            } else {
+                break
+            }
+        } else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+    }
+}
+
+selectMenu()
