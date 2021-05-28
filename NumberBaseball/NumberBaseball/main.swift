@@ -4,7 +4,6 @@ let answer:[Int] = generateRandomArray()
 var trialNumber:Int = 9
 var userWin = false
 var gameEnd = false
-print(answer)
 
 func playGameRound() {
     let userValue = generateRandomArray()
@@ -30,7 +29,7 @@ func showResult(userValue: [Int], userWin: Bool, gameEnd: Bool) {
     } else if gameEnd {
         print("컴퓨터 승리...!")
     }
-    print("\(getStrikeCount(userValue: userValue)) 스트라이크, ")
+    print("\(getStrikeCount(userValue: userValue)) 스트라이크 \(getBallCount(userValue: userValue)) 볼")
     print("남은 기회: \(trialNumber)")
 }
 
@@ -51,7 +50,16 @@ func generateRandomArray() -> [Int] {
 func getStrikeCount(userValue: [Int]) -> Int {
     let combined = zip(answer, userValue)
     let strike = combined.filter{Set([$0.0, $0.1]).count == 1}
+    
     return strike.count
+}
+
+func getBallCount(userValue: [Int]) -> Int {
+    let combined = userValue + answer
+    let setCombinedCount = Set(combined).count
+    let ball = 6 - setCombinedCount
+    
+    return ball
 }
 
 playGameRound()
