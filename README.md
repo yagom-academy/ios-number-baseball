@@ -32,4 +32,4 @@ Team 2A - Number baseball
 12. 메뉴종료 -> 프로그램시작
  
 ### **순서도 Flow Chart**
-![number-baseball-2a](https://user-images.githubusercontent.com/80380535/119819931-e451d800-bf2b-11eb-8070-741250ce007f.png)
+<img width="874" alt="image" src="https://user-images.githubusercontent.com/24707229/119995900-0d946600-c009-11eb-8630-ba9f4cae70d6.png">
