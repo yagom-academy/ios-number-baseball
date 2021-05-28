@@ -72,6 +72,11 @@ func printGuessNumbers(_ guessNumbers: [Int]) {
     printString.removeLast()
     print("임의의 수 : \(printString)")
 }
+func printMessageIfLastRound(_ i: Int, _ tryNumber: Int) {
+    if i == tryNumber {
+        print("컴퓨터 승리...!")
+    }
+}
 func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryNumber {
         let guessNumbers = makeRandomNumbers()
@@ -80,9 +85,7 @@ func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
         }
         let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
         printGuessNumbers(guessNumbers)
-        if i == tryNumber {
-            print("컴퓨터 승리...!")
-        }
+        printMessageIfLastRound(i, tryNumber)
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(tryNumber - i)")
     }
