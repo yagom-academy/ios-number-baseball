@@ -38,9 +38,9 @@ func playOneIning(com: Array<Int>, user: Array<Int>) -> (Int, Int) {
 
 func startGame() {
     var comPlayer = Array<Int>()
-    var ining: Int = 9
+    var tryCount: Int = 9
 
-    while ining > 0 {
+    while tryCount > 0 {
         comPlayer = makeRandomNumbers()
         let autoPlayer = makeRandomNumbers()
     
@@ -49,13 +49,13 @@ func startGame() {
         print("임의의 수 : \(autoPlayer[0]) \(autoPlayer[1]) \(autoPlayer[2])")
         print("\(strike) 스트라이크, \(ball) 볼")
 
-        ining -= 1
-        print("남은 기회 : \(ining)")
+        tryCount -= 1
+        print("남은 기회 : \(tryCount)")
 
         if strike > 2 {
             print("사용자 승리!")
             break
-        } else if ining == 0 {
+        } else if tryCount == 0 {
            print("컴퓨터 승리...!")
         }
     }
