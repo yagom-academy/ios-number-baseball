@@ -7,30 +7,38 @@ var gameEnd = false
 
 func playGameRound() {
     let userValue = generateRandomArray()
+    
     trialNumber -= 1
+    checkExitConditions(userValue: userValue)
+    showResult(userValue: userValue, userWin: userWin, gameEnd: gameEnd)
 
+    if gameEnd == false {
+        playGameRound()
+    }
+}
+
+func checkExitConditions(userValue: [Int]) {
     if answer == userValue {
         userWin = true
         gameEnd = true
     } else if trialNumber == 0 {
         gameEnd = true
     }
-
-    showResult(userValue: userValue, userWin: userWin, gameEnd: gameEnd)
-    if trialNumber > 0 && gameEnd == false {
-        playGameRound()
-    }
 }
 
 func showResult(userValue: [Int], userWin: Bool, gameEnd: Bool) {
     print("임의의 수 : \(userValue[0]) \(userValue[1]) \(userValue[2])")
+    printWinner()
+    print("\(getStrikeCount(userValue: userValue)) 스트라이크 \(getBallCount(userValue: userValue)) 볼")
+    print("남은 기회: \(trialNumber)")
+}
+
+func printWinner() {
     if userWin && gameEnd {
         print("사용자 승리...!")
     } else if gameEnd {
         print("컴퓨터 승리...!")
     }
-    print("\(getStrikeCount(userValue: userValue)) 스트라이크 \(getBallCount(userValue: userValue)) 볼")
-    print("남은 기회: \(trialNumber)")
 }
 
 func generateRandomArray() -> [Int] {
