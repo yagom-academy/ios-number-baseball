@@ -69,6 +69,7 @@ func filterUserInput(num : String?) -> [Int] {
             return filterUserInput(num: readLine())
         }
     }
+    
     return [0]
 }
 
@@ -110,10 +111,12 @@ func startGame() -> Any {
         switch judgeAnswer {
         case "사용자 승리...!":
             return selectOption()
+            
         default:
             print("남은 기회 : \(leftchance - i)")
         }
     }
+    
     print("컴퓨터의 승리...!")
     
     return selectOption()
@@ -142,3 +145,5 @@ let userScreen = selectOption()
 let numBaseball = writeNumber(option: userScreen)
 
 print(numBaseball)
+
+
