@@ -6,7 +6,7 @@
 //
 import Foundation
 
-var remainCount: Int = 9
+var remainCount: Int = 3
 let inputNumbersCount: Int = 3
 
 func makeThreeRandomNumber() -> [String] {
@@ -21,14 +21,9 @@ func makeThreeRandomNumber() -> [String] {
     return tempRandomNumbers
 }
 
-func judgeStrikeBall(com: [String], user: [String]) -> String {
+func judgeStrikeBall(com: [String], user: [String]) {
     var strike = 0, ball = 0
-    
-    if com == user {
-        remainCount = 0
-        return "사용자 승리!"
-    }
-    
+
     for (indexCom, valueCom) in com.enumerated() {
         for (indexUser, valueUser) in user.enumerated() {
             if indexCom == indexUser && valueCom == valueUser {
@@ -38,8 +33,17 @@ func judgeStrikeBall(com: [String], user: [String]) -> String {
             }
         }
     }
+    
     remainCount -= 1
-    return "\(strike) 스트라이크, \(ball) 볼"
+    print("남은 기회: \(remainCount)")
+    print("\(strike) 스트라이크, \(ball) 볼")
+    
+    if com == user {
+        remainCount = 0
+        print("사용자 승리!")
+        startMenu()
+    }
+    
 }
 
 func startMenu() {
@@ -73,14 +77,12 @@ func inputUserArray() -> [String] {
 func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool {
     for i in 0..<userNumbers.count-1 {
         if userNumbers[i] == userNumbers[i+1] {
-            print("입력이 잘못되었습니다")
             return false
         }
     }
     
     for i in userNumbers {
         if !(i >= "1" && i <= "9" && i.count < 2 && i.count != 0) {
-            print("입력이 잘못되었습니다")
             return false
         }
     }
@@ -89,25 +91,27 @@ func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool {
     case userNumbers where userNumbers.count == 3:
         return true
     default:
-        print("입력이 잘못되었습니다")
         return false
     }
 }
 
 func startGame() {
-    let comArray: [String] = makeThreeRandomNumber()
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+//    let comArray: [String] = makeThreeRandomNumber()
+    let comArray: [String] = ["1", "2", "3"]
     
-    while remainCount != 0 {
+    while remainCount >= 0 {
         let userArray = inputUserArray()
         if isUserNumberTrueFalse(userArray) {
-            let threeRandomNumbers = userArray.joined(separator: " ")
-            print("임의의 수: \(threeRandomNumbers)")
-            print(judgeStrikeBall(com: comArray, user: userArray))
+            judgeStrikeBall(com: comArray, user: userArray)
+        } else {
+            print("입력이 잘못되었습니다")
+            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
         }
-        if remainCount == 1 {
+        if remainCount == 0 {
             print("컴퓨터 승리...!")
+            startMenu()
         }
-        print("남은 기회: \(remainCount)")
     }
 }
 
