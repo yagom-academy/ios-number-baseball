@@ -1,25 +1,36 @@
 import Foundation
 
-func playGame() {
-    let answer:[Int] = generateAnswer()
-    var trialNumber:Int = 9
+let answer:[Int] = generateRandomArray()
+var trialNumber:Int = 9
 
-    while trialNumber > 0 {
-        let userInput:[Int] = getUserInput()
+//func playGame() {
+//
+//
+//
+//    return proceedGameRound()
+//}
 
-        if compareAnswer(answer: answer, userInput: userInput) == 1 {
-            didWin()
-//            chooseOption()
-            return
-        }
-        trialNumber -= 1
+func proceedGameRound() {
+    let userValue = generateRandomArray()
+    trialNumber -= 1
+
+    if answer == userValue {
+        endGame()
+    } else if trialNumber == 0 {
+        endGame()
     }
 
-    didWin()
-//    chooseOption()
+    showResult(userValue: userValue)
+    proceedGameRound()
 }
 
-func generateAnswer() -> [Int] {
+func showResult(userValue: [Int]) {
+    print("임의의 수 : \(userValue[0]), \(userValue[1]), \(userValue[2])")
+    print("\(getStrikeCount()) 스트라이크, \(getBallCount()) 볼")
+    print(trialNumber)
+}
+
+func generateRandomArray() -> [Int] {
     var numbers = [Int](1...9)
     var randomArray: [Int] = []
 
@@ -73,3 +84,4 @@ func isError(input: String) -> Bool{
 }
 
 
+playGame()
