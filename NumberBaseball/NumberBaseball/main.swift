@@ -6,6 +6,7 @@ func selectMenu() -> Bool {
     print("원하는 기능을 선택해 주세요 : ", terminator: "")
     let menuNumber = readLine()
     guard let string = menuNumber, let menuNumber = Int(string) else {
+        print("입력이 잘못되었습니다")
         return selectMenu()
     }
     switch menuNumber {
@@ -14,6 +15,7 @@ func selectMenu() -> Bool {
     case 2:
         return false
     default:
+        print("입력이 잘못되었습니다")
         return selectMenu()
     }
 }
@@ -38,7 +40,7 @@ func userInput() -> [Int] {
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
         let inputNumber = readLine()
-        let string: String = inputNumber ?? "this value is nil"
+        let string: String = inputNumber ?? "입력이 잘못되었습니다."
         arrayIntegers = string.components(separatedBy: " ").compactMap { Int($0) }
         userNumbers = Set(arrayIntegers)
         if !userNumbers.isSubset(of: range) || userNumbers.count != 3 {
@@ -51,8 +53,7 @@ func userInput() -> [Int] {
 
 func compareNumbers(computer: [Int], user: [Int]) -> (strike: Int, ball: Int) {
     var strike: Int = 0
-    var ball: Int = 0
-    ball = (Set(computer).intersection(Set(user))).count // 동일한 수의 개수
+    var ball = (Set(computer).intersection(Set(user))).count
     for index in 0...2 {
         if computer[index] == user[index] {
             strike += 1
@@ -62,8 +63,16 @@ func compareNumbers(computer: [Int], user: [Int]) -> (strike: Int, ball: Int) {
     return (strike, ball)
 }
 
-func checkGameResult(_ computerNumbers: [Int], _ userNumbers: [Int], _ leftRound: Int) -> Bool {
+func isThreeStrike(computerNumbers: [Int], userNumbers: [Int]) -> Bool {
     if computerNumbers == userNumbers {
+        return true
+    } else {
+        return false
+    }
+}
+
+func checkGameResult(computer: [Int], user: [Int], leftRound: Int) -> Bool {
+    if isThreeStrike(computerNumbers: computer, userNumbers: user) {
         print("사용자의 승리!")
         return true
     } else if leftRound == 0 {
@@ -87,7 +96,7 @@ func startGame() {
         eachCountResult = compareNumbers(computer: computerNumbers, user: userNumbers)
         leftRound -= 1
 
-        isGameFinished = checkGameResult(computerNumbers, userNumbers, leftRound)
+        isGameFinished = checkGameResult(computer: computerNumbers, user: userNumbers, leftRound: leftRound)
 
         print("\(eachCountResult.strike) 스트라이크, \(eachCountResult.ball) 볼")
         print("남은 기회 : \(leftRound)")
