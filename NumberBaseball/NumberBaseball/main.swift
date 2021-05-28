@@ -21,14 +21,14 @@ func makeRandomNumbers() -> Array<Int> {
     return numbers
 }
 
-func playOneIning(com: Array<Int>, user: Array<Int>) -> (Int, Int) {
+func compareArrays( _ computerNumbers: Array<Int>, _ userNumbers: Array<Int>) -> (Int, Int) {
     var strike: Int = 0
     var ball: Int = 0
 
     for index in 0..<3 {
-        if com[index] == user[index] {
+        if computerNumbers[index] == userNumbers[index] {
             strike += 1
-        } else if com.contains(user[index]) {
+        } else if computerNumbers.contains(userNumbers[index]) {
             ball += 1
         }
     }
@@ -37,14 +37,12 @@ func playOneIning(com: Array<Int>, user: Array<Int>) -> (Int, Int) {
 }
 
 func startGame() {
-    var comPlayer = Array<Int>()
+    let computerNumbers = makeRandomNumbers()
     var tryCount: Int = 9
 
     while tryCount > 0 {
-        comPlayer = makeRandomNumbers()
         let autoPlayer = makeRandomNumbers()
-    
-        let (strike, ball) = playOneIning(com: comPlayer, user: autoPlayer)
+        let (strike, ball) = compareArrays(computerNumbers, autoPlayer)
 
         print("임의의 수 : \(autoPlayer[0]) \(autoPlayer[1]) \(autoPlayer[2])")
         print("\(strike) 스트라이크, \(ball) 볼")
