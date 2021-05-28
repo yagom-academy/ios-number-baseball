@@ -6,21 +6,21 @@
 
 import Foundation
 
-func makeRandomNumbers() -> [Int] {
-    var randomArray = [Int]()
-    while randomArray.count < 3 {
-        let number = uniqueNumber(from: randomArray)
-        randomArray.append(number)
-    }
-    return randomArray
-}
-
-func uniqueNumber(from targetArray: [Int]) -> Int{
+func makeUniqueNumber(from targetArray: [Int]) -> Int{
     let number = Int.random(in: 1...9)
     if !targetArray.contains(number) {
         return number
     }
-    return uniqueNumber(from: targetArray)
+    return makeUniqueNumber(from: targetArray)
+}
+
+func makeRandomNumbers() -> [Int] {
+    var randomArray = [Int]()
+    while randomArray.count < 3 {
+        let number = makeUniqueNumber(from: randomArray)
+        randomArray.append(number)
+    }
+    return randomArray
 }
 
 func isAnswer(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> Bool {
