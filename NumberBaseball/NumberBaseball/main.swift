@@ -65,12 +65,16 @@ func printStrikeAndBall(_ strike: Int, _ ball: Int, leftRound: Int) {
     print("남은 기회 : \(leftRound)")
 }
 
+func printUserWinMessage() {
+    print("3 스트라이크, 0 볼")
+    print("사용자 승리!")
+}
+
 func gameStart(_ tryRound: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryRound {
         let guessNumbers = makeRandomNumbers()
         if isAnswer(guessNumbers, answerNumbers) {
-            print("3 스트라이크, 0 볼")
-            print("사용자 승리!")
+            printUserWinMessage()
             break
         }
         let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
