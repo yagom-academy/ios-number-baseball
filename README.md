@@ -4,7 +4,46 @@
 
 ![unknown](https://user-images.githubusercontent.com/52592748/119810997-91732300-bf21-11eb-8ef4-b81eead1eb68.png)
 
-## 함수 설계
+## Step1 함수 설계
+
+### 0. 전역 변수
+
+- answer
+- trialNumber
+- userWin
+- gameEnd
+
+### 1. `playGameRound()`
+
+- 사용자값 = `generateRandomArray()`
+- `proceedGameRound()` 호출
+- trialNumber 1 줄일 것
+
+### 2. 메시지 출력 `showResult()`
+
+- "임의의 수: 숫자 숫자 숫자" 출력
+- 사용자 승패 여부에 따라 관련 메시지 출력
+- 게임 진행 상황 출력
+    - 스트라이크, 볼
+    - 남은 기회
+
+### 3. 정답 생성 함수 `generateRandomArray()`
+
+- 중복없는 랜덤한 수를 3개 생성
+- 그 수들을 배열에 넣어서 리턴
+    - e.g. [8, 2, 4]
+
+### 4. `getStrikeCount()`
+
+- 스트라이크 개수 출력
+
+### 5. `getBallCount()`
+
+- 볼 개수 출력
+
+<details>
+<summary> <b> :page_facing_up: 함수 설계 1차 시도 </b>  </summary>
+<div markdown="1">
 
 ### 0. 게임 옵션 함수 `chooseOption()`
 
@@ -83,3 +122,6 @@ if tiralNo = 0 {
     print("사용자승리")
 }
 ```
+</div>
+</details>
+<br><br>
