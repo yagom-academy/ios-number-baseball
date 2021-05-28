@@ -58,9 +58,8 @@ func userMenu() {
     }
     
 }
-
-func inputThreeRandomNo() {
-    print("입력 : ",terminator: "")
+func inputUserArray() -> [String] {
+    print("입력 : ", terminator: "")
     
     let input: String? = readLine()
     var userNumbers = [String]()
@@ -68,50 +67,58 @@ func inputThreeRandomNo() {
     if let input: String = input {
         userNumbers = input.components(separatedBy: " ")
     }
+    return userNumbers
+}
+func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool  {
     
     // 중복값을 걸러내는 기능
     for i in 0..<userNumbers.count-1 {
         if userNumbers[i] == userNumbers[i+1] {
             print("입력이 잘못되었습니다")
-            inputThreeRandomNo()
+            return false
         }
+        
     }
     
     // 숫자의 범위(1...9)를 걸러내는 기능
-    
-    
-    
-    // 숫자가 아닌 값을 입력한 경우
-
-    
+    for i in userNumbers {
+        if !(i >= "1" && i <= "9" && i.count < 2 && i.count != 0){
+            print("입력이 잘못되었습니다")
+            return false
+        }
+    }
     
     // 문자의 유효성을 검증하는 기능
     switch userNumbers {
     case userNumbers where userNumbers.count == 3:
-        startGame()
+        return true
     default:
         print("입력이 잘못되었습니다")
-        inputThreeRandomNo()
+        return false
     }
+    
+    
 }
 
-inputThreeRandomNo()
 
 
 func startGame() {
     let comArray: [String] = makeThreeRandomNo()
+
     while count != 0 {
-        let userArray: [String] = makeThreeRandomNo()
+        let userArray = inputUserArray()
+        if isUserNumberTrueFalse(userArray){
+            print("임의의 수: \(userArray.joined(separator: " "))")
+            print(compareComUser(comArray, userArray))
+        }
         
-        print("임의의 수: \(userArray.joined(separator: " "))")
         if count == 1 {
             print("컴퓨터 승리...!")
         }
-        print(compareComUser(comArray, userArray))
         print("남은 기회: \(count)")
     }
 }
 
 
-//startGame()
+userMenu()
 
