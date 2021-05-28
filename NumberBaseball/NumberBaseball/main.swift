@@ -64,19 +64,22 @@ func getStrikeAndBall(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> (Int, In
     }
     return (strike, ball)
 }
+func printGuessNumbers(_ guessNumbers: [Int]) {
+    var printString = ""
+    for i in 0...2 {
+        printString += String(guessNumbers[i]) + " "
+    }
+    printString.removeLast()
+    print("임의의 수 : \(printString)")
+}
 func gameStart(_ tryNumber: Int, _ answerNumbers: [Int] ) {
     for i in 1...tryNumber {
         let guessNumbers = makeRandomNumbers()
         if isAnswer(guessNumbers, answerNumbers) {
             break
         }
-       let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
-        var printString = ""
-        for i in 0...2 {
-            printString += String(guessNumbers[i]) + " "
-        }
-        printString.removeLast()
-        print("임의의 수 : \(printString)")
+        let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
+        printGuessNumbers(guessNumbers)
         if i == tryNumber {
             print("컴퓨터 승리...!")
         }
