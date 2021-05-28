@@ -97,10 +97,8 @@ func userInputNumbers() -> Array<Int> {
         return userInputNumbers()
     }
     for stringNumber in separate {
-        if let convertNumber = Int(stringNumber), stringNumber.count < 2 {
-            if !checkArray.contains(convertNumber) {
+        if let convertNumber = Int(stringNumber), stringNumber.count < 2, !checkArray.contains(convertNumber) {
                 checkArray.append(convertNumber)
-            }
         } else {
             print("입력이 잘못되었습니다")
             return userInputNumbers()
