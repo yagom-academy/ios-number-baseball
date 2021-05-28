@@ -37,11 +37,10 @@ func compareArrays( _ computerNumbers: Array<Int>, _ userNumbers: Array<Int>) ->
 }
 
 func startGame() {
-    var computerNumbers = Array<Int>()
+    let computerNumbers = makeRandomNumbers()
     var tryCount: Int = 9
 
     while tryCount > 0 {
-        computerNumbers = makeRandomNumbers()
         let autoPlayer = makeRandomNumbers()
         let (strike, ball) = compareArrays(computerNumbers, autoPlayer)
 
