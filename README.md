@@ -2,7 +2,10 @@
 
 ### 숫자야구 프로젝트 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+야구게임 흐름도
+===========
 ![image](./flowchart/baseball_flowchart.png)
+
+유효성 검사 흐름도
+=============
 ![image](./flowchart/validation_logic_flowchart.png)
