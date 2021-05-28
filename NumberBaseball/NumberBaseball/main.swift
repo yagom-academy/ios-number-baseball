@@ -1,5 +1,16 @@
 import Foundation
 
+//func selectMenu() -> Bool {
+//    var select = readLine() // String? , Optional("2")
+//
+//    if select == Optional("1") {
+//        return true
+//    } else if select == Optional("2") {
+//        return false
+//    } else {
+//    }
+//}
+
 func getRandomNumbers() -> [Int] {
     var randomNumbers = Set<Int>()
     while randomNumbers.count < 3 {
@@ -12,11 +23,16 @@ func getRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
+//func getUserNumbers() -> [Int]{
+//}
+
 func compareNumbers(_ computer: [Int], _ user: [Int]) -> (strike: Int, ball: Int) {
     var strike: Int = 0
     var ball: Int = 0
     /* 임시변수, 변수명으로 적절한지...*/
     var tempNumbers = [Int]()
+    
+    
     
     for index in 0...2 {
         if computer[index] == user[index] {
@@ -65,5 +81,10 @@ func startGame() {
         print("남은 기회 : \(gameCountNumber)")
     } while !isGameFinished
 }
-    
-startGame()
+
+
+//while selectMenu(){
+//
+//    startGame()
+//
+//}
