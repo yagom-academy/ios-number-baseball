@@ -42,6 +42,24 @@ func compareComUser(_ com: [String], _ user: [String]) -> String {
     return "\(strike) 스트라이크, \(ball) 볼"
 }
 
+func userMenu() {
+    print("1. 게임시작\n2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ",terminator: "")
+    
+    let input: String? = readLine()
+    
+    if let input: String = input, input == "1" {
+        startGame()
+    } else if let input: String = input, input == "2" {
+        print("게임 종료")
+    } else {
+        print("입력이 잘못되었습니다")
+        userMenu()
+    }
+    
+}
+userMenu()
+
 func startGame() {
     let comArray: [String] = makeThreeRandomNo()
     while count != 0 {
@@ -57,5 +75,5 @@ func startGame() {
 }
 
 
-startGame()
+//startGame()
 
