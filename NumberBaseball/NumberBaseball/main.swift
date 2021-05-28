@@ -5,27 +5,26 @@
 //
 import Foundation
 
-var leftLife: Int = 9
+let limitLength: Int = 3
+var leftTrial: Int = 9
 var comNumbers: [String] = []
 var userNumbers: [String] = []
 
+
 func startGame() {
-    leftLife = 9
+    leftTrial = 9
     comNumbers = makeRandomNumbers()
     userNumbers = []
-    // print("-------------새 게임이 시작되었습니다.--------------")
-    // print("정답 넘버: ", comNumbers )
     judgeNumbers()
-    
 }
 
 func makeRandomNumbers() -> [String] {
-    var randomNumbersArray: Set<String> = []
+    var randomNumbers: Set<String> = []
    
-    while randomNumbersArray.count < 3 {
-        randomNumbersArray.insert(String(Int.random(in: 1...9)))
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(String(Int.random(in: 1...9)))
     }
-    return [String](randomNumbersArray)
+    return [String](randomNumbers)
 }
 
 func judgeBall(at index: Int) -> Int {
@@ -40,7 +39,6 @@ func judgeStrike(at index: Int) -> Int {
         return 1
     }
     return 0
-
 }
 
 func judgeNumbers() {
@@ -52,36 +50,30 @@ func judgeGame() {
     var ballCount: Int = 0
     var strikeCount: Int = 0
 
-    for i in 0...2 {
-       ballCount += judgeBall(at: i)
+    for number in 0..<limitLength {
+        ballCount += judgeBall(at: number)
+        ballCount -= judgeStrike(at: number)
+        strikeCount += judgeStrike(at: number)
     }
     
-    for i in 0...2 {
-        ballCount -= judgeStrike(at: i)
-        strikeCount += judgeStrike(at: i)
-        
-    }
     print("임의의 수 : ", userNumbers.joined(separator: " "))
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     
     
-    leftLife -= 1
-    if leftLife > 0 && strikeCount < 3 {
+    leftTrial -= 1
+    if leftTrial > 0 && strikeCount < limitLength {
 
-        print("남은 기회 : ", leftLife)
+        print("남은 기회 : ", leftTrial)
         judgeNumbers()
-     } else if leftLife > 0 && strikeCount == 3 {
-        print("남은 기회 : ", leftLife)
+     } else if leftTrial > 0 && strikeCount == limitLength {
+        print("남은 기회 : ", leftTrial)
         print("인간 승리")
-        // print("-------------게임이 종료되었습니다.--------------")
-        // startGame()    // 로 복귀
      } else  {
-        print("남은 기회 : ", leftLife)
+        print("남은 기회 : ", leftTrial)
         print("컴퓨터 승리...!")
-        // print("-------------게임이 종료되었습니다.--------------")
-        // startGame() // 로 복귀
     }
 
 }
 
 startGame()
+
