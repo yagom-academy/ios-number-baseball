@@ -6,7 +6,7 @@
 //
 import Foundation
 
-var remainCount: Int = 3
+var remainCount: Int = 9
 let inputNumbersCount: Int = 3
 
 func makeThreeRandomNumber() -> [String] {
@@ -97,8 +97,7 @@ func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool {
 
 func startGame() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
-//    let comArray: [String] = makeThreeRandomNumber()
-    let comArray: [String] = ["1", "2", "3"]
+    let comArray: [String] = makeThreeRandomNumber()
     
     while remainCount >= 0 {
         let userArray = inputUserArray()
