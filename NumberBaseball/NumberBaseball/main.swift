@@ -6,45 +6,46 @@
 //
 import Foundation
 
-var count: Int = 9
+var remainCount: Int = 9
+let inputNumbersCount: Int = 3
 
-func makeThreeRandomNo() -> [String] {
-    var tempArray = [String]()
+func makeThreeRandomNumber() -> [String] {
+    var tempRandomNumbers = [String]()
     
-    while tempArray.count < 3 {
-        let tempNo: String = String(Int.random(in: 1...9))
-        if !tempArray.contains(tempNo){
-            tempArray.append(tempNo)
+    while tempRandomNumbers.count < inputNumbersCount {
+        let tempNumber: String = String(Int.random(in: 1...9))
+        if !tempRandomNumbers.contains(tempNumber) {
+            tempRandomNumbers.append(tempNumber)
         }
     }
-    return tempArray
+    return tempRandomNumbers
 }
 
-func compareComUser(_ com: [String], _ user: [String]) -> String {
+func judgeStrikeBall(com: [String], user: [String]) -> String {
     var strike = 0, ball = 0
     
     if com == user {
-        count = 0
+        remainCount = 0
         return "사용자 승리!"
     }
     
-    for (indexCom, valueCom) in com.enumerated(){
-        for (indexUser, valueUser) in user.enumerated(){
+    for (indexCom, valueCom) in com.enumerated() {
+        for (indexUser, valueUser) in user.enumerated() {
             if indexCom == indexUser && valueCom == valueUser {
                 strike += 1
-            }else if valueCom == valueUser {
+            } else if valueCom == valueUser {
                 ball += 1
             }
         }
     }
     
-    count -= 1
+    remainCount -= 1
     return "\(strike) 스트라이크, \(ball) 볼"
 }
 
-func userMenu() {
+func startMenu() {
     print("1. 게임시작\n2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ",terminator: "")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
     
     let input: String? = readLine()
     
@@ -54,7 +55,7 @@ func userMenu() {
         print("게임 종료")
     } else {
         print("입력이 잘못되었습니다")
-        userMenu()
+        startMenu()
     }
     
 }
@@ -69,7 +70,7 @@ func inputUserArray() -> [String] {
     }
     return userNumbers
 }
-func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool  {
+func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool {
     
     // 중복값을 걸러내는 기능
     for i in 0..<userNumbers.count-1 {
@@ -82,7 +83,7 @@ func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool  {
     
     // 숫자의 범위(1...9)를 걸러내는 기능
     for i in userNumbers {
-        if !(i >= "1" && i <= "9" && i.count < 2 && i.count != 0){
+        if !(i >= "1" && i <= "9" && i.count < 2 && i.count != 0) {
             print("입력이 잘못되었습니다")
             return false
         }
@@ -103,22 +104,23 @@ func isUserNumberTrueFalse(_ userNumbers: [String]) -> Bool  {
 
 
 func startGame() {
-    let comArray: [String] = makeThreeRandomNo()
-
-    while count != 0 {
+    let comArray: [String] = makeThreeRandomNumber()
+    
+    while remainCount != 0 {
         let userArray = inputUserArray()
-        if isUserNumberTrueFalse(userArray){
-            print("임의의 수: \(userArray.joined(separator: " "))")
-            print(compareComUser(comArray, userArray))
+        if isUserNumberTrueFalse(userArray) {
+            let threeRandomNumbers = userArray.joined(separator: " ")
+            print("임의의 수: \(threeRandomNumbers)")
+            print(judgeStrikeBall(com: comArray, user: userArray))
         }
         
-        if count == 1 {
+        if remainCount == 1 {
             print("컴퓨터 승리...!")
         }
-        print("남은 기회: \(count)")
+        print("남은 기회: \(remainCount)")
     }
 }
 
 
-userMenu()
+startMenu()
 
