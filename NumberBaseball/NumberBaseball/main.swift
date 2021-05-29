@@ -54,13 +54,14 @@ func printWinner(name: String) {
 }
 
 func isGameOver(gameCount: Int, userWin: Bool) -> Bool{
-    print("남은 기회 : \(gameCount)")
     if userWin {
         printWinner(name: "사용자")
         return true
-    } else if !userWin && gameCount > 0{
+    } else if !userWin && gameCount > 0 {
+        print("남은 기회 : \(gameCount)")
         return false
     } else {
+        print("남은 기회 : \(gameCount)")
         printWinner(name: "컴퓨터")
         return true
     }
@@ -68,7 +69,7 @@ func isGameOver(gameCount: Int, userWin: Bool) -> Bool{
 
 func gameStart() {
     let computerNumbers = generateRandomNumbers()
-    var remainGameCount: Int = 9
+    var remainGameCount: Int = 200
     var userNumbers = [Int]()
     var userWin = false
     var gameOver = false
