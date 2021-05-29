@@ -9,7 +9,7 @@
 ![Step1_Flowchart](./image/Step1_Flowchart.png)
 STEP 1 플로우 차트입니다.
 
-![Step2_Flowchart](./image/Step2_Flowchart.png)
+![image](./image/Step2_FlowChart.png)
 STEP 2 플로우 차트입니다.
 
 
