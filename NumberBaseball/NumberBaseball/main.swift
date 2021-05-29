@@ -69,7 +69,7 @@ func isGameOver(gameCount: Int, userWin: Bool) -> Bool{
 
 func gameStart() {
     let computerNumbers = generateRandomNumbers()
-    var remainGameCount: Int = 200
+    var remainGameCount: Int = 9
     var userNumbers = [Int]()
     var userWin = false
     var gameOver = false
