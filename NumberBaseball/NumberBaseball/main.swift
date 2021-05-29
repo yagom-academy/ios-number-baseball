@@ -1,7 +1,7 @@
 import Foundation
 
-let answer:[Int] = generateRandomArray()
-var trialNumber:Int = 9
+let answer: [Int] = generateRandomArray()
+var trialNumber: Int = 9
 var userWin = false
 var gameEnd = false
 
@@ -57,15 +57,15 @@ func generateRandomArray() -> [Int] {
 
 func getStrikeCount(userValue: [Int]) -> Int {
     let combined = zip(answer, userValue)
-    let strike = combined.filter{Set([$0.0, $0.1]).count == 1}
+    let strike = combined.filter{Set([$0.0, $0.1]).count == 1}.count
     
-    return strike.count
+    return strike
 }
 
 func getBallCount(userValue: [Int]) -> Int {
     let combined = userValue + answer
     let setCombinedCount = Set(combined).count
-    let ball = 6 - setCombinedCount
+    let ball = 6 - setCombinedCount - getStrikeCount(userValue: userValue)
     
     return ball
 }
