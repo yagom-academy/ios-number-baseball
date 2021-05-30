@@ -6,7 +6,7 @@
 
 import Foundation
 
-func makeUniqueNumber(from targetArray: [Int]) -> Int{
+func makeUniqueNumber(from targetArray: [Int]) -> Int {
     let number = Int.random(in: 1...9)
     if !targetArray.contains(number) {
         return number
@@ -30,7 +30,7 @@ func isAnswer(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> Bool {
     return false
 }
 
-func getStrikeAndBall(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> (Int, Int) {
+func countStrikeAndBall(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> (Int, Int) {
     var index = 0
     var strike = 0
     var ball = 0
@@ -47,15 +47,15 @@ func getStrikeAndBall(_ guessNumbers: [Int], _ answerNumbers: [Int]) -> (Int, In
 
 func printGuessNumbers(_ guessNumbers: [Int]) {
     var printString = ""
-    for i in 0...2 {
-        printString += String(guessNumbers[i]) + " "
+    for index in guessNumbers.startIndex..<guessNumbers.endIndex {
+        printString += String(guessNumbers[index]) + " "
     }
     printString.removeLast()
     print("임의의 수 : \(printString)")
 }
 
-func printMessageIfLastRound(_ i: Int, _ tryRound: Int) {
-    if i == tryRound {
+func printMessageIfLastRound(index: Int, tryRound: Int) {
+    if index == tryRound {
         print("컴퓨터 승리...!")
     }
 }
@@ -70,17 +70,19 @@ func printUserWinMessage() {
     print("사용자 승리!")
 }
 
-func gameStart(_ tryRound: Int, _ answerNumbers: [Int] ) {
-    for i in 1...tryRound {
-        let guessNumbers = makeRandomNumbers()
-        if isAnswer(guessNumbers, answerNumbers) {
-            printUserWinMessage()
-            break
-        }
-        let (strike, ball) = getStrikeAndBall(guessNumbers, answerNumbers)
+func gameStart(_ tryRound: Int, _ answerNumbers: [Int]) {
+    var index = 1
+    var guessNumbers = makeRandomNumbers()
+    while index <= tryRound && isAnswer(guessNumbers, answerNumbers) {
+        let (strike, ball) = countStrikeAndBall(guessNumbers, answerNumbers)
         printGuessNumbers(guessNumbers)
-        printMessageIfLastRound(i, tryRound)
-        printStrikeAndBall(strike, ball, leftRound: tryRound - i)
+        printMessageIfLastRound(index: index, tryRound: tryRound)
+        printStrikeAndBall(strike, ball, leftRound: tryRound - index)
+        guessNumbers = makeRandomNumbers()
+        index += 1
+    }
+    if index <= tryRound && isAnswer(guessNumbers, answerNumbers) {
+        printUserWinMessage()
     }
 }
 
@@ -91,3 +93,5 @@ func main() {
 }
 
 main()
+
+
