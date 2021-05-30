@@ -73,7 +73,7 @@ func resetCount() {
 
 func compareNumber(with userNumbers: Array<UInt>) {
     printUserNumbers(userNumbers: userNumbers)
-    for i in 1..<userNumbers.count {
+    for i in 0..<userNumbers.count {
         if userNumbers[i] == computerNumbers[i] {
             baseballCount.strike += 1
         } else if computerNumbers.contains(userNumbers[i]) {
