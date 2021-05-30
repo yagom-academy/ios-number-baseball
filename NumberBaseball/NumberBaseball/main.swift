@@ -18,7 +18,7 @@ func makeThreeRandomNumber() -> [String] {
     return comNumbers
 }
 
-func judgeStrikeBall(_ comNumbers: [String], _ userNumbers: [String]) -> String {
+func judgeStrikeBall(comNumbers: [String], userNumbers: [String]) -> String {
     var strike = 0, ball = 0
     
     if comNumbers == userNumbers {
@@ -26,16 +26,15 @@ func judgeStrikeBall(_ comNumbers: [String], _ userNumbers: [String]) -> String 
         return "사용자 승리!"
     }
     
-    for (indexCom, valueCom) in comNumbers.enumerated(){
-        for (indexUser, valueUser) in userNumbers.enumerated(){
+    for (indexCom, valueCom) in comNumbers.enumerated() {
+        for (indexUser, valueUser) in userNumbers.enumerated() {
             if indexCom == indexUser && valueCom == valueUser {
                 strike += 1
-            }else if valueCom == valueUser {
+            } else if valueCom == valueUser {
                 ball += 1
             }
         }
     }
-    
     remainingChance -= 1
     return "\(strike) 스트라이크, \(ball) 볼"
 }
@@ -44,16 +43,16 @@ func startGame() {
     let comNumbers: [String] = makeThreeRandomNumber()
     while remainingChance != 0 {
         let userNumbers: [String] = makeThreeRandomNumber()
-        
-        print("임의의 수: \(userNumbers.joined(separator: " "))")
+        let randomNumbers: String = userNumbers.joined(separator: " ")
+
+        print("임의의 수: \(randomNumbers)")
         if remainingChance == 1 {
             print("컴퓨터 승리...!")
         }
-        print(judgeStrikeBall(comNumbers, userNumbers))
+        print(judgeStrikeBall(comNumbers: comNumbers, userNumbers: userNumbers))
         print("남은 기회: \(remainingChance)")
     }
 }
-
 
 startGame()
 
