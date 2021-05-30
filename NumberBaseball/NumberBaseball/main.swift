@@ -26,15 +26,19 @@ func judgeStrikeBall(comNumbers: [String], userNumbers: [String]) -> String {
         return "사용자 승리!"
     }
     
-    for (indexCom, valueCom) in comNumbers.enumerated() {
-        for (indexUser, valueUser) in userNumbers.enumerated() {
-            if indexCom == indexUser && valueCom == valueUser {
-                strike += 1
-            } else if valueCom == valueUser {
-                ball += 1
-            }
+    for index in 0..<comNumbers.count {
+        if comNumbers[index] == userNumbers[index] {
+            strike += 1
         }
     }
+    
+    for index in 0..<comNumbers.count {
+        if comNumbers.contains(userNumbers[index]) {
+            ball += 1
+        }
+    }
+    
+    ball = ball - strike
     remainingChance -= 1
     return "\(strike) 스트라이크, \(ball) 볼"
 }
