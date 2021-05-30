@@ -48,7 +48,7 @@ func startGame() {
     while remainingChance != 0 {
         let userNumbers: [String] = makeThreeRandomNumber()
         let randomNumbers: String = userNumbers.joined(separator: " ")
-
+        
         print("임의의 수: \(randomNumbers)")
         if remainingChance == 1 {
             print("컴퓨터 승리...!")

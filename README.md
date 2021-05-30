@@ -19,18 +19,15 @@
 
 
 ### Naming
-1. tempNo, tempArray: 함수 내에서 임시적으로 값을 할당하기 위한 정수형, 배열 타입의 변수와 상수
-2. comArray: 컴퓨터가 생성한 랜덤한 정수 3개를 담아둔 배열 상수
-3. userArray: 유저가 입력한 정수 3개를 담아둔 배열 상수
+1. tempComNumbers = 함수 내에서 임시적으로 값을 할당하기 위한 정수형 배열
+2. comNumbers: 컴퓨터가 생성한 랜덤한 정수 3개를 담아둔 배열
+3. userNumbers: 유저가 입력한 정수 3개를 담아둔 배열
 4. strike, ball: 스트라이크와 볼 수
-5. count: 유저가 한 번의 게임당 시도할 수 있는 횟수
+5. remainingChance: 유저가 한 번의 게임당 시도할 수 있는 횟수
 
 ### Step 1
 
-#### 기본 기능
-1. makeThreeRandomNo: func = 겹치지 않는 무작위의 3개의 수를 배열로 생성하여 반환.
-2. compareComUser: func = 컴퓨터가 생성한 수와 유저의 수를 비교하여 스트라이크와 볼을 반환
+1. makeThreeRandomNumber: func = 겹치지 않는 무작위의 3개의 수를 배열로 생성하여 반환.
+2. judgeStrikeBall: func = 컴퓨터가 생성한 수와 유저의 수를 비교하여 스트라이크와 볼을 반환
 3. startGame:func = 게임을 시작하는 함수
 
-
-### Step2
