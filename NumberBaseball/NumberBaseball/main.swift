@@ -9,15 +9,13 @@ import Foundation
 var count: Int = 9
 
 func makeThreeRandomNo() -> [String] {
-    var tempArray = [String]()
+    var tempComNumbers:Set<String> = []
     
-    while tempArray.count < 3 {
-        let tempNo: String = String(Int.random(in: 1...9))
-        if !tempArray.contains(tempNo){
-            tempArray.append(tempNo)
-        }
+    while tempComNumbers.count < 3 {
+        tempComNumbers.insert(String(Int.random(in: 1...9)))
     }
-    return tempArray
+    let comNumbers = Array(tempComNumbers)
+    return comNumbers
 }
 
 func compareComUser(_ com: [String], _ user: [String]) -> String {
