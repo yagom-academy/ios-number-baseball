@@ -52,13 +52,8 @@ func generateAnswer() -> [Int] {
 func filterUserInput(num : String?) -> [Int] {
     
     if let userNums = num {
-        //let userNumSet: Set = Set(userNums.split(separator: " ").compactMap { Int($0) })
         var userNumSet = userNums.split(separator: " ").compactMap { Int($0) }
-        
-        //let userNumLast = userNumSet.intersection(basicNum).map { $0 }
-        
         userNumSet.removeAll(where: {$0 < 1 || $0 > 9})
-        
         
         switch userNumSet.count {
         case 3:
@@ -75,15 +70,15 @@ func filterUserInput(num : String?) -> [Int] {
 
 
 
-func judgeAnswer(ans: [Int], num: [Int]) -> String {
+func judgeAnswer(answer: [Int], number: [Int]) -> String {
     var strike = 0
     var ball = 0
     let numRange = 0...2
 
     for index in numRange {
-        if num[index] == ans[index] {
+        if number[index] == answer[index] {
             strike += 1
-        } else if num.contains(ans[index]) {
+        } else if number.contains(answer[index]) {
             ball += 1
         }
     }
@@ -96,48 +91,46 @@ func judgeAnswer(ans: [Int], num: [Int]) -> String {
 }
 
 
-func startGame() -> Any {
+func startGame() {
     
     let comanswer = generateAnswer()
     
-    var leftchance = 9
+    let totalChance = 9
 
-    for i in 1...leftchance {
+    for i in 1...totalChance {
         let userInput = readLine()
         let userNum = filterUserInput(num: userInput)
-        let judgeAnswer = judgeAnswer(ans: comanswer, num: userNum)
+        let judgeAnswer = judgeAnswer(answer: comanswer, number: userNum)
         print(judgeAnswer)
         
         switch judgeAnswer {
         case "사용자 승리...!":
-            return selectOption()
+            selectOption()
             
         default:
-            print("남은 기회 : \(leftchance - i)")
+            print("남은 기회 : \(totalChance - i)")
         }
     }
-    
+    1
     print("컴퓨터의 승리...!")
     
-    return selectOption()
+    selectOption()
 }
 
 
-func writeNumber(option num: String?) -> Any {
+func writeNumber(option num: String?) {
     switch num {
     case "1" :
         print(ruleLiteral, terminator: "")
-        
-        return startGame()
+        startGame()
         
     case "2" :
-        return endGame()
+        endGame()
         
     default :
         print("입력이 잘못되었습니다.")
         writeNumber(option: selectOption())
     }
-    return 0
 }
 
 
