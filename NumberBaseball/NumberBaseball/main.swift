@@ -19,8 +19,8 @@ func generateRandomNumber() -> UInt {
     return randomNumber
 }
 
-func generateUserNumbers(userNumbers: Array<UInt>) {
-    let convertedNumber = userNumbers.map{"\($0)"}.reduce(""){
+func printUserNumbers(userNumbers: Array<UInt>) {
+    let convertedNumber = userNumbers.map {"\($0)"}.reduce("") {
         return $0 + " " + $1
     }
     print("임의의 수 :\(convertedNumber)")
@@ -72,8 +72,8 @@ func resetCount() {
 }
 
 func compareNumber(with userNumbers: Array<UInt>) {
-    generateUserNumbers(userNumbers: userNumbers)
-    for i in 1..<userNumbers.count{
+    printUserNumbers(userNumbers: userNumbers)
+    for i in 1..<userNumbers.count {
         if userNumbers[i] == computerNumbers[i] {
             baseballCount.strike += 1
         } else if computerNumbers.contains(userNumbers[i]) {
