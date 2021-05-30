@@ -12,12 +12,11 @@ func makeRandomNumbers() -> Array<Int> {
 
     while numbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
-    
+
         if !numbers.contains(randomNumber) {
             numbers.append(randomNumber)
         }
     }
-
     return numbers
 }
 
@@ -32,7 +31,6 @@ func compareArrays( _ computerNumbers: Array<Int>, _ userNumbers: Array<Int>) ->
             ball += 1
         }
     }
-    
     return (strike, ball)
 }
 
@@ -41,7 +39,7 @@ func startGame() {
     var tryCount: Int = 9
 
     while tryCount > 0 {
-        let userNumbers = userInputNumbers()
+        let userNumbers = verifyUserInput()
         let (strike, ball) = compareArrays(computerNumbers, userNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
 
@@ -80,35 +78,38 @@ func selectMenu() {
     }
 }
 
-func userInputNumbers() -> Array<Int> {
+func verifyUserInput() -> Array<Int> {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
 
     guard let inputString = readLine() else {
             print("입력이 잘못되었습니다")
-            return userInputNumbers()
+            return verifyUserInput()
     }
-    let separate = inputString.components(separatedBy: " ").filter({ $0 != "" })
-    var checkArray = Array<Int>()
+    
+    let unconvertedNumbers = inputString.components(separatedBy: " ").filter({ $0 != "" })
+    var userInputNumbers = Array<Int>()
 
-    if separate.count != 3 {
+    if unconvertedNumbers.count != 3 {
         print("입력이 잘못되었습니다")
-        return userInputNumbers()
+        return verifyUserInput()
     }
-    for stringNumber in separate {
-        if let convertNumber = Int(stringNumber), stringNumber.count < 2, !checkArray.contains(convertNumber) {
-                checkArray.append(convertNumber)
+    
+    for unconvertedNumber in unconvertedNumbers {
+        if let convertNumber = Int(unconvertedNumber), unconvertedNumber.count < 2, convertNumber != 0, !userInputNumbers.contains(convertNumber) {
+            userInputNumbers.append(convertNumber)
         } else {
             print("입력이 잘못되었습니다")
-            return userInputNumbers()
+            return verifyUserInput()
         }
     }
-    if checkArray.count == 3 {
-        return checkArray
+    
+    if userInputNumbers.count == 3 {
+        return userInputNumbers
     } else {
         print("입력이 잘못되었습니다")
-        return userInputNumbers()
+        return verifyUserInput()
     }
 }
 
