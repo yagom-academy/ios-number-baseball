@@ -4,15 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-/*변경 사항
- 
- */
 import Foundation
 
+typealias BaseballCount = (strike: UInt, ball: UInt)
 var computerNumbers: Array<UInt> = []
 let numberOfTry: UInt = 9
 var playCount: UInt = 0
-typealias BaseballCount = (strike: UInt, ball: UInt)
 var baseballCount: BaseballCount = BaseballCount(0,0)
 var isUserWin: Bool = false
 var isComputerWin: Bool = false
@@ -20,7 +17,7 @@ var isComputerWin: Bool = false
 func printMenu() {
     print("1. 게임 시작")
     print("2. 게임 종료")
-    print("원하는 기능을 선택해 주세요 : ", terminator: " ")
+    print("원하는 기능을 선택해 주세요 : ", terminator: "")
 }
 
 func selectMenu() {
@@ -30,7 +27,6 @@ func selectMenu() {
     }
     switch menu {
     case "1":
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
         startGame()
     case "2":
         return
@@ -48,7 +44,7 @@ func generateRandomNumber() -> UInt {
 func printUserNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
     print("중복 숫자는 허용하지 않습니다.")
-    print("입력: ", terminator:" ")
+    print("입력: ", terminator:"")
 }
 
 func generateRandomNumbers() -> Array<UInt> {
@@ -64,7 +60,7 @@ func generateRandomNumbers() -> Array<UInt> {
 
 func checkDuplicatedNumber(with userNumbers: Array<UInt>) -> Bool {
     let ConvertedNumbers = Set(userNumbers)
-    if(userNumbers.count != ConvertedNumbers.count) {
+    if userNumbers.count != ConvertedNumbers.count {
         print("입력이 잘못되었습니다")
         return false
     }
@@ -92,8 +88,8 @@ func checkUserNumberCount(with userNumbers: Array<UInt>) -> Bool {
 func convertStringToUInt (userNumbers: Array<String>) -> Array<UInt>{
     var convertedArray: Array<UInt> = []
     for i in 0..<userNumbers.count{
-        if let uintNumber = UInt(userNumbers[i]) {
-            convertedArray.append(uintNumber)
+        if let convertedNumber = UInt(userNumbers[i]) {
+            convertedArray.append(convertedNumber)
         }
     }
     return convertedArray
@@ -101,6 +97,7 @@ func convertStringToUInt (userNumbers: Array<String>) -> Array<UInt>{
 
 func inputUserNumbers() {
     var convertedNumbers: Array<UInt> = []
+    printUserNumbers()
     guard let userNumber = readLine() else {
         return inputUserNumbers()
     }
@@ -123,15 +120,11 @@ func printComparedNumberResult() {
     print("남은 기회 :\(numberOfTry-playCount)")
 }
 
-func checkGameOver() -> Bool {
+func checkGameOver() {
     if baseballCount.strike == 3 {
         isUserWin = true
-        return false
     } else if numberOfTry == playCount {
         isComputerWin = true
-        return false
-    } else{
-        return true
     }
 }
 
@@ -140,7 +133,6 @@ func resetCount() {
 }
 
 func compareNumber(with userNumbers: Array<UInt>) {
-    printUserNumbers()
     for i in 0..<userNumbers.count {
         if userNumbers[i] == computerNumbers[i] {
             baseballCount.strike += 1
@@ -153,8 +145,9 @@ func compareNumber(with userNumbers: Array<UInt>) {
 
 func startGame() {
     computerNumbers = generateRandomNumbers()
-    while checkGameOver() {
+    while isComputerWin == false && isUserWin == false {
         inputUserNumbers()
+        checkGameOver()
         printComparedNumberResult()
         resetCount()
     }
