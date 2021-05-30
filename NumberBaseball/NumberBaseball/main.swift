@@ -17,7 +17,7 @@ func createThreeRandomNumbers() -> [Int] {
     
 }
 
-func compareAnswers(answerNumbers: [Int], userInputNumbers: [Int]) -> (strike: Int, ball: Int) {
+func countStrikeAndBall(answerNumbers: [Int], userInputNumbers: [Int]) -> (strike: Int, ball: Int) {
     var strike: Int = 0
     var ball: Int = 0
     
@@ -102,13 +102,16 @@ func receiveUserGuesses() -> String {
 
 func receiveValidInputNumbers() -> [Int] {
     var input: String = receiveUserGuesses()
-    var convertedInput: [Int] = input.split(separator:" ").map {Int($0) ?? 0}
+    var splitInput: [Substring] = input.split(separator:" ")
+    var convertedInput : [Int] = splitInput.map { Int($0) ?? 0 }
+    
     while convertedInput.count != 3 || hasDuplicate(numbers: convertedInput) ||
             convertedInput.filter({$0 > 0 && $0 < 10}).count != 3 {
         printInvalidInput()
         printGuidance()
         input = receiveUserGuesses()
-        convertedInput = input.split(separator:" ").map {Int($0) ?? 0}
+        splitInput = input.split(separator:" ")
+        convertedInput = splitInput.map { Int($0) ?? 0 }
     }
     return convertedInput
 }
@@ -119,9 +122,9 @@ func startStep2Game() {
 
     while remainingChances > 0  {
         printGuidance()
-        let inputArray: [Int] = receiveValidInputNumbers()
+        let inputNumbers: [Int] = receiveValidInputNumbers()
         remainingChances -= 1
-        let strikeAndBall: (strike: Int, ball: Int) = compareAnswers(answerNumbers: answerNumbers, userInputNumbers: inputArray)
+        let strikeAndBall: (strike: Int, ball: Int) = countStrikeAndBall(answerNumbers: answerNumbers, userInputNumbers: inputNumbers)
         printGameStatus(strike: strikeAndBall.strike,
                         ball: strikeAndBall.ball,
                         remainingChances: &remainingChances)
