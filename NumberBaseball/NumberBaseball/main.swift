@@ -21,14 +21,28 @@
  */
 import Foundation
 
-let inputNumbers = generateRandomThreeNumbers()
+
 let keyNumbers = generateRandomThreeNumbers()
 
 func runNumberGame() {
     var remainNumber = 9
+    var trialNumbers: [Int]
     
-    while remainNumber > 0 {
+    while true {
         remainNumber -= 1
+        trialNumbers = generateRandomThreeNumbers()
+        let (numStrike, numBall) = giveGameResult(trialNumbers: trialNumbers)
+        print("임의의 수: \(trialNumbers[0]) \(trialNumbers[1]) \(trialNumbers[2])")
+        print("\(numStrike) 스트라이크, \(numBall) 볼")
+        if numStrike == 3 {
+            print("사용자 승리...!")
+            break
+        }
+        print("남은 기회: \(remainNumber)")
+        if remainNumber <= 0 {
+            print("컴퓨터 승리...!")
+            break
+        }
     }
 }
 
@@ -44,17 +58,17 @@ func generateRandomThreeNumbers() -> [Int] {
     return randomNumbers
 }
 
-func giveGameResult() -> (Int, Int) {
+func giveGameResult(trialNumbers: [Int]) -> (Int, Int) {
     var numStrike = 0
     var numBall = 0
     
-    for idx in 0..<inputNumbers.count {
-        if inputNumbers[idx] == keyNumbers[idx] {
+    for idx in 0..<trialNumbers.count {
+        if trialNumbers[idx] == keyNumbers[idx] {
             numStrike += 1
-        } else if keyNumbers.contains(inputNumbers[idx]) {
+        } else if keyNumbers.contains(trialNumbers[idx]) {
             numBall += 1
         }
     }
-    
     return (numStrike, numBall)
 }
+
