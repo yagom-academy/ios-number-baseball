@@ -6,6 +6,7 @@
 
 import Foundation
 
+
 var strikeCount = 0
 
 var array1 = [3, 2, 1]
@@ -24,3 +25,20 @@ func readStrike() {
     print("\(strikeCount) 스트라이크")
 }
 
+var randomTargetNums = generateUniqueRandomNums(start: 1, end: 9)
+var randomPlayerNums = generateUniqueRandomNums(start: 1, end: 9)
+var remainCounts = 9
+
+func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
+    var randomNums = [Int]()
+    
+    while randomNums.count < 3 {
+        let nums = Int.random(in: start...end)
+        guard !randomNums.contains(nums) else {
+            continue
+        }
+        randomNums.append(nums)
+    }
+    
+    return randomNums
+}
