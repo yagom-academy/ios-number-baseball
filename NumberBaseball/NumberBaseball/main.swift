@@ -32,6 +32,7 @@ func runNumberGame() {
         remainNumber -= 1
         trialNumbers = generateRandomThreeNumbers()
         let (numStrike, numBall) = giveGameResult(trialNumbers: trialNumbers)
+        print("입력된 수: \(keyNumbers[0]) \(keyNumbers[1]) \(keyNumbers[2])")
         print("임의의 수: \(trialNumbers[0]) \(trialNumbers[1]) \(trialNumbers[2])")
         print("\(numStrike) 스트라이크, \(numBall) 볼")
         if numStrike == 3 {
@@ -49,7 +50,7 @@ func runNumberGame() {
 func generateRandomThreeNumbers() -> [Int] {
     var randomNumbers = [Int]()
     
-    while randomNumbers.count >= 3 {
+    while randomNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
         if randomNumbers.contains(randomNumber) == false {
             randomNumbers.append(randomNumber)
@@ -72,3 +73,4 @@ func giveGameResult(trialNumbers: [Int]) -> (Int, Int) {
     return (numStrike, numBall)
 }
 
+runNumberGame()
