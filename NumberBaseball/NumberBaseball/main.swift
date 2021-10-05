@@ -21,10 +21,12 @@
  */
 import Foundation
 
+let inputNumbers = generateRandomThreeNumbers()
+let keyNumbers = generateRandomThreeNumbers()
+
 func runNumberGame() {
     var remainNumber = 9
-    let keyNumbers = generateRandomThreeNumbers()
-
+    
     while remainNumber > 0 {
         remainNumber -= 1
     }
@@ -40,4 +42,19 @@ func generateRandomThreeNumbers() -> [Int] {
         }
     }
     return randomNumbers
+}
+
+func giveGameResult() -> (Int, Int) {
+    var numStrike = 0
+    var numBall = 0
+    
+    for idx in 0..<inputNumbers.count {
+        if inputNumbers[idx] == keyNumbers[idx] {
+            numStrike += 1
+        } else if keyNumbers.contains(inputNumbers[idx]) {
+            numBall += 1
+        }
+    }
+    
+    return (numStrike, numBall)
 }
