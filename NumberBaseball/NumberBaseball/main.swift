@@ -7,11 +7,12 @@
 import Foundation
 
 func runNumberGame() {
-    let lifeCount = 9
+    let lifeCount = 999
     let generatedCorrectNumbers = generatedThreeRandomNumbers()
     var userTryNumbers: [Int]
+    var threeStrikeFlag = false
     
-    for attemptCount in 1...lifeCount {
+    for attemptCount in 1...lifeCount where threeStrikeFlag == false {
         userTryNumbers = generatedThreeRandomNumbers()
         
         let (strikeCount, ballCount) = computeStrikeAndBall(generatedCorrectNumbers: generatedCorrectNumbers, userTryNumbers: userTryNumbers)
@@ -19,27 +20,46 @@ func runNumberGame() {
         print("임의의 수: \(userTryNumbers[0]) \(userTryNumbers[1]) \(userTryNumbers[2])")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
-        if strikeCount == 3 {
-            print("사용자 승리...!")
-            return
-        }
+        threeStrikeFlag = isThreeStrike(strikeCount: strikeCount)
+        
+        printAttemptCount(lifeCount: lifeCount, attemptCount: attemptCount, threeStrikeFlag: threeStrikeFlag)
+    }
+
+    if threeStrikeFlag == true {
+        print("사용자 승리...!")
+    } else {
+        print("컴퓨터 승리...!")
+    }
+}
+
+func printAttemptCount(lifeCount: Int, attemptCount: Int, threeStrikeFlag: Bool) {
+    if threeStrikeFlag == true {
+        return
+    } else {
         print("남은 기회: \(lifeCount-attemptCount)")
     }
-    print("컴퓨터 승리...!")
+}
+
+func isThreeStrike(strikeCount: Int) -> Bool {
+    if strikeCount == 3 {
+        return true
+    } else {
+        return false
+    }
 }
 
 func generatedThreeRandomNumbers() -> [Int] {
     var randomNumbers: [Int]
+    var deduplicatedNumbers: Set<Int>
     
-    while true {
+    repeat {
         randomNumbers = [Int.random(in: 1...9), Int.random(in: 1...9), Int.random(in: 1...9)]
         
-        let deduplicatedNumbers = Set(randomNumbers)
+        deduplicatedNumbers = Set(randomNumbers)
         
-        if randomNumbers.count == deduplicatedNumbers.count {
-            return randomNumbers
-        }
-    }
+    } while randomNumbers.count != deduplicatedNumbers.count
+    
+    return randomNumbers
 }
 
 func computeStrikeAndBall(generatedCorrectNumbers: [Int], userTryNumbers: [Int]) -> (Int, Int) {
@@ -55,3 +75,5 @@ func computeStrikeAndBall(generatedCorrectNumbers: [Int], userTryNumbers: [Int])
     }
     return (strikeCount, ballCount)
 }
+
+runNumberGame()
