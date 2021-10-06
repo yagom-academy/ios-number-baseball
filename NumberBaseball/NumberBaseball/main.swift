@@ -12,15 +12,15 @@ var strikeCount = 0
 var array1 = [3, 2, 1]
 var array2 = [3, 2, 1]
 
-func strikeCounter(a: Int) {
-    if array1[a] == array2[a] {
+func strikeCounter(index: Int) {
+    if array1[index] == array2[index] {
         strikeCount += 1
     }
 }
 
 func readStrike() {
-    for time in 0...2 {
-        strikeCounter(a: time)
+    for time in 0..<array1.count {
+        strikeCounter(index: time)
     }
     print("\(strikeCount) 스트라이크")
 }
@@ -33,11 +33,11 @@ func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
     var randomNums = [Int]()
     
     while randomNums.count < 3 {
-        let nums = Int.random(in: start...end)
-        guard !randomNums.contains(nums) else {
+        let num = Int.random(in: start...end)
+        guard !randomNums.contains(num) else {
             continue
         }
-        randomNums.append(nums)
+        randomNums.append(num)
     }
     
     return randomNums
