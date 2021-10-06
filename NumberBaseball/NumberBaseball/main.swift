@@ -30,12 +30,20 @@ func generateRandomNumbers() -> [Int] {
     return Array(radomNumbers)
 }
 
-func countMatchingNumbers(of target: [Int], and userNumbers: [Int]) -> Int {
-    let targetSet = Set<Int>(target)
-    let playerSet = Set<Int>(userNumbers)
-    let count = targetSet.intersection(playerSet).count
+func countMatchingNumbers(target: [Int], player: [Int]) -> Int {
+    let target = Set<Int>(target)
+    let player = Set<Int>(player)
+    let count = target.intersection(player).count
     return count
 }
+
+func calculateStrikeCount(target: [Int], player: [Int]) -> Int {
+    let resultArray: [Int] = target.filter{ player.contains($0) }
+    return resultArray.count
+}
+
+
+
 
 
 
