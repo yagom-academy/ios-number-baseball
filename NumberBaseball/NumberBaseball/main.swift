@@ -9,16 +9,15 @@ import Foundation
 var randomNumbers: Set<Int> = []
 var tryCount: Int = 9
 
-func chooseRandomNumber() {
-    let number = Int.random(in: 1...9)
-    randomNumbers.insert(number)
+func generatedRandomNumbers() -> [Int] {
+    while randomNumbers.count < 3 {
+        let number = Int.random(in: 1...9)
+        randomNumbers.insert(number)
+    }
+    return Array(randomNumbers)
 }
 
-while randomNumbers.count < 3 {
-    chooseRandomNumber()
-}
-
-let computerNumbers = Array(randomNumbers)
+let computerNumbers = generatedRandomNumbers()
 
 func compareResult(with userNumbers: [Int]) -> [Int] {
     var ballCount: Int = 0
