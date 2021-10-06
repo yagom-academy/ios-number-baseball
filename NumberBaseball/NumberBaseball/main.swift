@@ -34,3 +34,24 @@ func checkBallCount(answerNumbers: [Int], userNumbers: [Int]) -> [Int] {
 
 var randomAnswerNumbers = createRandomNumbers()
 var gameCount = 9
+
+func startGame() {
+    while gameCount > 0 {
+        gameCount -= 1
+        let userNumbers = createRandomNumbers()
+        let checkBallCount = checkBallCount(answerNumbers: randomAnswerNumbers, userNumbers: userNumbers)
+        let strikeCount = checkBallCount[0]
+        let ballCount = checkBallCount[1]
+        
+        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        if gameCount == 0 && strikeCount < 3 {
+            print("컴퓨터 승리…!")
+        } else if strikeCount == 3 {
+            print("사용자 승리!")
+        }
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        print("남은 기회 : \(gameCount)")
+    }
+}
+
+startGame()
