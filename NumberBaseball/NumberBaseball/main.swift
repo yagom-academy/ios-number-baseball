@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 func makeRandomNumbers() -> [Int] {
     var result: Set<Int> = []
     while result.count < 3 {
@@ -21,8 +20,6 @@ func checkUniqueAndInsert(_ value: Int, into result: inout Set<Int>) {
         result.insert(value)
     }
 }
-
-
 
 var computerNumbers: [Int] = makeRandomNumbers()
 
@@ -45,19 +42,21 @@ func compareComputerNumbers(with userNumbers: [Int]) -> [Int]{
 
 func startGame() {
     var chancesLeft = 9
-    for _ in 0...8 {
+    var userWin: Bool = false
+    while chancesLeft > 0, userWin == false {
         let userNumbers = makeRandomNumbers()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         let result = compareComputerNumbers(with: userNumbers)
         print("\(result[1]) 스트라이크, \(result[0]) 볼")
         chancesLeft -= 1
         print("남은 기회 : \(chancesLeft)")
-        if result[1] == 1 {
-            print("사용자 승리...!")
-            return
-        }
+        userWin = result[1] == 3
     }
-    print("컴퓨터 승리...!")
+    if userWin {
+        print("사용자 승리...!")
+    } else {
+        print("컴퓨터 승리...!")
+    }
 }
 
 startGame()
