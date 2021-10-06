@@ -6,77 +6,83 @@
 
 import Foundation
 
-var randomTargetNums: [Int] = generateUniqueRandomNums(start: 1, end: 9)
+let digitsOfGame = 3
+
+var randomTargetNums: [Int] = generateUniqueRandomNums(from: 1, to: 9)
 var randomPlayerNums: [Int] = [Int]()
 
-var remainedCounts = 9
-var strikeCount = 0
-var ballCount = 0
+var remainedRounds = 9
+var strikeCounts = 0
+var ballCounts = 0
 
-func countStrikeAndBall(index: Int) {
+func judgeStrikeAndBall(index: Int) {
     if randomTargetNums[index] == randomPlayerNums[index] {
-        strikeCount += 1
+        strikeCounts += 1
     } else if randomTargetNums.contains(randomPlayerNums[index]) {
-        ballCount += 1
+        ballCounts += 1
     }
 }
 
-func readStrikeAndBall() {
-    for time in 0..<randomTargetNums.count {
-        countStrikeAndBall(index: time)
+func countStrikeAndBall() {
+    for time in 0..<digitsOfGame {
+        judgeStrikeAndBall(index: time)
     }
 }
 
 func printStrikeAndBall() {
-    print("\(strikeCount) 스트라이크 \(ballCount) 볼")
+    print("\(strikeCounts) 스트라이크 \(ballCounts) 볼")
 }
 
-func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
-    var randomNums = [Int]()
+func generateUniqueRandomNums(from: Int, to: Int) -> [Int] {
+    var uniqueRandomNums = [Int]()
     
-    while randomNums.count < 3 {
-        let num = Int.random(in: start...end)
-        guard !randomNums.contains(num) else {
+    while uniqueRandomNums.count < digitsOfGame {
+        let num = Int.random(in: from...to)
+        guard !uniqueRandomNums.contains(num) else {
             continue
         }
-        randomNums.append(num)
+        uniqueRandomNums.append(num)
     }
     
-    return randomNums
+    return uniqueRandomNums
 }
 
 func presentPlayerNums() {
-    randomPlayerNums = generateUniqueRandomNums(start: 1, end: 9)
-    print("임의의 수 : \(randomPlayerNums[0]) \(randomPlayerNums[1]) \(randomPlayerNums[2])")
+    randomPlayerNums = generateUniqueRandomNums(from: 1, to: 9)
+    print("임의의 수 : ", terminator: "")
+    for i in 0..<digitsOfGame {
+        print(randomPlayerNums[i], terminator: " ")
+    }
+    print("")
 }
 
 func gameResult() {
-    if strikeCount == 3 {
+    if strikeCounts == digitsOfGame {
         print("플레이어 승리...!")
-    } else if remainedCounts == 0 {
+    } else if remainedRounds == 0 {
         print("컴퓨터 승리...!")
     }
 }
 
-func endRound() {
-    remainedCounts -= 1
-    print("남은 기회 : \(remainedCounts)")
+func presentRounds() {
+    remainedRounds -= 1
+    print("남은 기회 : \(remainedRounds)")
 }
 
-func resetStrikeBallCounts() {
-    strikeCount = 0
-    ballCount = 0
+func resetStrikeAndBallCounts() {
+    strikeCounts = 0
+    ballCounts = 0
 }
 
 func playBaseballGame() {
     repeat {
-        resetStrikeBallCounts()
+        resetStrikeAndBallCounts()
         presentPlayerNums()
-        readStrikeAndBall()
+        countStrikeAndBall()
         printStrikeAndBall()
-        endRound()
+        presentRounds()
         gameResult()
-    } while remainedCounts > 0 && strikeCount < 3
+    } while remainedRounds > 0 && strikeCounts < digitsOfGame
 }
 
 playBaseballGame()
