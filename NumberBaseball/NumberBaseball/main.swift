@@ -42,19 +42,31 @@ func checkSameNumbers(computerNumbers: [Int], with playerNumbers: [Int]) -> [Int
     return sameNumbers
 }
 
+func findIndex(of number: Int, in numbers: [Int]) -> Int? {
+    if let index = numbers.firstIndex(of: number) {
+        return index
+    }
+    return nil
+}
+
 func checkSameOrder(computerNumbers: [Int], with playerNumbers: [Int]) {
     let sameNumbers: [Int] = checkSameNumbers(computerNumbers: computerNumbers, with: playerNumbers)
     
     for sameNumber in sameNumbers {
         
-        if let indexOfComputerNumber = computerNumbers.firstIndex(of: sameNumber),
-           let indexOfPlayerNumber = playerNumbers.firstIndex(of: sameNumber) {
-            if indexOfComputerNumber == indexOfPlayerNumber {
-                strike += 1
-                continue
-            }
-            ball += 1
+        let indexOfComputerNumber = findIndex(of: sameNumber, in: computerNumbers)
+        let indexOfPlayerNumber = findIndex(of: sameNumber, in: playerNumbers)
+        
+        guard indexOfComputerNumber != nil, indexOfPlayerNumber != nil else {
+            print("로직 에러 발생 - 동일하지 않은 숫자의 index를 비교하고 있습니다")
+            return
         }
+        
+        if indexOfComputerNumber == indexOfPlayerNumber {
+            strike += 1
+            continue
+        }
+        ball += 1
         
     }
 }
