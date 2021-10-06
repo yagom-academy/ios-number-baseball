@@ -24,23 +24,22 @@ import Foundation
 // index 가 필요하겠다. -> Array.
 
 var answerRandomInt: [Int] = [] // 번호를 담아둘 배열
-//var chance: Int = 9 // 남은 시도횟수
+var chance: Int = 9 // 남은 시도횟수
 var randomIntComputer: [Int] = [] // 컴퓨터가 줄 수
+var strike: Int = 0
+var ball: Int = 0
 
-func generateRandomInt(randomNumber: inout [Int]) {
+func generateRandomInt(to: inout [Int]) {
     // 3개 랜덤하게 생성해서 randomInt 에 넣어주는 것 까지!
     var originalNumber: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     originalNumber.shuffle()
     for _ in 1...3 {
-        randomNumber.append(originalNumber.removeFirst())
+        to.append(originalNumber.removeFirst())
     }
 }
 
 func judgeBaseballResult() {
     //야구 결과를 판단하는 함수
-    var strike: Int = 0
-    var ball: Int = 0
-    
     for pitch in 0...2 {
         if randomIntComputer[pitch] == answerRandomInt[pitch] {
             strike += 1
@@ -54,15 +53,31 @@ func judgeBaseballResult() {
 }
 
 func playGame() {
-    generateRandomInt(randomNumber: &answerRandomInt)
+    generateRandomInt(to: &answerRandomInt)
     
-    for chance in (0...8).reversed() {
-        generateRandomInt(randomNumber: &randomIntComputer)
+    for _ in 1...chance {
+        generateRandomInt(to: &randomIntComputer)
         judgeBaseballResult()
         randomIntComputer.removeAll()
+        
+        chance -= 1
+        
         print("남은 기회 : \(chance)")
+        
+        if strike == 3 {
+            print("사용자 승리!")
+            return
+        }
+        
+        if chance == 0 {
+            print("컴퓨터 승리...!")
+            return
+        }
+        strike = 0
+        ball = 0
     }
 }
+
 
 // readLine() 으로 받은 "Int Int Int" 비교해야 하는 건 [Int, Int, Int]
 // String 으로 들어온 입력을 Int()로 바꿔서, 인덱스 하나하나 비교하는 순서?
