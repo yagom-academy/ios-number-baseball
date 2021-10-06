@@ -4,3 +4,7 @@
 
 [@junbangg](https://github.com/junbangg)
 [@Quokkaaa](https://github.com/Quokkaaa)
+
+
+### 프로그램 순서도(FlowChart)
+[aladdin_quoka - Page 1.pdf](https://github.com/junbangg/ios-number-baseball/files/7293030/aladdin_quoka.-.Page.1.pdf)
