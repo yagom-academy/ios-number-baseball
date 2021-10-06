@@ -33,14 +33,20 @@ func compareResult(with userNumbers: [Int]) -> [Int] {
 
 func startGame() {
     computerNumbers = generatedRandomNumbers()
-    while tryCount != 0 {
+    var strikeCount: Int = 0
+    while tryCount != 0 && strikeCount != 3 {
         tryCount = tryCount - 1
         let userNumbers = generatedRandomNumbers()
         print("임의의 수 : " + userNumbers.map{String($0)}.joined(separator: " "))
         print("\(compareResult(with: userNumbers)[0]) 스트라이크, \(compareResult(with: userNumbers)[1]) 볼")
         print("남은 기회 : \(tryCount)")
+        strikeCount = compareResult(with: userNumbers)[0]
+    }
+    if strikeCount == 3 {
+        print("사용자 승리!")
+    } else {
+        print("컴퓨터 승리...!")
     }
 }
-
 startGame()
 
