@@ -63,7 +63,6 @@ func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers)
     return score
 }
 
-print("타겟 숫자 : \(targetNumbers)")
 for currentTryCount in 1...9 {
     let gameScore: (strike: Int, ball: Int) = playGameResult()
     let isWin: Bool = gameScore.strike == 3
