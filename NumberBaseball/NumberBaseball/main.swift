@@ -14,7 +14,7 @@ var ballCount: Int
 
 var strikeCount: Int
 
-var playerNumbers: [Int]
+
 
 var targetNumbers: [Int] = generateRandomNumbers()
 
@@ -42,8 +42,14 @@ func calculateStrikeCount(target: [Int], player: [Int]) -> Int {
     return resultArray.count
 }
 
-
-
+func cauculateStrikeAndBall() -> (Int, Int) {
+    let playerNumbers: [Int] = generateRandomNumbers()
+    let total: Int = countMatchingNumbers(target: targetNumbers, player: playerNumbers)
+    let strikes: Int = calculateStrikeCount(target: targetNumbers, player: playerNumbers)
+    let ball = total - strikes
+    
+    return (strikes, ball)
+}
 
 
 
