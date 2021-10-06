@@ -23,19 +23,18 @@ import Foundation
 // 임의의 정수 3개 담아둘 변수! -> Set or Array?
 // index 가 필요하겠다. -> Array.
 
-var randomInt: [Int] = [] // 번호를 담아둘 배열
-var chance: Int = 9 // 남은 시도횟수
-var randomIntComputer: [Int] = [1, 2, 3] // 컴퓨터가 줄 수
+var answerRandomInt: [Int] = [] // 번호를 담아둘 배열
+//var chance: Int = 9 // 남은 시도횟수
+var randomIntComputer: [Int] = [] // 컴퓨터가 줄 수
 
-func generateRandomInt() {
+func generateRandomInt(randomNumber: inout [Int]) {
     // 3개 랜덤하게 생성해서 randomInt 에 넣어주는 것 까지!
     var originalNumber: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     originalNumber.shuffle()
     for _ in 1...3 {
-        randomInt.append(originalNumber.removeFirst())
+        randomNumber.append(originalNumber.removeFirst())
     }
 }
-
 
 func judgeBaseballResult() {
     //야구 결과를 판단하는 함수
@@ -43,9 +42,9 @@ func judgeBaseballResult() {
     var ball: Int = 0
     
     for pitch in 0...2 {
-        if randomIntComputer[pitch] == randomInt[pitch] {
+        if randomIntComputer[pitch] == answerRandomInt[pitch] {
             strike += 1
-        } else if randomInt.contains(randomIntComputer[pitch]) {
+        } else if answerRandomInt.contains(randomIntComputer[pitch]) {
             ball += 1
         }
     }
@@ -54,12 +53,19 @@ func judgeBaseballResult() {
     print("\(strike) 스트라이크, \(ball) 볼")
 }
 
+func playGame() {
+    generateRandomInt(randomNumber: &answerRandomInt)
+    
+    for chance in (0...8).reversed() {
+        generateRandomInt(randomNumber: &randomIntComputer)
+        judgeBaseballResult()
+        randomIntComputer.removeAll()
+        print("남은 기회 : \(chance)")
+    }
+}
+
 // readLine() 으로 받은 "Int Int Int" 비교해야 하는 건 [Int, Int, Int]
 // String 으로 들어온 입력을 Int()로 바꿔서, 인덱스 하나하나 비교하는 순서?
 
+playGame()
 
-
-generateRandomInt()
-judgeBaseballResult()
-print(randomInt)
-print(randomIntComputer)
