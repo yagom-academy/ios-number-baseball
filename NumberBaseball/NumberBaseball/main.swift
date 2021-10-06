@@ -6,10 +6,7 @@
 
 import Foundation
 
-// 변수 - 남은 시도횟수, (볼), 스트라이크 횟수, 임의의 정수 3개를 담을 변수
-
 var remainingAttempts: Int = 9
-
 var targetNumbers: [Int] = generateRandomNumbers()
 
 func generateRandomNumbers() -> [Int] {
@@ -31,51 +28,51 @@ func countMatchingNumbers(target: [Int], player: [Int]) -> Int {
 
 func calculateStrikeCount(target: [Int], player: [Int]) -> Int {
     var count = 0
-        for index in 0...2 {
-            if target[index] == player[index] {
-                count += 1
-            }
-        }
-        return count
+    for index in 0...2 {
+        count += target[index] == player[index] ? 1 : 0
+    }
+    return count
 }
 
 func calculateStrikeAndBall(targetNumbers: [Int], playerNumbers: [Int]) -> (Int, Int) {
     let total: Int = countMatchingNumbers(target: targetNumbers, player: playerNumbers)
     let strikes: Int = calculateStrikeCount(target: targetNumbers, player: playerNumbers)
-    let ball = total - strikes
+    let balls = total - strikes
     
-    return (strikes, ball)
+    return (strikes, balls)
 }
 
 func playInning() -> Int {
     let playerNumbers = generateRandomNumbers()
-    print("정답: \(targetNumbers)")
     print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
+    
     let (strikeCount, ballCount) = calculateStrikeAndBall(targetNumbers: targetNumbers, playerNumbers: playerNumbers)
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    
     return strikeCount
 }
 
 func printRemainingAttempts() {
     remainingAttempts -= 1
     print("남은 기회: \(remainingAttempts)")
-    if remainingAttempts == 0 {
+    
+    guard remainingAttempts != 0 else {
         print("컴퓨터 승리...!")
-        remainingAttempts = 9
+        return
     }
 }
 
 func startGame() {
     while remainingAttempts > 0 {
+        let strikeCount = playInning()
         
-        if playInning() == 3 {
+        if strikeCount == 3 {
             print("사용자 승리!")
             return
         }
         printRemainingAttempts()
     }
 }
-
 
 startGame()
 
