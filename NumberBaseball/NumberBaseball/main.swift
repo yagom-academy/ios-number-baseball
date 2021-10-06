@@ -88,3 +88,22 @@ func checkWinner() {
         isGameOver = false
     }
 }
+
+func reset() {
+    makeComputerRandomNumber()
+    
+    while isGameOver == false {
+        makePlayerRandomNumber()
+        printPlayerRandomNumber()
+        trialCount -= 1
+        strike = 0
+        ball = 0
+        
+        compareNumbers(computerNumbers: computerRandomNumbers, with: playerRandomNumbers)
+        printCompareResult()
+        printTrialCount()
+        checkWinner()
+    }
+}
+
+reset()
