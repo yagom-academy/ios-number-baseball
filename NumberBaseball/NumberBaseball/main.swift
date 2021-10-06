@@ -14,35 +14,31 @@ var ballCount: Int
 
 var strikeCount: Int
 
-var winningNumbers: Set<Int>
+var playerNumbers: [Int]
 
-var randomNumbers: Set<Int>
+var targetNumbers: [Int] = generateRandomNumbers()
 
 
 
-func isSame(first: Set<Int>, second: Set<Int>) -> Int {
-    let winningSet = first.intersection(second).count
-    switch winningSet {
-    case 0:
-        print("0 스트라이크, 0 볼")
-    case 1:
-        print("1 스트라이크, 0볼 혹은 0 스트라이크, 1 볼")
-    case 2:
-        print("2 스트라이크, 0볼 혹은 1 스트라이크, 1 볼 혹은 0 스트라이크 2 볼")
-    case 3:
-    default:
-    }
+func generateRandomNumbers() -> [Int] {
+    var radomNumbers: Set<Int> = []
     
-}
-
-// 임의의 3개 정수 만들고 반환
-
-func makeRandomNumbers() {
-    var numbers: [Int] = []
-    
-    while numbers.count < 3 {
+    while radomNumbers.count < 3 {
         let number: Int = Int.random(in: 1...9)
-        numbers.append(number)
+        radomNumbers.insert(number)
     }
+    return Array(radomNumbers)
 }
+
+func countMatchingNumbers(of target: [Int], and userNumbers: [Int]) -> Int {
+    let targetSet = Set<Int>(target)
+    let playerSet = Set<Int>(userNumbers)
+    let count = targetSet.intersection(playerSet).count
+    return count
+}
+
+
+
+
+
 
