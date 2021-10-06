@@ -19,15 +19,13 @@ func generatedRandomNumbers() -> Array<Int>{
     return Array(numbers)
 }
 
-//print(generatedRandomNumbers())
-
 func returnResult(of numbers: [Int]) -> String{
     var result: String = " "
     
     for index in 0...2{
         judgeStrikeOrBall(of: numbers[index], at: index)
     }
-    result = "\(strikeCount)스트라이크, \(ballCount)볼"
+    result = "\(strikeCount) 스트라이크, \(ballCount) 볼"
     
     return result
 }
@@ -40,6 +38,21 @@ func judgeStrikeOrBall(of number: Int, at index: Int){
     }
 }
 
+
+
+func startOneGame(){
+    let randomNumbers = generatedRandomNumbers()
+    let string: String = generatedRandomNumbers().reduce(""){String($0) + " " + String($1)}
+    tryCount -= 1
+    let message = """
+    임의의 수 : \(string)
+    \(returnResult(of: randomNumbers))
+    남은 기회 : \(tryCount)
+    """
+    print(message)
+}
+
+startOneGame()
 /*
 func input(){
     print("입력 : ", terminator: " ")
