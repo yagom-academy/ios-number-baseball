@@ -33,3 +33,11 @@ func printPlayerRandomNumber() {
     }
     print("\n", terminator: "")
 }
+
+func checkSameNumbers(computerNumbers: [Int], with playerNumbers: [Int]) -> [Int] {
+    let computerNumbersWithoutOrder: Set<Int> = Set(computerNumbers)
+    let playerNumbersWithoutOrder: Set<Int> = Set(playerNumbers)
+    let sameNumbers: [Int] = computerNumbersWithoutOrder.intersection(playerNumbersWithoutOrder).sorted()
+    
+    return sameNumbers
+}
