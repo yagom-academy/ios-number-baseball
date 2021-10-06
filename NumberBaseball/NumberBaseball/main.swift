@@ -24,7 +24,8 @@ import Foundation
 // index 가 필요하겠다. -> Array.
 
 var randomInt: [Int] = [] // 번호를 담아둘 배열
-var chance: Int = 9
+var chance: Int = 9 // 남은 시도횟수
+var randomIntComputer: [Int] = [1, 2, 3] // 컴퓨터가 줄 수
 
 func generateRandomInt() {
     // 3개 랜덤하게 생성해서 randomInt 에 넣어주는 것 까지!
@@ -35,9 +36,30 @@ func generateRandomInt() {
     }
 }
 
-generateRandomInt()
-print(randomInt)
+
+func judgeBaseballResult() {
+    //야구 결과를 판단하는 함수
+    var strike: Int = 0
+    var ball: Int = 0
+    
+    for pitch in 0...2 {
+        if randomIntComputer[pitch] == randomInt[pitch] {
+            strike += 1
+        } else if randomInt.contains(randomIntComputer[pitch]) {
+            ball += 1
+        }
+    }
+    //찬스를 안깎음
+    print("임의의 수 : \(randomIntComputer[0]) \(randomIntComputer[1]) \(randomIntComputer[2])")
+    print("\(strike) 스트라이크, \(ball) 볼")
+}
 
 // readLine() 으로 받은 "Int Int Int" 비교해야 하는 건 [Int, Int, Int]
 // String 으로 들어온 입력을 Int()로 바꿔서, 인덱스 하나하나 비교하는 순서?
 
+
+
+generateRandomInt()
+judgeBaseballResult()
+print(randomInt)
+print(randomIntComputer)
