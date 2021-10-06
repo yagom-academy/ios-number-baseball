@@ -9,7 +9,7 @@ import Foundation
 var randomTargetNums: [Int] = generateUniqueRandomNums(start: 1, end: 9)
 var randomPlayerNums: [Int] = [Int]()
 
-var remainingCounts = 9
+var remainedCounts = 9
 var strikeCount = 0
 var ballCount = 0
 
@@ -28,7 +28,7 @@ func readStrikeAndBall() {
 }
 
 func printStrikeAndBall() {
-    print("\(strikeCount)스트라이크 \(ballCount)볼")
+    print("\(strikeCount) 스트라이크 \(ballCount) 볼")
 }
 
 func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
@@ -44,4 +44,40 @@ func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
     
     return randomNums
 }
+
+func presentPlayerNums() {
+    randomPlayerNums = generateUniqueRandomNums(start: 1, end: 9)
+    print("임의의 수 : \(randomPlayerNums[0]) \(randomPlayerNums[1]) \(randomPlayerNums[2])")
+}
+
+func gameResult() {
+    if strikeCount == 3 {
+        print("플레이어 승리...!")
+    } else if remainedCounts == 0 {
+        print("컴퓨터 승리...!")
+    }
+}
+
+func endRound() {
+    remainedCounts -= 1
+    print("남은 기회 : \(remainedCounts)")
+}
+
+func resetStrikeBallCounts() {
+    strikeCount = 0
+    ballCount = 0
+}
+
+func playBaseballGame() {
+    repeat {
+        resetStrikeBallCounts()
+        presentPlayerNums()
+        readStrikeAndBall()
+        printStrikeAndBall()
+        endRound()
+        gameResult()
+    } while remainedCounts > 0 && strikeCount < 3
+}
+
+playBaseballGame()
 
