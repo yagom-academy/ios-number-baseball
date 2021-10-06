@@ -76,3 +76,15 @@ func printCompareResult() {
 func printTrialCount() {
     print("남은 기회 : \(trialCount)")
 }
+
+func checkWinner() {
+    if strike == 3 {
+        print("사용자 승리!")
+        isGameOver = true
+    } else if trialCount == 0 {
+        print("컴퓨터 승리...!")
+        isGameOver = true
+    } else {
+        isGameOver = false
+    }
+}
