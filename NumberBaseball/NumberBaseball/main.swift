@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 func makeRandomNumber() -> Int {
     var randomNumber: Int = 0
     
@@ -36,41 +35,38 @@ func makeUserInput() {
     print(userRandomNumberSet)
 }
 
-1 2 4
-3 2 1
+func judgeBall(_ randomNumbers: Array<Int>, _ userNumber: Int) -> Int{
 
--> 1스, 1볼
-
--> 2볼
-
-func judgeBall(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int{
-    var ballNumber = 0
-    
-    if randomNumbers[0] != userNumbers[0], randomNumbers.contains(userNumbers[0]) {
-        ballNumber += 1
+    if randomNumbers.contains(userNumber){
+        return 1
+    } else {
+        return 0
     }
 }
 
-func judgeStrike(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int{
+func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
     var strikeNumber = 0
+    var ballNumber = 0
     
     if randomNumbers[0] == userNumbers[0] {
         strikeNumber += 1
+    } else {
+        ballNumber += judgeBall(randomNumbers, userNumbers[0])
     }
     
     if randomNumbers[1] == userNumbers[1] {
         strikeNumber += 1
+    } else {
+        ballNumber += judgeBall(randomNumbers, userNumbers[1])
     }
     
     if randomNumbers[2] == userNumbers[2] {
         strikeNumber += 1
+    } else {
+        ballNumber += judgeBall(randomNumbers, userNumbers[2])
     }
     
-    return strikeNumber
-}
-
-func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> String{
-    
+    print("\(strikeNumber) 스트라이크, \(ballNumber) 볼")
 }
 
 let randomNumbers: Array<Int> = makeRandomNumberSet()
