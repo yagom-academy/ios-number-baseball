@@ -68,3 +68,11 @@ func compareNumbers(computerNumbers: [Int], with playerNumbers: [Int]) {
         checkSameOrder(computerNumbers: computerNumbers, with: playerNumbers)
     }
 }
+
+func printCompareResult() {
+    print("\(strike) 스트라이크, \(ball) 볼")
+}
+
+func printTrialCount() {
+    print("남은 기회 : \(trialCount)")
+}
