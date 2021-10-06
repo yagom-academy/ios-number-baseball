@@ -7,3 +7,4 @@
 import Foundation
 
 let randomAnswerNumbers = [Int](1...9).shuffled()[0...2]
+var gameCount = 9
