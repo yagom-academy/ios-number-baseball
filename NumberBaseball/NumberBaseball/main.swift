@@ -67,11 +67,12 @@ print("타겟 숫자 : \(targetNumbers)")
 for currentTryCount in 1...9 {
     let gameScore: (strike: Int, ball: Int) = playGameResult()
     let isWin: Bool = gameScore.strike == 3
-    print("남은 기회 : \(tryCount - currentTryCount)")
     
     if isWin {
         print("사용자 승리!")
+        break
     } else if currentTryCount == 9 {
+        print("남은 기회 : \(tryCount - currentTryCount)")
         print("컴퓨터 승리...!")
     }
 }
