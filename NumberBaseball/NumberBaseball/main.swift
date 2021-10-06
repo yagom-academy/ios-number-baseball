@@ -6,5 +6,5 @@
 
 import Foundation
 
-print("Hello, World!")
-
+var randomNumbers: [Int] = []
+var remainChances: Int = 9
