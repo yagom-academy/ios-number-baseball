@@ -8,6 +8,8 @@ import Foundation
 
 var computerNumbers: Array<Int> = generatedRandomNumbers()
 var tryCount: Int = 9
+var strikeCount: Int = 0
+var ballCount: Int = 0
 
 func generatedRandomNumbers() -> Array<Int>{
     var numbers: Set<Int> = Set<Int>()
@@ -21,14 +23,22 @@ func generatedRandomNumbers() -> Array<Int>{
 
 func returnResult(of numbers: [Int]) -> String{
     var result: String = " "
-    var strikeCount: Int
-    var ballCount: Int
-
     
+    for index in 0...2{
+        judgeStrikeOrBall(of: numbers[index], at: index)
+    }
+    result = "\(strikeCount)스트라이크, \(ballCount)볼"
     
     return result
 }
 
+func judgeStrikeOrBall(of number: Int, at index: Int){
+    if number == computerNumbers[index]{
+        strikeCount += 1
+    }else if computerNumbers.contains(number) {
+        ballCount += 1
+    }
+}
 
 /*
 func input(){
