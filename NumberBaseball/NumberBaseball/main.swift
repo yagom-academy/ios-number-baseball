@@ -7,28 +7,28 @@
 import Foundation
 
 func runNumberGame() {
-    let numLife = 9
-    let keyNumbers = generateThreeRandomNumbers()
+    let lifeCount = 9
+    let generatedCorrectNumbers = generatedThreeRandomNumbers()
     var userTryNumbers: [Int]
     
-    for numAttempt in 1...numLife {
-        userTryNumbers = generateThreeRandomNumbers()
+    for attemptCount in 1...lifeCount {
+        userTryNumbers = generatedThreeRandomNumbers()
         
-        let (numStrike, numBall) = computeStrikeAndBall(keyNumbers: keyNumbers, userTryNumbers: userTryNumbers)
+        let (strikeCount, ballCount) = computeStrikeAndBall(generatedCorrectNumbers: generatedCorrectNumbers, userTryNumbers: userTryNumbers)
         
         print("임의의 수: \(userTryNumbers[0]) \(userTryNumbers[1]) \(userTryNumbers[2])")
-        print("\(numStrike) 스트라이크, \(numBall) 볼")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
-        if numStrike == 3 {
+        if strikeCount == 3 {
             print("사용자 승리...!")
             return
         }
-        print("남은 기회: \(numLife-numAttempt)")
+        print("남은 기회: \(lifeCount-attemptCount)")
     }
     print("컴퓨터 승리...!")
 }
 
-func generateThreeRandomNumbers() -> [Int] {
+func generatedThreeRandomNumbers() -> [Int] {
     var randomNumbers: [Int]
     
     while true {
@@ -42,16 +42,16 @@ func generateThreeRandomNumbers() -> [Int] {
     }
 }
 
-func computeStrikeAndBall(keyNumbers: [Int], userTryNumbers: [Int]) -> (Int, Int) {
-    var numStrike = 0
-    var numBall = 0
+func computeStrikeAndBall(generatedCorrectNumbers: [Int], userTryNumbers: [Int]) -> (Int, Int) {
+    var strikeCount = 0
+    var ballCount = 0
     
-    for idx in 0..<userTryNumbers.count {
-        if userTryNumbers[idx] == keyNumbers[idx] {
-            numStrike += 1
-        } else if keyNumbers.contains(userTryNumbers[idx]) {
-            numBall += 1
+    for indexOfUserTryNumbers in 0..<userTryNumbers.count {
+        if userTryNumbers[indexOfUserTryNumbers] == generatedCorrectNumbers[indexOfUserTryNumbers] {
+            strikeCount += 1
+        } else if generatedCorrectNumbers.contains(userTryNumbers[indexOfUserTryNumbers]) {
+            ballCount += 1
         }
     }
-    return (numStrike, numBall)
+    return (strikeCount, ballCount)
 }
