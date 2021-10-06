@@ -6,7 +6,7 @@
 
 import Foundation
 
-var randomNumbers: [Int] = []
+var randomNumbers: [Int] = generate3RandomNumbers()
 var remainChances: Int = 9
 
 func generate3RandomNumbers() -> [Int] {
@@ -37,25 +37,48 @@ func isNumber(numbers: [String]) -> [Int]? {
         
         result.append(number)
     }
-    
     return result
 }
 
-func getInputNumbers() -> [Int] {
+func getInputNumbers() -> [Int]? {
     print("임의의 수 : ", terminator: "")
     guard let inputNumber: String = readLine() else {
         print("입력이 잘못되었습니다")
-        return []
+        return nil
     }
     let separatedNumbers: [String] = inputNumber.components(separatedBy: " ")
     guard let numbers: [Int] = isNumber(numbers: separatedNumbers),
             numbers.count == 3,
             Set(numbers).count == 3 else {
         print("입력이 잘못되었습니다")
-        return []
+        return nil
     }
     
     return numbers
 }
 
-print(getInputNumbers())
+func checkTheResult (inputNumbers:[Int]) {
+    var sameNumberCount:Int = 0
+    var strikeCount:Int = 0
+    let ballCount:Int
+    
+    for inputNumber in inputNumbers {
+        if randomNumbers.contains(inputNumber) {
+            sameNumberCount += 1
+        }
+    }
+    
+    for index in (0...2) {
+        if randomNumbers[index] == inputNumbers[index] {
+            strikeCount += 1
+        }
+    }
+    
+    ballCount = sameNumberCount - strikeCount
+    
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+}
+
+
+
+
