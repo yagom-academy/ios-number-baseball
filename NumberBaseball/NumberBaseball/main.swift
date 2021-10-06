@@ -16,7 +16,6 @@ func runNumberGame() {
         
         let (numStrike, numBall) = computeStrikeAndBall(keyNumbers: keyNumbers, userTryNumbers: userTryNumbers)
         
-        print("임의의 수: \(keyNumbers[0]) \(keyNumbers[1]) \(keyNumbers[2])")
         print("임의의 수: \(userTryNumbers[0]) \(userTryNumbers[1]) \(userTryNumbers[2])")
         print("\(numStrike) 스트라이크, \(numBall) 볼")
         
