@@ -6,6 +6,7 @@
 
 import Foundation
 
+
 func makeRandomNumber() -> Int {
     var randomNumber: Int = 0
     
@@ -13,7 +14,7 @@ func makeRandomNumber() -> Int {
     return randomNumber
 }
 
-func makeRandomNumberSet() {
+func makeRandomNumberSet() -> Array<Int> {
     var randomNumberSet = Set<Int>()
     
     repeat {
@@ -21,10 +22,8 @@ func makeRandomNumberSet() {
     } while randomNumberSet.count < 3
     
     let randomNumberArray = Array(randomNumberSet)
-}
-
-func printMenu() {
-    print("임의의 수 : ", terminator: "")
+    
+    return randomNumberArray
 }
 
 func makeUserInput() {
@@ -37,6 +36,46 @@ func makeUserInput() {
     print(userRandomNumberSet)
 }
 
-printMenu()
-makeUserInput()
+1 2 4
+3 2 1
 
+-> 1스, 1볼
+
+-> 2볼
+
+func judgeBall(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int{
+    
+}
+
+func judgeStrike(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int{
+    var strikeNumber = 0
+    
+    if randomNumbers[0] == userNumbers[0] {
+        strikeNumber += 1
+    }
+    
+    if randomNumbers[1] == userNumbers[1] {
+        strikeNumber += 1
+    }
+    
+    if randomNumbers[2] == userNumbers[2] {
+        strikeNumber += 1
+    }
+    
+    return strikeNumber
+}
+
+func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> String{
+    
+}
+
+let randomNumbers: Array<Int> = makeRandomNumberSet()
+var userNumbers: Array<Int> = makeRandomNumberSet()
+
+func printNumbers(_ radomArray: Array<Int>) {
+    print("임의의 수: \(radomArray[0]) \(radomArray[1]) \(radomArray[2])")
+}
+
+
+
+printNumbers(userNumbers)
