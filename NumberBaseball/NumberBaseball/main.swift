@@ -39,14 +39,14 @@ func judgeStrikeOrBall(of number: Int, at index: Int) {
 
 func playOneRound() {
     let randomNumbers = generatedRandomNumbers()
-    let randomNumberToRandomNumber: String = randomNumbers.reduce(""){String($0) + " " + String($1)}
+    let randomNumberToString: String = randomNumbers.reduce(""){String($0) + " " + String($1)}
     
     tryCount -= 1
     strikeCount = 0
     ballCount = 0
     
     let message = """
-    임의의 수 : \(randomNumberToRandomNumber)
+    임의의 수 : \(randomNumberToString)
     \(returnResult(of: randomNumbers))
     남은 기회 : \(tryCount)
     """
