@@ -25,26 +25,16 @@ func makeRandomNumberSet() -> Array<Int> {
     return randomNumberArray
 }
 
-func makeUserInput() {
-    var userRandomNumberSet = Set<Int>()
-    
-    while userRandomNumberSet.count < 3 {
-        userRandomNumberSet.insert(makeRandomNumber())
-    }
-    
-    print(userRandomNumberSet)
-}
-
-func judgeBall(_ randomNumbers: Array<Int>, _ userNumber: Int) -> Int{
-
-    if randomNumbers.contains(userNumber){
+func judgeBall(_ randomNumbers: Array<Int>, _ userNumber: Int) -> Int {
+//!
+    if randomNumbers.contains(userNumber) {
         return 1
     } else {
         return 0
     }
 }
 
-func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
+func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int {
     var strikeNumber = 0
     var ballNumber = 0
     
@@ -67,15 +57,36 @@ func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
     }
     
     print("\(strikeNumber) 스트라이크, \(ballNumber) 볼")
+    
+    if strikeNumber == 3 {
+        print("사용자 승리!")
+    }
+    return strikeNumber
 }
-
-let randomNumbers: Array<Int> = makeRandomNumberSet()
-var userNumbers: Array<Int> = makeRandomNumberSet()
 
 func printNumbers(_ radomArray: Array<Int>) {
     print("임의의 수: \(radomArray[0]) \(radomArray[1]) \(radomArray[2])")
 }
 
+func launchBaseBall() {
+    let randomNumbers: Array<Int> = makeRandomNumberSet()
+    var userNumbers: Array<Int> = Array<Int>()
+    var gameCount: Int = 9
+    var check = true
+    
+    while gameCount < 1, randomNumbers != userNumbers {
+        userNumbers = makeRandomNumberSet()
+        printNumbers(userNumbers)
+        compareNumbers(randomNumbers, userNumbers)
+        gameCount -= 1
+        print("남은 기회 : \(gameCount)")
+    }
+    
+    if gameCount == 0 {
+        print("컴퓨터 승리...!")
+    } else {
+        print("사용자 승리!")
+    }
+}
 
-
-printNumbers(userNumbers)
+func checkThreeStrike(_ ) {
