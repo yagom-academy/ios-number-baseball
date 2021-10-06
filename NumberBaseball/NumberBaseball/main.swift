@@ -26,10 +26,10 @@ func createRandomNumbers(first: Int = 1, last: Int = 9, count: Int = 3) -> [Int]
     
     repeat {
         let num: Int = Int.random(in: first...last)
+        
         if !resultNumbers.contains(num) {
             resultNumbers.append(num)
         }
-        
     } while resultNumbers.count < count
     
     return resultNumbers
@@ -37,7 +37,7 @@ func createRandomNumbers(first: Int = 1, last: Int = 9, count: Int = 3) -> [Int]
 
 targetNumbers = createRandomNumbers()
 
-func startGame() {
+func playGameResult() -> (Int, Int) {
     print("임의의 수 : ", terminator: "")
     let randomNumbers = createRandomNumbers()
     
@@ -45,6 +45,8 @@ func startGame() {
     
     let score: (strike: Int, ball: Int) = compareScore(by: randomNumbers)
     print("\(score.strike) 스트라이크, \(score.ball) 볼")
+    
+    return score
 }
 
 func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers) -> (Int, Int) {
@@ -62,7 +64,14 @@ func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers)
 }
 
 print("타겟 숫자 : \(targetNumbers)")
-for _ in 1...10 {
-    startGame()
+for currentTryCount in 1...9 {
+    let gameScore: (strike: Int, ball: Int) = playGameResult()
+    let isWin: Bool = gameScore.strike == 3
+    print("남은 기회 : \(tryCount - currentTryCount)")
+    
+    if isWin {
+        print("사용자 승리!")
+    } else if currentTryCount == 9 {
+        print("컴퓨터 승리...!")
+    }
 }
-
