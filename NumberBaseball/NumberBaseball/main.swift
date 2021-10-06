@@ -44,13 +44,13 @@ func startGame() {
         let ballCount = checkBallCount[1]
         
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        print("남은 기회 : \(gameCount)")
         if gameCount == 0 && strikeCount < 3 {
             print("컴퓨터 승리…!")
         } else if strikeCount == 3 {
             print("사용자 승리!")
         }
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        print("남은 기회 : \(gameCount)")
     }
 }
 
