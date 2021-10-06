@@ -6,26 +6,28 @@
 
 import Foundation
 
-var randomNumber: Set<Int> = []
+var randomNumbers: Set<Int> = []
+var tryCount: Int = 9
 
 func chooseRandomNumber() {
-    var number = Int.random(in: 1...9)
-    randomNumber.insert(number)
+    let number = Int.random(in: 1...9)
+    randomNumbers.insert(number)
 }
 
-while randomNumber.count < 3 {
+while randomNumbers.count < 3 {
     chooseRandomNumber()
 }
 
+let computerNumbers = Array(randomNumbers)
+
 func compareResult(with userNumbers: [Int]) -> [Int] {
-    let randomNumbers = Array(randomNumber)
     var ballCount: Int = 0
     var strikeCount: Int = 0
     for index in 0...(userNumbers.count - 1) {
-        ballCount += randomNumbers.contains(userNumbers[index]) ? 1 : 0
+        ballCount += computerNumbers.contains(userNumbers[index]) ? 1 : 0
     }
     for index in 0...(userNumbers.count - 1) {
-        strikeCount += randomNumbers[index] == userNumbers[index] ? 1 : 0
+        strikeCount += computerNumbers[index] == userNumbers[index] ? 1 : 0
     }
     ballCount -= strikeCount
     return [ballCount, strikeCount]
