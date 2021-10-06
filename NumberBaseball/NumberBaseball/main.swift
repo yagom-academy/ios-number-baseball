@@ -44,7 +44,11 @@ func makeUserInput() {
 -> 2볼
 
 func judgeBall(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int{
+    var ballNumber = 0
     
+    if randomNumbers[0] != userNumbers[0], randomNumbers.contains(userNumbers[0]) {
+        ballNumber += 1
+    }
 }
 
 func judgeStrike(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) -> Int{
