@@ -6,5 +6,4 @@
 
 import Foundation
 
-print("Hello, World!")
-
+let randomAnswerNumbers = [Int](1...9).shuffled()[0...2]
