@@ -25,3 +25,11 @@ func makeComputerRandomNumber() {
 func makePlayerRandomNumber() {
     playerRandomNumbers = makeDeduplicatedRandomNumbers()
 }
+
+func printPlayerRandomNumber() {
+    print("임의의 수 : ", terminator: "")
+    for number in playerRandomNumbers {
+        print("\(number) ", terminator: "")
+    }
+    print("\n", terminator: "")
+}
