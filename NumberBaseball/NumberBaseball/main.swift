@@ -41,3 +41,20 @@ func checkSameNumbers(computerNumbers: [Int], with playerNumbers: [Int]) -> [Int
     
     return sameNumbers
 }
+
+func checkSameOrder(computerNumbers: [Int], with playerNumbers: [Int]) {
+    let sameNumbers: [Int] = checkSameNumbers(computerNumbers: computerNumbers, with: playerNumbers)
+    
+    for sameNumber in sameNumbers {
+        
+        if let indexOfComputerNumber = computerNumbers.firstIndex(of: sameNumber),
+           let indexOfPlayerNumber = playerNumbers.firstIndex(of: sameNumber) {
+            if indexOfComputerNumber == indexOfPlayerNumber {
+                strike += 1
+                continue
+            }
+            ball += 1
+        }
+        
+    }
+}
