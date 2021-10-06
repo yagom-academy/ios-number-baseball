@@ -7,35 +7,35 @@
 import Foundation
 
 class StartBaseballGame {
-    var randomNumberArray: [Int] = []
-    var computerNumberArray: [Int] = []
-    var userNumberArray: [Int] = []
+    var randomNumbers: [Int] = []
+    var computerNumbers: [Int] = []
+    var userNumbers: [Int] = []
     var userTrueAndComputerFalse: Bool = true
     var restChance: Int = 9
   
     func extractRandomNumber(userTrueAndComputerFalse: Bool) -> [Int] {
-        randomNumberArray = []
+        randomNumbers = []
         
-        while randomNumberArray.count != 3 {
-            randomNumberArray.append(Int.random(in: 1...9))
-            randomNumberArray = Array(Set(randomNumberArray))
+        while randomNumbers.count != 3 {
+            randomNumbers.append(Int.random(in: 1...9))
+            randomNumbers = Array(Set(randomNumbers))
         }
         if userTrueAndComputerFalse == true {
-            userNumberArray = randomNumberArray
+            userNumbers = randomNumbers
         } else {
-            computerNumberArray = randomNumberArray
+            computerNumbers = randomNumbers
         }
-        return randomNumberArray
+        return randomNumbers
     }
     
     func countStrikeAndBall() -> [Int] {
         var checkSameNumber:[Int] = []
         
-        for eachNumber in computerNumberArray{
-            userNumberArray.contains(eachNumber) ? checkSameNumber.append(eachNumber) : checkSameNumber.append(0)
+        for eachNumber in computerNumbers{
+            userNumbers.contains(eachNumber) ? checkSameNumber.append(eachNumber) : checkSameNumber.append(0)
         }
         let sameNumber = checkSameNumber.filter{ $0 != 0 }
-        let strikeCount:Int = sameNumber.filter{ userNumberArray.firstIndex(of: $0) == computerNumberArray.firstIndex(of: $0) }.count
+        let strikeCount:Int = sameNumber.filter{ userNumbers.firstIndex(of: $0) == computerNumbers.firstIndex(of: $0) }.count
         let ballCount:Int = sameNumber.count - strikeCount
         
         restChance -= 1
