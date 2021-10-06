@@ -21,3 +21,7 @@ func makeComputerRandomNumber() {
     computerRandomNumbers = makeDeduplicatedRandomNumbers()
     print("(과제 확인용 출력) 컴퓨터 : \(computerRandomNumbers)")
 }
+
+func makePlayerRandomNumber() {
+    playerRandomNumbers = makeDeduplicatedRandomNumbers()
+}
