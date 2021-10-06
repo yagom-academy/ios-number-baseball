@@ -61,7 +61,7 @@ private func startGame() {
             break
         } else {
             chance -= 1
-            print("남은 기회: \(chance)")
+            print("남은 기회 : \(chance)")
         }
     }
     
