@@ -15,6 +15,12 @@ var tryCount: Int = 9
 
 var randomNumbers: [Int] = []
 
+func convertIntArrayToString(_ array: [Int]) -> String {
+    let resultString: String = array.map { String($0) }.joined(separator: " ")
+    
+    return resultString
+}
+
 func createRandomNumbers(first: Int = 1, last: Int = 9, count: Int = 3) -> [Int] {
     var resultNumbers: [Int] = []
     
@@ -35,21 +41,24 @@ func startGame() {
     print("임의의 수 : ", terminator: "")
     let randomNumbers = createRandomNumbers()
     
-    print("\(randomNumbers[0]) \(randomNumbers[1]) \(randomNumbers[2])")
+    print(convertIntArrayToString(randomNumbers))
     
-    strikeCount = compareStrike(by: randomNumbers)
+    let score: (strike: Int, ball: Int) = compareScore(by: randomNumbers)
+    print("\(score.strike) 스트라이크, \(score.ball) 볼")
 }
 
-func compareStrike(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers) -> Int {
-    var strikeCount: Int = 0
+func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers) -> (Int, Int) {
+    var score: (strike: Int, ball: Int) = (0, 0)
     
     for i in randomNumbers.indices {
         if randomNumbers[i] == targetNumbers[i] {
-            strikeCount += 1
+            score.strike += 1
+        } else if targetNumbers.contains(randomNumbers[i]) && targetNumbers[i] != randomNumbers[i] {
+            score.ball += 1
         }
     }
     
-    return strikeCount
+    return score
 }
 
 print("타겟 숫자 : \(targetNumbers)")
