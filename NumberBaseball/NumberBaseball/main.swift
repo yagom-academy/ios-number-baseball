@@ -6,18 +6,28 @@
 
 import Foundation
 
-var computerNumbers: Set<Int> = Set<Int>()
+var computerNumbers: Array<Int> = generatedRandomNumbers()
 var tryCount: Int = 9
 
 func generatedRandomNumbers() -> Array<Int>{
-    while computerNumbers.count < 3{
-        computerNumbers.insert(Int.random(in: 1...9))
+    var numbers: Set<Int> = Set<Int>()
+    while numbers.count < 3{
+        numbers.insert(Int.random(in: 1...9))
     }
-    return Array(computerNumbers)
+    return Array(numbers)
 }
 
-print(generatedRandomNumbers())
+//print(generatedRandomNumbers())
 
+func returnResult(of numbers: [Int]) -> String{
+    var result: String = " "
+    var strikeCount: Int
+    var ballCount: Int
+
+    
+    
+    return result
+}
 
 
 /*
