@@ -7,64 +7,59 @@
 import Foundation
 
 class StartBaseballGame {
-    var checkRepeatNumberArray: [Int] = []
     var randomNumberArray: [Int] = []
+    var computerNumberArray: [Int] = []
     var userNumberArray: [Int] = []
-    var checkUserTrueOrComputerFalse: Bool = true
-    var hitThreeStrike: Bool = false
+    var userTrueAndComputerFalse: Bool = true
     var restChance: Int = 9
   
-    func extractRandomNumber(checkUserTrueOrComputerFalse: Bool) ->[Int]{
-        checkRepeatNumberArray = []
+    func extractRandomNumber(userTrueAndComputerFalse: Bool) -> [Int] {
+        randomNumberArray = []
         
-        while checkRepeatNumberArray.count != 3 {
-            checkRepeatNumberArray.append(Int.random(in: 1...9))
-            checkRepeatNumberArray = Array(Set(checkRepeatNumberArray))
+        while randomNumberArray.count != 3 {
+            randomNumberArray.append(Int.random(in: 1...9))
+            randomNumberArray = Array(Set(randomNumberArray))
         }
-        if checkUserTrueOrComputerFalse == true {
-            userNumberArray = checkRepeatNumberArray
+        if userTrueAndComputerFalse == true {
+            userNumberArray = randomNumberArray
         } else {
-            randomNumberArray = checkRepeatNumberArray
+            computerNumberArray = randomNumberArray
         }
-        return checkRepeatNumberArray
+        return randomNumberArray
     }
     
-    func checkNumberError(_ numbers: Int...) {
+    func countStrikeAndBall() -> [Int] {
+        var checkSameNumber:[Int] = []
         
-    }
-    
-    func compareComputerUserNumber() -> [Int] {
-        var sameNumberDifferentZero:[Int] = []
-        
-        for eachNumber in randomNumberArray{
-            userNumberArray.contains(eachNumber) ? sameNumberDifferentZero.append(eachNumber) : sameNumberDifferentZero.append(0)
+        for eachNumber in computerNumberArray{
+            userNumberArray.contains(eachNumber) ? checkSameNumber.append(eachNumber) : checkSameNumber.append(0)
         }
-        let sameNumber = sameNumberDifferentZero.filter{ $0 != 0 }
-        let strikeCount:Int = sameNumber.filter{ userNumberArray.firstIndex(of: $0) == randomNumberArray.firstIndex(of: $0) }.count
+        let sameNumber = checkSameNumber.filter{ $0 != 0 }
+        let strikeCount:Int = sameNumber.filter{ userNumberArray.firstIndex(of: $0) == computerNumberArray.firstIndex(of: $0) }.count
         let ballCount:Int = sameNumber.count - strikeCount
         
-        
         restChance -= 1
+        
         return [strikeCount, ballCount]
     }
     
     init() {
-        var kk: [Int] = []
-        extractRandomNumber(checkUserTrueOrComputerFalse: false)
+        var strikeAndBall: [Int] = []
+        extractRandomNumber(userTrueAndComputerFalse: false)
     
         while restChance > 0{
-            let user = extractRandomNumber(checkUserTrueOrComputerFalse: true)
-            let userStringArray = user.map{ String($0) }
+            let userArray = extractRandomNumber(userTrueAndComputerFalse: true)
+            let userStringArray = userArray.map{ String($0) }
             let printUserNumber = userStringArray.joined(separator: " ")
             print("임의의 수 : \(printUserNumber)")
-            kk = compareComputerUserNumber()
-            (restChance == 0 && kk[0] != 3) ? print("컴퓨터승리...!") : nil
-            print("\(kk[0]) 스트라이크, \(kk[1]) 볼")
+            strikeAndBall = countStrikeAndBall()
+            (restChance == 0 && strikeAndBall[0] != 3) ? print("컴퓨터승리...!") : nil
+            print("\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
             print("남은 기회 : \(restChance)")
-            kk[0] == 3 ? restChance = 0 : nil
+            strikeAndBall[0] == 3 ? restChance = 0 : nil
         }
     }
 }
 
-var fellASleep = StartBaseballGame()
+let iosBaseballGame = StartBaseballGame()
 
