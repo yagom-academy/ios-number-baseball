@@ -20,10 +20,6 @@ func makeRandomNumbers() -> [Int] {
 
 var computerNumbers: [Int] = makeRandomNumbers()
 var leftChances = 9
-var userNumbers: [Int] = []
-
-print(makeRandomNumbers())
-
 
 func compareComputerNumbers(with userNumbers: [Int]) -> [Int]{
     var ball = 0
@@ -42,5 +38,13 @@ func compareComputerNumbers(with userNumbers: [Int]) -> [Int]{
     return [ball, strike]
 }
 
+func startGame() {
+    for _ in 0...9 {
+        let userNumbers = makeRandomNumbers()
+        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        let result = compareComputerNumbers(with: userNumbers)
+        print("\(result[1]) 스트라이크, \(result[0]) 볼")
+    }
+}
 
-print(compareComputerNumbers(with: makeRandomNumbers()))
+startGame()
