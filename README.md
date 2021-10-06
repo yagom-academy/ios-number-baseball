@@ -38,7 +38,7 @@ i. 1~9 사이의 3개의 임의의 정수를 생성하여 반환하는 함수(�
     - compareNumbers : 컴퓨터/사용자의 숫자 중에서 동일한 숫자가 존재하지 않으면, 함수를 종료함. 동일한 숫자가 존재하면, checkSameOrder를 호출함
   
 ### 출력 결과  
-(출력 결과 이미지 추가)
+![STEP_1_](https://user-images.githubusercontent.com/50446512/136161655-0434c906-da6c-4465-a9d4-cba4c9042eae.png)
 
 ## STEP 2
 (추가 예정)
