@@ -16,3 +16,8 @@ func makeDeduplicatedRandomNumbers() -> [Int] {
     }
     return Array(deduplicatedNumbers)
 }
+
+func makeComputerRandomNumber() {
+    computerRandomNumbers = makeDeduplicatedRandomNumbers()
+    print("(과제 확인용 출력) 컴퓨터 : \(computerRandomNumbers)")
+}
