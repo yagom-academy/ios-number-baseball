@@ -2,8 +2,9 @@
 
 ### 숫자야구 프로젝트 저장소
 
-[@junbangg](https://github.com/junbangg)
-[@Quokkaaa](https://github.com/Quokkaaa)
+### Contributors
+[@junbangg](https://github.com/junbangg)    
+[@Quokkaaa](https://github.com/Quokkaaa)  
 
 
 ### 프로그램 순서도(FlowChart)
