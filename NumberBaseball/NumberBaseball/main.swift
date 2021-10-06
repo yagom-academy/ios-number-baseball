@@ -6,5 +6,13 @@
 
 import Foundation
 
-print("Hello, World!")
+var randomNumber: Set<Int> = []
 
+func chooseRandomNumber() {
+    var number = Int.random(in: 1...9)
+    randomNumber.insert(number)
+}
+
+while randomNumber.count < 3 {
+    chooseRandomNumber()
+}
