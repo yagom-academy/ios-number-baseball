@@ -8,4 +8,5 @@
 
 
 ### 프로그램 순서도(FlowChart)
-[aladdin_quoka - Page 1.pdf](https://github.com/junbangg/ios-number-baseball/files/7293030/aladdin_quoka.-.Page.1.pdf)
+![aladdin_quoka - Page 1](https://user-images.githubusercontent.com/91132536/136190468-8d50cd81-9c87-4750-aaac-1768e298be5f.png)
+
