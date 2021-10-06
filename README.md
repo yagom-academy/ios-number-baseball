@@ -1,6 +1,7 @@
-## iOS 커리어 스타터 캠프
+# 숫자야구 프로젝트 저장소
+---
+@horeng2 @leeari95 @ye-ha
 
-### 숫자야구 프로젝트 저장소
-
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+## 순서도
+---
+![NumberBaseball](https://user-images.githubusercontent.com/60090790/136126276-6d862252-6083-4bde-8cb7-628aba14c4c5.png)
