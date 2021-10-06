@@ -6,18 +6,17 @@
 
 import Foundation
 
-var randomNumbers: Set<Int> = []
+var computerNumbers = [Int]()
 var tryCount: Int = 9
 
 func generatedRandomNumbers() -> [Int] {
+    var randomNumbers: Set<Int> = []
     while randomNumbers.count < 3 {
         let number = Int.random(in: 1...9)
         randomNumbers.insert(number)
     }
     return Array(randomNumbers)
 }
-
-let computerNumbers = generatedRandomNumbers()
 
 func compareResult(with userNumbers: [Int]) -> [Int] {
     var ballCount: Int = 0
@@ -29,5 +28,19 @@ func compareResult(with userNumbers: [Int]) -> [Int] {
         strikeCount += computerNumbers[index] == userNumbers[index] ? 1 : 0
     }
     ballCount -= strikeCount
-    return [ballCount, strikeCount]
+    return [strikeCount, ballCount]
 }
+
+func startGame() {
+    computerNumbers = generatedRandomNumbers()
+    while tryCount != 0 {
+        tryCount = tryCount - 1
+        let userNumbers = generatedRandomNumbers()
+        print("임의의 수 : " + userNumbers.map{String($0)}.joined(separator: " "))
+        print("\(compareResult(with: userNumbers)[0]) 스트라이크, \(compareResult(with: userNumbers)[1]) 볼")
+        print("남은 기회 : \(tryCount)")
+    }
+}
+
+startGame()
+
