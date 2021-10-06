@@ -58,3 +58,13 @@ func checkSameOrder(computerNumbers: [Int], with playerNumbers: [Int]) {
         
     }
 }
+
+func compareNumbers(computerNumbers: [Int], with playerNumbers: [Int]) {
+    let sameNumbers: [Int] = checkSameNumbers(computerNumbers: computerNumbers, with: playerNumbers)
+    
+    if sameNumbers.count == 0 {
+        return
+    } else {
+        checkSameOrder(computerNumbers: computerNumbers, with: playerNumbers)
+    }
+}
