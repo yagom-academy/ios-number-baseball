@@ -6,28 +6,30 @@
 
 import Foundation
 
-
-var strikeCount = 0
-
-var array1 = [3, 2, 1]
-var array2 = [3, 2, 1]
-
-func strikeCounter(index: Int) {
-    if array1[index] == array2[index] {
-        strikeCount += 1
-    }
-}
-
-func readStrike() {
-    for time in 0..<array1.count {
-        strikeCounter(index: time)
-    }
-    print("\(strikeCount) 스트라이크")
-}
-
 var randomTargetNums: [Int] = generateUniqueRandomNums(start: 1, end: 9)
 var randomPlayerNums: [Int] = [Int]()
+
 var remainingCounts = 9
+var strikeCount = 0
+var ballCount = 0
+
+func countStrikeAndBall(index: Int) {
+    if randomTargetNums[index] == randomPlayerNums[index] {
+        strikeCount += 1
+    } else if randomTargetNums.contains(randomPlayerNums[index]) {
+        ballCount += 1
+    }
+}
+
+func readStrikeAndBall() {
+    for time in 0..<randomTargetNums.count {
+        countStrikeAndBall(index: time)
+    }
+}
+
+func printStrikeAndBall() {
+    print("\(strikeCount)스트라이크 \(ballCount)볼")
+}
 
 func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
     var randomNums = [Int]()
