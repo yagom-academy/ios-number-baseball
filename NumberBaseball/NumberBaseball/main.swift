@@ -25,20 +25,21 @@ func readStrike() {
     print("\(strikeCount) 스트라이크")
 }
 
-var randomTargetNums = generateUniqueRandomNums(start: 1, end: 9)
-var randomPlayerNums = generateUniqueRandomNums(start: 1, end: 9)
-var remainCounts = 9
+var randomTargetNums: [Int] = generateUniqueRandomNums(start: 1, end: 9)
+var randomPlayerNums: [Int] = [Int]()
+var remainingCounts = 9
 
 func generateUniqueRandomNums(start: Int, end: Int) -> [Int] {
     var randomNums = [Int]()
     
     while randomNums.count < 3 {
-        let nums = Int.random(in: start...end)
-        guard !randomNums.contains(nums) else {
+        let num = Int.random(in: start...end)
+        guard !randomNums.contains(num) else {
             continue
         }
-        randomNums.append(nums)
+        randomNums.append(num)
     }
     
     return randomNums
 }
+
