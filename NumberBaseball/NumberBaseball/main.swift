@@ -6,8 +6,19 @@
 
 import Foundation
 
-var computerNumbers: Set<Int>
+var computerNumbers: Set<Int> = Set<Int>()
 var tryCount: Int = 9
+
+func generatedRandomNumbers() -> Array<Int>{
+    while computerNumbers.count < 3{
+        computerNumbers.insert(Int.random(in: 1...9))
+    }
+    return Array(computerNumbers)
+}
+
+print(generatedRandomNumbers())
+
+
 
 /*
 func input(){
