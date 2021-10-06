@@ -6,5 +6,10 @@
 
 import Foundation
 
-print("Hello, World!")
+func makeRandomNumber() -> Int {
+    var randomNumber: Int = 0
+    
+    randomNumber = Int.random(in: 1...9)
+    return randomNumber
+}
 
