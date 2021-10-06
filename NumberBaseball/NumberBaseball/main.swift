@@ -10,15 +10,11 @@ import Foundation
 
 var remainingAttempts: Int = 9
 
+var targetNumbers: [Int] = generateRandomNumbers()
+
 var ballCount: Int
 
 var strikeCount: Int
-
-
-
-var targetNumbers: [Int] = generateRandomNumbers()
-
-
 
 func generateRandomNumbers() -> [Int] {
     var radomNumbers: Set<Int> = []
@@ -42,13 +38,23 @@ func calculateStrikeCount(target: [Int], player: [Int]) -> Int {
     return resultArray.count
 }
 
-func cauculateStrikeAndBall() -> (Int, Int) {
-    let playerNumbers: [Int] = generateRandomNumbers()
+func calculateStrikeAndBall(targetNumbers: [Int], playerNumbers: [Int]) -> (Int, Int) {
     let total: Int = countMatchingNumbers(target: targetNumbers, player: playerNumbers)
     let strikes: Int = calculateStrikeCount(target: targetNumbers, player: playerNumbers)
     let ball = total - strikes
     
     return (strikes, ball)
+}
+
+func playinning() {
+    
+    let playerNumbers = generateRandomNumbers()
+    print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
+    let (strikeCount, ballCount) = calculateStrikeAndBall(targetNumbers: targetNumbers, playerNumbers: playerNumbers)
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    remainingAttempts -= 1
+    print("\(remainingAttempts)")
+     
 }
 
 
