@@ -23,7 +23,7 @@ func generate3RandomNumbers() -> [Int] {
     return numbers
 }
 
-func checkTheResult (inputNumbers:[Int]) -> (Int, Int) {
+func checkTheResult (for inputNumbers:[Int]) -> (Int, Int) {
     var sameNumberCount:Int = 0
     var strikeCount:Int = 0
     
@@ -48,7 +48,7 @@ func gameStart() {
     while remainChances > 0 {
         let playNumbers: [Int] = generate3RandomNumbers()
         print("임의의 수 : \(playNumbers.map{ String($0) }.joined(separator: " "))")
-        let (strikeCount, ballCount) = checkTheResult(inputNumbers: playNumbers)
+        let (strikeCount, ballCount) = checkTheResult(for: playNumbers)
         
         if strikeCount == 3 {
             break
