@@ -23,12 +23,14 @@ func returnResult(of numbers: [Int]) -> String{
     var result: String = " "
     
     for index in 0...2{
-        judgeStrikeOrBall(of: numbers[index], at: index)
-    }
+          judgeStrikeOrBall(of: numbers[index], at: index)
+      }
+    
     result = "\(strikeCount) 스트라이크, \(ballCount) 볼"
     
     return result
 }
+
 
 func judgeStrikeOrBall(of number: Int, at index: Int){
     if number == computerNumbers[index]{
@@ -39,10 +41,9 @@ func judgeStrikeOrBall(of number: Int, at index: Int){
 }
 
 
-
-func startOneGame(){
+func playOneRound(){
     let randomNumbers = generatedRandomNumbers()
-    let string: String = generatedRandomNumbers().reduce(""){String($0) + " " + String($1)}
+    let string: String = randomNumbers.reduce(""){String($0) + " " + String($1)}
     tryCount -= 1
     let message = """
     임의의 수 : \(string)
@@ -52,7 +53,22 @@ func startOneGame(){
     print(message)
 }
 
-startOneGame()
+func startGame(){
+    while tryCount > 0, strikeCount != 3 {
+        playOneRound()
+        strikeCount = 0
+        ballCount = 0
+    }
+    
+    if tryCount < 0 {
+        print("컴퓨터 승리!")
+    }else {
+        print("사용자 승리!")
+    }
+}
+
+startGame()
+
 /*
 func input(){
     print("입력 : ", terminator: " ")
