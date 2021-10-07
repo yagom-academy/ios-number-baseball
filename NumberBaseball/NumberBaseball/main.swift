@@ -35,6 +35,12 @@ func printPlayerRandomNumber() {
     print("\n", terminator: "")
 }
 
+func resetGlobalVariables() {
+    trialCount -= 1
+    strike = 0
+    ball = 0
+}
+
 func checkSameNumbers(computerNumbers: [Int], with playerNumbers: [Int]) -> [Int] {
     let computerNumbersWithoutOrder: Set<Int> = Set(computerNumbers)
     let playerNumbersWithoutOrder: Set<Int> = Set(playerNumbers)
@@ -44,8 +50,8 @@ func checkSameNumbers(computerNumbers: [Int], with playerNumbers: [Int]) -> [Int
 }
 
 func findIndex(of number: Int, in numbers: [Int]) -> Int? {
-    if let index = numbers.firstIndex(of: number) {
-        return index
+    if let indexOfValue = numbers.firstIndex(of: number) {
+        return indexOfValue
     }
     return nil
 }
@@ -75,7 +81,7 @@ func checkSameOrder(computerNumbers: [Int], with playerNumbers: [Int]) {
 func compareNumbers(computerNumbers: [Int], with playerNumbers: [Int]) {
     let sameNumbers: [Int] = checkSameNumbers(computerNumbers: computerNumbers, with: playerNumbers)
     
-    if sameNumbers.count == 0 {
+    if sameNumbers.isEmpty {
         return
     } else {
         checkSameOrder(computerNumbers: computerNumbers, with: playerNumbers)
@@ -102,15 +108,13 @@ func checkWinner() {
     }
 }
 
-func reset() {
+func startGame() {
     makeComputerRandomNumber()
     
     while isGameOver == false {
         makePlayerRandomNumber()
         printPlayerRandomNumber()
-        trialCount -= 1
-        strike = 0
-        ball = 0
+        resetGlobalVariables()
         
         compareNumbers(computerNumbers: computerRandomNumbers, with: playerRandomNumbers)
         printCompareResult()
@@ -119,4 +123,4 @@ func reset() {
     }
 }
 
-reset()
+startGame()
