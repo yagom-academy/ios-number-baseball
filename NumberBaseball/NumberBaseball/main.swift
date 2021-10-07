@@ -60,5 +60,21 @@ func playGame() {
     }
 }
 
-playGame()
+func startMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    let menu = readLine()
+    
+    if menu == "1" {
+        playGame()
+    } else if menu == "2" {
+        return
+    } else {
+        print("입력이 잘못되었습니다")
+        startMenu()
+    }
+}
 
+startMenu()
