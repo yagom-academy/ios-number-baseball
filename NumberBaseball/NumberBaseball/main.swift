@@ -31,22 +31,12 @@ func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
     var strikeCounts = 0
     var ballCounts = 0
     
-    if randomNumbers[0] == userNumbers[0] {
-        strikeCounts += 1
-    } else {
-        ballCounts += judgeBall(randomNumbers, userNumbers[0])
-    }
-    
-    if randomNumbers[1] == userNumbers[1] {
-        strikeCounts += 1
-    } else {
-        ballCounts += judgeBall(randomNumbers, userNumbers[1])
-    }
-    
-    if randomNumbers[2] == userNumbers[2] {
-        strikeCounts += 1
-    } else {
-        ballCounts += judgeBall(randomNumbers, userNumbers[2])
+    for numberIndex in 0...2 {
+        if randomNumbers[numberIndex] == userNumbers[numberIndex] {
+            strikeCounts += 1
+        } else {
+            ballCounts += judgeBall(randomNumbers, userNumbers[numberIndex])
+        }
     }
     
     print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
