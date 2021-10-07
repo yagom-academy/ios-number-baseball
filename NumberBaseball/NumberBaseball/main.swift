@@ -81,11 +81,34 @@ func askNumber() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
+
+//    if let response = readLine() {
+//        if response.isEmpty == false {
+//
+//        } else {
+//            print("입력이 잘못되었습니다")
+//            startMenu()
+//        }
     
-    let response = readLine()
-    
-    // 공백인 경우, 숫자가 아니라 다른 문자가 들어온 경우, " "가 두개, 숫자가 중복인 경우
-  
+    // nil이거나 공백인 경우, " "가 두개, 숫자가 아니라 다른 문자가 들어온 경우, 숫자가 중복인 경우
+
 }
 
 startMenu()
+
+func validateNumber() {
+    guard let response = readLine(), response.isEmpty == false else {
+        print("입력이 잘못되었습니다")
+        return
+    }
+    
+    guard response.filter({ $0 == " " }).count == 2 else {
+        print("입력이 잘못되었습니다")
+        return
+    }
+    
+    // 여기까지 온 거면, nil 도 아니고 공백("")도 아닌 것임, 띄어쓰기(" ")가 2개인 것임
+    
+}
+
+
