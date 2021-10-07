@@ -35,8 +35,11 @@ func judgeBaseballResult() {
 
 func playGame() {
     generateRandomInt(to: &answerRandomInt)
-    askNumber()
+    
     for _ in 1...chance {
+        while responseRandomInt.count < 3 {
+            askNumber()
+        }
         
         judgeBaseballResult()
         responseRandomInt.removeAll()
@@ -100,6 +103,12 @@ func validateNumber() {
             print("입력이 잘못되었습니다")
             return
         }
+        
+        guard responseRandomInt.contains(numberCheck) == false else {
+            print("입력이 잘못되었습니다")
+            return
+        }
+        
         responseRandomInt.append(numberCheck)
     }
     // 여기까지 온 거면, nil 도 아니고 공백("")도 아닌 것임, 띄어쓰기(" ")가 2개인 것임, 각 자리가 1-9 사이 숫자인 것임.
