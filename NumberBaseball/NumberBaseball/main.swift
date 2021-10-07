@@ -23,18 +23,25 @@ func generateRandomNumbers() -> Array<Int> {
 
 func returnResult(of numbers: [Int]) -> String {
     
-    for index in 0...2 {
-        judgeStrikeOrBall(of: numbers[index], at: index)
-    }
-
-    return "\(strikeCount) 스트라이크, \(ballCount) 볼"
+    repeatJudgement(with: numbers)
+    
+    let result = "\(strikeCount) 스트라이크, \(ballCount) 볼"
+   
+    return result
 }
 
-func judgeStrikeOrBall(of number: Int, at index: Int) {
+func repeatJudgement(of times: Int = 2, with numbers: [Int] ) {
     
-    if number == computerNumbers[index] {
+    for index in 0...times {
+        judgeStrikeOrBall(of: numbers[index], at: computerNumbers[index])
+    }
+}
+
+func judgeStrikeOrBall(of userNumber: Int, at computerNumber: Int) {
+    
+    if userNumber == computerNumber {
         strikeCount += 1
-    } else if computerNumbers.contains(number) {
+    } else if computerNumbers.contains(userNumber) {
         ballCount += 1
     }
 }
