@@ -8,6 +8,8 @@ import Foundation
 
 let digitsOfGame = 3
 
+let defaultErrorMessage = "입력이 잘못되었습니다"
+
 var randomTargetNums: [Int] = []
 var playerNums: [Int] = []
 
@@ -162,8 +164,6 @@ func playBaseballGame() {
     
     presentGameResult()
 }
-
-let defaultErrorMessage = "입력이 잘못되었습니다"
 
 func presentMenu() {
     print("""
