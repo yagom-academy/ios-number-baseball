@@ -132,11 +132,13 @@ func presentInputForm() {
     """)
 }
 
-func inputPlayerNums() {
+func inputPlayerNums() -> String {
     print("입력 : ", terminator: "")
     guard let input = readLine(), !input.isEmpty else {
-        return print(defaultErrorMessage)
+        return ""
     }
+    
+    return input
 }
 
 func separateInput(input: String) -> [String] {
