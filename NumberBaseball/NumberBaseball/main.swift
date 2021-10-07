@@ -47,26 +47,50 @@ enum GameMessage: String {
     case ballCount = " 볼"
 }
 
-func startGame() {
-    let strikesForUserWin = 3
-    var strikeCount = 0
-    var ballCount = 0
-
+func runGame() {
     computerNumbers = generateRandomNumbers()
+    var judgeResult: (strike: Int, ball: Int) = (0, 0)
+    let strikesForUserWin = 3
     
-    while tryCount != 0 && strikeCount != strikesForUserWin {
-        tryCount -= 1
+    while tryCount != 0 && judgeResult.strike != strikesForUserWin {
         let userNumbers = generateRandomNumbers()
-        (strikeCount, ballCount) = judgeStrikeAndBall(with: userNumbers)
-        print(GameMessage.userWin.rawValue, userNumbers.map{String($0)}.joined(separator: " "))
-        print(strikeCount, GameMessage.strikeCount, ballCount, GameMessage.ballCount)
-        print(GameMessage.leftTrial, tryCount)
+        print(GameMessage.generatedUserNumber.rawValue, userNumbers.map({String($0)}).joined(separator: " "))
+        judgeResult = compareStrikeAndBall(userNumbers: userNumbers)
+        showTryCount()
     }
-    
-    if strikeCount == strikesForUserWin {
-        print(GameMessage.userWin)
+    if judgeResult.strike == strikesForUserWin {
+        showGameResult(winner: GamePlayer.user)
     } else {
-        print(GameMessage.computerWin)
+        showGameResult(winner: GamePlayer.computer)
     }
 }
-startGame()
+
+func compareStrikeAndBall(userNumbers: [Int]) -> (Int, Int){
+    var strikeCount = 0
+    var ballCount = 0
+    
+    (strikeCount, ballCount) = judgeStrikeAndBall(with: userNumbers)
+    print(strikeCount, GameMessage.strikeCount.rawValue, ballCount, GameMessage.ballCount.rawValue)
+    
+    return (strikeCount, ballCount)
+}
+
+func showTryCount() {
+    tryCount -= 1
+    print(GameMessage.leftTrial.rawValue, tryCount)
+}
+
+enum GamePlayer {
+    case user
+    case computer
+}
+
+func showGameResult(winner: GamePlayer) {
+    if winner == GamePlayer.user {
+        print(GameMessage.userWin.rawValue)
+    } else {
+        print(GameMessage.computerWin.rawValue)
+    }
+}
+
+runGame()
