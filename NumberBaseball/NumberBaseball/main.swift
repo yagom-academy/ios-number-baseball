@@ -18,6 +18,7 @@ func generateRandomNumbers() -> Array<Int> {
     while numbers.count < 3 {
         numbers.insert(Int.random(in: 1...9))
     }
+    
     return Array(numbers)
 }
 
@@ -33,11 +34,11 @@ func returnResult(of numbers: [Int]) -> String {
 func repeatJudgement(of times: Int = 2, with numbers: [Int] ) {
     
     for index in 0...times {
-        judgeStrikeOrBall(of: numbers[index], at: computerNumbers[index])
+        judgeStrikeOrBall(of: numbers[index], with: computerNumbers[index])
     }
 }
 
-func judgeStrikeOrBall(of userNumber: Int, at computerNumber: Int) {
+func judgeStrikeOrBall(of userNumber: Int, with computerNumber: Int) {
     
     if userNumber == computerNumber {
         strikeCount += 1
@@ -49,7 +50,9 @@ func judgeStrikeOrBall(of userNumber: Int, at computerNumber: Int) {
 func playOneRound() {
     
     let randomNumbers = generateRandomNumbers()
-    let randomNumberToString: String = randomNumbers.reduce(""){String($0) + " " + String($1)}
+    let randomNumberToString: String = randomNumbers.reduce("") {
+            return String($0) + " " + String($1)
+        }
     let resultOfJudgement = returnResult(of: randomNumbers)
     
     tryCount -= 1
