@@ -6,12 +6,12 @@
 
 import Foundation
 
-var computerNumbers: Array<Int> = generatedRandomNumbers()
+var computerNumbers: Array<Int> = generateRandomNumbers()
 var tryCount: Int = 9
 var strikeCount: Int = 0
 var ballCount: Int = 0
 
-func generatedRandomNumbers() -> Array<Int> {
+func generateRandomNumbers() -> Array<Int> {
     var numbers: Set<Int> = Set<Int>()
     
     while numbers.count < 3 {
@@ -38,7 +38,7 @@ func judgeStrikeOrBall(of number: Int, at index: Int) {
 }
 
 func playOneRound() {
-    let randomNumbers = generatedRandomNumbers()
+    let randomNumbers = generateRandomNumbers()
     let randomNumberToString: String = randomNumbers.reduce(""){String($0) + " " + String($1)}
     
     tryCount -= 1
