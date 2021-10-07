@@ -127,6 +127,11 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
         sw = true
     }
+    
+    if Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil {
+        sw = true
+    }
     return sw
 }
+
 
