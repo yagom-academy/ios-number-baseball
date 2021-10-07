@@ -147,3 +147,8 @@ func hasThreeElements(input: [String]) -> Bool {
     return input.count == digitsOfGame
 }
 
+func isComposedWithOnlyNums(input: [String]) -> Bool{
+    return input.compactMap { Int($0) }.count == digitsOfGame
+}
+
+
