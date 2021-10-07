@@ -8,8 +8,8 @@ import Foundation
 
 let digitsOfGame = 3
 
-var randomTargetNums: [Int] = generateUniqueRandomNums(from: 1, to: 9)
-var playerNums: [Int] = [Int]()
+var randomTargetNums: [Int] = []
+var playerNums: [Int] = []
 
 var remainedRounds = 9
 var strikeCounts = 0
@@ -134,7 +134,7 @@ func presentRoundResult() {
 
 func gameResult() {
     if strikeCounts == digitsOfGame {
-        print("플레이어 승리...!")
+        print("사용자 승리!")
     } else if remainedRounds == 0 {
         print("컴퓨터 승리...!")
     }
@@ -145,8 +145,13 @@ func resetStrikeAndBallCounts() {
     ballCounts = 0
 }
 
-func playBaseballGame() {
+func initGameSetting() {
+    randomTargetNums = generateUniqueRandomNums(from: 1, to: 9)
     remainedRounds = 9
+}
+
+func playBaseballGame() {
+    initGameSetting()
     repeat {
         resetStrikeAndBallCounts()
         generatePlayerNums()
