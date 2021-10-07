@@ -15,17 +15,17 @@ var remainedRounds = 9
 var strikeCounts = 0
 var ballCounts = 0
 
-func judgeStrikeAndBall(index: Int) {
-    if randomTargetNums[index] == randomPlayerNums[index] {
+func judgeStrikeAndBall(at: Int) {
+    if randomTargetNums[at] == randomPlayerNums[at] {
         strikeCounts += 1
-    } else if randomTargetNums.contains(randomPlayerNums[index]) {
+    } else if Set(randomTargetNums).contains(randomPlayerNums[at]) {
         ballCounts += 1
     }
 }
 
 func countStrikeAndBall() {
     for time in 0..<digitsOfGame {
-        judgeStrikeAndBall(index: time)
+        judgeStrikeAndBall(at: time)
     }
 }
 
