@@ -177,3 +177,22 @@ func isValidInput(input: [String]) -> Bool {
     
     return true
 }
+
+func returnResultOfGeneration(isSuccess: Bool, input: [String]) {
+    if isSuccess {
+        randomPlayerNums = input.compactMap { Int($0) }
+    } else {
+        print(defaultErrorMessage)
+    }
+}
+
+func generatePlayerNums() {
+    var isValid: Bool
+    repeat {
+        presentInputForm()
+        let inputtedPlayerNums = inputPlayerNums()
+        let separatedPlayerNums = separateInput(input: inputtedPlayerNums)
+        isValid = isValidInput(input: separatedPlayerNums)
+        returnResultOfGeneration(isSuccess: isValid, input: separatedPlayerNums)
+    } while randomPlayerNums.isEmpty
+}
