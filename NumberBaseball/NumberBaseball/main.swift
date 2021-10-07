@@ -41,8 +41,9 @@ func startGame() {
     
     while remainingChance > 0 {
         let playNumbers: [Int] = generateRandomNumbers(count: numbersCount)
-        print("임의의 수 : \(playNumbers.map{ String($0) }.joined(separator: " "))")
+        let playNumbersForPrint: String = playNumbers.map { String($0) }.joined(separator: " ")
         let result = checkTheResult(for: playNumbers)
+        print("임의의 수 : \(playNumbersForPrint)")
         
         if result.strikeCount == numbersCount {
             break
