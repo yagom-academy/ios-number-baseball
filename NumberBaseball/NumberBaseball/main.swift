@@ -18,7 +18,7 @@ func selectMenu(quitFlag: inout Bool) {
     print("원하는 기능을 선택해주세요", terminator: " : ")
     
     guard let selectedMenu = readLine() else {
-        print(NumberGameError.readLineMalfunction)
+        print(NumberGameError.readLineMalfunction.rawValue)
         return
     }
     
@@ -28,7 +28,7 @@ func selectMenu(quitFlag: inout Bool) {
     case "2":
         quitFlag = true
     default:
-        print(NumberGameError.abnormalUserInput)
+        print(NumberGameError.abnormalUserInput.rawValue)
     }
 }
 
@@ -43,8 +43,8 @@ func startGame() {
     var lifeCount = 9
     let generatedCorrectNumbers = generatedThreeRandomNumbers()
     var threeStrikeFlag = false
-    
-    while lifeCount > 0 {
+
+    while lifeCount > 0 && threeStrikeFlag != true {
         printInputGuideLine()
         tryThreeStrike(generatedCorrectNumbers: generatedCorrectNumbers, lifeCount: &lifeCount, threeStrikeFlag: &threeStrikeFlag)
     }
@@ -55,7 +55,7 @@ func receivedUserInput() -> String {
     if let userInput = readLine() {
         return userInput.replacingOccurrences(of: " ", with: "")
     } else {
-        print(NumberGameError.readLineMalfunction)
+        print(NumberGameError.readLineMalfunction.rawValue)
         return ""
     }
 }
@@ -74,6 +74,8 @@ func tryThreeStrike(generatedCorrectNumbers: [Int], lifeCount: inout Int, threeS
         threeStrikeFlag = isThreeStrike(strikeCount: strikeCount)
         
         printLifeCount(lifeCount: lifeCount, threeStrikeFlag: threeStrikeFlag)
+    } else {
+        print(NumberGameError.abnormalUserInput.rawValue)
     }
 }
 
@@ -86,24 +88,56 @@ func printInputGuideLine() {
 func convertToThreeNumbers(from userInput: String) -> [Int] {
     var convertedUserInput = [Int]()
     for character in userInput {
-        let eachNumber = convertToInteger(character: character)
-        convertedUserInput.append(eachNumber)
+        convertToIntegerAndAppend(character: character, integerArray: &convertedUserInput)
     }
     return convertedUserInput
 }
 
-
-
-func convertToInteger(character: Character) -> Int {
+func convertToIntegerAndAppend(character: Character, integerArray: inout [Int]) {
     guard let convertedInteger = Int(String(character)) else {
-        print(NumberGameError.typeConversionFailure)
-        return -1
+        print(NumberGameError.typeConversionFailure.rawValue)
+        return
     }
-    return convertedInteger
+    integerArray.append(convertedInteger)
 }
 
 func isValidInput(userInput: String) -> Bool {
-    return true // TODO: 유효성 검사 기능 구현 필요
+    if userInput.count == 3 && isInteger(userInput: userInput) && isNotDuplicated(userInput: userInput) && isNotZero(userInput: userInput) {
+        return true
+    } else {
+        return false
+    }
+}
+
+func isNotZero(userInput: String) -> Bool {
+    var notZeroFlag: Bool = true
+    for character in userInput where notZeroFlag == true {
+        notZeroFlag = character != "0" ? true : false
+    }
+    return notZeroFlag
+}
+
+func isNotDuplicated(userInput: String) -> Bool {
+    var userInputArray = [Int]()
+    for character in userInput {
+        convertToIntegerAndAppend(character: character, integerArray: &userInputArray)
+    }
+
+    let userInputSet = Set(userInputArray)
+
+    if userInputArray.count == userInputSet.count {
+        return true
+    } else {
+        return false
+    }
+}
+
+func isInteger(userInput: String) -> Bool {
+    var integerFlag: Bool = true
+    for character in userInput where integerFlag == true {
+        integerFlag = Int(String(character)) != nil ? true : false
+    }
+    return integerFlag
 }
 
 func printWinner(threeStrikeFlag: Bool) {
