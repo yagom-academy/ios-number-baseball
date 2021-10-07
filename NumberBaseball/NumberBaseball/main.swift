@@ -36,6 +36,7 @@ func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: In
     return (strikeCount, ballCount)
 }
 
+// MARK: Game playing
 func startGame() {
     randomNumbers = generateRandomNumbers(count: numbersCount)
     
@@ -54,6 +55,10 @@ func startGame() {
         print("남은 기회 : \(remainingChance)")
     }
     
+    printWin()
+}
+
+func printWin() {
     if remainingChance == 0 {
         print("컴퓨터 승리...")
     } else {
@@ -61,4 +66,6 @@ func startGame() {
     }
 }
 
+
+// MARK: Game start
 startGame()
