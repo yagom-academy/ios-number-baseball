@@ -6,10 +6,21 @@
 
 import Foundation
 
+
 func createRandomNumbers() -> [Int] {
     let shuffledNumbers = [Int](1...9).shuffled()
     let threeNumbers = [Int](shuffledNumbers[0...2])
     return threeNumbers
+}
+
+func calculateBallCount(index: Int, matchIndex: Int?, strikeCount: inout Int, ballCount: inout Int) {
+    if matchIndex == nil {
+        return
+    } else if matchIndex == index {
+        strikeCount += 1
+    } else {
+        ballCount += 1
+    }
 }
 
 func checkBallCount(answerNumbers: [Int], userNumbers: [Int]) -> [Int] {
@@ -18,16 +29,10 @@ func checkBallCount(answerNumbers: [Int], userNumbers: [Int]) -> [Int] {
     }
     var strikeCount: Int = 0
     var ballCount: Int = 0
-
+    
     for index in 0...2 {
         let matchIndex = answerNumbers.firstIndex(of: userNumbers[index])
-        if matchIndex == nil {
-            continue
-        } else if matchIndex == index {
-            strikeCount += 1
-        } else {
-            ballCount += 1
-        }
+        calculateBallCount(index: index, matchIndex: matchIndex, strikeCount: &strikeCount, ballCount: &ballCount)
     }
     return [strikeCount, ballCount]
 }
@@ -55,3 +60,4 @@ func startGame() {
 }
 
 startGame()
+
