@@ -22,7 +22,7 @@ func generateRandomNumbers(count: Int) -> [Int] {
     return Array(numbers)
 }
 
-func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
+func checkPlayResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
@@ -108,14 +108,14 @@ func startGame() {
         guard let playNumbers: [Int] = getInputNumbers(count: numbersCount) else {
             continue
         }
-        let result = checkTheResult(for: playNumbers)
+        let playResult = checkPlayResult(for: playNumbers)
         
-        if result.strikeCount == numbersCount {
+        if playResult.strikeCount == numbersCount {
             break
         }
         
         remainingChance -= 1
-        print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
+        print("\(playResult.strikeCount) 스트라이크, \(playResult.ballCount) 볼")
         print("남은 기회 : \(remainingChance)")
     }
     
