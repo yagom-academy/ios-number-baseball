@@ -9,6 +9,7 @@ import Foundation
 enum NumberGameError: String {
     case readLineMalfunction = "시스템(readLine) 에러가 발생하였습니다."
     case abnormalUserInput = "입력이 잘못되었습니다."
+    case typeConversionFailure = "타입 변환에 실패하였습니다."
 }
 
 func selectMenu(quitFlag: inout Bool) {
@@ -39,25 +40,70 @@ func runNumberGame() {
 }
 
 func startGame() {
-    let lifeCount = 9
+    var lifeCount = 9
     let generatedCorrectNumbers = generatedThreeRandomNumbers()
-    var userTryNumbers: [Int]
     var threeStrikeFlag = false
     
-    for attemptCount in 1...lifeCount where threeStrikeFlag == false {
-        userTryNumbers = generatedThreeRandomNumbers()
+    while lifeCount > 0 {
+        printInputGuideLine()
+        tryThreeStrike(generatedCorrectNumbers: generatedCorrectNumbers, lifeCount: &lifeCount, threeStrikeFlag: &threeStrikeFlag)
+    }
+    printWinner(threeStrikeFlag: threeStrikeFlag)
+}
+
+func receivedUserInput() -> String {
+    if let userInput = readLine() {
+        return userInput.replacingOccurrences(of: " ", with: "")
+    } else {
+        print(NumberGameError.readLineMalfunction)
+        return ""
+    }
+}
+
+func tryThreeStrike(generatedCorrectNumbers: [Int], lifeCount: inout Int, threeStrikeFlag: inout Bool) {
+    let userInput = receivedUserInput()
+    
+    if isValidInput(userInput: userInput) == true {
+        lifeCount -= 1
+        
+        let userTryNumbers = convertToThreeNumbers(from: userInput)
         
         let (strikeCount, ballCount) = computedStrikeCountAndBallCount(generatedCorrectNumbers: generatedCorrectNumbers, userTryNumbers: userTryNumbers)
-        
-        print("임의의 수: \(userTryNumbers[0]) \(userTryNumbers[1]) \(userTryNumbers[2])")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
         threeStrikeFlag = isThreeStrike(strikeCount: strikeCount)
         
-        printRemainingLifeCount(lifeCount: lifeCount, attemptCount: attemptCount, threeStrikeFlag: threeStrikeFlag)
+        printLifeCount(lifeCount: lifeCount, threeStrikeFlag: threeStrikeFlag)
     }
-    
-    printWinner(threeStrikeFlag: threeStrikeFlag)
+}
+
+func printInputGuideLine() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력", terminator: " : ")
+}
+
+func convertToThreeNumbers(from userInput: String) -> [Int] {
+    var convertedUserInput = [Int]()
+    for character in userInput {
+        let eachNumber = convertToInteger(character: character)
+        convertedUserInput.append(eachNumber)
+    }
+    return convertedUserInput
+}
+
+
+
+func convertToInteger(character: Character) -> Int {
+    guard let convertedInteger = Int(String(character)) else {
+        print(NumberGameError.typeConversionFailure)
+        return -1
+    }
+    return convertedInteger
+}
+
+func isValidInput(userInput: String) -> Bool {
+    return true // TODO: 유효성 검사 기능 구현 필요
 }
 
 func printWinner(threeStrikeFlag: Bool) {
@@ -68,11 +114,11 @@ func printWinner(threeStrikeFlag: Bool) {
     }
 }
 
-func printRemainingLifeCount(lifeCount: Int, attemptCount: Int, threeStrikeFlag: Bool) {
+func printLifeCount(lifeCount: Int, threeStrikeFlag: Bool) {
     if threeStrikeFlag == true {
         return
     } else {
-        print("남은 기회: \(lifeCount-attemptCount)")
+        print("남은 기회: \(lifeCount)")
     }
 }
 
@@ -107,7 +153,6 @@ func computedStrikeCountAndBallCount(generatedCorrectNumbers: [Int], userTryNumb
                                        strikeCount: &strikeCount,
                                        ballCount: &ballCount)
     }
-    
     return (strikeCount, ballCount)
 }
 
@@ -118,3 +163,5 @@ func increaseStrikeCountOrBallCount(generatedCorrectNumbers: [Int], userTryNumbe
         ballCount += 1
     }
 }
+
+runNumberGame()
