@@ -36,7 +36,7 @@ func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: In
     return (strikeCount, ballCount)
 }
 
-func gameStart() {
+func startGame() {
     randomNumbers = generateRandomNumbers(count: numbersCount)
     
     while remainChances > 0 {
@@ -60,4 +60,4 @@ func gameStart() {
     }
 }
 
-gameStart()
+startGame()
