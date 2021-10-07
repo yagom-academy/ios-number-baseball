@@ -43,33 +43,33 @@ private func calculateStrikeBall(from computerNumbers: Set<Int>, from playerNumb
     return false
 }
 
-private func createString(with numbers: Set<Int>) -> String {
+private func createStringForConsole(with numbers: Set<Int>) -> String {
     let numbers = Array(numbers)
-    return "임의의 수 : \(numbers[0]) \(numbers[1]) \(numbers[2])"
+    var string = "임의의 수 :"
+    
+    for number in numbers {
+        string += " \(number)"
+    }
+    
+    return string
 }
 
-private func startGame() {
+private func startNumberBaseballGame() {
     var chance = 9
     let computerNumbers = generateRandomNumbers()
-    var playerWins = false
     
     while chance > 0 {
         let playerNumbers = generateRandomNumbers()
-        print(createString(with: playerNumbers))
+        print(createStringForConsole(with: playerNumbers))
         if calculateStrikeBall(from: computerNumbers, from: playerNumbers) {
-            playerWins = true
-            break
+            print("사용자 승리...!")
+            return
         } else {
             chance -= 1
             print("남은 기회 : \(chance)")
         }
     }
-    
-    if playerWins {
-        print("사용자 승리...!")
-    } else {
-        print("컴퓨터 승리...!")
-    }
+    print("컴퓨터 승리...!")
 }
 
-startGame()
+startNumberBaseballGame()
