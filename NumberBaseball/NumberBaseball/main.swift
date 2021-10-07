@@ -29,7 +29,7 @@ func countStrikeAndBall() {
     }
 }
 
-func printStrikeAndBall() {
+func presentStrikeAndBall() {
     print("\(strikeCounts) 스트라이크 \(ballCounts) 볼")
 }
 
@@ -76,7 +76,7 @@ func playBaseballGame() {
         resetStrikeAndBallCounts()
         presentPlayerNums()
         countStrikeAndBall()
-        printStrikeAndBall()
+        presentStrikeAndBall()
         presentRounds()
         gameResult()
     } while remainedRounds > 0 && strikeCounts < digitsOfGame
