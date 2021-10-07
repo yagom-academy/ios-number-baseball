@@ -115,7 +115,6 @@ func startGame() {
         makePlayerRandomNumber()
         printPlayerRandomNumber()
         resetGlobalVariables()
-        
         compareNumbers(computerNumbers: computerRandomNumbers, with: playerRandomNumbers)
         printCompareResult()
         printTrialCount()
