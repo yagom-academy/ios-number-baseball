@@ -59,7 +59,7 @@ func startGame() {
     }
     
     if tryCount == 0, strikeCount != 3 {
-        print("컴퓨터 승리!")
+        print("컴퓨터 승리..!")
     }else {
         print("사용자 승리!")
     }
