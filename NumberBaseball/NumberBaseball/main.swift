@@ -77,4 +77,15 @@ func startMenu() {
     }
 }
 
+func askNumber() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    
+    let response = readLine()
+    
+    // 공백인 경우, 숫자가 아니라 다른 문자가 들어온 경우, " "가 두개, 숫자가 중복인 경우
+  
+}
+
 startMenu()
