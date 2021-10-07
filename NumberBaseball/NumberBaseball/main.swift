@@ -25,6 +25,10 @@ func runNumberGame() {
         printRemainingLifeCount(lifeCount: lifeCount, attemptCount: attemptCount, threeStrikeFlag: threeStrikeFlag)
     }
     
+    printWinner(threeStrikeFlag: threeStrikeFlag)
+}
+
+func printWinner(threeStrikeFlag: Bool) {
     if threeStrikeFlag == true {
         print("사용자 승리...!")
     } else {
@@ -82,3 +86,4 @@ func increaseStrikeCountOrBallCount(generatedCorrectNumbers: [Int], userTryNumbe
         ballCount += 1
     }
 }
+
