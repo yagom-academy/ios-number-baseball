@@ -25,7 +25,7 @@ func createRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> [In
         resultNumbers.insert(randomNumber)
     } while resultNumbers.count < count
     
-    return Array(resultNumbers)
+    return resultNumbers.shuffled()
 }
 
 targetNumbers = createRandomNumbers()
@@ -36,7 +36,7 @@ func playRound() -> Int {
     
     print(convertIntArrayToString(randomNumbers))
     
-    let score: (strike: Int, ball: Int) = compareScore(by: randomNumbers)
+    let score = compare(randomNumbers, with: targetNumbers)
     printStrikeAndBall(score: score)
     
     return score.strike
@@ -46,7 +46,7 @@ func printStrikeAndBall(score: (strike: Int, ball: Int)) {
     print("\(score.strike) 스트라이크, \(score.ball) 볼")
 }
 
-func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers) -> (Int, Int) {
+func compare(_ randomNumbers: [Int], with targetNumbers: [Int]) -> (strike: Int, ball: Int) {
     var score: (strike: Int, ball: Int) = (0, 0)
     
     for i in randomNumbers.indices {
@@ -60,15 +60,23 @@ func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers)
     return score
 }
 
-for currentTryCount in 1...9 {
-    let gameScore = playRound()
-    let isWin: Bool = gameScore == 3
+func playGame(tryCount: Int) {
+    for currentTryCount in 1...tryCount {
+        let gameScore = playRound()
+        
+        printGameResult(score: gameScore, currentTryCount: currentTryCount, tryCount: tryCount)
+    }
+}
+
+func printGameResult(score: Int, currentTryCount: Int, tryCount: Int) {
+    let isWin = (score == 3)
+    let remainCount = tryCount - currentTryCount
     
     if isWin {
         print("사용자 승리!")
-        break
-    } else if currentTryCount == 9 {
-        print("남은 기회 : \(tryCount - currentTryCount)")
+        return
+    } else if currentTryCount == tryCount {
+        print("남은 기회 : \(remainCount)")
         print("컴퓨터 승리...!")
     }
 }
