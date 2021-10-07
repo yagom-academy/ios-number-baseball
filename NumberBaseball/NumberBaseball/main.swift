@@ -94,6 +94,11 @@ func presentMenu() {
     """)
 }
 
+func selectMenu() -> String {
+    let selectedMenu = readLine() ?? ""
+    return selectedMenu
+}
+
 func operateMenu(menu: String) {
     switch menu {
     case "1":
