@@ -105,9 +105,20 @@ func operateMenu(menu: String) {
     case "1":
         playBaseballGame()
     case "2":
-        print("")
+        break
     default:
         print(defaultErrorMessage)
         break
     }
+}
+
+func runBaseballGame() {
+    var selectedMenu: String
+    
+    repeat {
+        presentMenu()
+        selectedMenu = selectMenu()
+        operateMenu(menu: selectedMenu)
+    } while selectedMenu != "2"
+    
 }
