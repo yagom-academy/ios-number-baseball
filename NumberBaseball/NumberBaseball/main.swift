@@ -53,7 +53,7 @@ func launchBaseBall() {
         }
 
         gameCount -= 1
-        print("남은 기회 : (gameCount)")
+        print("남은 기회 : \(gameCount)")
     }
 
     if gameCount == 0 {
@@ -63,4 +63,34 @@ func launchBaseBall() {
     }
 }
 
-launchBaseBall()
+func printMenuAndRecieveMenuNumber() -> String? {
+    print("""
+    1. 게임시작
+    2. 게임종료
+    원하는 기능을 선택해주세요 :
+    """, terminator: " ")
+    
+    let userInput = readLine()
+    
+    return userInput
+}
+
+func numberBaseball() {
+OUTER: repeat {
+        guard let menuNumber = printMenuAndRecieveMenuNumber() else {
+            print("입력이 잘못되었습니다")
+            return
+        }
+    
+        switch menuNumber {
+        case "1":
+            launchBaseBall()
+        case "2":
+            break OUTER
+        default:
+            print("입력이 잘못되었습니다.")
+        }
+    } while true
+}
+
+numberBaseball()
