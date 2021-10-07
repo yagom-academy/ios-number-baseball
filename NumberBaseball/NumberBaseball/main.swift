@@ -138,3 +138,8 @@ func inputPlayerNums() {
         return print(defaultErrorMessage)
     }
 }
+
+func separateInput(input: String) -> [String] {
+    return input.components(separatedBy: " ")
+}
+
