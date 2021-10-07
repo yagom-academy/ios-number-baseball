@@ -6,29 +6,28 @@
 
 import Foundation
 
+enum NumberGameError: String {
+    case readLineMalfunction = "시스템(readLine) 에러가 발생하였습니다."
+    case abnormalUserInput = "입력이 잘못되었습니다."
+}
+
 func selectMenu(quitFlag: inout Bool) {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요", terminator: " : ")
     
     guard let selectedMenu = readLine() else {
-        // TODO: 에러출력
-        // TODO: return 제거
+        print(NumberGameError.readLineMalfunction)
         return
     }
     
     switch selectedMenu {
     case "1":
-        // TODO: 게임숫자 입력받는 함수 구현
-        // TODO: return 제거
-        return
+        startGame()
     case "2":
         quitFlag = true
-        return
     default:
-        // TODO: 에러출력
-        // TODO: return 제거
-        return
+        print(NumberGameError.abnormalUserInput)
     }
 }
 
