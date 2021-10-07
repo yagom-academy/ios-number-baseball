@@ -8,11 +8,12 @@ import Foundation
 
 var randomNumbers: [Int] = []
 var remainChances: Int = 9
+let numbersCount: Int = 3
 
-func generate3RandomNumbers() -> [Int] {
+func generateRandomNumbers(count: Int) -> [Int] {
     var numbers:[Int] = []
     
-    while numbers.count < 3 {
+    while numbers.count < count {
         let randomNumber:Int = Int.random(in: 1...9)
         
         if numbers.contains(randomNumber) == false {
@@ -43,14 +44,14 @@ func checkTheResult (for inputNumbers:[Int]) -> (Int, Int) {
 }
 
 func gameStart() {
-    randomNumbers = generate3RandomNumbers()
+    randomNumbers = generateRandomNumbers(count: numbersCount)
     
     while remainChances > 0 {
-        let playNumbers: [Int] = generate3RandomNumbers()
+        let playNumbers: [Int] = generateRandomNumbers(count: numbersCount)
         print("임의의 수 : \(playNumbers.map{ String($0) }.joined(separator: " "))")
         let (strikeCount, ballCount) = checkTheResult(for: playNumbers)
         
-        if strikeCount == 3 {
+        if strikeCount == numbersCount {
             break
         }
         
