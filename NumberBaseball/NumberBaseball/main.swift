@@ -29,10 +29,8 @@ func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: In
         sameNumberCount += randomNumbers.contains(inputNumber) ? 1 : 0
     }
     
-    for index in 0...2 {
-        if randomNumbers[index] == inputNumbers[index] {
-            strikeCount += 1
-        }
+    for index in 0..<numbersCount where randomNumbers[index] == inputNumbers[index] {
+        strikeCount += 1
     }
 
     return (strikeCount, sameNumberCount - strikeCount)
