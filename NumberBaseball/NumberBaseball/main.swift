@@ -12,6 +12,7 @@ var strikeCount: Int = 0
 var ballCount: Int = 0
 
 func generateRandomNumbers() -> Array<Int> {
+    
     var numbers: Set<Int> = Set<Int>()
     
     while numbers.count < 3 {
@@ -30,14 +31,16 @@ func returnResult(of numbers: [Int]) -> String {
 }
 
 func judgeStrikeOrBall(of number: Int, at index: Int) {
+    
     if number == computerNumbers[index] {
         strikeCount += 1
-    }else if computerNumbers.contains(number) {
+    } else if computerNumbers.contains(number) {
         ballCount += 1
     }
 }
 
 func playOneRound() {
+    
     let randomNumbers = generateRandomNumbers()
     let randomNumberToString: String = randomNumbers.reduce(""){String($0) + " " + String($1)}
     let resultOfJudgement = returnResult(of: randomNumbers)
@@ -55,13 +58,14 @@ func playOneRound() {
 }
 
 func startGame() {
+    
     while tryCount > 0, strikeCount != 3 {
         playOneRound()
     }
     
     if tryCount == 0, strikeCount != 3 {
         print("컴퓨터 승리..!")
-    }else {
+    } else {
         print("사용자 승리!")
     }
 }
