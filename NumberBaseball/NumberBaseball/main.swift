@@ -84,5 +84,13 @@ func playBaseballGame() {
     gameResult()
 }
 
-playBaseballGame()
+func presentMenu() {
+    print("""
+    1. 게임시작
+    2. 게임종료
+    """)
+}
+
+
+
 
