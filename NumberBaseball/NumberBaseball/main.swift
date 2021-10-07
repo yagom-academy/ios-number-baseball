@@ -33,18 +33,15 @@ func printStrikeAndBall() {
     print("\(strikeCounts) 스트라이크 \(ballCounts) 볼")
 }
 
-func generateUniqueRandomNums(from: Int, to: Int) -> [Int] {
-    var uniqueRandomNums = [Int]()
+func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
+    var uniqueRandomNums: Set<Int> = Set<Int>()
     
     while uniqueRandomNums.count < digitsOfGame {
-        let num = Int.random(in: from...to)
-        guard !uniqueRandomNums.contains(num) else {
-            continue
-        }
-        uniqueRandomNums.append(num)
+        let num = Int.random(in: start...end)
+        uniqueRandomNums.insert(num)
     }
     
-    return uniqueRandomNums
+    return Array(uniqueRandomNums)
 }
 
 func presentPlayerNums() {
