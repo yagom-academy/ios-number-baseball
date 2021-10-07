@@ -7,8 +7,8 @@
 import Foundation
 
 var answerRandomInt: [Int] = []
-var chance: Int = 9
 var responseRandomInt: [Int] = []
+var chance: Int = 9
 var strike: Int = 0
 var ball: Int = 0
 
@@ -29,7 +29,6 @@ func judgeBaseballResult() {
             ball += 1
         }
     }
-    
     print("\(strike) 스트라이크, \(ball) 볼")
 }
 
@@ -40,7 +39,6 @@ func playGame() {
         while responseRandomInt.count < 3 {
             askNumber()
         }
-        
         judgeBaseballResult()
         responseRandomInt.removeAll()
         chance -= 1
@@ -56,7 +54,6 @@ func playGame() {
             print("컴퓨터 승리...!")
             return
         }
-        
         strike = 0
         ball = 0
     }
@@ -108,10 +105,8 @@ func validateNumber() {
             print("입력이 잘못되었습니다")
             return
         }
-        
         responseRandomInt.append(numberCheck)
     }
-    // 여기까지 온 거면, nil 도 아니고 공백("")도 아닌 것임, 띄어쓰기(" ")가 2개인 것임, 각 자리가 1-9 사이 숫자인 것임.
 }
 
 startMenu()
