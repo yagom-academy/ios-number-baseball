@@ -6,6 +6,7 @@
 
 import Foundation
 
+var errorMessage = "입력이 잘못되었습니다"
 
 func makingRandomNumbers() -> Array<Int> {
     var nonDuplicateNumbers = Set<Int>()
@@ -81,7 +82,7 @@ func printMenuAndRecieveMenuNumber() -> String? {
 func numberBaseball() {
     OUTER: repeat {
         guard let menuNumber = printMenuAndRecieveMenuNumber() else {
-            print("입력이 잘못되었습니다")
+            print(errorMessage)
             return
         }
     
@@ -91,7 +92,7 @@ func numberBaseball() {
         case "2":
             break OUTER
         default:
-            print("입력이 잘못되었습니다.")
+            print(errorMessage)
         }
     } while true
 }
@@ -124,24 +125,26 @@ func makingUserNumbers() -> Array<Int> {
         if sw == true {
             userNumbers = stringToArray(inputedUserNumbers)
             break OUTER
+        } else {
+            print(errorMessage)
         }
     } while true
     
     return userNumbers
 }
 
-//func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
-//    var userNumbers: Array<Int> = Array<Int>()
-//
-//    let userString = Array(inputedUserNumbers)
-//
-//    for i in 0...inputedUserNumbers.count-1 {
-//        if let a = Int(String(userString[i])) {
-//            userNumbers.append(a)
-//        }
-//    }
-//    return userNumbers
-//}
+func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
+    var userNumbers: Array<Int> = Array<Int>()
+    
+    let userString = Array(inputedUserNumbers)
+    
+    for i in 0...inputedUserNumbers.count-1 {
+        if let a = Int(String(userString[i])) {
+            userNumbers.append(a)
+        }
+    }
+    return userNumbers
+}
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     var sw = false
