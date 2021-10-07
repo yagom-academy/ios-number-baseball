@@ -21,7 +21,7 @@ func generateRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
-func judgeStrikeAndBall(with userNumbers: [Int]) -> [Int] {
+func judgeStrikeAndBall(with userNumbers: [Int]) -> (strike: Int, ball: Int) {
     var ballCount = 0
     var strikeCount = 0
     for index in 0..<userNumbers.count {
@@ -31,7 +31,7 @@ func judgeStrikeAndBall(with userNumbers: [Int]) -> [Int] {
         strikeCount += computerNumbers[index] == userNumbers[index] ? 1 : 0
     }
     ballCount -= strikeCount
-    return [strikeCount, ballCount]
+    return (strikeCount, ballCount)
 }
 
 func startGame() {
@@ -50,9 +50,7 @@ func startGame() {
     while tryCount != 0 && strikeCount != strikesForUserWin {
         tryCount -= 1
         let userNumbers = generateRandomNumbers()
-        let strikeAndBallCount: [Int] = judgeStrikeAndBall(with: userNumbers)
-        strikeCount = strikeAndBallCount[0]
-        ballCount = strikeAndBallCount[1]
+        (strikeCount, ballCount) = judgeStrikeAndBall(with: userNumbers)
         print(generatedUserNumberMessage, userNumbers.map{String($0)}.joined(separator: " "))
         print(strikeCount, strikeCountMessage, ballCount, ballCountMessage)
         print(leftTrialMessage, tryCount)
