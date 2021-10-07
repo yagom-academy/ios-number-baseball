@@ -13,7 +13,7 @@ func generateRandomNumbers(count: Int) -> [Int] {
     var numbers: Set<Int> = []
     
     while numbers.count < count {
-        let randomNumber:Int = Int.random(in: numberRange)
+        let randomNumber: Int = Int.random(in: numberRange)
         
         numbers.insert(randomNumber)
     }
@@ -22,18 +22,18 @@ func generateRandomNumbers(count: Int) -> [Int] {
 }
 
 func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
-    var sameNumberCount:Int = 0
-    var strikeCount:Int = 0
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
     
-    for inputNumber in inputNumbers {
-        sameNumberCount += randomNumbers.contains(inputNumber) ? 1 : 0
+    for index in 0..<numbersCount{
+        if randomNumbers[index] == inputNumbers[index] {
+            strikeCount += 1
+        } else if randomNumbers.contains(inputNumbers[index]) {
+            ballCount += 1
+        }
     }
     
-    for index in 0..<numbersCount where randomNumbers[index] == inputNumbers[index] {
-        strikeCount += 1
-    }
-
-    return (strikeCount, sameNumberCount - strikeCount)
+    return (strikeCount, ballCount)
 }
 
 func gameStart() {
