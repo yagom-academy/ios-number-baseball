@@ -6,10 +6,10 @@
 
 import Foundation
 
-var computerNumbers = [Int]()
-var tryCount: Int = 9
+var computerNumbers: [Int] = []
+var tryCount = 9
 
-func generatedRandomNumbers() -> [Int] {
+func generateRandomNumbers() -> [Int] {
     var randomNumbers: Set<Int> = []
     while randomNumbers.count < 3 {
         let number = Int.random(in: 1...9)
@@ -18,7 +18,7 @@ func generatedRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
-func compareResult(with userNumbers: [Int]) -> [Int] {
+func judgeStrikeAndBall(with userNumbers: [Int]) -> [Int] {
     var ballCount: Int = 0
     var strikeCount: Int = 0
     for index in 0...(userNumbers.count - 1) {
@@ -32,16 +32,18 @@ func compareResult(with userNumbers: [Int]) -> [Int] {
 }
 
 func startGame() {
-    computerNumbers = generatedRandomNumbers()
-    var strikeCount: Int = 0
+    computerNumbers = generateRandomNumbers()
+    var strikeCount = 0
+    var ballCount = 0
     while tryCount != 0 && strikeCount != 3 {
-        tryCount = tryCount - 1
-        let userNumbers = generatedRandomNumbers()
-        let strikeAndBallCount: [Int] = compareResult(with: userNumbers)
-        print("임의의 수 : " + userNumbers.map{String($0)}.joined(separator: " "))
-        print("\(strikeAndBallCount[0]) 스트라이크, \(strikeAndBallCount[1]) 볼")
-        print("남은 기회 : \(tryCount)")
+        tryCount -= 1
+        let userNumbers = generateRandomNumbers()
+        let strikeAndBallCount: [Int] = judgeStrikeAndBall(with: userNumbers)
         strikeCount = strikeAndBallCount[0]
+        ballCount = strikeAndBallCount[1]
+        print("임의의 수 : " + userNumbers.map{String($0)}.joined(separator: " "))
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        print("남은 기회 : \(tryCount)")
     }
     
     if strikeCount == 3 {
