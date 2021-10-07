@@ -29,19 +29,6 @@ func countStrikeAndBall() {
     }
 }
 
-func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
-    var uniqueRandomNums: Set<Int> = Set<Int>()
-    
-    while uniqueRandomNums.count < digitsOfGame {
-        let num = Int.random(in: start...end)
-        uniqueRandomNums.insert(num)
-    }
-    
-    return Array(uniqueRandomNums)
-}
-
-//MARK: -플레이어 숫자 입력
-
 func presentInputForm() {
     print("""
     숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
@@ -132,7 +119,7 @@ func presentRoundResult() {
     print("남은 기회 : \(remainedRounds)")
 }
 
-func gameResult() {
+func presentGameResult() {
     if strikeCounts == digitsOfGame {
         print("사용자 승리!")
     } else if remainedRounds == 0 {
@@ -145,6 +132,17 @@ func resetStrikeAndBallCounts() {
     ballCounts = 0
 }
 
+func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
+    var uniqueRandomNums: Set<Int> = Set<Int>()
+    
+    while uniqueRandomNums.count < digitsOfGame {
+        let num = Int.random(in: start...end)
+        uniqueRandomNums.insert(num)
+    }
+    
+    return Array(uniqueRandomNums)
+}
+
 func initGameSetting() {
     randomTargetNums = generateUniqueRandomNums(from: 1, to: 9)
     remainedRounds = 9
@@ -152,6 +150,7 @@ func initGameSetting() {
 
 func playBaseballGame() {
     initGameSetting()
+    
     repeat {
         resetStrikeAndBallCounts()
         generatePlayerNums()
@@ -160,10 +159,10 @@ func playBaseballGame() {
         decreaseRemainedRounds()
         presentRoundResult()
     } while remainedRounds > 0 && strikeCounts < digitsOfGame
-    gameResult()
+    
+    presentGameResult()
 }
 
-//MARK: -메뉴구현
 let defaultErrorMessage = "입력이 잘못되었습니다"
 
 func presentMenu() {
