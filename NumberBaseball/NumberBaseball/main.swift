@@ -143,3 +143,7 @@ func separateInput(input: String) -> [String] {
     return input.components(separatedBy: " ")
 }
 
+func hasThreeElements(input: [String]) -> Bool {
+    return input.count == digitsOfGame
+}
+
