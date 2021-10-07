@@ -29,10 +29,6 @@ func countStrikeAndBall() {
     }
 }
 
-func presentStrikeAndBall() {
-    print("\(strikeCounts) 스트라이크 \(ballCounts) 볼")
-}
-
 func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
     var uniqueRandomNums: Set<Int> = Set<Int>()
     
@@ -55,17 +51,21 @@ func presentPlayerNums() {
     print("임의의 수 : \(playerNums.joined(separator: " "))")
 }
 
+func decreaseRemainedRounds() {
+    remainedRounds -= 1
+}
+
+func presentRoundResult() {
+    print("\(strikeCounts) 스트라이크 \(ballCounts) 볼")
+    print("남은 기회 : \(remainedRounds)")
+}
+
 func gameResult() {
     if strikeCounts == digitsOfGame {
         print("플레이어 승리...!")
     } else if remainedRounds == 0 {
         print("컴퓨터 승리...!")
     }
-}
-
-func presentRounds() {
-    remainedRounds -= 1
-    print("남은 기회 : \(remainedRounds)")
 }
 
 func resetStrikeAndBallCounts() {
@@ -78,8 +78,8 @@ func playBaseballGame() {
         resetStrikeAndBallCounts()
         presentPlayerNums()
         countStrikeAndBall()
-        presentStrikeAndBall()
-        presentRounds()
+        decreaseRemainedRounds()
+        presentRoundResult()
         gameResult()
     } while remainedRounds > 0 && strikeCounts < digitsOfGame
 }
