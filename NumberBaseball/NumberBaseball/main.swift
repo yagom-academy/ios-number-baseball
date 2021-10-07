@@ -76,7 +76,7 @@ func printMenuAndRecieveMenuNumber() -> String? {
 }
 
 func numberBaseball() {
-OUTER: repeat {
+    OUTER: repeat {
         guard let menuNumber = printMenuAndRecieveMenuNumber() else {
             print("입력이 잘못되었습니다")
             return
@@ -103,5 +103,30 @@ func recieveGameNumber() -> String? {
     let gameNumber = readLine()
     
     return gameNumber
+}
+
+func makingUserNumbers() -> Array<Int> {
+    OUTER: repeat {
+        
+        var inputedUserNumbers = ""
+      
+        if let gameNumber = recieveGameNumber() {
+            inputedUserNumbers = gameNumber
+        }
+    } while true
+}
+
+func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
+    var sw = false
+    var arrayNumbers = Array(inputedUserNumbers)
+
+    if inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 {
+        sw = true
+    }
+    
+    if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
+        sw = true
+    }
+    return sw
 }
 
