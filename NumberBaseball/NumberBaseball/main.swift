@@ -45,7 +45,7 @@ func isNumber(numbers: [String]) -> [Int]? {
             return nil
         }
 
-        if number <= 0 || number >= 10 {
+        if numberRange.contains(number) == false {
             return nil
         }
 
@@ -56,11 +56,14 @@ func isNumber(numbers: [String]) -> [Int]? {
 
 func getInputNumbers(count: Int) -> [Int]? {
     print("임의의 수 : ", terminator: "")
+    
     guard let inputNumber: String = readLine() else {
         print("입력이 잘못되었습니다")
         return nil
     }
-    let separatedNumbers: [String] = inputNumber.components(separatedBy: " ")
+    
+    let separatedNumbers: [String] = inputNumber.trimmingCharacters(in: .whitespaces).components(separatedBy: " ")
+    
     guard let numbers: [Int] = isNumber(numbers: separatedNumbers),
             numbers.count == count,
             Set(numbers).count == count else {
