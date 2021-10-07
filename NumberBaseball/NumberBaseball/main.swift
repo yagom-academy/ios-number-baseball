@@ -44,7 +44,7 @@ func launchBaseBall() {
     var gameCount: Int = 9
 
     while gameCount > 0 {
-        userNumbers = makingRandomNumbers()
+        userNumbers = makingUserNumbers()
         printNumbers(userNumbers)
         compareNumbers(randomNumbers: randomNumbers, userNumbers: userNumbers)
 
@@ -106,32 +106,52 @@ func recieveGameNumber() -> String? {
 }
 
 func makingUserNumbers() -> Array<Int> {
+    var sw = false
+    var a = ""
     OUTER: repeat {
         
         var inputedUserNumbers = ""
       
         if let gameNumber = recieveGameNumber() {
             inputedUserNumbers = gameNumber
+            sw = checkInvalidUserNumbers(inputedUserNumbers)
+            a = gameNumber
+            
         }
-    } while true
+        
+        
+    } while sw == false
+    
+    
+    
+    return [1, 2, 3]
 }
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     var sw = false
-    var arrayNumbers = Array(inputedUserNumbers)
+    let arrayNumbers = Array(inputedUserNumbers)
 
     if inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 {
         sw = true
+    } else {
+        sw = false
     }
     
     if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
         sw = true
+    } else {
+        sw = false
     }
     
     if Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil {
         sw = true
+    } else {
+        sw = false
     }
+    
     return sw
 }
 
 
+
+numberBaseball()
