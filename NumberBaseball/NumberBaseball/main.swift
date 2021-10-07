@@ -5,7 +5,7 @@
 // 
 
 var randomNumbers: [Int] = []
-var remainChances: Int = 9
+var remainingChance: Int = 9
 let numbersCount: Int = 3
 let numberRange: ClosedRange<Int> = 1...9
 
@@ -39,7 +39,7 @@ func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: In
 func startGame() {
     randomNumbers = generateRandomNumbers(count: numbersCount)
     
-    while remainChances > 0 {
+    while remainingChance > 0 {
         let playNumbers: [Int] = generateRandomNumbers(count: numbersCount)
         print("임의의 수 : \(playNumbers.map{ String($0) }.joined(separator: " "))")
         let result = checkTheResult(for: playNumbers)
@@ -48,12 +48,12 @@ func startGame() {
             break
         }
         
-        remainChances -= 1
+        remainingChance -= 1
         print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
-        print("남은 기회 : \(remainChances)")
+        print("남은 기회 : \(remainingChance)")
     }
     
-    if remainChances == 0 {
+    if remainingChance == 0 {
         print("컴퓨터 승리...")
     } else {
         print("사용자 승리...")
