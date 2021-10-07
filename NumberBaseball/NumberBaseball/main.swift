@@ -6,7 +6,40 @@
 
 import Foundation
 
+func selectMenu(quitFlag: inout Bool) {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요", terminator: " : ")
+    
+    guard let selectedMenu = readLine() else {
+        // TODO: 에러출력
+        // TODO: return 제거
+        return
+    }
+    
+    switch selectedMenu {
+    case "1":
+        // TODO: 게임숫자 입력받는 함수 구현
+        // TODO: return 제거
+        return
+    case "2":
+        quitFlag = true
+        return
+    default:
+        // TODO: 에러출력
+        // TODO: return 제거
+        return
+    }
+}
+
 func runNumberGame() {
+    var quitFlag = false
+    while quitFlag == false {
+        selectMenu(quitFlag: &quitFlag)
+    }
+}
+
+func startGame() {
     let lifeCount = 9
     let generatedCorrectNumbers = generatedThreeRandomNumbers()
     var userTryNumbers: [Int]
@@ -86,4 +119,3 @@ func increaseStrikeCountOrBallCount(generatedCorrectNumbers: [Int], userTryNumbe
         ballCount += 1
     }
 }
-
