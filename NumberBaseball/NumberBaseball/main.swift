@@ -24,7 +24,7 @@ private func generateRandomNumbers() -> Set<Int> {
     return randomNumbers
 }
 
-private func calculateStrikeBall(from computerNumbers: Set<Int>, from playerNumbers: Set<Int>) -> Bool {
+private func calculateStrikeBall(from computerNumbers: Set<Int>, and playerNumbers: Set<Int>) -> [Int] {
     var ballCount = computerNumbers.intersection(playerNumbers).count
     var strikeCount = 0
     let computerNumbers = Array(computerNumbers)
@@ -36,11 +36,12 @@ private func calculateStrikeBall(from computerNumbers: Set<Int>, from playerNumb
             ballCount -= 1
         }
     }
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    if strikeCount == 3 {
-        return true
-    }
-    return false
+    
+    return [strikeCount, ballCount]
+}
+
+private func checkWin(by strikeCount: Int) -> Bool {
+    return strikeCount == 3
 }
 
 private func createStringForConsole(with numbers: Set<Int>) -> String {
@@ -61,7 +62,10 @@ private func startNumberBaseballGame() {
     while chance > 0 {
         let playerNumbers = generateRandomNumbers()
         print(createStringForConsole(with: playerNumbers))
-        if calculateStrikeBall(from: computerNumbers, from: playerNumbers) {
+        let strikeBall = calculateStrikeBall(from: computerNumbers, and: playerNumbers)
+        print("\(strikeBall[0]) 스트라이크, \(strikeBall[1]) 볼")
+        
+        if checkWin(by: strikeBall[0]){
             print("사용자 승리...!")
             return
         } else {
@@ -71,5 +75,4 @@ private func startNumberBaseballGame() {
     }
     print("컴퓨터 승리...!")
 }
-
 startNumberBaseballGame()
