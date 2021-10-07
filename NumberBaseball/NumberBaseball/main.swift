@@ -8,13 +8,13 @@ import Foundation
 var randomNumbers: [Int] = []
 var remainingChance: Int = 9
 let numbersCount: Int = 3
-let numberRange: ClosedRange<Int> = 1...9
+let inputNumberRange: ClosedRange<Int> = 1...9
 
 func generateRandomNumbers(count: Int) -> [Int] {
     var numbers: Set<Int> = []
     
     while numbers.count < count {
-        let randomNumber: Int = Int.random(in: numberRange)
+        let randomNumber: Int = Int.random(in: inputNumberRange)
         
         numbers.insert(randomNumber)
     }
@@ -48,7 +48,7 @@ func isNumber(numbers: [String]) -> [Int]? {
             return nil
         }
 
-        if numberRange.contains(number) == false {
+        if inputNumberRange.contains(number) == false {
             return nil
         }
 
