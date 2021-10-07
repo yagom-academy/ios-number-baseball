@@ -77,26 +77,10 @@ func getInputNumbers(count: Int) -> [Int]? {
     return numbers
 }
 
-// MARK: Game playing
+// MARK: - Game playing
 func startGame() {
-    while true {
-        print("1. 게임시작")
-        print("2. 게임종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
-        
-        guard let input: String = readLine() else {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
-        
-        if input == "1" {
-            break
-        } else if input == "2" {
-            return
-        } else {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
+    if isStart() == false {
+        return
     }
     
     randomNumbers = generateRandomNumbers(count: numbersCount)
@@ -115,14 +99,44 @@ func startGame() {
         }
         
         remainingChance -= 1
-        print("\(playResult.strikeCount) 스트라이크, \(playResult.ballCount) 볼")
-        print("남은 기회 : \(remainingChance)")
+        printPlayResult(strikeCount: playResult.strikeCount, ballCount: playResult.ballCount)
     }
     
-    printWin()
+    printWinner()
 }
 
-func printWin() {
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func isStart() -> Bool {
+    while true {
+        printMenu()
+        
+        guard let input: String = readLine() else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        if input == "1" {
+            return true
+        } else if input == "2" {
+            return false
+        } else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+    }
+}
+
+func printPlayResult(strikeCount: Int, ballCount: Int) {
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("남은 기회 : \(remainingChance)")
+}
+
+func printWinner() {
     if remainingChance == 0 {
         print("컴퓨터 승리...")
     } else {
@@ -131,5 +145,5 @@ func printWin() {
 }
 
 
-// MARK: Game start
+// MARK: - Game start
 startGame()
