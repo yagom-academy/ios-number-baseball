@@ -6,19 +6,12 @@
 
 import Foundation
 
-func makeRandomNumber() -> Int {
-    var randomNumber: Int = 0
-    
-    randomNumber = Int.random(in: 1...9)
-    
-    return randomNumber
-}
 
-func makeRandomNumberSet() -> Array<Int> {
+func makingRandomNumber() -> Array<Int> {
     var randomNumberSet = Set<Int>()
     
     repeat {
-        randomNumberSet.insert(makeRandomNumber())
+        randomNumberSet.insert(Int.random(in: 1...9))
     } while randomNumberSet.count < 3
     
     let randomNumberArray = Array(randomNumberSet)
@@ -64,19 +57,18 @@ func printNumbers(_ radomArray: Array<Int>) {
 }
 
 func launchBaseBall() {
-    let randomNumbers: Array<Int> = makeRandomNumberSet()
-    var userNumbers: Array<Int> = makeRandomNumberSet()
+    let randomNumbers: Array<Int> = makingRandomNumber()
+    var userNumbers: Array<Int> = makingRandomNumber()
     var gameCount: Int = 9
     
     while gameCount > 0, randomNumbers != userNumbers {
-        
         printNumbers(userNumbers)
         compareNumbers(randomNumbers, userNumbers)
         
         gameCount -= 1
         print("남은 기회 : \(gameCount)")
         
-        userNumbers = makeRandomNumberSet()
+        userNumbers = makingRandomNumber()
     }
     
     if gameCount == 0 {
