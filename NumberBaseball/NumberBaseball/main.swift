@@ -93,4 +93,15 @@ OUTER: repeat {
     } while true
 }
 
-numberBaseball()
+func recieveGameNumber() -> String? {
+    print("""
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """, terminator: " ")
+    
+    let gameNumber = readLine()
+    
+    return gameNumber
+}
+
