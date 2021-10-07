@@ -8,7 +8,7 @@ import Foundation
 
 var answerRandomInt: [Int] = []
 var chance: Int = 9
-var randomIntComputer: [Int] = []
+var responseRandomInt: [Int] = []
 var strike: Int = 0
 var ball: Int = 0
 
@@ -23,24 +23,23 @@ func generateRandomInt(to: inout [Int]) {
 
 func judgeBaseballResult() {
     for pitch in 0...2 {
-        if randomIntComputer[pitch] == answerRandomInt[pitch] {
+        if responseRandomInt[pitch] == answerRandomInt[pitch] {
             strike += 1
-        } else if answerRandomInt.contains(randomIntComputer[pitch]) {
+        } else if answerRandomInt.contains(responseRandomInt[pitch]) {
             ball += 1
         }
     }
     
-    print("임의의 수 : \(randomIntComputer[0]) \(randomIntComputer[1]) \(randomIntComputer[2])")
     print("\(strike) 스트라이크, \(ball) 볼")
 }
 
 func playGame() {
     generateRandomInt(to: &answerRandomInt)
-    
+    askNumber()
     for _ in 1...chance {
-        generateRandomInt(to: &randomIntComputer)
+        
         judgeBaseballResult()
-        randomIntComputer.removeAll()
+        responseRandomInt.removeAll()
         chance -= 1
         
         print("남은 기회 : \(chance)")
@@ -82,19 +81,8 @@ func askNumber() {
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
 
-//    if let response = readLine() {
-//        if response.isEmpty == false {
-//
-//        } else {
-//            print("입력이 잘못되었습니다")
-//            startMenu()
-//        }
-    
-    // nil이거나 공백인 경우, " "가 두개, 숫자가 아니라 다른 문자가 들어온 경우, 숫자가 중복인 경우
-
+    validateNumber()
 }
-
-startMenu()
 
 func validateNumber() {
     guard let response = readLine(), response.isEmpty == false else {
@@ -107,8 +95,14 @@ func validateNumber() {
         return
     }
     
-    // 여기까지 온 거면, nil 도 아니고 공백("")도 아닌 것임, 띄어쓰기(" ")가 2개인 것임
-    
+    for pitch in 0...2 {
+        guard let numberCheck = Int(response.components(separatedBy: " ")[pitch]), (1...9).contains(numberCheck) else {
+            print("입력이 잘못되었습니다")
+            return
+        }
+        responseRandomInt.append(numberCheck)
+    }
+    // 여기까지 온 거면, nil 도 아니고 공백("")도 아닌 것임, 띄어쓰기(" ")가 2개인 것임, 각 자리가 1-9 사이 숫자인 것임.
 }
 
-
+startMenu()
