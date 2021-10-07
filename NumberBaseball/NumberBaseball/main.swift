@@ -80,8 +80,8 @@ func playBaseballGame() {
         countStrikeAndBall()
         decreaseRemainedRounds()
         presentRoundResult()
-        gameResult()
     } while remainedRounds > 0 && strikeCounts < digitsOfGame
+    gameResult()
 }
 
 playBaseballGame()
