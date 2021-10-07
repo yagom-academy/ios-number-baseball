@@ -155,3 +155,6 @@ func isUniqueNums(input: [String]) -> Bool {
     return Set(input).count == digitsOfGame
 }
 
+func isWithinRange(input: [String]) -> Bool {
+    return input.compactMap { Int($0) }.filter { $0 > 0 && $0 < 10 }.count == digitsOfGame
+}
