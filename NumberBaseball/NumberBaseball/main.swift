@@ -84,11 +84,26 @@ func playBaseballGame() {
     gameResult()
 }
 
+//MARK: -메뉴구현
+let defaultErrorMessage = "입력이 잘못되었습니다."
+
 func presentMenu() {
     print("""
     1. 게임시작
     2. 게임종료
     """)
+}
+
+func selectMenu(menu: String) {
+    switch menu {
+    case "1":
+        playBaseballGame()
+    case "2":
+        print("")
+    default:
+        print(defaultErrorMessage)
+        break
+    }
 }
 
 
