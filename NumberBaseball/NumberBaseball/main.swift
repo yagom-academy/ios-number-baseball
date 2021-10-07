@@ -122,3 +122,12 @@ func runBaseballGame() {
     } while selectedMenu != "2"
     
 }
+
+//MARK: -플레이어 숫자 입력
+
+func presentInputForm() {
+    print("""
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    """)
+}
