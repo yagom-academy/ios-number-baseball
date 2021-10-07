@@ -160,3 +160,20 @@ func isUniqueNums(input: [String]) -> Bool {
 func isWithinRange(input: [String]) -> Bool {
     return input.compactMap { Int($0) }.filter { $0 > 0 && $0 < 10 }.count == digitsOfGame
 }
+
+func isValidInput(input: [String]) -> Bool {
+    guard hasThreeElements(input: input) else {
+        return false
+    }
+    guard isComposedWithOnlyNums(input: input) else {
+        return false
+    }
+    guard isUniqueNums(input: input) else {
+        return false
+    }
+    guard isWithinRange(input: input) else {
+        return false
+    }
+    
+    return true
+}
