@@ -52,9 +52,9 @@ func startGame() {
     while gameCount > 0 {
         gameCount -= 1
         let userNumbers = createRandomNumbers()
-        let checkBallCount = checkBallCount(answerNumbers: randomAnswerNumbers, userNumbers: userNumbers)
-        let strikeCount = checkBallCount[0]
-        let ballCount = checkBallCount[1]
+        let gameScore = checkBallCount(answerNumbers: randomAnswerNumbers, userNumbers: userNumbers)
+        let strikeCount = gameScore[0]
+        let ballCount = gameScore[1]
         
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
@@ -65,4 +65,3 @@ func startGame() {
 }
 
 startGame()
-
