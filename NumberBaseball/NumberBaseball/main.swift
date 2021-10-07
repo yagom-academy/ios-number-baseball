@@ -7,13 +7,8 @@
 import Foundation
 
 var targetNumbers: [Int] = []
-
-var strikeCount: Int = 0
-var ballCount: Int = 0
-
-var tryCount: Int = 9
-
 var randomNumbers: [Int] = []
+var tryCount = 9
 
 func convertIntArrayToString(_ array: [Int]) -> String {
     let resultString: String = array.map { String($0) }.joined(separator: " ")
@@ -21,32 +16,34 @@ func convertIntArrayToString(_ array: [Int]) -> String {
     return resultString
 }
 
-func createRandomNumbers(first: Int = 1, last: Int = 9, count: Int = 3) -> [Int] {
-    var resultNumbers: [Int] = []
+func createRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> [Int] {
+    var resultNumbers: Set<Int> = []
     
     repeat {
-        let num: Int = Int.random(in: first...last)
+        let randomNumber: Int = Int.random(in: range)
         
-        if !resultNumbers.contains(num) {
-            resultNumbers.append(num)
-        }
+        resultNumbers.insert(randomNumber)
     } while resultNumbers.count < count
     
-    return resultNumbers
+    return Array(resultNumbers)
 }
 
 targetNumbers = createRandomNumbers()
 
-func playGameResult() -> (Int, Int) {
+func playRound() -> Int {
     print("임의의 수 : ", terminator: "")
     let randomNumbers = createRandomNumbers()
     
     print(convertIntArrayToString(randomNumbers))
     
     let score: (strike: Int, ball: Int) = compareScore(by: randomNumbers)
-    print("\(score.strike) 스트라이크, \(score.ball) 볼")
+    printStrikeAndBall(score: score)
     
-    return score
+    return score.strike
+}
+
+func printStrikeAndBall(score: (strike: Int, ball: Int)) {
+    print("\(score.strike) 스트라이크, \(score.ball) 볼")
 }
 
 func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers) -> (Int, Int) {
@@ -64,8 +61,8 @@ func compareScore(by randomNumbers: [Int], targetNumbers: [Int] = targetNumbers)
 }
 
 for currentTryCount in 1...9 {
-    let gameScore: (strike: Int, ball: Int) = playGameResult()
-    let isWin: Bool = gameScore.strike == 3
+    let gameScore = playRound()
+    let isWin: Bool = gameScore == 3
     
     if isWin {
         print("사용자 승리!")
