@@ -48,7 +48,7 @@ func isNumber(numbers: [String]) -> [Int]? {
             return nil
         }
 
-        if inputNumberRange.contains(number) == false {
+        guard inputNumberRange ~= number else {
             return nil
         }
 
