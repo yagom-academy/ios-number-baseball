@@ -44,6 +44,9 @@ func launchBaseBall() {
     var gameCount: Int = 9
 
     while gameCount > 0 {
+        // 테스트용
+        print(randomNumbers)
+        
         userNumbers = makingUserNumbers()
         printNumbers(userNumbers)
         compareNumbers(randomNumbers: randomNumbers, userNumbers: userNumbers)
@@ -107,7 +110,8 @@ func recieveGameNumber() -> String? {
 
 func makingUserNumbers() -> Array<Int> {
     var sw = false
-    var a = ""
+    var userNumbers: Array<Int> = Array<Int>()
+    
     OUTER: repeat {
         
         var inputedUserNumbers = ""
@@ -115,43 +119,57 @@ func makingUserNumbers() -> Array<Int> {
         if let gameNumber = recieveGameNumber() {
             inputedUserNumbers = gameNumber
             sw = checkInvalidUserNumbers(inputedUserNumbers)
-            a = gameNumber
-            
         }
         
-        
-    } while sw == false
+        if sw == true {
+            userNumbers = stringToArray(inputedUserNumbers)
+            break OUTER
+        }
+    } while true
     
-    
-    
-    return [1, 2, 3]
+    return userNumbers
 }
+
+//func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
+//    var userNumbers: Array<Int> = Array<Int>()
+//
+//    let userString = Array(inputedUserNumbers)
+//
+//    for i in 0...inputedUserNumbers.count-1 {
+//        if let a = Int(String(userString[i])) {
+//            userNumbers.append(a)
+//        }
+//    }
+//    return userNumbers
+//}
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     var sw = false
     let arrayNumbers = Array(inputedUserNumbers)
 
+    // 유효성 별로 분리 해야할지... 고민!!!
     if inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 {
         sw = true
     } else {
         sw = false
+        return sw
     }
     
     if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
         sw = true
     } else {
         sw = false
+        return sw
     }
     
     if Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil {
         sw = true
     } else {
         sw = false
+        return sw
     }
     
     return sw
 }
-
-
 
 numberBaseball()
