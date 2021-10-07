@@ -6,11 +6,12 @@ var trialCount: Int = 9
 var strike: Int = 0
 var ball: Int = 0
 var isGameOver: Bool = false
+let digitNumber: Int = 3
 
 func makeDeduplicatedRandomNumbers() -> [Int] {
     var deduplicatedNumbers: Set<Int> = []
     
-    while deduplicatedNumbers.count < 3 {
+    while deduplicatedNumbers.count < digitNumber {
         let randomNumber = Int.random(in: 1...9)
         deduplicatedNumbers.insert(randomNumber)
     }
@@ -90,7 +91,7 @@ func printTrialCount() {
 }
 
 func checkWinner() {
-    if strike == 3 {
+    if strike == digitNumber {
         print("사용자 승리!")
         isGameOver = true
     } else if trialCount == 0 {
