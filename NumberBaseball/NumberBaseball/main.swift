@@ -7,6 +7,7 @@ var strike: Int = 0
 var ball: Int = 0
 var isGameOver: Bool = false
 let digitNumber: Int = 3
+var isProgramOver: Bool = true
 
 func makeDeduplicatedRandomNumbers() -> [Int] {
     var deduplicatedNumbers: Set<Int> = []
@@ -23,8 +24,33 @@ func makeComputerRandomNumber() {
     print("(과제 확인용 출력) 컴퓨터 : \(computerRandomNumbers)")
 }
 
-func makePlayerRandomNumber() {
-    playerRandomNumbers = makeDeduplicatedRandomNumbers()
+
+func verifyInputValue() {
+    print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: "")
+    guard let inputValue: String = readLine(), inputValue.isEmpty == false else {
+        print("입력이 잘못되었습니다")
+        return
+    }
+     
+    let inputInformaion: [String] = inputValue.components(separatedBy: " ")
+    
+    guard inputInformaion.count == 3 else {
+        print("입력이 잘못되었습니다")
+        return
+    }
+          
+    guard let firstInputNumber: Int = Int(inputInformaion[0]),
+          let secondInputNumber: Int = Int(inputInformaion[1]),
+          let thirdInputNumber: Int = Int(inputInformaion[2]) else {
+        print("입력이 잘못되었습니다")
+        return
+    }
+          
+    playerRandomNumbers = [firstInputNumber, secondInputNumber, thirdInputNumber]
 }
 
 func printPlayerRandomNumber() {
@@ -110,9 +136,9 @@ func checkWinner() {
 
 func startGame() {
     makeComputerRandomNumber()
+    verifyInputValue()
     
     while isGameOver == false {
-        makePlayerRandomNumber()
         printPlayerRandomNumber()
         resetGlobalVariables()
         compareNumbers(computerNumbers: computerRandomNumbers, with: playerRandomNumbers)
@@ -122,4 +148,16 @@ func startGame() {
     }
 }
 
-startGame()
+while isProgramOver == true {
+    print("1. 게임 시작\n2. 게임 종료\n원하는 기능을 선택해주세요 : ", terminator: "")
+    let gameMenu = readLine()
+    switch gameMenu {
+        case "1":
+        startGame()
+        case "2":
+        isProgramOver = false
+        default:
+        print("입력이 잘못 되었습니다.")
+        
+    }
+}
