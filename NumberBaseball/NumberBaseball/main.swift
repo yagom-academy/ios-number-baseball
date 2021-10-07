@@ -3,6 +3,7 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 // 
+import Foundation
 
 var randomNumbers: [Int] = []
 var remainingChance: Int = 9
@@ -36,6 +37,40 @@ func checkTheResult(for inputNumbers: [Int]) -> (strikeCount: Int, ballCount: In
     return (strikeCount, ballCount)
 }
 
+func isNumber(numbers: [String]) -> [Int]? {
+    var result: [Int] = []
+
+    for number in numbers {
+        guard let number = Int(number) else {
+            return nil
+        }
+
+        if number <= 0 || number >= 10 {
+            return nil
+        }
+
+        result.append(number)
+    }
+    return result
+}
+
+func getInputNumbers(count: Int) -> [Int]? {
+    print("임의의 수 : ", terminator: "")
+    guard let inputNumber: String = readLine() else {
+        print("입력이 잘못되었습니다")
+        return nil
+    }
+    let separatedNumbers: [String] = inputNumber.components(separatedBy: " ")
+    guard let numbers: [Int] = isNumber(numbers: separatedNumbers),
+            numbers.count == count,
+            Set(numbers).count == count else {
+        print("입력이 잘못되었습니다")
+        return nil
+    }
+
+    return numbers
+}
+
 // MARK: Game playing
 func startGame() {
     while true {
@@ -61,10 +96,10 @@ func startGame() {
     randomNumbers = generateRandomNumbers(count: numbersCount)
     
     while remainingChance > 0 {
-        let playNumbers: [Int] = generateRandomNumbers(count: numbersCount)
-        let playNumbersForPrint: String = playNumbers.map { String($0) }.joined(separator: " ")
+        guard let playNumbers: [Int] = getInputNumbers(count: numbersCount) else {
+            continue
+        }
         let result = checkTheResult(for: playNumbers)
-        print("임의의 수 : \(playNumbersForPrint)")
         
         if result.strikeCount == numbersCount {
             break
