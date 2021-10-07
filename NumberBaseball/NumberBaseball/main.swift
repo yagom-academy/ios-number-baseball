@@ -131,3 +131,10 @@ func presentInputForm() {
     중복 숫자는 허용하지 않습니다.
     """)
 }
+
+func inputPlayerNums() {
+    print("입력 : ", terminator: "")
+    guard let input = readLine(), !input.isEmpty else {
+        return print(defaultErrorMessage)
+    }
+}
