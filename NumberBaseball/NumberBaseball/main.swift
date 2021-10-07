@@ -7,6 +7,7 @@
 import Foundation
 
 //MARK: - Step 1
+//실험용 브랜치 파일
 
 /// 1. 변수 설정
 /// 2. 난수 3개 생성하는 함수 구현
