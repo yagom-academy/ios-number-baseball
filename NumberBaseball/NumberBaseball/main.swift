@@ -40,24 +40,25 @@ func printNumbers(_ radomArray: Array<Int>) {
 
 func launchBaseBall() {
     let randomNumbers: Array<Int> = makingRandomNumber()
-    var userNumbers: Array<Int> = makingRandomNumber()
+    var userNumbers: Array<Int> = Array<Int>()
     var gameCount: Int = 9
-    
-    while gameCount > 0, randomNumbers != userNumbers {
+
+    while gameCount > 0 {
+        userNumbers = makingRandomNumber()
         printNumbers(userNumbers)
         compareNumbers(randomNumbers, userNumbers)
-        
+
+        if randomNumbers == userNumbers {
+            break
+        }
+
         gameCount -= 1
-        print("남은 기회 : \(gameCount)")
-        
-        userNumbers = makingRandomNumber()
+        print("남은 기회 : (gameCount)")
     }
-    
+
     if gameCount == 0 {
         print("컴퓨터 승리...!")
     } else {
-        printNumbers(userNumbers)
-        compareNumbers(randomNumbers, userNumbers)
         print("사용자 승리!")
     }
 }
