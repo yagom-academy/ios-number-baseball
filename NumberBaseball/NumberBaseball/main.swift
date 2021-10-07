@@ -37,6 +37,7 @@ func playGame() {
     
     for _ in 1...chance {
         while responseRandomInt.count < 3 {
+            responseRandomInt.removeAll()
             askNumber()
         }
         judgeBaseballResult()
