@@ -19,14 +19,6 @@ func makingRandomNumber() -> Array<Int> {
     return randomNumberArray
 }
 
-func judgeBall(_ randomNumbers: Array<Int>, _ userNumber: Int) -> Int {
-    if randomNumbers.contains(userNumber) {
-        return 1
-    } else {
-        return 0
-    }
-}
-
 func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
     var strikeCounts = 0
     var ballCounts = 0
@@ -34,8 +26,8 @@ func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
     for numberIndex in 0...2 {
         if randomNumbers[numberIndex] == userNumbers[numberIndex] {
             strikeCounts += 1
-        } else {
-            ballCounts += judgeBall(randomNumbers, userNumbers[numberIndex])
+        } else if randomNumbers.contains(userNumbers[numberIndex]){
+            ballCounts += 1
         }
     }
     
