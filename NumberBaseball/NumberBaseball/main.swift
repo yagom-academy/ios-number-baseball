@@ -11,20 +11,23 @@ var tryCount = 9
 
 func generateRandomNumbers() -> [Int] {
     var randomNumbers: Set<Int> = []
-    while randomNumbers.count < 3 {
-        let number = Int.random(in: 1...9)
+    let numberLength = 3
+    let randomNumberRange = 1...9
+        
+    while randomNumbers.count < numberLength {
+        let number = Int.random(in: randomNumberRange)
         randomNumbers.insert(number)
     }
     return Array(randomNumbers)
 }
 
 func judgeStrikeAndBall(with userNumbers: [Int]) -> [Int] {
-    var ballCount: Int = 0
-    var strikeCount: Int = 0
-    for index in 0...(userNumbers.count - 1) {
+    var ballCount = 0
+    var strikeCount = 0
+    for index in 0..<userNumbers.count {
         ballCount += computerNumbers.contains(userNumbers[index]) ? 1 : 0
     }
-    for index in 0...(userNumbers.count - 1) {
+    for index in 0..<userNumbers.count {
         strikeCount += computerNumbers[index] == userNumbers[index] ? 1 : 0
     }
     ballCount -= strikeCount
@@ -33,23 +36,32 @@ func judgeStrikeAndBall(with userNumbers: [Int]) -> [Int] {
 
 func startGame() {
     computerNumbers = generateRandomNumbers()
+    let strikesForUserWin = 3
+    let userWinMessage = "사용자 승리!"
+    let computerWinMessage = "컴퓨터 승리...!"
+    let generatedUserNumberMessage = "임의의 수 : "
+    let leftTrialMessage = "남은 기회 : "
+    let strikeCountMessage = " 스트라이크, "
+    let ballCountMessage = " 볼"
+    
     var strikeCount = 0
     var ballCount = 0
-    while tryCount != 0 && strikeCount != 3 {
+        
+    while tryCount != 0 && strikeCount != strikesForUserWin {
         tryCount -= 1
         let userNumbers = generateRandomNumbers()
         let strikeAndBallCount: [Int] = judgeStrikeAndBall(with: userNumbers)
         strikeCount = strikeAndBallCount[0]
         ballCount = strikeAndBallCount[1]
-        print("임의의 수 : " + userNumbers.map{String($0)}.joined(separator: " "))
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        print("남은 기회 : \(tryCount)")
+        print(generatedUserNumberMessage, userNumbers.map{String($0)}.joined(separator: " "))
+        print(strikeCount, strikeCountMessage, ballCount, ballCountMessage)
+        print(leftTrialMessage, tryCount)
     }
     
-    if strikeCount == 3 {
-        print("사용자 승리!")
+    if strikeCount == strikesForUserWin {
+        print(userWinMessage)
     } else {
-        print("컴퓨터 승리...!")
+        print(computerWinMessage)
     }
 }
 startGame()
