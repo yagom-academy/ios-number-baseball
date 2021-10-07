@@ -24,8 +24,8 @@ func judgeStrikeAndBall(at: Int) {
 }
 
 func countStrikeAndBall() {
-    for time in 0..<digitsOfGame {
-        judgeStrikeAndBall(at: time)
+    for order in 0..<digitsOfGame {
+        judgeStrikeAndBall(at: order)
     }
 }
 
