@@ -95,6 +95,7 @@ func presentMenu() {
 }
 
 func selectMenu() -> String {
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
     let selectedMenu = readLine() ?? ""
     return selectedMenu
 }
@@ -110,8 +111,3 @@ func operateMenu(menu: String) {
         break
     }
 }
-
-
-
-
-
