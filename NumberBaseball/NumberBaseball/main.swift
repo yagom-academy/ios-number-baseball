@@ -9,12 +9,13 @@ import Foundation
 var randomNumbers: [Int] = []
 var remainChances: Int = 9
 let numbersCount: Int = 3
+let numberRange: ClosedRange<Int> = 1...9
 
 func generateRandomNumbers(count: Int) -> [Int] {
-    var numbers:[Int] = []
+    var numbers: [Int] = []
     
     while numbers.count < count {
-        let randomNumber:Int = Int.random(in: 1...9)
+        let randomNumber:Int = Int.random(in: numberRange)
         
         if numbers.contains(randomNumber) == false {
             numbers.append(randomNumber)
@@ -24,7 +25,7 @@ func generateRandomNumbers(count: Int) -> [Int] {
     return numbers
 }
 
-func checkTheResult (for inputNumbers:[Int]) -> (Int, Int) {
+func checkTheResult(for inputNumbers: [Int]) -> (Int, Int) {
     var sameNumberCount:Int = 0
     var strikeCount:Int = 0
     
@@ -34,7 +35,7 @@ func checkTheResult (for inputNumbers:[Int]) -> (Int, Int) {
         }
     }
     
-    for index in (0...2) {
+    for index in 0...2 {
         if randomNumbers[index] == inputNumbers[index] {
             strikeCount += 1
         }
