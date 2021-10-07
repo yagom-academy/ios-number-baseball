@@ -10,17 +10,15 @@ let numbersCount: Int = 3
 let numberRange: ClosedRange<Int> = 1...9
 
 func generateRandomNumbers(count: Int) -> [Int] {
-    var numbers: [Int] = []
+    var numbers: Set<Int> = []
     
     while numbers.count < count {
         let randomNumber:Int = Int.random(in: numberRange)
         
-        if numbers.contains(randomNumber) == false {
-            numbers.append(randomNumber)
-        }
+        numbers.insert(randomNumber)
     }
     
-    return numbers
+    return Array(numbers)
 }
 
 func checkTheResult(for inputNumbers: [Int]) -> (Int, Int) {
