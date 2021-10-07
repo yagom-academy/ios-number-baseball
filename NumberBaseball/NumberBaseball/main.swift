@@ -7,19 +7,19 @@
 import Foundation
 
 
-func makingRandomNumber() -> Array<Int> {
-    var randomNumberSet = Set<Int>()
+func makingRandomNumbers() -> Array<Int> {
+    var nonDuplicateNumbers = Set<Int>()
     
     repeat {
-        randomNumberSet.insert(Int.random(in: 1...9))
-    } while randomNumberSet.count < 3
+        nonDuplicateNumbers.insert(Int.random(in: 1...9))
+    } while nonDuplicateNumbers.count < 3
     
-    let randomNumberArray = Array(randomNumberSet)
+    let randomNumbers = Array(nonDuplicateNumbers)
     
-    return randomNumberArray
+    return randomNumbers
 }
 
-func compareNumbers(_ randomNumbers: Array<Int>, _ userNumbers: Array<Int>) {
+func compareNumbers(randomNumbers: Array<Int>, userNumbers: Array<Int>) {
     var strikeCounts = 0
     var ballCounts = 0
     
@@ -39,14 +39,14 @@ func printNumbers(_ radomArray: Array<Int>) {
 }
 
 func launchBaseBall() {
-    let randomNumbers: Array<Int> = makingRandomNumber()
+    let randomNumbers: Array<Int> = makingRandomNumbers()
     var userNumbers: Array<Int> = Array<Int>()
     var gameCount: Int = 9
 
     while gameCount > 0 {
-        userNumbers = makingRandomNumber()
+        userNumbers = makingRandomNumbers()
         printNumbers(userNumbers)
-        compareNumbers(randomNumbers, userNumbers)
+        compareNumbers(randomNumbers: randomNumbers, userNumbers: userNumbers)
 
         if randomNumbers == userNumbers {
             break
