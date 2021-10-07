@@ -46,11 +46,13 @@ func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
 
 func presentPlayerNums() {
     randomPlayerNums = generateUniqueRandomNums(from: 1, to: 9)
-    print("임의의 수 : ", terminator: "")
-    for i in 0..<digitsOfGame {
-        print(randomPlayerNums[i], terminator: " ")
+    
+    var playerNums: [String] = []
+    for order in 0..<digitsOfGame {
+        playerNums.append(String(randomPlayerNums[order]))
     }
-    print("")
+    
+    print("임의의 수 : \(playerNums.joined(separator: " "))")
 }
 
 func gameResult() {
