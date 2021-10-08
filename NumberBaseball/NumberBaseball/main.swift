@@ -16,7 +16,7 @@ class BaseballGame {
     var userNumbers: [Int] = []
     var userTrueAndComputerFalse: Bool = true
 
-    func extractRandomNumber(randomNumberAmount:Int = randomNumberAmount ,isUser userTrueAndComputerFalse: Bool) -> [Int] {
+    func extractRandomNumber(how randomNumberAmount:Int = randomNumberAmount ,isUser userTrueAndComputerFalse: Bool) -> [Int] {
         randomNumbers = []
         let randomNumberRange = 1...9
 
@@ -33,13 +33,13 @@ class BaseballGame {
     }
     
     func countStrikeAndBall() -> (strike: Int, ball:Int) {
-        var sameNumber:[Int] = []
+        var sameNumbers:[Int] = []
         
         for eachNumber in computerNumbers{
-            userNumbers.contains(eachNumber) ? sameNumber.append(eachNumber) : nil
+            userNumbers.contains(eachNumber) ? sameNumbers.append(eachNumber) : nil
         }
-        let strikeCount:Int = sameNumber.filter{ userNumbers.firstIndex(of: $0) == computerNumbers.firstIndex(of: $0) }.count
-        let ballCount:Int = sameNumber.count - strikeCount
+        let strikeCount:Int = sameNumbers.filter{ userNumbers.firstIndex(of: $0) == computerNumbers.firstIndex(of: $0) }.count
+        let ballCount:Int = sameNumbers.count - strikeCount
         
         chancesLeft -= 1
         
@@ -52,9 +52,9 @@ class BaseballGame {
         while chancesLeft > 0{
             let users = extractRandomNumber(isUser: true)
             let mappedUsers = users.map{ String($0) }
-            let printUserNumber = mappedUsers.joined(separator: " ")
+            let joinedUserNumber = mappedUsers.joined(separator: " ")
             let strikeAndBall = countStrikeAndBall()
-            print("임의의 수 : \(printUserNumber)")
+            print("임의의 수 : \(joinedUserNumber)")
             print("\(strikeAndBall.strike) 스트라이크, \(strikeAndBall.ball) 볼")
             print("남은 기회 : \(chancesLeft)")
             (chancesLeft == 0 && strikeAndBall.strike != 3) ? print("컴퓨터승리...!") : strikeAndBall.strike == 3 ? chancesLeft = 0 : nil
