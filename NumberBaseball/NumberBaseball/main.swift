@@ -10,20 +10,15 @@ func makeRandomNumbers() -> [Int] {
     var randomNumbers: Set<Int> = []
     while randomNumbers.count < 3 {
         let randomNumber: Int = Int.random(in: 1...9)
-        checkUniqueAndInsert(randomNumber, into: &randomNumbers)
+        randomNumbers.insert(randomNumber)
     }
     return randomNumbers.shuffled()
 }
 
-func checkUniqueAndInsert(_ value: Int, into result: inout Set<Int>) {
-    if !result.contains(value) {
-        result.insert(value)
-    }
-}
 
 var computerNumbers: [Int] = makeRandomNumbers()
 
-func compareComputerNumbers(with userNumbers: [Int]) -> [Int]{
+func compareComputerNumbers(with userNumbers: [Int]) -> [Int] {
     var ballCount: Int = .zero
     var strikeCount: Int = .zero
     
