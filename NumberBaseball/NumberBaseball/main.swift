@@ -6,6 +6,7 @@
 
 import Foundation
 
+// MARK: 게임 관련 부분.
 var errorMessage = "입력이 잘못되었습니다"
 
 func makingRandomNumbers() -> Array<Int> {
