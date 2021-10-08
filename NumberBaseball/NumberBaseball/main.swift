@@ -56,7 +56,7 @@ func convertArrayToString(from arrayOfNumbers: Array<Int>) -> String {
     var stringOfNumbers: String = ""
 
     for number in arrayOfNumbers {
-        stringOfNumbers += "(number) "
+        stringOfNumbers += "\(number) "
     }
 
     return stringOfNumbers
@@ -75,9 +75,9 @@ func playOneRound() {
         tryCount -= 1
 
         let message = """
-        임의의 수 : (randomNumberToString)
-        (resultOfJudgement)
-        남은 기회 : (tryCount)
+        임의의 수 : \(randomNumberToString)
+        \(resultOfJudgement)
+        남은 기회 : \(tryCount)
         """
 
         print(message)
