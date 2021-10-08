@@ -7,10 +7,10 @@
 import Foundation
 
 
-func createRandomNumbers() -> [Int] {
-    let shuffledNumbers = [Int](1...9).shuffled()
-    let threeNumbers = [Int](shuffledNumbers[0...2])
-    return threeNumbers
+func createRandomNumbers(range: ClosedRange<Int> = (1...9), count: Int = 3) -> [Int] {
+    let shuffledNumbers = [Int](range).shuffled()
+    let extractedNumbers = [Int](shuffledNumbers[0..<count])
+    return extractedNumbers
 }
 
 func sumUpScores(secretNumbers: [Int], triedNumbers: [Int]) -> (Int, Int) {
