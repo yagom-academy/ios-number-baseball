@@ -33,12 +33,11 @@ class BaseballGame {
     }
     
     func countStrikeAndBall() -> (strike: Int, ball:Int) {
-        var checkSameNumber:[Int] = []
+        var sameNumber:[Int] = []
         
         for eachNumber in computerNumbers{
-            userNumbers.contains(eachNumber) ? checkSameNumber.append(eachNumber) : checkSameNumber.append(0)
+            userNumbers.contains(eachNumber) ? sameNumber.append(eachNumber) : nil
         }
-        let sameNumber = checkSameNumber.filter{ $0 != 0 }
         let strikeCount:Int = sameNumber.filter{ userNumbers.firstIndex(of: $0) == computerNumbers.firstIndex(of: $0) }.count
         let ballCount:Int = sameNumber.count - strikeCount
         
