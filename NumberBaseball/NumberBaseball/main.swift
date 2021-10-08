@@ -136,9 +136,9 @@ func checkWinner() {
 
 func startGame() {
     makeComputerRandomNumber()
-    verifyInputValue()
     
     while isGameOver == false {
+        verifyInputValue()
         printPlayerRandomNumber()
         resetGlobalVariables()
         compareNumbers(computerNumbers: computerRandomNumbers, with: playerRandomNumbers)
