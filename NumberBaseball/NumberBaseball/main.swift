@@ -24,8 +24,7 @@ func makeComputerRandomNumber() {
     print("(과제 확인용 출력) 컴퓨터 : \(computerRandomNumbers)")
 }
 
-
-func verifyInputValue() {
+func verifyInputValue() -> [Int] {
     print("""
         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
         중복 숫자는 허용하지 않습니다.
@@ -33,24 +32,27 @@ func verifyInputValue() {
         """, terminator: "")
     guard let inputValue: String = readLine(), inputValue.isEmpty == false else {
         print("입력이 잘못되었습니다")
-        return
+        return []
     }
      
     let inputInformaion: [String] = inputValue.components(separatedBy: " ")
     
     guard inputInformaion.count == 3 else {
         print("입력이 잘못되었습니다")
-        return
+        return []
     }
           
     guard let firstInputNumber: Int = Int(inputInformaion[0]),
           let secondInputNumber: Int = Int(inputInformaion[1]),
           let thirdInputNumber: Int = Int(inputInformaion[2]) else {
         print("입력이 잘못되었습니다")
-        return
+        return []
     }
-          
-    playerRandomNumbers = [firstInputNumber, secondInputNumber, thirdInputNumber]
+    return [firstInputNumber, secondInputNumber, thirdInputNumber]
+}
+
+func makePlayerRandomNumber(verifiedNumbers: [Int]) {
+    playerRandomNumbers = verifiedNumbers
 }
 
 func printPlayerRandomNumber() {
@@ -138,7 +140,7 @@ func startGame() {
     makeComputerRandomNumber()
     
     while isGameOver == false {
-        verifyInputValue()
+        makePlayerRandomNumber(verifiedNumbers: verifyInputValue())
         printPlayerRandomNumber()
         resetGlobalVariables()
         compareNumbers(computerNumbers: computerRandomNumbers, with: playerRandomNumbers)
