@@ -26,8 +26,8 @@ func judgeStrikeAndBall(at: Int) {
 }
 
 func countStrikeAndBall() {
-    for order in 0..<digitsOfGame {
-        judgeStrikeAndBall(at: order)
+    for eachNum in 0..<digitsOfGame {
+        judgeStrikeAndBall(at: eachNum)
     }
 }
 
@@ -105,8 +105,8 @@ func generatePlayerNums() {
 
 func presentPlayerNums() {
     var convertedPlayerNums: [String] = []
-    for order in 0..<digitsOfGame {
-        convertedPlayerNums.append(String(playerNums[order]))
+    for eachNum in 0..<digitsOfGame {
+        convertedPlayerNums.append(String(playerNums[eachNum]))
     }
     
     print("임의의 수 : \(convertedPlayerNums.joined(separator: " "))")
