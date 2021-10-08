@@ -128,11 +128,10 @@ func recieveGameNumber() -> String? {
 }
 
 func makingUserNumbers() -> Array<Int> {
-    var sw = false
+    var sw = false  // IsValidValue로 바꾸는건요???
     var userNumbers: Array<Int> = Array<Int>()
     
-    OUTER: repeat {
-        
+    receiveInputLoop: while true {
         var inputedUserNumbers = ""
       
         if let gameNumber = recieveGameNumber() {
@@ -142,11 +141,28 @@ func makingUserNumbers() -> Array<Int> {
         
         if sw == true {
             userNumbers = stringToArray(inputedUserNumbers)
-            break OUTER
+            break receiveInputLoop
         } else {
             print(errorMessage)
         }
-    } while true
+    }
+    
+//    OUTER: repeat {
+//
+//        var inputedUserNumbers = ""
+//
+//        if let gameNumber = recieveGameNumber() {
+//            inputedUserNumbers = gameNumber
+//            sw = checkInvalidUserNumbers(inputedUserNumbers)
+//        }
+//
+//        if sw == true {
+//            userNumbers = stringToArray(inputedUserNumbers)
+//            break OUTER
+//        } else {
+//            print(errorMessage)
+//        }
+//    } while true
     
     return userNumbers
 }
@@ -165,30 +181,43 @@ func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
 }
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
-    var sw = false
+    var sw = false      // 없애는건?
     let arrayNumbers = Array(inputedUserNumbers)
 
     // 유효성 별로 분리 해야할지... 고민!!!
-    if inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 {
-        sw = true
-    } else {
-        sw = false
-        return sw
+    
+    guard inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 else {
+        return false
     }
     
-    if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
-        sw = true
-    } else {
-        sw = false
-        return sw
+    guard arrayNumbers[1] == " " && arrayNumbers[3] == " " else {
+        return false
     }
     
-    if Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil {
-        sw = true
-    } else {
-        sw = false
-        return sw
+    guard Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil else {
+        return false
     }
+    return true
+//    if inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 {
+//        sw = true
+//    } else {
+//        sw = false
+//        return sw
+//    }
+//
+//    if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
+//        sw = true
+//    } else {
+//        sw = false
+//        return sw
+//    }
+//
+//    if Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil {
+//        sw = true
+//    } else {
+//        sw = false
+//        return sw
+//    }
     
     return sw
 }
