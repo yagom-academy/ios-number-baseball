@@ -63,7 +63,7 @@ func launchBaseBall() {
     }
 }
 
-func runMenu() -> String? {
+func runMenu() -> String? {// 기능을 분리해볼것.
     print("""
     1. 게임시작
     2. 게임종료
@@ -129,10 +129,10 @@ func makingUserNumbers() -> Array<Int> {
     return userNumbers
 }
 
-func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
+func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {    // 2 3 4
     var userNumbers: Array<Int> = Array<Int>()
     
-    let userString = Array(inputedUserNumbers)
+    let userString = Array(inputedUserNumbers) //["2", " ", "3", " ", "4"]
     
     for i in 0...inputedUserNumbers.count-1 {
         if let a = Int(String(userString[i])) {
