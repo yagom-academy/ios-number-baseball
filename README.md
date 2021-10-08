@@ -1,6 +1,5 @@
-## iOS 커리어 스타터 캠프
+## 숫자야구 프로젝트_신나_허황
 
-### 숫자야구 프로젝트 저장소
+### 순서도
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+![ex_screenshot](https://github.com/hwangjeha/ios-number-baseball/blob/4-hwangjeha/src/Number%20Game%20Flowchart.png?raw=true)
