@@ -7,7 +7,6 @@
 import Foundation
 
 var targetNumbers: [Int] = []
-var randomNumbers: [Int] = []
 var tryCount = 9
 var isUserWin = false
 
@@ -36,7 +35,6 @@ func createRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> [In
     
     repeat {
         let randomNumber: Int = Int.random(in: range)
-        
         resultNumbers.insert(randomNumber)
     } while resultNumbers.count < count
     
