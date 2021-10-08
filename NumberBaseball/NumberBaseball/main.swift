@@ -150,7 +150,7 @@ func initGameSetting() {
     remainedRounds = 9
 }
 
-func playBaseballGame() {
+func playGame() {
     initGameSetting()
     
     repeat {
@@ -181,7 +181,7 @@ func selectMenu() -> String {
 func operateMenu(menu: String) {
     switch menu {
     case "1":
-        playBaseballGame()
+        playGame()
     case "2":
         break
     default:
