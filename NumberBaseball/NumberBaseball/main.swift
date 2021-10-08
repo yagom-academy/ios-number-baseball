@@ -55,37 +55,44 @@
 //
 //startGame()
 
-func getInputFromUserAndCheck() {
-    while true {
+func getInputFromUserAndCheck() -> [Int] {
+    topLoop: while true {
         print("""
-        1. 게임시작
-        2. 게임종료
-        """)
+            숫자 세개를 띄어쓰기로 구분하여 입력해주세요.
+            중복 숫자는 허용하지 않습니다.
+            """)
         guard let input = readLine() else {
-            return
+            continue
         }
         let inputs = input.split(separator: " ")
         guard inputs.count == 3 else {
             print("입력이 잘못되었습니다")
-            return
+            continue
         }
         var realNumbers: [Int] = []
+        
         for number in inputs {
             guard let realNumber = Int(number) else {
                 print("입력이 잘못되었습니다 숫자만 입력")
-                return
+                continue topLoop
             }
             realNumbers.append(realNumber)
         }
+        
         for realNumber in realNumbers {
-            if realNumber < 1 && realNumber > 9 {
+            if realNumber < 1 || realNumber > 9 {
                 print("입력이 잘못되었습니다 범위가 잘못됨")
-                return
+                continue topLoop
             }
         }
-
-        print(inputs)
+        
+        return realNumbers
     }
 }
 
 getInputFromUserAndCheck()
+
+//print("""
+//1. 게임시작
+//2. 게임종료
+//""")
