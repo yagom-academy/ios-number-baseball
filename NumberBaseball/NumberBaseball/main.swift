@@ -126,9 +126,21 @@ func getNumber() -> [Int] {
         return []
     }
     
-    let array: [Int] = [1,2,3]
+    let array : [Int] = [1,2,3]
     return array
 }
+
+func verifyNumbers(numbers: String) -> [Int] {
+    
+    let numbersArray = numbers.split(separator: " ")
+    
+    if Set(numbersArray).count == 3, numbersArray.count == 3 {
+        print("입력이 잘못되었습니다.")
+        getNumber()
+    }
+    return []
+}
+
 
 selectMenu()
 
