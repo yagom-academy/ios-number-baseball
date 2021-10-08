@@ -80,7 +80,8 @@ func printMenuAndRecieveMenuNumber() -> String? {
 }
 
 func numberBaseball() {
-    OUTER: repeat {
+    
+    menuLoop: while true {
         guard let menuNumber = printMenuAndRecieveMenuNumber() else {
             print(errorMessage)
             return
@@ -90,11 +91,27 @@ func numberBaseball() {
         case "1":
             launchBaseBall()
         case "2":
-            break OUTER
+            break menuLoop
         default:
             print(errorMessage)
         }
-    } while true
+    }
+    
+//    OUTER: repeat {
+//        guard let menuNumber = printMenuAndRecieveMenuNumber() else {
+//            print(errorMessage)
+//            return
+//        }
+//
+//        switch menuNumber {
+//        case "1":
+//            launchBaseBall()
+//        case "2":
+//            break OUTER
+//        default:
+//            print(errorMessage)
+//        }
+//    } while true
 }
 
 func recieveGameNumber() -> String? {
