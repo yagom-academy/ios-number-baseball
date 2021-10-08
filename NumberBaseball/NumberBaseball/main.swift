@@ -17,6 +17,7 @@ var remainedRounds = 9
 var strikeCounts = 0
 var ballCounts = 0
 
+//MARK: -전체 게임 및 라운드 초기 세팅
 func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
     var uniqueRandomNums: Set<Int> = Set<Int>()
     
@@ -37,6 +38,8 @@ func initStrikeAndBallCounts() {
     strikeCounts = 0
     ballCounts = 0
 }
+
+//MARK: -사용자 입력 및 검증, 생성
 
 func presentInputForm() {
     print("""
@@ -110,6 +113,8 @@ func generatePlayerNums() {
     } while !isValid
 }
 
+//MARK: -게임 진행
+
 func judgeStrikeAndBall(at: Int) {
     if randomTargetNums[at] == playerNums[at] {
         strikeCounts += 1
@@ -154,6 +159,8 @@ func playGame() {
     
     presentGameResult()
 }
+
+//MARK: -메뉴 기능
 
 func presentMenu() {
     print("""
