@@ -28,7 +28,7 @@
 **2021.10.08 Fri**
 
 - STEP 1 PR에 대한 2차 리뷰 분석
-- @YongHoonJJo 리뷰어와 STEP 1 코드 검토
+- [@YongHoonJJo](https://github.com/YongHoonJJo) 리뷰어와 STEP 1 코드 검토
 - STEP 1 마지막 PR에 대한 피드백 코드에 반영
 - README 작성
 
