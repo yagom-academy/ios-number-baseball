@@ -34,12 +34,12 @@ func sumUpScores(secretNumbers: [Int], triedNumbers: [Int]) -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
-
-
-func printVictoryMessage(gameChance gameCount: Int, strikeScore strikeCount: Int) {
-    if gameCount == 0 && strikeCount < 3 {
+func printVictoryMessage(leftGameCount: Int, strikeScore: Int) {
+    let victoryGoal = 3
+    
+    if leftGameCount == .zero && strikeScore < victoryGoal {
         print("컴퓨터 승리…!")
-    } else if strikeCount == 3 {
+    } else if strikeScore == victoryGoal {
         print("사용자 승리!")
     }
 }
@@ -57,7 +57,7 @@ func startGame() {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(gameCount)")
         
-        printVictoryMessage(gameChance: gameCount, strikeScore: strikeCount)
+        printVictoryMessage(leftGameCount: gameCount, strikeScore: strikeCount)
     }
 }
 
