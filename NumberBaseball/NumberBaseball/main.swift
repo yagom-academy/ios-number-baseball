@@ -13,7 +13,7 @@ func generateRandomNumbers() -> [Int] {
     var randomNumbers: Set<Int> = []
     let numberLength = 3
     let randomNumberRange = 1...9
-        
+    
     while randomNumbers.count < numberLength {
         let number = Int.random(in: randomNumberRange)
         randomNumbers.insert(number)
@@ -53,9 +53,13 @@ func runGame() {
     let strikesForUserWin = 3
     
     while tryCount != 0 && judgeResult.strike != strikesForUserWin {
-        let userNumbers = generateRandomNumbers()
-        print(GameMessage.generatedUserNumber.rawValue, userNumbers.map({String($0)}).joined(separator: " "))
-        judgeResult = compareStrikeAndBall(userNumbers: userNumbers)
+        do {
+            let userNumbers = try recieveUserNumber()
+            judgeResult = compareStrikeAndBall(userNumbers: userNumbers)
+        } catch {
+            print("입력이 잘못되었습니다.")
+        }
+        
         showTryCount()
     }
     if judgeResult.strike == strikesForUserWin {
@@ -112,4 +116,23 @@ while true {
     } else {
         print("입력이 잘못되었습니다")
     }
+}
+
+enum NumberBaseballError: Error {
+    case invalidInput
+}
+
+func recieveUserNumber() throws -> [Int] {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    guard let userNumbers = readLine() else {
+        throw NumberBaseballError.invalidInput
+    }
+    return try userNumbers.split(separator: " ").compactMap({ (userNumber: String.SubSequence) -> Int in
+        if let number = Int(userNumber) {
+            return number
+        }
+        throw NumberBaseballError.invalidInput
+    })
 }
