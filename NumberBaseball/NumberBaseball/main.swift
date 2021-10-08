@@ -55,10 +55,6 @@ func calculateStrikeAndBall(target: [Int], player: [Int]) -> (Int, Int) {
 }
 
 func playInning(playerNumbers: [Int]) -> Int {
-    
-    print("\(targetNumbers)")
-    print("\(playerNumbers)")
-    
     let (strikeCount, ballCount) = calculateStrikeAndBall(target: targetNumbers, player: playerNumbers)
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     return strikeCount
@@ -91,7 +87,30 @@ func startGame() {
     checkGameResult()
 }
 
-startGame()
+func isValidMenu(_ input: String) -> Bool {
+    guard let input = Int(input), input == 1 || input == 2 else { return false }
+    return true
+}
+
+
+func receiveMenuNumber() {
+    print("1. 게임시작\n2. 게임종료")
+    print("원하는 기능을 선택해 주세요 : ", terminator: "")
+    guard let menuNumber: String = readLine() else { return }
+
+    if isValidMenu(menuNumber) == false {
+        print("입력이 잘못되었습니다")
+        receiveMenuNumber()
+    }
+
+    guard let input = Int(menuNumber), input == 1 else { return }
+
+    startGame()
+    remainingAttempts = 9
+    receiveMenuNumber()
+}
+
+receiveMenuNumber()
 
 
 
