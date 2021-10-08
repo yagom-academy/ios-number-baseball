@@ -7,7 +7,7 @@ var strike: Int = 0
 var ball: Int = 0
 var isGameOver: Bool = false
 let digitNumber: Int = 3
-var isProgramOver: Bool = true
+var isProgramOver: Bool = false
 
 func makeDeduplicatedRandomNumbers() -> [Int] {
     var deduplicatedNumbers: Set<Int> = []
@@ -148,16 +148,20 @@ func startGame() {
     }
 }
 
-while isProgramOver == true {
-    print("1. 게임 시작\n2. 게임 종료\n원하는 기능을 선택해주세요 : ", terminator: "")
-    let gameMenu = readLine()
-    switch gameMenu {
-        case "1":
-        startGame()
-        case "2":
-        isProgramOver = false
-        default:
-        print("입력이 잘못 되었습니다.")
+func startProgram() {
+    while isProgramOver == false {
+        print("1. 게임 시작\n2. 게임 종료\n원하는 기능을 선택해주세요 : ", terminator: "")
+        let programMenu = readLine()
         
+        switch programMenu {
+            case "1":
+            startGame()
+            case "2":
+            isProgramOver = true
+            default:
+            print("입력이 잘못 되었습니다.")
+        }
     }
 }
+
+startProgram()
