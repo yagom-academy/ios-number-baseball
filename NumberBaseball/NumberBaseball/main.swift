@@ -6,9 +6,15 @@
 
 import Foundation
 
+enum NumberBaseballGameError: Error {
+    case readLineIsNil
+    case invalidUserInput
+}
+
 var targetNumbers: [Int] = []
 var tryCount = 9
 var isUserWin = false
+let numbersCount = 3
 
 func initGameVariables() {
     targetNumbers = createRandomNumbers()
@@ -29,7 +35,7 @@ func playNumberBaseballGame() {
 }
 
 func playRound() -> Int {
-    let randomNumbers = createRandomNumbers()
+    let randomNumbers = createRandomNumbers() // checkUserNumbers()
     printRandomNumbers(numbers: randomNumbers)
     
     let score = compare(randomNumbers, with: targetNumbers)
@@ -38,36 +44,26 @@ func playRound() -> Int {
     return score.strike
 }
 
-func checkUserNumbers() {
-    guard let userNumbers = readLine()?.components(separatedBy: " ") else {
-        return
+func readUserNumbers() throws -> [Int] {
+    guard let input = readLine() else {
+        throw NumberBaseballGameError.readLineIsNil
     }
     
-    if isCorrectNumbers(userNumbers: userNumbers) {
-        
-    } else {
-        printInvalidInput()
+    let stringNumbers = input.components(separatedBy: " ")
+    
+    
+    guard stringNumbers.count == 3 else {
+        throw
     }
 }
 
-func isCorrectNumbers(userNumbers: [String]) -> Bool {
-    for each in userNumbers {
-        if let _ = Int(each) {
-            continue
-        } else {
-            return false
-        }
-    }
-    return true
-}
-
-func createRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> [Int] {
+func createRandomNumbers(range: ClosedRange<Int> = 1...9) -> [Int] {
     var resultNumbers: Set<Int> = []
     
     repeat {
         let randomNumber: Int = Int.random(in: range)
         resultNumbers.insert(randomNumber)
-    } while resultNumbers.count < count
+    } while resultNumbers.count < numbersCount
     
     return resultNumbers.shuffled()
 }
