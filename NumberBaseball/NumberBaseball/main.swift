@@ -129,7 +129,7 @@ func presentGameResult() {
     }
 }
 
-func resetStrikeAndBallCounts() {
+func initStrikeAndBallCounts() {
     strikeCounts = 0
     ballCounts = 0
 }
@@ -154,7 +154,7 @@ func playGame() {
     initGameSetting()
     
     repeat {
-        resetStrikeAndBallCounts()
+        initStrikeAndBallCounts()
         generatePlayerNums()
         presentPlayerNums()
         countStrikeAndBall()
