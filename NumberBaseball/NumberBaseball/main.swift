@@ -47,12 +47,21 @@ func judgeStrikeOrBall(of userNumber: Int, with computerNumber: Int) {
     }
 }
 
+func convertArrayToString(from arrayOfNumbers: Array<Int>) -> String {
+    
+    var stringOfNumbers: String = ""
+    
+    for number in arrayOfNumbers {
+        stringOfNumbers += "\(number) "
+    }
+    
+    return stringOfNumbers
+}
+
 func playOneRound() {
     
     let randomNumbers = generateRandomNumbers()
-    let randomNumberToString: String = randomNumbers.reduce("") {
-            return String($0) + " " + String($1)
-        }
+    let randomNumberToString: String = convertArrayToString(from: randomNumbers)
     let resultOfJudgement = returnResult(of: randomNumbers)
     
     tryCount -= 1
