@@ -128,6 +128,10 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
         return false
     }
     
+    guard Set(arrayNumbers).count == 3 else {
+        return false
+    }
+    
     return true
 }
 
@@ -136,8 +140,8 @@ func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
     
     let userString = Array(inputedUserNumbers)
     
-    for i in 0...inputedUserNumbers.count-1 {
-        if let a = Int(String(userString[i])) {
+    for i in 0...inputedUserNumbers.count-1 {// 고쳐야!!
+        if let a = Int(String(userString[i])) {// 고쳐야!!
             userNumbers.append(a)
         }
     }
