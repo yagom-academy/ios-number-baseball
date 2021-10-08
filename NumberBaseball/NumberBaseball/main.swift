@@ -93,4 +93,23 @@ func showGameResult(winner: GamePlayer) {
     }
 }
 
-runGame()
+func showUserMenu() {
+    print("1. 게임 시작 \n2. 게임 종료")
+    print("원하는 기능을 선택해주세요 : ")
+}
+
+while true {
+    showUserMenu()
+    
+    guard let inputMenu = readLine() else {
+        print("입력이 잘못되었습니다")
+        continue
+    }
+    if inputMenu == "1" {
+        runGame()
+    } else if inputMenu == "2" {
+        break
+    } else {
+        print("입력이 잘못되었습니다")
+    }
+}
