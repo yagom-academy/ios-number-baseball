@@ -10,12 +10,14 @@ var targetNumbers: [Int] = []
 var tryCount = 9
 var isUserWin = false
 
-func playNumberBaseballGame() {
-    // 전역 변수로 선언 되었기 때문에 새로운 게임에서
-    // 값을 초기화 해주어야 함!
+func initGameVariables() {
     targetNumbers = createRandomNumbers()
     isUserWin = false
     tryCount = 9
+}
+
+func playNumberBaseballGame() {
+    initGameVariables()
     
     while tryCount > 0 && isUserWin == false {
         let strikeCount = playRound()
@@ -34,6 +36,29 @@ func playRound() -> Int {
     printStrikeAndBall(score: score)
     
     return score.strike
+}
+
+func checkUserNumbers() {
+    guard let userNumbers = readLine()?.components(separatedBy: " ") else {
+        return
+    }
+    
+    if isCorrectNumbers(userNumbers: userNumbers) {
+        
+    } else {
+        printInvalidInput()
+    }
+}
+
+func isCorrectNumbers(userNumbers: [String]) -> Bool {
+    for each in userNumbers {
+        if let _ = Int(each) {
+            continue
+        } else {
+            return false
+        }
+    }
+    return true
 }
 
 func createRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> [Int] {
@@ -111,7 +136,7 @@ func printMenu() {
     2. 게임 종료
     원하는 기능을 선택해주세요 :
     """
-    print(menuSentence, terminator: "")
+    print(menuSentence, terminator: " ")
 }
 
 func checkMenuInput(input: String) {
