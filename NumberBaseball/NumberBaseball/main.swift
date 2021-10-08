@@ -53,9 +53,9 @@ class StartBaseballGame {
             let printUserNumber = userStringArray.joined(separator: " ")
             print("임의의 수 : \(printUserNumber)")
             strikeAndBall = countStrikeAndBall()
-            (restChance == 0 && strikeAndBall[0] != 3) ? print("컴퓨터승리...!") : nil
             print("\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
             print("남은 기회 : \(restChance)")
+            (restChance == 0 && strikeAndBall[0] != 3) ? print("컴퓨터승리...!") : nil
             strikeAndBall[0] == 3 ? restChance = 0 : nil
         }
     }
