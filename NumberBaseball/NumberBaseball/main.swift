@@ -9,7 +9,7 @@ import Foundation
 // MARK: 게임 관련 부분.
 let errorMessage = "입력이 잘못되었습니다"
 
-func numberBaseball() { // 메뉴 실행 loop 인데 runMenu로 바꿔야하지 않을까?
+func numberBaseball() {
     menuLoop: while true {
         guard let menuNumber = runMenu() else {
             print(errorMessage)
@@ -40,14 +40,11 @@ func runMenu() -> String? {// 기능을 분리해볼것.
 }
 
 func launchBaseBall() {
-    let randomNumbers: Array<Int> = makingRandomNumbers()
-    var userNumbers: Array<Int> = Array<Int>()
+    let randomNumbers: [Int] = makingRandomNumbers()
+    var userNumbers = [Int]()
     var gameCount: Int = 9
 
     while gameCount > 0 {
-        // 테스트용
-        print(randomNumbers)
-        
         userNumbers = makingUserNumbers()
         compareNumbers(randomNumbers: randomNumbers, userNumbers: userNumbers)
 
@@ -56,6 +53,7 @@ func launchBaseBall() {
         }
 
         gameCount -= 1
+        
         print("남은 기회 : \(gameCount)")
     }
 
@@ -66,7 +64,7 @@ func launchBaseBall() {
     }
 }
 
-func makingRandomNumbers() -> Array<Int> {
+func makingRandomNumbers() -> [Int] {
     var nonDuplicateNumbers = Set<Int>()
     
     repeat {
@@ -78,9 +76,9 @@ func makingRandomNumbers() -> Array<Int> {
     return randomNumbers
 }
 
-func makingUserNumbers() -> Array<Int> {
+func makingUserNumbers() -> [Int] {
     var isValidValue = false
-    var userNumbers: Array<Int> = Array<Int>()
+    var userNumbers = [Int]()
     
     receiveInputLoop: while true {
         var inputedUserNumbers = ""
@@ -135,16 +133,17 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     return true
 }
 
-func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {    // 2 3 4
+func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
     var userNumbers: Array<Int> = Array<Int>()
     
-    let userString = Array(inputedUserNumbers) //["2", " ", "3", " ", "4"]
+    let userString = Array(inputedUserNumbers)
     
     for i in 0...inputedUserNumbers.count-1 {
         if let a = Int(String(userString[i])) {
             userNumbers.append(a)
         }
     }
+    
     return userNumbers
 }
 
