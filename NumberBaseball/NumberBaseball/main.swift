@@ -20,6 +20,26 @@ func generateRandomNumbers() -> [Int] {
     return Array(radomNumbers)
 }
 
+func receivePlayerNumbers() -> [Int]? {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    guard let input: String = readLine(), input != "" else { return nil }
+    
+    if let validInput = isValidInput(input: input) {
+        return validInput
+    }
+    print("입력이 잘못되었습니다")
+    return nil
+}
+
+func isValidInput(input: String) -> [Int]? {
+    let inputArray: [String] = input.components(separatedBy: " ")
+    let intArray: [Int] = inputArray.compactMap{ Int($0) }.filter{ 0 < $0 && $0 < 10 }
+    
+    guard Set(intArray).count == 3 else { return nil }
+    return intArray
+}
+
 func calculateStrikeAndBall(target: [Int], player: [Int]) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
@@ -34,13 +54,11 @@ func calculateStrikeAndBall(target: [Int], player: [Int]) -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
-func playInning() -> Int {
-    let playerNumbers: [Int] = generateRandomNumbers()
-    let numbersToPrint: String = playerNumbers.reduce("") {
-        $0 + String($1) + " "
-    }
-    print("임의의 수 : \(numbersToPrint)" )
-
+func playInning(playerNumbers: [Int]) -> Int {
+    
+    print("\(targetNumbers)")
+    print("\(playerNumbers)")
+    
     let (strikeCount, ballCount) = calculateStrikeAndBall(target: targetNumbers, player: playerNumbers)
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     return strikeCount
@@ -51,10 +69,19 @@ func printRemainingAttempts() {
     print("남은 기회: \(remainingAttempts)")
 }
 
+func checkGameResult() {
+    if remainingAttempts == 0 {
+        print("컴퓨터 승리...!")
+    } else {
+        print("사용자 승리!")
+    }
+}
+
 func startGame() {
     targetNumbers = generateRandomNumbers()
     while remainingAttempts > 0 {
-        let strikeCount = playInning()
+        guard let playerNumbers = receivePlayerNumbers() else { continue }
+        let strikeCount = playInning(playerNumbers: playerNumbers)
         
         if strikeCount == numbersToGenerate {
             break
@@ -64,15 +91,8 @@ func startGame() {
     checkGameResult()
 }
 
-func checkGameResult() {
-    if remainingAttempts == 0 {
-        print("컴퓨터 승리...!")
-    } else {
-        print("사용자 승리!")
-    }
-}
-
 startGame()
+
 
 
 
