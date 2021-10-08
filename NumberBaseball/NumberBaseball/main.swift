@@ -51,15 +51,17 @@ func runGame() {
     computerNumbers = generateRandomNumbers()
     var judgeResult: (strike: Int, ball: Int) = (0, 0)
     let strikesForUserWin = 3
-    
+
     while tryCount != 0 && judgeResult.strike != strikesForUserWin {
         do {
             let userNumbers = try recieveUserNumber()
             judgeResult = compareStrikeAndBall(userNumbers: userNumbers)
-        } catch {
+        } catch NumberBaseballError.invalidInput {
             print("입력이 잘못되었습니다.")
+            continue
+        } catch {
+            continue
         }
-        
         showTryCount()
     }
     if judgeResult.strike == strikesForUserWin {
@@ -99,12 +101,12 @@ func showGameResult(winner: GamePlayer) {
 
 func showUserMenu() {
     print("1. 게임 시작 \n2. 게임 종료")
-    print("원하는 기능을 선택해주세요 : ")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
 while true {
     showUserMenu()
-    
+
     guard let inputMenu = readLine() else {
         print("입력이 잘못되었습니다")
         continue
@@ -126,13 +128,39 @@ func recieveUserNumber() throws -> [Int] {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
-    guard let userNumbers = readLine() else {
-        throw NumberBaseballError.invalidInput
-    }
+
+    let userNumbers = try validateUserNumbers(inputNumbers: readLine())
+
     return try userNumbers.split(separator: " ").compactMap({ (userNumber: String.SubSequence) -> Int in
         if let number = Int(userNumber) {
             return number
         }
         throw NumberBaseballError.invalidInput
     })
+}
+
+func validateUserNumbers(inputNumbers: String?) throws -> String {
+    guard let userNumbers = inputNumbers else {
+        throw NumberBaseballError.invalidInput
+    }
+    let numbers: [String] = userNumbers.components(separatedBy: " ")
+    guard numbers.count == 3 else {
+        throw NumberBaseballError.invalidInput
+    }
+    guard numbers.filter({$0 == "0"}).count == 0 else {
+        throw NumberBaseballError.invalidInput
+    }
+    for number in numbers {
+        try validateEachNumber(number: number)
+    }
+    return userNumbers
+}
+
+func validateEachNumber(number: String) throws {
+    guard number.count == 1 else {
+        throw NumberBaseballError.invalidInput
+    }
+    guard let _ = Int(number) else {
+        throw NumberBaseballError.invalidInput
+    }
 }
