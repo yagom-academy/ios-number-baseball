@@ -13,19 +13,23 @@ func createRandomNumbers(range: ClosedRange<Int> = (1...9), count: Int = 3) -> [
     return extractedNumbers
 }
 
+func classifyStrikeOrBall(triedNumbersIndex: Int, matchIndex: Int?, strikeCount: inout Int, ballCount: inout Int) {
+    if matchIndex == nil {
+        return
+    } else if matchIndex == triedNumbersIndex {
+        strikeCount += 1
+    } else {
+        ballCount += 1
+    }
+}
+
 func sumUpScores(secretNumbers: [Int], triedNumbers: [Int]) -> (Int, Int) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
     for index in 0..<secretNumbers.count {
         let matchIndex = secretNumbers.firstIndex(of: triedNumbers[index])
-        if matchIndex == nil {
-            continue
-        } else if matchIndex == index {
-            strikeCount += 1
-        } else {
-            ballCount += 1
-        }
+        classifyStrikeOrBall(triedNumbersIndex: index, matchIndex: matchIndex, strikeCount: &strikeCount, ballCount: &ballCount)
     }
     return (strikeCount, ballCount)
 }
