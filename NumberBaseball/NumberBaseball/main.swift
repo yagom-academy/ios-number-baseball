@@ -90,6 +90,7 @@ func startGame() {
 }
 
 func selectMenu(){
+    
     print("""
     1. 게임시작
     2. 게임종료
@@ -111,6 +112,24 @@ func selectMenu(){
         selectMenu()
     }
 }
+
+func getNumber() -> [Int] {
+    
+    print("""
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """, terminator: " ")
+    
+    guard let input = readLine() else {
+        print("입력이 잘못되었습니다.")
+        return []
+    }
+    
+    let array: [Int] = [1,2,3]
+    return array
+}
+
 selectMenu()
 
 
