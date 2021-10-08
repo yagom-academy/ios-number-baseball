@@ -34,4 +34,6 @@ STEP 1 및 STEP 2의 순서도
 ![STEP_1_](https://user-images.githubusercontent.com/50446512/136161655-0434c906-da6c-4465-a9d4-cba4c9042eae.png)
 
 ## STEP 2
-(추가 예정)
+
+### 출력 결과  
+![STEP2 출력결과](https://user-images.githubusercontent.com/70856586/136510502-3fc226dc-6035-4863-bba7-3732ff05febd.png)
