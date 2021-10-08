@@ -64,9 +64,24 @@ func getInputFromUserAndCheck() {
         guard let input = readLine() else {
             return
         }
-        let inputs = Set(input.split(separator: " "))
+        let inputs = input.split(separator: " ")
         guard inputs.count == 3 else {
-            continue
+            print("입력이 잘못되었습니다")
+            return
+        }
+        var realNumbers: [Int] = []
+        for number in inputs {
+            guard let realNumber = Int(number) else {
+                print("입력이 잘못되었습니다 숫자만 입력")
+                return
+            }
+            realNumbers.append(realNumber)
+        }
+        for realNumber in realNumbers {
+            if realNumber < 1 && realNumber > 9 {
+                print("입력이 잘못되었습니다 범위가 잘못됨")
+                return
+            }
         }
 
         print(inputs)
