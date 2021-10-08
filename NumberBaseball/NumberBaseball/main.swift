@@ -181,7 +181,7 @@ func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
 }
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
-    var sw = false      // 없애는건?
+//    var sw = false      // 없애는건?
     let arrayNumbers = Array(inputedUserNumbers)
 
     // 유효성 별로 분리 해야할지... 고민!!!
@@ -219,7 +219,7 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
 //        return sw
 //    }
     
-    return sw
+//    return sw
 }
 
 numberBaseball()
