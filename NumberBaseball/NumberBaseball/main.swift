@@ -15,6 +15,7 @@ var targetNumbers: [Int] = []
 var tryCount = 9
 var isUserWin = false
 let numbersCount = 3
+let posiableNumberRange = 1...9
 
 func initGameVariables() {
     targetNumbers = createRandomNumbers()
@@ -26,38 +27,71 @@ func playNumberBaseballGame() {
     initGameVariables()
     
     while tryCount > 0 && isUserWin == false {
-        let strikeCount = playRound()
-        
-        isUserWin = isThreeStrike(count: strikeCount)
-        printTryCount()
+        do {
+            let strikeCount = try playRound()
+            
+            isUserWin = isThreeStrike(count: strikeCount)
+            printTryCount()
+        } catch NumberBaseballGameError.readLineIsNil {
+            printInvalidInput()
+            continue
+        } catch NumberBaseballGameError.invalidUserInput {
+            printInvalidInput()
+            continue
+        } catch {
+            print(error)
+        }
     }
     printWinner()
 }
 
-func playRound() -> Int {
-    let randomNumbers = createRandomNumbers() // checkUserNumbers()
-    printRandomNumbers(numbers: randomNumbers)
+func playRound() throws -> Int {
+    var score: (strike: Int, ball: Int) = (0, 0)
     
-    let score = compare(randomNumbers, with: targetNumbers)
-    printStrikeAndBall(score: score)
+    do {
+        let randomNumbers = try readUserNumbers()
+        
+        score = compare(randomNumbers, with: targetNumbers)
+        printStrikeAndBall(score: score)
+    } catch NumberBaseballGameError.readLineIsNil {
+        throw NumberBaseballGameError.readLineIsNil
+    } catch NumberBaseballGameError.invalidUserInput {
+        throw NumberBaseballGameError.invalidUserInput
+    } catch {
+        print(error)
+    }
     
     return score.strike
 }
 
 func readUserNumbers() throws -> [Int] {
+    printRandomNumbers()
+    
     guard let input = readLine() else {
         throw NumberBaseballGameError.readLineIsNil
     }
     
-    let stringNumbers = input.components(separatedBy: " ")
-    
-    
-    guard stringNumbers.count == 3 else {
-        throw
+    let inputSplited = input.components(separatedBy: " ")
+    let userNumbers = inputSplited.compactMap { Int($0) }
+    guard inputSplited.count == numbersCount &&
+          userNumbers.count == numbersCount else {
+        throw NumberBaseballGameError.invalidUserInput
     }
+    
+    
+    let userNumbersSet = Set(userNumbers)
+    guard userNumbersSet.count == numbersCount else {
+        throw NumberBaseballGameError.invalidUserInput
+    }
+    
+    guard userNumbers.filter({ posiableNumberRange.contains( $0 ) }).count == userNumbers.count else {
+        throw NumberBaseballGameError.invalidUserInput
+    }
+    
+    return userNumbers
 }
 
-func createRandomNumbers(range: ClosedRange<Int> = 1...9) -> [Int] {
+func createRandomNumbers(range: ClosedRange<Int> = posiableNumberRange) -> [Int] {
     var resultNumbers: Set<Int> = []
     
     repeat {
@@ -68,9 +102,8 @@ func createRandomNumbers(range: ClosedRange<Int> = 1...9) -> [Int] {
     return resultNumbers.shuffled()
 }
 
-func printRandomNumbers(numbers: [Int]) {
-    print("임의의 수 : ", terminator: "")
-    print(convertIntArrayToString(numbers))
+func printRandomNumbers() {
+    print("입력 : ", terminator: "")
 }
 
 func convertIntArrayToString(_ array: [Int]) -> String {
