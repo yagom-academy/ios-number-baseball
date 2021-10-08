@@ -23,14 +23,14 @@ func receivePlayerNumbers() -> [Int]? {
     print("숫자 \(numbersToGenerate)개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     guard let input: String = readLine(), input != "" else { return nil }
-    if let validInput = isValidInput(input: input) {
+    if let validInput = isValidInput(input) {
         return validInput
     }
     print("입력이 잘못되었습니다")
     return nil
 }
 
-func isValidInput(input: String) -> [Int]? {
+func isValidInput(_ input: String) -> [Int]? {
     let inputArray: [String] = input.components(separatedBy: " ")
     let intArray: [Int] = inputArray.compactMap{ Int($0) }.filter{ 0 < $0 && $0 < 10 }
     guard Set(intArray).count == numbersToGenerate else { return nil }
@@ -74,9 +74,7 @@ func startGame() {
     while remainingAttempts > 0 {
         guard let playerNumbers = receivePlayerNumbers() else { continue }
         let strikeCount = playInning(playerNumbers: playerNumbers)
-        if strikeCount == numbersToGenerate {
-            break
-        }
+        if strikeCount == numbersToGenerate { break }
         printRemainingAttempts()
     }
     checkGameResult()
@@ -90,12 +88,12 @@ func isValidMenu(_ input: String) -> Bool {
 func receiveMenuNumber() {
     print("1. 게임시작\n2. 게임종료")
     print("원하는 기능을 선택해 주세요 : ", terminator: "")
-    guard let menuNumber: String = readLine() else { return }
-    if isValidMenu(menuNumber) == false {
+    guard let input: String = readLine() else { return }
+    if isValidMenu(input) == false {
         print("입력이 잘못되었습니다")
         receiveMenuNumber()
     }
-    guard let input = Int(menuNumber), input == 1 else { return }
+    guard let menuNumber = Int(input), menuNumber == 1 else { return }
     startGame()
     remainingAttempts = 9
     receiveMenuNumber()
