@@ -13,28 +13,21 @@ func createRandomNumbers() -> [Int] {
     return threeNumbers
 }
 
-func calculateBallCount(index: Int, matchIndex: Int?, strikeCount: inout Int, ballCount: inout Int) {
-    if matchIndex == nil {
-        return
-    } else if matchIndex == index {
-        strikeCount += 1
-    } else {
-        ballCount += 1
-    }
-}
-
-func checkBallCount(answerNumbers: [Int], userNumbers: [Int]) -> [Int] {
-    guard answerNumbers != userNumbers else {
-        return [3, 0]
-    }
+func sumUpScores(secretNumbers: [Int], triedNumbers: [Int]) -> (Int, Int) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
-    for index in 0...2 {
-        let matchIndex = answerNumbers.firstIndex(of: userNumbers[index])
-        calculateBallCount(index: index, matchIndex: matchIndex, strikeCount: &strikeCount, ballCount: &ballCount)
+    for index in 0..<secretNumbers.count {
+        let matchIndex = secretNumbers.firstIndex(of: triedNumbers[index])
+        if matchIndex == nil {
+            continue
+        } else if matchIndex == index {
+            strikeCount += 1
+        } else {
+            ballCount += 1
+        }
     }
-    return [strikeCount, ballCount]
+    return (strikeCount, ballCount)
 }
 
 var randomAnswerNumbers = createRandomNumbers()
@@ -52,9 +45,7 @@ func startGame() {
     while gameCount > 0 {
         gameCount -= 1
         let userNumbers = createRandomNumbers()
-        let gameScore = checkBallCount(answerNumbers: randomAnswerNumbers, userNumbers: userNumbers)
-        let strikeCount = gameScore[0]
-        let ballCount = gameScore[1]
+        let (strikeCount, ballCount) = sumUpScores(secretNumbers: randomAnswerNumbers, triedNumbers: userNumbers)
         
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
