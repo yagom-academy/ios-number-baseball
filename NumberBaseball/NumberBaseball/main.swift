@@ -135,13 +135,13 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     return true
 }
 
-func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
-    var userNumbers: Array<Int> = Array<Int>()
+func stringToArray(_ inputedUserNumbers: String) -> [Int] {
+    var userNumbers = [Int]()
     
     let userString = Array(inputedUserNumbers)
     
-    for i in 0...inputedUserNumbers.count-1 {// 고쳐야!!
-        if let a = Int(String(userString[i])) {// 고쳐야!!
+    for index in 0...inputedUserNumbers.count-1 {
+        if let a = Int(String(userString[index])) { // 상수명 조언 필요(특별한 기능을 하지않는 변수나 상수의 이름을 짓는 법)
             userNumbers.append(a)
         }
     }
@@ -149,7 +149,7 @@ func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
     return userNumbers
 }
 
-func compareNumbers(randomNumbers: Array<Int>, userNumbers: Array<Int>) {
+func compareNumbers(randomNumbers: [Int], userNumbers: [Int]) {
     var strikeCounts = 0
     var ballCounts = 0
     
