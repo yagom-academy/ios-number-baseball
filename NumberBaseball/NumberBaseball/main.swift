@@ -11,6 +11,12 @@ var tryCount = 9
 var isUserWin = false
 
 func playNumberBaseballGame() {
+    // 전역 변수로 선언 되었기 때문에 새로운 게임에서
+    // 값을 초기화 해주어야 함!
+    targetNumbers = createRandomNumbers()
+    isUserWin = false
+    tryCount = 9
+    
     while tryCount > 0 && isUserWin == false {
         let strikeCount = playRound()
         
@@ -89,5 +95,39 @@ func isThreeStrike(count: Int) -> Bool {
     return count == 3
 }
 
-targetNumbers = createRandomNumbers()
-playNumberBaseballGame()
+func managementGame() {
+    printMenu()
+    
+    guard let input = readLine() else {
+        return
+    }
+    
+    checkMenuInput(input: input)
+}
+
+func printMenu() {
+    let menuSentence = """
+    1. 게임 시작
+    2. 게임 종료
+    원하는 기능을 선택해주세요 :
+    """
+    print(menuSentence, terminator: "")
+}
+
+func checkMenuInput(input: String) {
+    switch input {
+    case "1":
+        playNumberBaseballGame()
+    case "2":
+        return
+    default :
+        printInvalidInput()
+    }
+    managementGame()
+}
+
+func printInvalidInput() {
+    print("입력이 잘못되었습니다.")
+}
+
+managementGame()
