@@ -2,7 +2,7 @@
 //  NumberBaseball - main.swift
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -60,7 +60,7 @@ func convertArrayToString(from arrayOfNumbers: Array<Int>) -> String {
 
 func playOneRound() {
     
-    let randomNumbers = generateRandomNumbers()
+    let randomNumbers = getNumber()
     let randomNumberToString: String = convertArrayToString(from: randomNumbers)
     let resultOfJudgement = returnResult(of: randomNumbers)
     
@@ -126,21 +126,40 @@ func getNumber() -> [Int] {
         return []
     }
     
-    let array : [Int] = [1,2,3]
-    return array
+
+    return verifyNumbers(numbers: input)
 }
 
 func verifyNumbers(numbers: String) -> [Int] {
     
     let numbersArray = numbers.split(separator: " ")
+    var checkedNumber: [Int] = []
     
     if Set(numbersArray).count == 3, numbersArray.count == 3 {
+    } else {
         print("입력이 잘못되었습니다.")
         getNumber()
+        return []
     }
-    return []
+    
+    for index in 0...2{
+        checkedNumber.append(checkRange(possibleNumber: numbersArray[index]))
+    }
+    
+    return checkedNumber
 }
 
+func checkRange(possibleNumber: Substring) -> Int {
+    
+    if let atualNumber = Int(possibleNumber), atualNumber > 0, atualNumber < 10 {
+        return atualNumber
+    } else {
+        print("입력이 잘못되었습니다.")
+        getNumber()
+        return 0
+    }
+
+}
 
 selectMenu()
 
