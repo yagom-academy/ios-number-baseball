@@ -9,31 +9,34 @@ import Foundation
 // MARK: 게임 관련 부분.
 let errorMessage = "입력이 잘못되었습니다"
 
-func makingRandomNumbers() -> Array<Int> {
-    var nonDuplicateNumbers = Set<Int>()
+func numberBaseball() { // 메뉴 실행 loop 인데 runMenu로 바꿔야하지 않을까?
+    menuLoop: while true {
+        guard let menuNumber = runMenu() else {
+            print(errorMessage)
+            return
+        }
     
-    repeat {
-        nonDuplicateNumbers.insert(Int.random(in: 1...9))
-    } while nonDuplicateNumbers.count < 3
-    
-    let randomNumbers = Array(nonDuplicateNumbers)
-    
-    return randomNumbers
-}
-
-func compareNumbers(randomNumbers: Array<Int>, userNumbers: Array<Int>) {
-    var strikeCounts = 0
-    var ballCounts = 0
-    
-    for numberIndex in 0...2 {
-        if randomNumbers[numberIndex] == userNumbers[numberIndex] {
-            strikeCounts += 1
-        } else if randomNumbers.contains(userNumbers[numberIndex]){
-            ballCounts += 1
+        switch menuNumber {
+        case "1":
+            launchBaseBall()
+        case "2":
+            break menuLoop
+        default:
+            print(errorMessage)
         }
     }
+}
+
+func runMenu() -> String? {// 기능을 분리해볼것.
+    print("""
+    1. 게임시작
+    2. 게임종료
+    원하는 기능을 선택해주세요 :
+    """, terminator: " ")
     
-    print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
+    let userInput = readLine()
+    
+    return userInput
 }
 
 func launchBaseBall() {
@@ -63,47 +66,16 @@ func launchBaseBall() {
     }
 }
 
-func runMenu() -> String? {// 기능을 분리해볼것.
-    print("""
-    1. 게임시작
-    2. 게임종료
-    원하는 기능을 선택해주세요 :
-    """, terminator: " ")
+func makingRandomNumbers() -> Array<Int> {
+    var nonDuplicateNumbers = Set<Int>()
     
-    let userInput = readLine()
+    repeat {
+        nonDuplicateNumbers.insert(Int.random(in: 1...9))
+    } while nonDuplicateNumbers.count < 3
     
-    return userInput
-}
-
-func numberBaseball() {
+    let randomNumbers = Array(nonDuplicateNumbers)
     
-    menuLoop: while true {
-        guard let menuNumber = runMenu() else {
-            print(errorMessage)
-            return
-        }
-    
-        switch menuNumber {
-        case "1":
-            launchBaseBall()
-        case "2":
-            break menuLoop
-        default:
-            print(errorMessage)
-        }
-    }
-}
-
-func recieveGameNumber() -> String? {
-    print("""
-    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
-    중복 숫자는 허용하지 않습니다.
-    입력 :
-    """, terminator: " ")
-    
-    let gameNumber = readLine()
-    
-    return gameNumber
+    return randomNumbers
 }
 
 func makingUserNumbers() -> Array<Int> {
@@ -129,17 +101,16 @@ func makingUserNumbers() -> Array<Int> {
     return userNumbers
 }
 
-func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {    // 2 3 4
-    var userNumbers: Array<Int> = Array<Int>()
+func recieveGameNumber() -> String? {
+    print("""
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """, terminator: " ")
     
-    let userString = Array(inputedUserNumbers) //["2", " ", "3", " ", "4"]
+    let gameNumber = readLine()
     
-    for i in 0...inputedUserNumbers.count-1 {
-        if let a = Int(String(userString[i])) {
-            userNumbers.append(a)
-        }
-    }
-    return userNumbers
+    return gameNumber
 }
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
@@ -162,6 +133,34 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     }
     
     return true
+}
+
+func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {    // 2 3 4
+    var userNumbers: Array<Int> = Array<Int>()
+    
+    let userString = Array(inputedUserNumbers) //["2", " ", "3", " ", "4"]
+    
+    for i in 0...inputedUserNumbers.count-1 {
+        if let a = Int(String(userString[i])) {
+            userNumbers.append(a)
+        }
+    }
+    return userNumbers
+}
+
+func compareNumbers(randomNumbers: Array<Int>, userNumbers: Array<Int>) {
+    var strikeCounts = 0
+    var ballCounts = 0
+    
+    for numberIndex in 0...2 {
+        if randomNumbers[numberIndex] == userNumbers[numberIndex] {
+            strikeCounts += 1
+        } else if randomNumbers.contains(userNumbers[numberIndex]){
+            ballCounts += 1
+        }
+    }
+    
+    print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
 }
 
 numberBaseball()
