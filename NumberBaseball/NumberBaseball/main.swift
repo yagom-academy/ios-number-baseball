@@ -6,6 +6,22 @@
 
 import Foundation
 
+enum GamePlayer {
+    case user
+    case computer
+}
+enum GameMessage: String {
+    case userWin = "사용자 승리!"
+    case computerWin = "컴퓨터 승리...!"
+    case generatedUserNumber = "임의의 수 : "
+    case leftTrial = "남은 기회 : "
+    case strikeCount = " 스트라이크, "
+    case ballCount = " 볼"
+}
+enum NumberBaseballError: Error {
+    case invalidInput
+}
+
 var computerNumbers: [Int] = []
 var tryCount = 9
 
@@ -38,32 +54,20 @@ func judgeStrikeAndBall(with userNumbers: [Int]) -> (strike: Int, ball: Int) {
     return (strikeCount, ballCount)
 }
 
-enum GameMessage: String {
-    case userWin = "사용자 승리!"
-    case computerWin = "컴퓨터 승리...!"
-    case generatedUserNumber = "임의의 수 : "
-    case leftTrial = "남은 기회 : "
-    case strikeCount = " 스트라이크, "
-    case ballCount = " 볼"
-}
-
 func runGame() {
     computerNumbers = generateRandomNumbers()
     var judgeResult: (strike: Int, ball: Int) = (0, 0)
     let strikesForUserWin = 3
 
     while tryCount != 0 && judgeResult.strike != strikesForUserWin {
-        do {
-            let userNumbers = try recieveUserNumber()
-            judgeResult = compareStrikeAndBall(userNumbers: userNumbers)
-        } catch NumberBaseballError.invalidInput {
+        guard let userNumbers = try? recieveUserNumber() else {
             print("입력이 잘못되었습니다.")
             continue
-        } catch {
-            continue
         }
+        judgeResult = compareStrikeAndBall(userNumbers: userNumbers)
         showTryCount()
     }
+    
     if judgeResult.strike == strikesForUserWin {
         showGameResult(winner: GamePlayer.user)
     } else {
@@ -84,11 +88,6 @@ func compareStrikeAndBall(userNumbers: [Int]) -> (Int, Int){
 func showTryCount() {
     tryCount -= 1
     print(GameMessage.leftTrial.rawValue, tryCount)
-}
-
-enum GamePlayer {
-    case user
-    case computer
 }
 
 func showGameResult(winner: GamePlayer) {
@@ -120,10 +119,6 @@ while true {
     }
 }
 
-enum NumberBaseballError: Error {
-    case invalidInput
-}
-
 func recieveUserNumber() throws -> [Int] {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
@@ -145,6 +140,7 @@ func validateUserNumbers(inputNumbers: String?) throws -> String {
     }
     let numbers: [String] = userNumbers.components(separatedBy: " ")
     guard numbers.count == 3 else {
+        
         throw NumberBaseballError.invalidInput
     }
     guard numbers.filter({$0 == "0"}).count == 0 else {
@@ -153,6 +149,7 @@ func validateUserNumbers(inputNumbers: String?) throws -> String {
     for number in numbers {
         try validateEachNumber(number: number)
     }
+    
     return userNumbers
 }
 
