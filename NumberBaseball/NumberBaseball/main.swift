@@ -34,8 +34,7 @@ func sumUpScores(secretNumbers: [Int], triedNumbers: [Int]) -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
-var randomAnswerNumbers = createRandomNumbers()
-var gameCount = 9
+
 
 func printVictoryMessage(gameChance gameCount: Int, strikeScore strikeCount: Int) {
     if gameCount == 0 && strikeCount < 3 {
@@ -46,12 +45,15 @@ func printVictoryMessage(gameChance gameCount: Int, strikeScore strikeCount: Int
 }
 
 func startGame() {
-    while gameCount > 0 {
+    let randomSecretNumbers = createRandomNumbers()
+    var gameCount = 9
+    
+    while gameCount > .zero {
         gameCount -= 1
         let userNumbers = createRandomNumbers()
-        let (strikeCount, ballCount) = sumUpScores(secretNumbers: randomAnswerNumbers, triedNumbers: userNumbers)
+        let (strikeCount, ballCount) = sumUpScores(secretNumbers: randomSecretNumbers, triedNumbers: userNumbers)
         
-        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        print("임의의 수 : \(userNumbers.reduce("", { $0 + String($1) + " " }))")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(gameCount)")
         
