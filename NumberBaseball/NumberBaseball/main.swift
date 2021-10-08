@@ -6,18 +6,22 @@
 
 import Foundation
 
-class StartBaseballGame {
-    var randomNumbers: [Int] = []
+var randomNumbers: [Int] = []
+var chancesLeft: Int = 9
+var randomNumberAmount = 3
+
+class BaseballGame {
+  
     var computerNumbers: [Int] = []
     var userNumbers: [Int] = []
     var userTrueAndComputerFalse: Bool = true
-    var restChance: Int = 9
-  
-    func extractRandomNumber(userTrueAndComputerFalse: Bool) -> [Int] {
+
+    func extractRandomNumber(randomNumberAmount:Int = randomNumberAmount ,isUser userTrueAndComputerFalse: Bool) -> [Int] {
         randomNumbers = []
-        
-        while randomNumbers.count != 3 {
-            randomNumbers.append(Int.random(in: 1...9))
+        let randomNumberRange = 1...9
+
+        while randomNumbers.count != randomNumberAmount {
+            randomNumbers.append(Int.random(in: randomNumberRange))
             randomNumbers = Array(Set(randomNumbers))
         }
         if userTrueAndComputerFalse == true {
@@ -28,7 +32,7 @@ class StartBaseballGame {
         return randomNumbers
     }
     
-    func countStrikeAndBall() -> [Int] {
+    func countStrikeAndBall() -> (strike: Int, ball:Int) {
         var checkSameNumber:[Int] = []
         
         for eachNumber in computerNumbers{
@@ -38,28 +42,25 @@ class StartBaseballGame {
         let strikeCount:Int = sameNumber.filter{ userNumbers.firstIndex(of: $0) == computerNumbers.firstIndex(of: $0) }.count
         let ballCount:Int = sameNumber.count - strikeCount
         
-        restChance -= 1
+        chancesLeft -= 1
         
-        return [strikeCount, ballCount]
+        return (strike : strikeCount, ball: ballCount)
     }
     
     init() {
-        var strikeAndBall: [Int] = []
-        extractRandomNumber(userTrueAndComputerFalse: false)
+        extractRandomNumber(isUser: false)
     
-        while restChance > 0{
-            let userArray = extractRandomNumber(userTrueAndComputerFalse: true)
-            let userStringArray = userArray.map{ String($0) }
-            let printUserNumber = userStringArray.joined(separator: " ")
+        while chancesLeft > 0{
+            let users = extractRandomNumber(isUser: true)
+            let mappedUsers = users.map{ String($0) }
+            let printUserNumber = mappedUsers.joined(separator: " ")
+            let strikeAndBall = countStrikeAndBall()
             print("임의의 수 : \(printUserNumber)")
-            strikeAndBall = countStrikeAndBall()
-            print("\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
-            print("남은 기회 : \(restChance)")
-            (restChance == 0 && strikeAndBall[0] != 3) ? print("컴퓨터승리...!") : nil
-            strikeAndBall[0] == 3 ? restChance = 0 : nil
+            print("\(strikeAndBall.strike) 스트라이크, \(strikeAndBall.ball) 볼")
+            print("남은 기회 : \(chancesLeft)")
+            (chancesLeft == 0 && strikeAndBall.strike != 3) ? print("컴퓨터승리...!") : strikeAndBall.strike == 3 ? chancesLeft = 0 : nil
         }
     }
 }
 
-let iosBaseballGame = StartBaseballGame()
-
+BaseballGame()
