@@ -17,18 +17,25 @@ var remainedRounds = 9
 var strikeCounts = 0
 var ballCounts = 0
 
-func judgeStrikeAndBall(at: Int) {
-    if randomTargetNums[at] == playerNums[at] {
-        strikeCounts += 1
-    } else if Set(randomTargetNums).contains(playerNums[at]) {
-        ballCounts += 1
+func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
+    var uniqueRandomNums: Set<Int> = Set<Int>()
+    
+    while uniqueRandomNums.count < digitsOfGame {
+        let num = Int.random(in: start...end)
+        uniqueRandomNums.insert(num)
     }
+    
+    return Array(uniqueRandomNums)
 }
 
-func countStrikeAndBall() {
-    for eachNum in 0..<digitsOfGame {
-        judgeStrikeAndBall(at: eachNum)
-    }
+func initGameSetting() {
+    randomTargetNums = generateUniqueRandomNums(from: 1, to: 9)
+    remainedRounds = 9
+}
+
+func initStrikeAndBallCounts() {
+    strikeCounts = 0
+    ballCounts = 0
 }
 
 func presentInputForm() {
@@ -103,13 +110,18 @@ func generatePlayerNums() {
     } while !isValid
 }
 
-func presentPlayerNums() {
-    var convertedPlayerNums: [String] = []
-    for eachNum in 0..<digitsOfGame {
-        convertedPlayerNums.append(String(playerNums[eachNum]))
+func judgeStrikeAndBall(at: Int) {
+    if randomTargetNums[at] == playerNums[at] {
+        strikeCounts += 1
+    } else if Set(randomTargetNums).contains(playerNums[at]) {
+        ballCounts += 1
     }
-    
-    print("임의의 수 : \(convertedPlayerNums.joined(separator: " "))")
+}
+
+func countStrikeAndBall() {
+    for eachNum in 0..<digitsOfGame {
+        judgeStrikeAndBall(at: eachNum)
+    }
 }
 
 func decreaseRemainedRounds() {
@@ -129,34 +141,12 @@ func presentGameResult() {
     }
 }
 
-func initStrikeAndBallCounts() {
-    strikeCounts = 0
-    ballCounts = 0
-}
-
-func generateUniqueRandomNums(from start: Int, to end: Int) -> [Int] {
-    var uniqueRandomNums: Set<Int> = Set<Int>()
-    
-    while uniqueRandomNums.count < digitsOfGame {
-        let num = Int.random(in: start...end)
-        uniqueRandomNums.insert(num)
-    }
-    
-    return Array(uniqueRandomNums)
-}
-
-func initGameSetting() {
-    randomTargetNums = generateUniqueRandomNums(from: 1, to: 9)
-    remainedRounds = 9
-}
-
 func playGame() {
     initGameSetting()
     
     repeat {
         initStrikeAndBallCounts()
         generatePlayerNums()
-        presentPlayerNums()
         countStrikeAndBall()
         decreaseRemainedRounds()
         presentRoundResult()
@@ -198,7 +188,6 @@ func runBaseballGame() {
         selectedMenu = selectMenu()
         operateMenu(menu: selectedMenu)
     } while selectedMenu != "2"
-    
 }
 
 runBaseballGame()
