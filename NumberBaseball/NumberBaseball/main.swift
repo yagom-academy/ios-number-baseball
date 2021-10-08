@@ -7,12 +7,12 @@
 import Foundation
 
 func makeRandomNumbers() -> [Int] {
-    var result: Set<Int> = []
-    while result.count < 3 {
+    var randomNumbers: Set<Int> = []
+    while randomNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
-        checkUniqueAndInsert(randomNumber, into: &result)
+        checkUniqueAndInsert(randomNumber, into: &randomNumbers)
     }
-    return result.shuffled()
+    return randomNumbers.shuffled()
 }
 
 func checkUniqueAndInsert(_ value: Int, into result: inout Set<Int>) {
@@ -24,35 +24,35 @@ func checkUniqueAndInsert(_ value: Int, into result: inout Set<Int>) {
 var computerNumbers: [Int] = makeRandomNumbers()
 
 func compareComputerNumbers(with userNumbers: [Int]) -> [Int]{
-    var ball = 0
-    var strike = 0
+    var ballCount = 0
+    var strikeCount = 0
     
-    for i in 0...2 {
-        (computerNumbers[i] == userNumbers[i]) ? (strike += 1) : ()
+    for index in 0...2 {
+        (computerNumbers[index] == userNumbers[index]) ? (strikeCount += 1) : ()
     }
     
     for userNumber in userNumbers {
-        (computerNumbers.contains(userNumber)) ? (ball += 1) : ()
+        (computerNumbers.contains(userNumber)) ? (ballCount += 1) : ()
     }
     
-    ball -= strike
+    ballCount -= strikeCount
     
-    return [ball, strike]
+    return [ballCount, strikeCount]
 }
 
 func startGame() {
     var chancesLeft = 9
-    var userWin: Bool = false
-    while chancesLeft > 0, userWin == false {
+    var isUserWin: Bool = false
+    while chancesLeft > 0, isUserWin == false {
         let userNumbers = makeRandomNumbers()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         let result = compareComputerNumbers(with: userNumbers)
         print("\(result[1]) 스트라이크, \(result[0]) 볼")
         chancesLeft -= 1
         print("남은 기회 : \(chancesLeft)")
-        userWin = result[1] == 3
+        isUserWin = result[1] == 3
     }
-    if userWin {
+    if isUserWin {
         print("사용자 승리...!")
     } else {
         print("컴퓨터 승리...!")
