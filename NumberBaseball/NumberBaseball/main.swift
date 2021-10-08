@@ -6,18 +6,9 @@
 
 import Foundation
 
-//MARK: - Step 1
-//실험용 브랜치 파일
-
-/// 1. 변수 설정
-/// 2. 난수 3개 생성하는 함수 구현
-///   - 중복된 숫자가 없어야한다
-///   - 1~9 사이의 숫자여야 한다
-/// 3. 게임 시작 함수 구현
-
 private func generateRandomNumbers() -> Set<Int> {
     var randomNumbers: Set<Int> = []
-
+    
     while randomNumbers.count < 3 {
         randomNumbers.insert(Int.random(in: 1..<10))
     }
@@ -25,64 +16,61 @@ private func generateRandomNumbers() -> Set<Int> {
     return randomNumbers
 }
 
-private func calculateStrikeBall(from computerNumbers: Set<Int>, and playerNumbers: Set<Int>) -> (Int, Int) {
-    var ballCount = computerNumbers.intersection(playerNumbers).count
+private func calculateStrikeBall(from computerNumbers: Set<Int>, and playerNumbers: Set<Int>) -> (strikeCount: Int, ballCount: Int) {
+    let maximumBallCount = computerNumbers.intersection(playerNumbers).count
     var strikeCount = 0
     let computerNumbers = Array(computerNumbers)
     let playerNumbers = Array(playerNumbers)
     
     for i in 0..<3 {
-        if computerNumbers[i] == playerNumbers[i] {
-            strikeCount += 1
-            ballCount -= 1
-        }
+        let count = (computerNumbers[i] == playerNumbers[i] ? 1 : 0)
+        strikeCount += count
     }
+    
+    let ballCount = maximumBallCount - strikeCount
     
     return (strikeCount, ballCount)
 }
 
-private func checkWin(by strikeCount: Int) -> Bool {
+private func getGameResult(by strikeCount: Int) -> Bool {
     return strikeCount == 3
 }
 
-private func createPlayerNumbersString(with numbers: Set<Int>) -> String {
-    let numbers = Array(numbers)
+private func createPlayerNumbersString(with playerNumbers: Set<Int>) -> String {
+    let playerNumbers = Array(playerNumbers)
     var playerNumbersString = "임의의 수 :"
-
-    for number in numbers {
+    
+    for number in playerNumbers {
         playerNumbersString += " \(number)"
     }
 
     return playerNumbersString
 }
 
+private func printGameResult(by playerHasWon: Bool) {
+    let target = playerHasWon ? "사용자" : "컴퓨터"
+    print("\(target) 승리하였습니다...!")
+}
+
 private func startNumberBaseballGame() {
-    var chance = 9
+    var remainingChance = 9
     let computerNumbers = generateRandomNumbers()
     var playerHasWon = false
-
-    while chance > 0 {
+    
+    while remainingChance > 0 {
         let playerNumbers = generateRandomNumbers()
         print(createPlayerNumbersString(with: playerNumbers))
+        
         let (strikeCount, ballCount) = calculateStrikeBall(from: computerNumbers, and: playerNumbers)
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-
-        if checkWin(by: strikeCount) {
-            playerHasWon = true
-            break
-        } else {
-            chance -= 1
-            print("남은 기회 : \(chance)")
-        }
+        
+        playerHasWon = getGameResult(by: strikeCount)
+        if playerHasWon { break }
+        
+        remainingChance -= 1
+        print("남은 기회 : \(remainingChance)")
     }
-    
-    if playerHasWon {
-        print("사용자 승리...!")
-    }else {
-        print("컴퓨터 승리...!")
-    }
+    printGameResult(by: playerHasWon)
 }
 
 startNumberBaseballGame()
-
-
