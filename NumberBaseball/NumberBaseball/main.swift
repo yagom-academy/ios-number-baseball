@@ -7,7 +7,7 @@
 import Foundation
 
 // MARK: 게임 관련 부분.
-var errorMessage = "입력이 잘못되었습니다"
+let errorMessage = "입력이 잘못되었습니다"
 
 func makingRandomNumbers() -> Array<Int> {
     var nonDuplicateNumbers = Set<Int>()
@@ -36,10 +36,6 @@ func compareNumbers(randomNumbers: Array<Int>, userNumbers: Array<Int>) {
     print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
 }
 
-func printNumbers(_ radomArray: Array<Int>) {
-    print("임의의 수: \(radomArray[0]) \(radomArray[1]) \(radomArray[2])")
-}
-
 func launchBaseBall() {
     let randomNumbers: Array<Int> = makingRandomNumbers()
     var userNumbers: Array<Int> = Array<Int>()
@@ -50,7 +46,6 @@ func launchBaseBall() {
         print(randomNumbers)
         
         userNumbers = makingUserNumbers()
-        printNumbers(userNumbers)
         compareNumbers(randomNumbers: randomNumbers, userNumbers: userNumbers)
 
         if randomNumbers == userNumbers {
@@ -68,7 +63,7 @@ func launchBaseBall() {
     }
 }
 
-func printMenuAndRecieveMenuNumber() -> String? {
+func runMenu() -> String? {
     print("""
     1. 게임시작
     2. 게임종료
@@ -83,7 +78,7 @@ func printMenuAndRecieveMenuNumber() -> String? {
 func numberBaseball() {
     
     menuLoop: while true {
-        guard let menuNumber = printMenuAndRecieveMenuNumber() else {
+        guard let menuNumber = runMenu() else {
             print(errorMessage)
             return
         }
@@ -97,22 +92,6 @@ func numberBaseball() {
             print(errorMessage)
         }
     }
-    
-//    OUTER: repeat {
-//        guard let menuNumber = printMenuAndRecieveMenuNumber() else {
-//            print(errorMessage)
-//            return
-//        }
-//
-//        switch menuNumber {
-//        case "1":
-//            launchBaseBall()
-//        case "2":
-//            break OUTER
-//        default:
-//            print(errorMessage)
-//        }
-//    } while true
 }
 
 func recieveGameNumber() -> String? {
@@ -128,7 +107,7 @@ func recieveGameNumber() -> String? {
 }
 
 func makingUserNumbers() -> Array<Int> {
-    var sw = false  // IsValidValue로 바꾸는건요???
+    var isValidValue = false
     var userNumbers: Array<Int> = Array<Int>()
     
     receiveInputLoop: while true {
@@ -136,33 +115,16 @@ func makingUserNumbers() -> Array<Int> {
       
         if let gameNumber = recieveGameNumber() {
             inputedUserNumbers = gameNumber
-            sw = checkInvalidUserNumbers(inputedUserNumbers)
+            isValidValue = checkInvalidUserNumbers(inputedUserNumbers)
         }
         
-        if sw == true {
+        if isValidValue == true {
             userNumbers = stringToArray(inputedUserNumbers)
             break receiveInputLoop
         } else {
             print(errorMessage)
         }
     }
-    
-//    OUTER: repeat {
-//
-//        var inputedUserNumbers = ""
-//
-//        if let gameNumber = recieveGameNumber() {
-//            inputedUserNumbers = gameNumber
-//            sw = checkInvalidUserNumbers(inputedUserNumbers)
-//        }
-//
-//        if sw == true {
-//            userNumbers = stringToArray(inputedUserNumbers)
-//            break OUTER
-//        } else {
-//            print(errorMessage)
-//        }
-//    } while true
     
     return userNumbers
 }
@@ -181,10 +143,11 @@ func stringToArray(_ inputedUserNumbers: String) -> Array<Int> {
 }
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
-//    var sw = false      // 없애는건?
     let arrayNumbers = Array(inputedUserNumbers)
 
-    // 유효성 별로 분리 해야할지... 고민!!!
+    guard inputedUserNumbers.count == 5 else {
+        return false
+    }
     
     guard inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 else {
         return false
@@ -197,29 +160,8 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     guard Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil else {
         return false
     }
-    return true
-//    if inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 {
-//        sw = true
-//    } else {
-//        sw = false
-//        return sw
-//    }
-//
-//    if arrayNumbers[1] == " " && arrayNumbers[3] == " " {
-//        sw = true
-//    } else {
-//        sw = false
-//        return sw
-//    }
-//
-//    if Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil {
-//        sw = true
-//    } else {
-//        sw = false
-//        return sw
-//    }
     
-//    return sw
+    return true
 }
 
 numberBaseball()
