@@ -12,13 +12,12 @@ func makeRandomNumbers() -> [Int] {
         let randomNumber: Int = Int.random(in: 1...9)
         randomNumbers.insert(randomNumber)
     }
-    return randomNumbers.shuffled()
+    return Array(randomNumbers)
 }
-
 
 var computerNumbers: [Int] = makeRandomNumbers()
 
-func compareComputerNumbers(with userNumbers: [Int]) -> [Int] {
+func compareComputerNumbers(with userNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var ballCount: Int = .zero
     var strikeCount: Int = .zero
     
@@ -32,7 +31,7 @@ func compareComputerNumbers(with userNumbers: [Int]) -> [Int] {
     
     ballCount -= strikeCount
     
-    return [ballCount, strikeCount]
+    return (strikeCount, ballCount)
 }
 
 func startGame() {
@@ -41,11 +40,11 @@ func startGame() {
     while chancesLeft > 0, isUserWin == false {
         let userNumbers: [Int] = makeRandomNumbers()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
-        let result: [Int] = compareComputerNumbers(with: userNumbers)
-        print("\(result[1]) 스트라이크, \(result[0]) 볼")
+        let result: (strikeCount: Int, ballCount: Int) = compareComputerNumbers(with: userNumbers)
+        print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
         chancesLeft -= 1
         print("남은 기회 : \(chancesLeft)")
-        isUserWin = result[1] == 3
+        isUserWin = result.strikeCount == 3
     }
     if isUserWin {
         print("사용자 승리...!")
