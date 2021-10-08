@@ -11,12 +11,14 @@ let errorMessage = "입력이 잘못되었습니다"
 
 func numberBaseball() {
     menuLoop: while true {
-        guard let menuNumber = runMenu() else {
+        printMenu()
+        
+        guard let menuInput = readLine() else {
             print(errorMessage)
             return
         }
     
-        switch menuNumber {
+        switch menuInput {
         case "1":
             launchBaseBall()
         case "2":
@@ -27,16 +29,12 @@ func numberBaseball() {
     }
 }
 
-func runMenu() -> String? {// 기능을 분리해볼것.
+func printMenu() {
     print("""
     1. 게임시작
     2. 게임종료
     원하는 기능을 선택해주세요 :
     """, terminator: " ")
-    
-    let userInput = readLine()
-    
-    return userInput
 }
 
 func launchBaseBall() {
