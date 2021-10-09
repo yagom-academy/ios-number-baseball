@@ -65,7 +65,7 @@ func playRound() throws -> Int {
 }
 
 func readUserNumbers() throws -> [Int] {
-    printRandomNumbers()
+    printUserInput()
     
     guard let input = readLine() else {
         throw NumberBaseballGameError.readLineIsNil
@@ -102,8 +102,13 @@ func createRandomNumbers(range: ClosedRange<Int> = posiableNumberRange) -> [Int]
     return resultNumbers.shuffled()
 }
 
-func printRandomNumbers() {
-    print("입력 : ", terminator: "")
+func printUserInput() {
+    let userInputSentence = """
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """
+    print(userInputSentence, terminator: " ")
 }
 
 func convertIntArrayToString(_ array: [Int]) -> String {
@@ -151,12 +156,17 @@ func isThreeStrike(count: Int) -> Bool {
 
 func managementGame() {
     printMenu()
-    
-    guard let input = readLine() else {
-        return
+    do {
+        try receiveMenuInput()
+    } catch NumberBaseballGameError.readLineIsNil {
+        printInvalidInput()
+        managementGame()
+    } catch NumberBaseballGameError.invalidUserInput {
+        printInvalidInput()
+        managementGame()
+    } catch {
+        print(error)
     }
-    
-    checkMenuInput(input: input)
 }
 
 func printMenu() {
@@ -168,14 +178,18 @@ func printMenu() {
     print(menuSentence, terminator: " ")
 }
 
-func checkMenuInput(input: String) {
+func receiveMenuInput() throws {
+    guard let input = readLine() else {
+        return
+    }
+    
     switch input {
     case "1":
         playNumberBaseballGame()
     case "2":
         return
     default :
-        printInvalidInput()
+        throw NumberBaseballGameError.invalidUserInput
     }
     managementGame()
 }
