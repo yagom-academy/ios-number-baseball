@@ -89,21 +89,25 @@ func getInputFromUserAndCheck() -> [Int] {
 }
 
 func menuHandler() {
-    print("""
+    while true {
+        print("""
     1. 게임시작
     2. 게임종료
-    """)
-    guard let menuNumber = readLine() else {
-        print("입력이 잘못되었습니다")
-        return
-    }
-    switch menuNumber {
-    case "1":
-        startGame()
-    case "2":
-        break
-    default:
-        break
+    원하는 기능을 선택해주세요 :
+    """, terminator: " ")
+        guard let menuNumber = readLine() else {
+            print("입력이 잘못되었습니다")
+            return
+        }
+        switch menuNumber {
+        case "1":
+            startGame()
+        case "2":
+            return
+        default:
+            print("입력이 잘못되었습니다")
+            continue
+        }
     }
 }
 
