@@ -128,7 +128,7 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
         return false
     }
     
-    guard Set(arrayNumbers).count == 3 else {
+    guard Set(inputedUserNumbers.replacingOccurrences(of: " ", with: "")).count == 3 else {
         return false
     }
     
