@@ -11,6 +11,7 @@ enum NumberBaseballGameError: Error {
     case invalidUserInput
 }
 
+var programIsRunning = true
 var targetNumbers: [Int] = []
 var tryCount = 9
 var isUserWin = false
@@ -21,6 +22,7 @@ func initGameVariables() {
     targetNumbers = createRandomNumbers()
     isUserWin = false
     tryCount = 9
+    programIsRunning = true
 }
 
 func playNumberBaseballGame() {
@@ -29,8 +31,8 @@ func playNumberBaseballGame() {
     while tryCount > 0 && isUserWin == false {
         do {
             let strikeCount = try playRound()
+            isUserWin = isUserWin(with: strikeCount)
             
-            isUserWin = isThreeStrike(count: strikeCount)
             printTryCount()
         } catch NumberBaseballGameError.readLineIsNil {
             printInvalidInput()
@@ -42,6 +44,7 @@ func playNumberBaseballGame() {
             print(error)
         }
     }
+    
     printWinner()
 }
 
@@ -50,7 +53,6 @@ func playRound() throws -> Int {
     
     do {
         let randomNumbers = try receiveUserNumbers()
-        
         score = compare(randomNumbers, with: targetNumbers)
         printStrikeAndBall(score: score)
     } catch NumberBaseballGameError.readLineIsNil {
@@ -127,19 +129,13 @@ func printUserInput() {
     print(userInputSentence, terminator: " ")
 }
 
-func convertIntArrayToString(_ array: [Int]) -> String {
-    let resultString: String = array.map { String($0) }.joined(separator: " ")
-    
-    return resultString
-}
-
 func compare(_ randomNumbers: [Int], with targetNumbers: [Int]) -> (strike: Int, ball: Int) {
     var score: (strike: Int, ball: Int) = (0, 0)
     
     for i in randomNumbers.indices {
         if randomNumbers[i] == targetNumbers[i] {
             score.strike += 1
-        } else if targetNumbers.contains(randomNumbers[i]) && targetNumbers[i] != randomNumbers[i] {
+        } else if targetNumbers.contains(randomNumbers[i]) {
             score.ball += 1
         }
     }
@@ -166,22 +162,25 @@ func printTryCount() {
     }
 }
 
-func isThreeStrike(count: Int) -> Bool {
-    return count == 3
+func isUserWin(with strikeCount: Int) -> Bool {
+    return strikeCount == numbersCount
 }
 
 func managementGame() {
-    printMenu()
-    do {
-        try receiveMenuInput()
-    } catch NumberBaseballGameError.readLineIsNil {
-        printInvalidInput()
-        managementGame()
-    } catch NumberBaseballGameError.invalidUserInput {
-        printInvalidInput()
-        managementGame()
-    } catch {
-        print(error)
+    while programIsRunning {
+        printMenu()
+        
+        do {
+            try receiveMenuInput()
+        } catch NumberBaseballGameError.readLineIsNil {
+            printInvalidInput()
+            continue
+        } catch NumberBaseballGameError.invalidUserInput {
+            printInvalidInput()
+            continue
+        } catch {
+            print(error)
+        }
     }
 }
 
@@ -196,18 +195,18 @@ func printMenu() {
 
 func receiveMenuInput() throws {
     guard let input = readLine() else {
-        return
+        throw NumberBaseballGameError.readLineIsNil
     }
     
     switch input {
     case "1":
         playNumberBaseballGame()
     case "2":
+        programIsRunning = false
         return
     default :
         throw NumberBaseballGameError.invalidUserInput
     }
-    managementGame()
 }
 
 func printInvalidInput() {
