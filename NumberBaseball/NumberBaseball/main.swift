@@ -38,7 +38,7 @@ func startGame() {
     var chancesLeft: Int = 9
     var isUserWin: Bool = false
     while chancesLeft > 0, isUserWin == false {
-        let userNumbers: [Int] = makeRandomNumbers()
+        let userNumbers: [Int] = getInputFromUserAndCheck()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         let result: (strikeCount: Int, ballCount: Int) = compareComputerNumbers(with: userNumbers)
         print("\(result.strikeCount) 스트라이크, \(result.ballCount) 볼")
@@ -47,7 +47,7 @@ func startGame() {
         isUserWin = result.strikeCount == 3
     }
     if isUserWin {
-        print("사용자 승리...!")
+        print("사용자 승리!")
     } else {
         print("컴퓨터 승리...!")
     }
@@ -56,14 +56,17 @@ func startGame() {
 func getInputFromUserAndCheck() -> [Int] {
     topLoop: while true {
         print("""
-            숫자 세개를 띄어쓰기로 구분하여 입력해주세요.
-            중복 숫자는 허용하지 않습니다.
-            """)
+        숫자 세개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
         guard let input = readLine() else {
             continue
         }
         let inputs = input.split(separator: " ")
-        guard inputs.count == 3 else {
+        let inputSet = Set(inputs)
+        
+        guard inputs.count == 3, inputSet.count == 3 else {
             print("입력이 잘못되었습니다")
             continue
         }
@@ -71,7 +74,7 @@ func getInputFromUserAndCheck() -> [Int] {
         
         for number in inputs {
             guard let realNumber = Int(number) else {
-                print("입력이 잘못되었습니다 숫자만 입력")
+                print("입력이 잘못되었습니다")
                 continue topLoop
             }
             realNumbers.append(realNumber)
@@ -79,7 +82,7 @@ func getInputFromUserAndCheck() -> [Int] {
         
         for realNumber in realNumbers {
             if realNumber < 1 || realNumber > 9 {
-                print("입력이 잘못되었습니다 범위가 잘못됨")
+                print("입력이 잘못되었습니다")
                 continue topLoop
             }
         }
