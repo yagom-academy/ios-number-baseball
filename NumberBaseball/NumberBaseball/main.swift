@@ -49,7 +49,7 @@ func playRound() throws -> Int {
     var score: (strike: Int, ball: Int) = (0, 0)
     
     do {
-        let randomNumbers = try readUserNumbers()
+        let randomNumbers = try receiveUserNumbers()
         
         score = compare(randomNumbers, with: targetNumbers)
         printStrikeAndBall(score: score)
@@ -64,31 +64,47 @@ func playRound() throws -> Int {
     return score.strike
 }
 
-func readUserNumbers() throws -> [Int] {
+func receiveUserNumbers() throws -> [Int] {
     printUserInput()
     
     guard let input = readLine() else {
         throw NumberBaseballGameError.readLineIsNil
     }
     
-    let inputSplited = input.components(separatedBy: " ")
+    let inputSplited = input.components(separatedBy: " ").filter { $0 != "" }
     let userNumbers = inputSplited.compactMap { Int($0) }
-    guard inputSplited.count == numbersCount &&
-          userNumbers.count == numbersCount else {
+        
+    do {
+        try validateNumbersCount(by: inputSplited)
+        try validateNumbersCount(by: userNumbers)
+        try validateOverlapCount(by: userNumbers)
+        try validateNumberRange(in: userNumbers)
+    } catch NumberBaseballGameError.invalidUserInput {
         throw NumberBaseballGameError.invalidUserInput
-    }
-    
-    
-    let userNumbersSet = Set(userNumbers)
-    guard userNumbersSet.count == numbersCount else {
-        throw NumberBaseballGameError.invalidUserInput
-    }
-    
-    guard userNumbers.filter({ posiableNumberRange.contains( $0 ) }).count == userNumbers.count else {
-        throw NumberBaseballGameError.invalidUserInput
+    } catch {
+        print(error)
     }
     
     return userNumbers
+}
+
+func validateNumbersCount(by array: [Any]) throws {
+    if array.count != numbersCount {
+        throw NumberBaseballGameError.invalidUserInput
+    }
+}
+
+func validateOverlapCount(by array: [Int]) throws {
+    let removedOverlapSet = Set(array)
+    if removedOverlapSet.count != numbersCount {
+        throw NumberBaseballGameError.invalidUserInput
+    }
+}
+
+func validateNumberRange(in numbers: [Int]) throws {
+    if numbers.filter({ posiableNumberRange.contains( $0 ) }).count != numbersCount {
+        throw NumberBaseballGameError.invalidUserInput
+    }
 }
 
 func createRandomNumbers(range: ClosedRange<Int> = posiableNumberRange) -> [Int] {
