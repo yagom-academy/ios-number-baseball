@@ -55,3 +55,8 @@
     5. Set(inputedUserNumbers.replacingOccurrences(of: " ", with: "")).count == 3 : 입력값의 중복 확인
 - `convertNumbers` : 입력값을 정수형 배열로 전환
 - `compareNumbers` : `makingRandomNumbers`를 통해 나온 값과 사용자에게 입력받은 값을 비교하여 스트라이크와 볼 계산 후 
+
+# 참고사항 
+- [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
+- [Swift Language Guide - Optionals, nil, Optional Binding](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
+- [Swift Language Guide - Collection Types](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
