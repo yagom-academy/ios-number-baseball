@@ -6,7 +6,6 @@
 
 import Foundation
 
-// MARK: 게임 관련 부분.
 let errorMessage = "입력이 잘못되었습니다"
 
 func numberBaseball() {
@@ -80,14 +79,16 @@ func makingUserNumbers() -> [Int] {
     
     receiveInputLoop: while true {
         var inputedUserNumbers = ""
-      
-        if let gameNumber = recieveGameNumber() {
+        
+        printInputInfo()
+        
+        if let gameNumber = readLine() {
             inputedUserNumbers = gameNumber
             isValidValue = checkInvalidUserNumbers(inputedUserNumbers)
         }
         
         if isValidValue == true {
-            userNumbers = stringToArray(inputedUserNumbers)
+            userNumbers = convertNumbers(inputedUserNumbers)
             break receiveInputLoop
         } else {
             print(errorMessage)
@@ -97,17 +98,14 @@ func makingUserNumbers() -> [Int] {
     return userNumbers
 }
 
-func recieveGameNumber() -> String? {
+func printInputInfo() {
     print("""
     숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
     중복 숫자는 허용하지 않습니다.
     입력 :
     """, terminator: " ")
-    
-    let gameNumber = readLine()
-    
-    return gameNumber
 }
+
 
 func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     let arrayNumbers = Array(inputedUserNumbers)
@@ -135,14 +133,14 @@ func checkInvalidUserNumbers(_ inputedUserNumbers: String) -> Bool {
     return true
 }
 
-func stringToArray(_ inputedUserNumbers: String) -> [Int] {
+func convertNumbers(_ inputedUserNumbers: String) -> [Int] {
     var userNumbers = [Int]()
     
     let userString = Array(inputedUserNumbers)
     
-    for index in 0...inputedUserNumbers.count-1 {
-        if let a = Int(String(userString[index])) { // 상수명 조언 필요(특별한 기능을 하지않는 변수나 상수의 이름을 짓는 법)
-            userNumbers.append(a)
+    for index in 0...inputedUserNumbers.count - 1 {
+        if let integer = Int(String(userString[index])) {
+            userNumbers.append(integer)
         }
     }
     
