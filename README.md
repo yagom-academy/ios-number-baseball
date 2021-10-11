@@ -35,3 +35,23 @@
 - `compareNumbers` : 사용자 입력값과 컴퓨터 랜덤 값을 비교하여 결과값을 계산하고 출력해주는 역할
 - `printNumbers` : 사용자 입력값을 출력해주는 역할
 - `launchBaseBall` : 전체 게임을 실행해주는 역할 
+
+<br/>
+
+# **Step2**
+
+<함수 정의 설명>
+- `numberBaseball` : 이 프로그래밍의 핵심함수. 메뉴를 출력하고 사용자에게 메뉴를 입력받아 그에 맞게 기능을 실행시켜줌. 
+- `printMenu` : 메뉴를 출력함.
+- `launchBaseBall` : 숫자 야구게임을 구동하는 함수. 
+- `makingRandomNumbers` :  Set을 이용하여 컴퓨터가 사용할 중복되지 않는 배열(랜덤한 정수 3개)생성 후 리턴
+- `makingUserNumbers` : 사용자가 입력한 값을 중복되지 않는 Int 배열로 생성 후 리턴
+- `printInputInfo` : 사용자에게 안내될 입력값 조건 출력
+- `checkInvalidUserNumbers` : 사용자가 입력한 값의 유효성 검사 실행 및 Bool 타입 리턴
+    1. inputedUserNumbers.count == 5 : 사용자가 입력한 값이 5자리인지 확인 
+    2. inputedUserNumbers.replacingOccurrences(of: " ", with: "").count == 3 : 공백을 제외한 입력값이 3자리인지 확인
+    3. arrayNumbers[1] == " " && arrayNumbers[3] == " " : 공백의 위치 확인
+    4. Int(inputedUserNumbers.replacingOccurrences(of: " ", with: "")) != nil : 입력값이 문자열이 아닌 정수형을 확인
+    5. Set(inputedUserNumbers.replacingOccurrences(of: " ", with: "")).count == 3 : 입력값의 중복 확인
+- `convertNumbers` : 입력값을 정수형 배열로 전환
+- `compareNumbers` : `makingRandomNumbers`를 통해 나온 값과 사용자에게 입력받은 값을 비교하여 스트라이크와 볼 계산 후 
