@@ -15,3 +15,17 @@ func generateRandomNumbers() -> Set<Int> {
 }
 var remainingChance = 9
 var computerNumbers = generateRandomNumbers()
+
+func playGame(come: Array<Int>, user: Array<Int>) -> (Int, Int) {
+    var strike: Int = 0
+    var ball: Int = 0
+    
+    for index in 0..<2 {
+        if come[index] == user[index] {
+            strike += 1
+        } else if come.contains(user[index]) {
+            ball += 1
+        }
+    }
+    return (ball, strike)
+}
