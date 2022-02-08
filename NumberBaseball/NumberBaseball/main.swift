@@ -7,28 +7,29 @@
 import Foundation
 
 func generateRandomNumber() -> Int {
-    Int.random(in: (1...9))
+    let numberRange = (1...9)
+    return Int.random(in: numberRange)
 }
 
 func generateExtractedNumbers() -> [Int] {
     var extractedNumbers: Set<Int> = []
+    let limitCount = 3
     
-    while extractedNumbers.count != 3 {
+    while extractedNumbers.count != limitCount {
         extractedNumbers.insert(generateRandomNumber())
     }
-    return extractedNumbers.map{$0}
+    
+    return Array(extractedNumbers)
 }
 
-func getBallStrikeResult(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
+func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
     var strike = 0
     var ball = 0
     
-    let computerNumbersSet = Set(computerNumbers)
-    
     for (idx, userNum) in userNumbers.enumerated() {
-        if computerNumbers[idx] == userNum {
+        if targetNumbers[idx] == userNum {
             strike += 1
-        } else if computerNumbersSet.contains(userNum) {
+        } else if targetNumbers.contains(userNum) {
             ball += 1
         }
     }
@@ -38,23 +39,24 @@ func getBallStrikeResult(computerNumbers: [Int], userNumbers: [Int]) -> (Int, In
 
 func startGame() {
     let randomNumbers = generateExtractedNumbers()
-    var cnt = 9
+    var matchCount = 9
     
-    while cnt > 0 {
+    while matchCount > .zero {
         let userNumbers = generateExtractedNumbers()
+        let (strike, ball) = judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
+        
+        matchCount -= 1
+        
         print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
-        
-        let (strike, ball) = getBallStrikeResult(computerNumbers: randomNumbers, userNumbers: userNumbers)
-        cnt -= 1
-        
         print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(cnt)")
+        print("남은 기회 : \(matchCount)")
         
         if strike == 3 {
             print("사용자 승리!")
             return
         }
     }
+    
     print("컴퓨터 승리...!")
 }
 
