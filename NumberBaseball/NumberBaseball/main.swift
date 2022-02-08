@@ -9,6 +9,7 @@ import Foundation
 var playerNums: Set<Int> = Set()
 var computerNums: Set<Int> = Set()
 var matchCount: Int = 9
+var matchStrikeCount: Int = 0
 
 func generateComputerNums() -> Set<Int> {
     var nums: Set<Int> = Set()
@@ -26,14 +27,17 @@ func generatePlayerNums() -> Set<Int> {
     return nums
 }
 
-func matchNums() {
-    var strikeNums: Int = 0
-    var ballNums: Int = 0
+func matchNums() -> String {
+    playerNums = generatePlayerNums()
+    print(setToString(set: playerNums))
+    matchStrikeCount = matchStrikeNums()
+    let matchBallCount = matchBallNums()
     
+    return "\(matchStrikeCount) 스트라이크, \(matchBallCount - matchStrikeCount) 볼"
 }
+
 func matchStrikeNums() -> Int {
     var matchStrikeCount: Int = 0
-    
     for (playerNum, computerNum) in zip(playerNums, computerNums) {
         if playerNum == computerNum {
             matchStrikeCount += 1
@@ -43,31 +47,32 @@ func matchStrikeNums() -> Int {
 }
 
 func matchBallNums() -> Int {
-    var matchBallCount: Int = 0
-    
-    for playerNum in playerNums {
-        if computerNums.contains(playerNum) {
-            matchBallCount += 1
-        }
-    }
-    
+    let matchBallCount: Int = computerNums.intersection(playerNums).count
     return matchBallCount
 }
 
+func setToString(set: Set<Int>) -> String {
+    var stringArray: [String] = []
+    stringArray = set.map { (number: Int) -> String in
+        return "\(number)"
+    }
+    return stringArray.joined(separator: " ")
+}
+
 func main() {
+    computerNums = generateComputerNums()
     
-    while matchCount > 0 {
+    while matchCount > -1 {
+        if matchStrikeCount == 3 {
+            print("사용자 승리!")
+            break
+        } else if matchCount == 0 {
+            print("사용자 패배")
+            break
+        }
         print("임의의 수 : ", terminator: "")
-        
-        computerNums = generateComputerNums()
-        playerNums = generatePlayerNums()
-        print(playerNums)
+        print(matchNums())
         matchCount -= 1
-        let matchStrikeCount = matchStrikeNums()
-        let matchBallCount = matchBallNums()
-        
-        print("\(matchStrikeCount) 스트라이크, \(matchBallCount) 볼")
-        
     }
 }
 
