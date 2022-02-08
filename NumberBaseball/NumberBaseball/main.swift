@@ -4,7 +4,13 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+var randomThreeNumbers: Set<Int> = []
+var tryCount: Int = 9
 
-print("Hello, World!")
-
+func makeThreeRandomNumbers() {
+    var randomNumber: Int
+    while(randomThreeNumbers.count < 3) {
+        randomNumber = Int.random(in: 1...9)
+        randomThreeNumbers.insert(randomNumber)
+    }
+}
