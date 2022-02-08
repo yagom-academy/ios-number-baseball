@@ -6,5 +6,5 @@
 
 import Foundation
 
-print("Hello, World!")
+print("잘 도착했")
 
