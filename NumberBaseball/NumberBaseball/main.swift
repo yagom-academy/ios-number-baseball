@@ -6,8 +6,7 @@
 
 import Foundation
 
-func generateRandomNumber() -> Int {
-    let numberRange = (1...9)
+func generateRandomNumber(numberRange: ClosedRange<Int> = (1...9)) -> Int {
     return Int.random(in: numberRange)
 }
 
