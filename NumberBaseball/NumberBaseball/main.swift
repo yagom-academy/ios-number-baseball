@@ -56,15 +56,16 @@ func ballcount(number:Int) {
 }
 
 func startGame() {
-    strike = 0
-    ball = 0
-    while tryCount > 0 || strike == 3 {
+    while tryCount > 0 && strike < 3 {
+        strike = 0
+        ball = 0
         userRandomNumbers = Array(makeThreeRandomNumbers())
         print("임의의 수 : ", terminator: "")
         for i in userRandomNumbers {
             print(i, terminator: " ")
         }
-        findNotStrike()
+        print()
+        findBall(numbersNotStrike: findNotStrike())
         tryCount -= 1
         if strike == 3 {
             print("사용자 승리...!")
