@@ -13,12 +13,18 @@ func createThreeRamdomNumber() -> [Int] {
     return Array(threeRandomNumber)
 }
 
-func checkBallCount(playerNumber: [Int], computerNumber: [Int]) -> [Int] {
-    let computerNumbersWithoutOrder: Set<Int> = Set(computerNumber)
-    let userNumbersWithoutOrder: Set<Int> = Set(playerNumber)
-    let sameNumbers: Set<Int> = computerNumbersWithoutOrder.intersection(userNumbersWithoutOrder)
+func compare(computerNumber: [Int], playerNumber: [Int]) -> [Int] {
+    var strikeBallStack: [Int] = [0, 0]
 
-    return Array(sameNumbers)
+    for index in 0..<3 {
+        if computerRandomNumber[index] == playerNumber[index] {
+            strikeBallStack[0] += 1
+        } else if computerRandomNumber.contains(playerNumber[index]) {
+            strikeBallStack[1] += 1
+        }
+    }
+
+    return strikeBallStack
 }
 
 
