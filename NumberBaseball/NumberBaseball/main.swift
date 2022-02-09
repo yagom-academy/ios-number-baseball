@@ -6,54 +6,72 @@
 
 import Foundation
 
-var firstNumber: Int = 0
-var secondNumber: Int = 0
-var thirdNumber: Int = 0
+var answerNumbers: Array<Int> = []
+var randomNumbers: Array<Int> = []
 
-var tryCount = 9
-
-while firstNumber == secondNumber || firstNumber == thirdNumber || secondNumber == thirdNumber {
-    firstNumber = Int.random(in: 1...9)
-    secondNumber = Int.random(in: 1...9)
-    thirdNumber = Int.random(in: 1...9)
+func makeRandomNum() -> Set<Int> {
+    var randomSet: Set<Int> = []
+    
+    while randomSet.count < 3 {
+        let randomNumberInSet = Int.random(in: 1...9)
+        randomSet.insert(randomNumberInSet)
+    }
+    return randomSet
 }
 
-var inputFirstNumber: Int = 0
-var inputSecondNumber: Int = 0
-var inputThirdNumber: Int = 0
-
-print("임의의 수 : ", terminator: "")
-
-func splitInputNumberStringToInt() {
-    
-    guard let inputNumberString = readLine()?.split(separator: " ") else { return }
-    
-    guard let inputFirstNumber = Int(inputNumberString[0]) else { return }
-    guard let inputSecondNumber = Int(inputNumberString[1]) else { return }
-    guard let inputThirdNumber = Int(inputNumberString[2]) else { return }
-    
+func changeArray() -> Array<Int> {
+    let setRandomNum = makeRandomNum()
+    let arrayRandomNum = Array(setRandomNum)
+    return arrayRandomNum
 }
 
-splitInputNumberStringToInt()
-
-func result () {
-    var strike = 0
-    var ball = 0
-    for i in 0...2 {
-        if inputNumberString.contains(firstNumber) || inputNumberString.contains(secondNumber) || inputNumberString.contains(thirdNumber) {
-            
+func checkStrikeBall() -> (Int, Int) {
+    var strikeCount = 0
+    var ballCount = 0
+    
+    for index in 0...2 {
+        if answerNumbers[index] == randomNumbers[index] {
+            strikeCount += 1
+        } else if answerNumbers.contains(randomNumbers[index]) {
+            ballCount += 1
         }
+    }
+    return (strikeCount, ballCount)
+}
+
+func startGame() {
+    var tryCount = 1000
+    answerNumbers = changeArray()
+    
+    while tryCount != 0 {
+        randomNumbers = changeArray()
+        let (strike, ball) = checkStrikeBall()
+        tryCount -= 1
+        
+        printResult(randomNumbers: randomNumbers, strike: strike, ball: ball, tryCount: tryCount)
+        endGameOfUserVictory(strike: strike)
+        endGameOfComputerVictory(tryCount: tryCount)
+        
     }
 }
 
+func endGameOfUserVictory(strike: Int) {
+    if strike == 3 {
+        print("사용자 승리...!")
+        return
+    }
+}
 
+func endGameOfComputerVictory(tryCount: Int) {
+    if tryCount == 0 {
+        print("컴퓨터 승리...!")
+    }
+}
 
+func printResult(randomNumbers: Array<Int>, strike: Int, ball: Int, tryCount: Int) {
+    print("임의의 수 : \(randomNumbers[0]) \(randomNumbers[1]) \(randomNumbers[2])")
+    print("\(strike) 스트라이크, \(ball) 볼")
+    print("남은 기회 : \(tryCount)")
+}
 
-
-
-
-
-//while inputFirstNumber == inputSecondNumber || inputFirstNumber == inputThirdNumber || inputSecondNumber == inputThirdNumber {
-//
-//}
-
+startGame()
