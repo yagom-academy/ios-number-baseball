@@ -2,7 +2,7 @@
 //  NumberBaseball - main.swift
 //  Created by Roy and 쿼카 .
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -13,8 +13,6 @@ func generateRandomNumbers() -> Set<Int> {
     }
     return randomNumbers
 }
-var remainingChance = 9
-var computerNumbers = generateRandomNumbers()
 
 func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (Int, Int) {
     var (strike, ball) = (0, 0)
@@ -28,3 +26,27 @@ func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (Int, Int) {
     ball = (ball - strike)
     return (ball, strike)
 }
+
+func startGame() {
+    let computerPlayer = generateRandomNumbers()
+    var userIning: Int = 9
+    
+    while userIning > 0 {
+        let userPlayer = generateRandomNumbers()
+        let (strike, ball) = compareNumbers(user: userPlayer, computer: computerPlayer)
+        
+        print("임의의 수 : \(userPlayer.description.trimmingCharacters(in: [",","[","]"]))")
+        print("\(strike) 스트라이크, \(ball) 볼")
+        
+        userIning -= 1
+        print("남은 기회 : \(userIning)")
+        
+        if strike > 2 {
+            print("사용자 승리...!")
+            break
+        } else if userIning == 0 {
+            print("컴퓨터 승리...!")
+        }
+    }
+}
+startGame()
