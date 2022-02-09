@@ -11,7 +11,7 @@ func generateRandomNumber() -> Int {
     return Int.random(in: numberRange)
 }
 
-func generateExtractedNumbers() -> [Int] {
+func generateThreeRandomNumbers() -> [Int] {
     var extractedNumbers: Set<Int> = []
     let limitCount = 3
     
@@ -23,35 +23,35 @@ func generateExtractedNumbers() -> [Int] {
 }
 
 func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
-    var strike = 0
-    var ball = 0
+    var strikeCount = 0
+    var ballCount = 0
     
-    for (idx, userNum) in userNumbers.enumerated() {
-        if targetNumbers[idx] == userNum {
-            strike += 1
-        } else if targetNumbers.contains(userNum) {
-            ball += 1
+    for (userNumberIndex, userNumber) in userNumbers.enumerated() {
+        if targetNumbers[userNumberIndex] == userNumber {
+            strikeCount += 1
+        } else if targetNumbers.contains(userNumber) {
+            ballCount += 1
         }
     }
     
-    return (strike, ball)
+    return (strikeCount, ballCount)
 }
 
 func startGame() {
-    let randomNumbers = generateExtractedNumbers()
+    let randomNumbers = generateThreeRandomNumbers()
     var matchCount = 9
     
     while matchCount > .zero {
-        let userNumbers = generateExtractedNumbers()
-        let (strike, ball) = judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
+        let userNumbers = generateThreeRandomNumbers()
+        let (strikeCount, ballCount) = judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
         
         matchCount -= 1
         
         print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
-        print("\(strike) 스트라이크, \(ball) 볼")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(matchCount)")
         
-        if strike == 3 {
+        if strikeCount == 3 {
             print("사용자 승리!")
             return
         }
