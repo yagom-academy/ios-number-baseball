@@ -7,10 +7,8 @@
 
 import Foundation
 
-var randomComputerNumbers: [Int] = []
-var randomUserNumbers: [Int] = []
-var randomComputerNumbersString: [String] = []
-var randomUserNumbersString: [String] = []
+var computerNumbers: [Int] = []
+var playerNumbers: [Int] = []
 var roundCount: Int = 9
 var strike = 0
 var ball = 0
@@ -31,10 +29,8 @@ func startGame() {
 }
 
 func resetValue() {
-    randomComputerNumbers.removeAll()
-    randomUserNumbers.removeAll()
-    randomComputerNumbersString.removeAll()
-    randomUserNumbersString.removeAll()
+    computerNumbers.removeAll()
+    playerNumbers.removeAll()
     strike = 0
     ball = 0
 }
@@ -44,62 +40,52 @@ func generateRandomNumber() -> Int {
 }
 
 func saveComputerNumbers() {
-    while randomComputerNumbers.count < 3 {
+    while computerNumbers.count < 3 {
         compareComputerNumbers()
     }
 }
 
 func saveUserNumbers() {
-    while randomUserNumbers.count < 3 {
+    while playerNumbers.count < 3 {
         compareUserNumbers()
     }
 }
 
-func changeIntToStringArray() {
-    for stringElement in randomComputerNumbers {
-        randomComputerNumbersString.append("\(stringElement)")
-    }
-    for stringElement in randomUserNumbers {
-        randomUserNumbersString.append("\(stringElement)")
-    }
-}
-
 func printRandomNumbers() {
-    changeIntToStringArray()
-    let deletedDotComputerNumbers = randomComputerNumbersString.joined(separator: " ")
-    let deletedDotUserNumbers = randomUserNumbersString.joined(separator: " ")
-    print("\n컴퓨터 임의의 수 : \(deletedDotComputerNumbers)")
-    print("유저 임의의 수 : \(deletedDotUserNumbers)")
+    print("\n컴퓨터 임의의 수 : ", terminator: "")
+    computerNumbers.forEach{ print($0, terminator: " ") }
+    print("\n유저 임의의 수 : ", terminator: "")
+    playerNumbers.forEach{ print($0, terminator: " ") }
 }
 
 func compareComputerNumbers() {
     let randomNum = generateRandomNumber()
-    if randomComputerNumbers.contains(randomNum) == false {
-        randomComputerNumbers.append(randomNum)
+    if computerNumbers.contains(randomNum) == false {
+        computerNumbers.append(randomNum)
     }
 }
 
 func compareUserNumbers() {
     let randomNum = generateRandomNumber()
-    if randomUserNumbers.contains(randomNum) == false {
-        randomUserNumbers.append(randomNum)
+    if playerNumbers.contains(randomNum) == false {
+        playerNumbers.append(randomNum)
     }
 }
 
 func checkTotalStatus() {
-    let sameNumbers = randomComputerNumbers.filter{ randomUserNumbers.contains($0)}
+    let sameNumbers = computerNumbers.filter{ computerNumbers.contains($0)}
     for element in 0..<3 {
         checkStrike(element: element)
     }
     checkBall(sameNumbers: sameNumbers.count)
     printRandomNumbers()
-    print("\(strike) 스트라이크, \(ball) 볼")
+    print("\n\(strike) 스트라이크, \(ball) 볼")
     roundCount -= 1
     print("남은 기회 : \(roundCount)")
 }
 
 func checkStrike(element: Int) {
-    if randomComputerNumbers[element] == randomUserNumbers[element] {
+    if computerNumbers[element] == playerNumbers[element] {
         strike += 1
     }
 }
