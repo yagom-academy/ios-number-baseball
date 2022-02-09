@@ -34,17 +34,14 @@ func startGame() {
     while userIning > 0 {
         let userPlayer = generateRandomNumbers()
         let (strike, ball) = compareNumbers(user: userPlayer, computer: computerPlayer)
-        
-        
+        userIning -= 1
         print("임의의 수 : \(userPlayer.description.trimmingCharacters(in: [",","[","]"]))")
         print("\(strike) 스트라이크, \(ball) 볼")
-        
-        userIning -= 1
         print("남은 기회 : \(userIning)")
         
         if strike > 2 {
             print("사용자 승리...!")
-            break
+            return
         } else if userIning == 0 {
             print("컴퓨터 승리...!")
         }
