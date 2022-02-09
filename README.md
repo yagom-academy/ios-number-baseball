@@ -1,6 +1,7 @@
-## iOS 커리어 스타터 캠프
+# 숫자야구 프로젝트 
 
-### 숫자야구 프로젝트 저장소
+## STEP 1
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+### 순서도
+![숫자게임_flowchart drawio](https://user-images.githubusercontent.com/50446512/153154023-c144b0a7-0c97-4240-bff1-347b7b5d4871.png)
 
