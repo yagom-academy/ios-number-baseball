@@ -24,7 +24,7 @@ func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (Int, Int) {
     }
     ball = computer.intersection(userNumbers).count
     ball = (ball - strike)
-    return (ball, strike)
+    return (strike, ball)
 }
 
 func startGame() {
@@ -34,6 +34,7 @@ func startGame() {
     while userIning > 0 {
         let userPlayer = generateRandomNumbers()
         let (strike, ball) = compareNumbers(user: userPlayer, computer: computerPlayer)
+        
         
         print("임의의 수 : \(userPlayer.description.trimmingCharacters(in: [",","[","]"]))")
         print("\(strike) 스트라이크, \(ball) 볼")
