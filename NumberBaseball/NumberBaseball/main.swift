@@ -6,6 +6,7 @@
 
 import Foundation
 
+let winnerGoalCount = 3
 var strikeCount = 0
 var ballCount = 0
 
@@ -38,11 +39,19 @@ func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) {
     }
 }
 
+func printWinnerMessage() {
+    if strikeCount == winnerGoalCount {
+        print("사용자 승리!")
+    } else {
+        print("컴퓨터 승리...!")
+    }
+}
+
 func startGame() {
     let randomNumbers = generatedThreeRandomNumbers()
     var matchCount = 9
     
-    while matchCount > .zero {
+    while matchCount > .zero && strikeCount != winnerGoalCount {
         let userNumbers = generatedThreeRandomNumbers()
         let convertedString = convertIntArrayToString(intArray: userNumbers)
         strikeCount = 0
@@ -51,18 +60,12 @@ func startGame() {
         judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
         
         matchCount -= 1
-                
+
         print("임의의 수 : \(convertedString)")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(matchCount)")
-        
-        if strikeCount == 3 {
-            print("사용자 승리!")
-            return
-        }
     }
-    
-    print("컴퓨터 승리...!")
+    printWinnerMessage()
 }
 
 func convertIntArrayToString(intArray: [Int]) -> String {
