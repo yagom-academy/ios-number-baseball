@@ -18,34 +18,26 @@ func generateRandomThreeNums() -> Set<Int> {
     return nums
 }
 
-func displayMatchScore() -> String {
-    let matchStrikeCount = matchStrikeNums()
-    let matchBallCount = matchBallNums()
-    
-    return "\(matchStrikeCount) 스트라이크, \(matchBallCount - matchStrikeCount) 볼"
+func transformMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
+    return "\(strikeCount) 스트라이크, \(ballCount - strikeCount) 볼"
 }
 
 func matchStrikeNums() -> Int {
-    var matchStrikeCount: Int = 0
+    var strikeCount: Int = 0
     for (playerNum, computerNum) in zip(playerNums, computerNums) {
         if playerNum == computerNum {
-            matchStrikeCount += 1
+            strikeCount += 1
         }
     }
-    return matchStrikeCount
+    return strikeCount
 }
 
 func matchBallNums() -> Int {
-    let matchBallCount: Int = computerNums.intersection(playerNums).count
-    return matchBallCount
+    return computerNums.intersection(playerNums).count
 }
 
-func setToString(set: Set<Int>) -> String {
-    var stringArray: [String] = []
-    stringArray = set.map { (number: Int) -> String in
-        return "\(number)"
-    }
-    return stringArray.joined(separator: " ")
+func setToString(of value: Set<Int>) -> String {
+    return value.map { return "\($0)" }.joined(separator: " ")
 }
 
 func playGame() {
@@ -55,16 +47,19 @@ func playGame() {
         print("임의의 수 : ", terminator: "")
         
         playerNums = generateRandomThreeNums()
-        print(setToString(set: playerNums))
+        print(setToString(of: playerNums))
         
-        if matchStrikeNums() == 3 {
+        let strikeCount = matchStrikeNums()
+        let ballCount = matchBallNums()
+        
+        if strikeCount == 3 {
             print("사용자 승리!")
             break
         } else if matchCount == 1 {
             print("컴퓨터 승리...!")
         }
         
-        print(displayMatchScore())
+        print(transformMatchScore(strikeCount, ballCount))
         matchCount -= 1
         
         print("남은 기회 : \(matchCount)")
