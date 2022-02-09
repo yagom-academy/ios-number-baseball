@@ -28,8 +28,6 @@ func generatePlayerNums() -> Set<Int> {
 }
 
 func matchNums() -> String {
-    playerNums = generatePlayerNums()
-    print(setToString(set: playerNums))
     matchStrikeCount = matchStrikeNums()
     let matchBallCount = matchBallNums()
     
@@ -59,21 +57,30 @@ func setToString(set: Set<Int>) -> String {
     return stringArray.joined(separator: " ")
 }
 
-func main() {
+func startGame() {
     computerNums = generateComputerNums()
     
-    while matchCount > -1 {
+    while matchCount > 0 {
+        print("임의의 수 : ", terminator: "")
+        
+        playerNums = generatePlayerNums()
+        print(setToString(set: playerNums))
+        
         if matchStrikeCount == 3 {
             print("사용자 승리!")
             break
-        } else if matchCount == 0 {
-            print("사용자 패배")
-            break
+        } else if matchCount == 1 {
+            print("컴퓨터 승리...!")
         }
-        print("임의의 수 : ", terminator: "")
         print(matchNums())
         matchCount -= 1
+        
+        print("남은 기회 : \(matchCount)")
     }
+}
+
+func main() {
+    startGame()
 }
 
 main()
