@@ -16,7 +16,7 @@ var ball = 0
 func startGame() {
     while roundCount > 0 {
         saveComputerNumbers()
-        saveUserNumbers()
+        savePlayerNumbers()
         checkTotalStatus()
         if roundCount == 0 {
             print("컴퓨터 승리🤣")
@@ -45,9 +45,9 @@ func saveComputerNumbers() {
     }
 }
 
-func saveUserNumbers() {
+func savePlayerNumbers() {
     while playerNumbers.count < 3 {
-        compareUserNumbers()
+        comparePlayerNumbers()
     }
 }
 
@@ -65,7 +65,7 @@ func compareComputerNumbers() {
     }
 }
 
-func compareUserNumbers() {
+func comparePlayerNumbers() {
     let randomNum = generateRandomNumber()
     if playerNumbers.contains(randomNum) == false {
         playerNumbers.append(randomNum)
@@ -75,22 +75,22 @@ func compareUserNumbers() {
 func checkTotalStatus() {
     let sameNumbers = computerNumbers.filter{ computerNumbers.contains($0)}
     for element in 0..<3 {
-        checkStrike(element: element)
+        checkStrikeCondition(element: element)
     }
-    checkBall(sameNumbers: sameNumbers.count)
+    checkBallCondition(sameNumbers: sameNumbers.count)
     printRandomNumbers()
     print("\n\(strike) 스트라이크, \(ball) 볼")
     roundCount -= 1
     print("남은 기회 : \(roundCount)")
 }
 
-func checkStrike(element: Int) {
+func checkStrikeCondition(element: Int) {
     if computerNumbers[element] == playerNumbers[element] {
         strike += 1
     }
 }
 
-func checkBall(sameNumbers: Int) {
+func checkBallCondition(sameNumbers: Int) {
     ball = sameNumbers - strike
 }
 
