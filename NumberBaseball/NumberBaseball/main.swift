@@ -21,28 +21,6 @@ func makeThreeRandomNumbers() -> Set<Int> {
 var computerRandomNumbers:[Int] = Array(makeThreeRandomNumbers())
 var userRandomNumbers:[Int] = Array(makeThreeRandomNumbers())
 
-
-func compareUserAndComputer() {
-    var strike = 0
-    var ball = 0
-    if computerRandomNumbers[0] == userRandomNumbers[0] {
-        strike += 1
-    } else {
-        ball += 1
-    }
-    if computerRandomNumbers[1] == userRandomNumbers[1] {
-        strike += 1
-    } else {
-        ball += 1
-    }
-    if computerRandomNumbers[2] == userRandomNumbers[2] {
-        strike += 1
-    } else {
-        ball += 1
-    }
-    print(strike, ball)
-}
-
 func findNotStrike() -> Array<Int> {
     var result: [Int] = []
     for (userindex, usernumber) in userRandomNumbers.enumerated() {
