@@ -1,7 +1,6 @@
 import Foundation
 
 var computerRandomNumber: [Int] = []
-var playerRanomNumber: [Int] = []
 var remainingTime: Int = 9
 
 func createThreeRamdomNumber() -> [Int] {
@@ -15,7 +14,7 @@ func createThreeRamdomNumber() -> [Int] {
 
 func compare(computerNumber: [Int], playerNumber: [Int]) -> [Int] {
     var strikeBallStack: [Int] = [0, 0]
-
+    
     for index in 0..<3 {
         if computerRandomNumber[index] == playerNumber[index] {
             strikeBallStack[0] += 1
@@ -23,21 +22,18 @@ func compare(computerNumber: [Int], playerNumber: [Int]) -> [Int] {
             strikeBallStack[1] += 1
         }
     }
-
     return strikeBallStack
 }
 
 func startGame() {
     computerRandomNumber = createThreeRamdomNumber()
-
+    
     repeat {
-        playerRanomNumber = createThreeRamdomNumber()
+        let playerRanomNumber: [Int] = createThreeRamdomNumber()
         let strikeBallStack = compare(computerNumber: computerRandomNumber, playerNumber: playerRanomNumber)
-
         remainingTime -= 1
-
-        print("임의의 수 : \(computerRandomNumber[0]) \(computerRandomNumber[1]) \(computerRandomNumber[2])")
         
+        print("임의의 수 : \(computerRandomNumber[0]) \(computerRandomNumber[1]) \(computerRandomNumber[2])")
         
         if strikeBallStack[0] == 3 {
             print("사용자 승리!")
@@ -45,11 +41,11 @@ func startGame() {
         } else if remainingTime == 0 {
             print("컴퓨터 승리...!")
         }
+        
         print("\(strikeBallStack[0]) 스트라이크, \(strikeBallStack[1]) 볼")
         print("남은 기회 : \(remainingTime)")
-
+        
     } while remainingTime != 0
 }
 
 startGame()
-
