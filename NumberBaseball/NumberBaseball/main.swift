@@ -16,21 +16,44 @@ while firstNumber == secondNumber || firstNumber == thirdNumber || secondNumber 
     firstNumber = Int.random(in: 1...9)
     secondNumber = Int.random(in: 1...9)
     thirdNumber = Int.random(in: 1...9)
-    
 }
 
 var inputFirstNumber: Int = 0
 var inputSecondNumber: Int = 0
 var inputThirdNumber: Int = 0
 
+print("임의의 수 : ", terminator: "")
 
-func makeInputFirstNumber() {
-    guard let inputFirstNumberString = readLine() else { return } 
-}
-
-
-
-while inputFirstNumber == inputSecondNumber || inputFirstNumber == inputThirdNumber || inputSecondNumber == inputThirdNumber {
+func splitInputNumberStringToInt() {
+    
+    guard let inputNumberString = readLine()?.split(separator: " ") else { return }
+    
+    guard let inputFirstNumber = Int(inputNumberString[0]) else { return }
+    guard let inputSecondNumber = Int(inputNumberString[1]) else { return }
+    guard let inputThirdNumber = Int(inputNumberString[2]) else { return }
     
 }
+
+splitInputNumberStringToInt()
+
+func result () {
+    var strike = 0
+    var ball = 0
+    for i in 0...2 {
+        if inputNumberString.contains(firstNumber) || inputNumberString.contains(secondNumber) || inputNumberString.contains(thirdNumber) {
+            
+        }
+    }
+}
+
+
+
+
+
+
+
+
+//while inputFirstNumber == inputSecondNumber || inputFirstNumber == inputThirdNumber || inputSecondNumber == inputThirdNumber {
+//
+//}
 
