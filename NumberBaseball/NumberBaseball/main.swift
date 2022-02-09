@@ -40,7 +40,7 @@ func checkStrikeBall() -> (Int, Int) {
 }
 
 func startGame() {
-    var tryCount = 1000
+    var tryCount = 9
     answerNumbers = changeArray()
     
     while tryCount != 0 {
@@ -49,22 +49,13 @@ func startGame() {
         tryCount -= 1
         
         printResult(randomNumbers: randomNumbers, strike: strike, ball: ball, tryCount: tryCount)
-        endGameOfUserVictory(strike: strike)
-        endGameOfComputerVictory(tryCount: tryCount)
         
-    }
-}
-
-func endGameOfUserVictory(strike: Int) {
-    if strike == 3 {
-        print("사용자 승리...!")
-        return
-    }
-}
-
-func endGameOfComputerVictory(tryCount: Int) {
-    if tryCount == 0 {
-        print("컴퓨터 승리...!")
+        if strike == 3 {
+            print("사용자 승리...!")
+            break
+        } else if tryCount == 0 {
+            print("컴퓨터 승리...!")
+        }
     }
 }
 
