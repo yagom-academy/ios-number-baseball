@@ -7,53 +7,8 @@
 var tryCount: Int = 9
 var strike = 0
 var ball = 0
-
-func makeThreeRandomNumbers() -> Set<Int> {
-    var randomNumber: Int
-    var randomNumberSet: Set<Int> = []
-    while(randomNumberSet.count < 3) {
-        randomNumber = Int.random(in: 1...9)
-        randomNumberSet.insert(randomNumber)
-    }
-    return randomNumberSet
-}
-
 var computerRandomNumbers:[Int] = Array(makeThreeRandomNumbers())
 var userRandomNumbers:[Int] = Array(makeThreeRandomNumbers())
-
-func findNotStrike() -> Array<Int> {
-    var result: [Int] = []
-    for (userindex, usernumber) in userRandomNumbers.enumerated() {
-        if let numberNotStrike = compareForStrike(userNumber: usernumber, index: userindex) {
-            result.append(numberNotStrike)
-        }
-    }
-    return result
-}
-
-func compareForStrike(userNumber: Int, index: Int) -> Int? {
-    for (computerindex, computernumber) in computerRandomNumbers.enumerated() {
-        if computernumber == userNumber && computerindex == index {
-            strike += 1
-            return nil
-        }
-    }
-    return userNumber
-}
-
-func findBall(numbersNotStrike:[Int]) { // 매개변수가 스트라이크는 아니지만 볼 일수도 있는 숫자들
-    for number in numbersNotStrike {
-        ballcount(number: number)
-    }
-}
-
-func ballcount(number:Int) {
-    for computerNumber in computerRandomNumbers {
-        if number == computerNumber {
-            ball += 1
-        }
-    }
-}
 
 func startGame() {
     while tryCount > 0 && strike < 3 {
@@ -61,11 +16,11 @@ func startGame() {
         ball = 0
         userRandomNumbers = Array(makeThreeRandomNumbers())
         print("임의의 수 : ", terminator: "")
-        for i in userRandomNumbers {
-            print(i, terminator: " ")
+        for userNumber in userRandomNumbers {
+            print(userNumber, terminator: " ")
         }
         print()
-        findBall(numbersNotStrike: findNotStrike())
+        checkBall(notStrikeNumbers: findNotStrike())
         tryCount -= 1
         if strike == 3 {
             print("사용자 승리...!")
@@ -77,3 +32,47 @@ func startGame() {
         print("남은 기회 : \(tryCount)")
     }
 }
+
+func makeThreeRandomNumbers() -> Set<Int> {
+    var randomNumbers: Set<Int> = []
+    while(randomNumbers.count < 3) {
+        randomNumbers.insert(Int.random(in: 1...9))
+    }
+    return randomNumbers
+}
+
+func findNotStrike() -> [Int] {
+    var notStrikeNumbers: [Int] = []
+    for (userIndex, userNumber) in userRandomNumbers.enumerated() {
+        if let notStrikeNumber = countStrike(userNumber: userNumber, userIndex: userIndex) {
+            notStrikeNumbers.append(notStrikeNumber)
+        }
+    }
+    return notStrikeNumbers
+}
+
+func countStrike(userNumber: Int, userIndex: Int) -> Int? {
+    for (computerIndex, computerNumber) in computerRandomNumbers.enumerated() {
+        if computerNumber == userNumber && computerIndex == userIndex {
+            strike += 1
+            return nil
+        }
+    }
+    return userNumber
+}
+
+func checkBall(notStrikeNumbers:[Int]) {
+    for checkNumber in notStrikeNumbers {
+        countBall(userNumber: checkNumber)
+    }
+}
+
+func countBall(userNumber:Int) {
+    for computerNumber in computerRandomNumbers {
+        if userNumber == computerNumber {
+            ball += 1
+        }
+    }
+}
+
+startGame()
