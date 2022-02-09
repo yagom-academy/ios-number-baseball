@@ -6,23 +6,38 @@
 
 import Foundation
 
-
-var randomNumber: [String] = []
 var userNumber: [String] = []
-var maxRange = 8
+var chance = 9
 
-func makeRandomNumber(_ list: [String]) {
+func makeRandomNumber() -> [String] {
+    var randomNumber: [String] = []
     var numberList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    for _ in 1...3 {
-        let randomInt = Int.random(in: 0...maxRange)
-        randomNumber.append(String(numberList[randomInt]))
-        numberList.remove(at: randomInt)
-        maxRange = maxRange - 1
-    }
-//    if Set(list).count != 3 {
-//        return makeRandomNumber(<#T##list: [String]##[String]#>)
-//    }
+    numberList.shuffle()
+    randomNumber.append(String(numberList[0]))
+    randomNumber.append(String(numberList[1]))
+    randomNumber.append(String(numberList[2]))
+    
+    return randomNumber
 }
 
+func checkNumber(_ userNumbers: [String], randomNumbers: [String]) -> (Int, Int) {
+    var strike = 0
+    var ball = 0
+    
+    for i in 0..<userNumbers.count {
+        if userNumbers[i] == randomNumbers[i] {
+            strike += 1
+        }
+    }
+    return (0, 0)
+}
 
-print("임의의 수 : \(userNumber[0]) \(userNumber[1]) \(userNumber[2])")
+let randomNumber = makeRandomNumber()
+
+while chance > 0 {
+    let userNumber = makeRandomNumber()
+    print("임의의 수 : \(userNumber[0]) \(userNumber[1]) \(userNumber[2])")
+//    print("\(checkNumber(userNumber).0) 스트라이크, \(checkNumber(userNumber).1) 볼")
+    chance -= 1
+    print("남은 기회 \(chance)")
+}
