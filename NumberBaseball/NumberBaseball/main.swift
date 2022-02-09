@@ -6,6 +6,9 @@
 
 import Foundation
 
+var strikeCount = 0
+var ballCount = 0
+
 func generateRandomNumber(numberRange: ClosedRange<Int> = (1...9)) -> Int {
     return Int.random(in: numberRange)
 }
@@ -21,19 +24,18 @@ func generateThreeRandomNumbers() -> [Int] {
     return Array(extractedNumbers)
 }
 
-func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
-    var strikeCount = 0
-    var ballCount = 0
-    
-    for (userNumberIndex, userNumber) in userNumbers.enumerated() {
-        if targetNumbers[userNumberIndex] == userNumber {
-            strikeCount += 1
-        } else if targetNumbers.contains(userNumber) {
-            ballCount += 1
-        }
+func increaseBallOrStrike(targetNumbers: [Int], userNumberIndex: Int, userNumber: Int) {
+    if targetNumbers[userNumberIndex] == userNumber {
+        strikeCount += 1
+    } else if targetNumbers.contains(userNumber) {
+        ballCount += 1
     }
-    
-    return (strikeCount, ballCount)
+}
+
+func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) {
+    for (userNumberIndex, userNumber) in userNumbers.enumerated() {
+        increaseBallOrStrike(targetNumbers: targetNumbers, userNumberIndex: userNumberIndex, userNumber: userNumber)
+    }
 }
 
 func startGame() {
@@ -42,7 +44,10 @@ func startGame() {
     
     while matchCount > .zero {
         let userNumbers = generateThreeRandomNumbers()
-        let (strikeCount, ballCount) = judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
+        strikeCount = 0
+        ballCount = 0
+        
+        judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
         
         matchCount -= 1
         
