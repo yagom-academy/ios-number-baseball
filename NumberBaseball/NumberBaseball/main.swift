@@ -12,36 +12,27 @@ var numberOfChance: Int = 9
 var numbersByUser: [Int] = []
 
 func returnRandomNumbers() -> [Int] {
-    var tempSet = Set<Int>()
+    var numberSet = Set<Int>()
     
-    while(tempSet.count < 3) {
-        tempSet.insert(Int.random(in:1...9))
+    while(numberSet.count < 3) {
+        numberSet.insert(Int.random(in:1...9))
     }
-    return Array(tempSet)
+
+    return Array(numberSet)
 }
 
 func returnResult() -> String {
-    return "\(checkStrike()) 스트라이크, \(checkBall()) 볼"
-}
-
-func checkStrike() -> Int {
-    var count: Int = 0
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
+    
     for i in 0...2 {
         if numbersByUser[i] == numbersByComputer[i] {
-            count += 1
+            strikeCount += 1
+        } else if numbersByComputer.contains(numbersByUser[i]) {
+            ballCount += 1
         }
     }
-    return count
-}
-
-func checkBall() -> Int {
-    var count: Int = 0
-    for i in 0...2 {
-        if numbersByComputer.contains(numbersByUser[i]) && numbersByUser[i] != numbersByComputer[i] {
-            count += 1
-        }
-    }
-    return count
+    return "\(strikeCount) 스트라이크, \(ballCount) 볼"
 }
 
 func startGame() {
