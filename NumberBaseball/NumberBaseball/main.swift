@@ -13,7 +13,7 @@ func generateRandomNumber(numberRange: ClosedRange<Int> = (1...9)) -> Int {
     return Int.random(in: numberRange)
 }
 
-func generateThreeRandomNumbers() -> [Int] {
+func generatedThreeRandomNumbers() -> [Int] {
     var extractedNumbers: Set<Int> = []
     let limitCount = 3
     
@@ -39,19 +39,20 @@ func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) {
 }
 
 func startGame() {
-    let randomNumbers = generateThreeRandomNumbers()
+    let randomNumbers = generatedThreeRandomNumbers()
     var matchCount = 9
     
     while matchCount > .zero {
-        let userNumbers = generateThreeRandomNumbers()
+        let userNumbers = generatedThreeRandomNumbers()
+        let convertedString = convertIntArrayToString(intArray: userNumbers)
         strikeCount = 0
         ballCount = 0
         
         judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
         
         matchCount -= 1
-        
-        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
+                
+        print("임의의 수 : \(convertedString)")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(matchCount)")
         
@@ -62,6 +63,10 @@ func startGame() {
     }
     
     print("컴퓨터 승리...!")
+}
+
+func convertIntArrayToString(intArray: [Int]) -> String {
+    intArray.map { String($0) }.joined(separator: " ")
 }
 
 startGame()
