@@ -16,16 +16,15 @@ func generateRandomNumbers() -> Set<Int> {
 var remainingChance = 9
 var computerNumbers = generateRandomNumbers()
 
-func playGame(come: Array<Int>, user: Array<Int>) -> (Int, Int) {
-    var strike: Int = 0
-    var ball: Int = 0
+func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (Int, Int) {
+    var (strike, ball) = (0, 0)
+    let computerNumbers = Array(computer)
+    let userNumbers = Array(user)
     
-    for index in 0..<2 {
-        if come[index] == user[index] {
-            strike += 1
-        } else if come.contains(user[index]) {
-            ball += 1
-        }
+    for index in userNumbers.indices {
+        strike += userNumbers[index] == computerNumbers[index] ? 1 : 0
     }
+    ball = computer.intersection(userNumbers).count
+    ball = (ball - strike)
     return (ball, strike)
 }
