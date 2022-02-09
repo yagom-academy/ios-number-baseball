@@ -1,6 +1,7 @@
 ## iOS 커리어 스타터 캠프
 
-### 숫자야구 프로젝트 저장소
+### 숫자 게임 Group4 (Tiana, Eddy)
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+### Flow Chart
 
+![baseballGame drawio](https://user-images.githubusercontent.com/52434820/153204514-1b4feb8f-189d-4930-9f07-3db26ac9ee7a.png)
