@@ -9,21 +9,24 @@ import Foundation
 var playerNums: Set<Int> = Set()
 var computerNums: Set<Int> = Set()
 var matchCount: Int = 9
+var computerOut: Int = 3
 
 func generateRandomThreeNums() -> Set<Int> {
     var nums: Set<Int> = Set()
+    
     while nums.count < 3 {
         nums.insert(Int.random(in: 1...9))
     }
     return nums
 }
 
-func transformMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
+func makeMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
     return "\(strikeCount) 스트라이크, \(ballCount - strikeCount) 볼"
 }
 
-func matchStrikeNums() -> Int {
+func checkStrikeCount() -> Int {
     var strikeCount: Int = 0
+    
     for (playerNum, computerNum) in zip(playerNums, computerNums) {
         if playerNum == computerNum {
             strikeCount += 1
@@ -32,37 +35,38 @@ func matchStrikeNums() -> Int {
     return strikeCount
 }
 
-func matchBallNums() -> Int {
+func checkBallCount() -> Int {
     return computerNums.intersection(playerNums).count
 }
 
-func setToString(of value: Set<Int>) -> String {
-    return value.map { return "\($0)" }.joined(separator: " ")
+func convertSetToString(of values: Set<Int>) -> String {
+    return values.map { "\($0)" }.joined(separator: " ")
 }
 
 func playGame() {
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
+    
     computerNums = generateRandomThreeNums()
     
-    while matchCount > 0 {
+    for match in stride(from: matchCount, to: 0, by: -1) {
         print("임의의 수 : ", terminator: "")
-        
+
         playerNums = generateRandomThreeNums()
-        print(setToString(of: playerNums))
+        print(convertSetToString(of: playerNums))
         
-        let strikeCount = matchStrikeNums()
-        let ballCount = matchBallNums()
+        strikeCount = checkStrikeCount()
+        ballCount = checkBallCount()
         
-        if strikeCount == 3 {
+        if strikeCount == computerOut {
             print("사용자 승리!")
             break
-        } else if matchCount == 1 {
+        } else if match == 1 {
             print("컴퓨터 승리...!")
         }
         
-        print(transformMatchScore(strikeCount, ballCount))
-        matchCount -= 1
-        
-        print("남은 기회 : \(matchCount)")
+        print(makeMatchScore(strikeCount, ballCount))
+        print("남은 기회 : \(match - 1)")
     }
 }
 
