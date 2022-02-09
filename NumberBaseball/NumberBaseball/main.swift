@@ -16,39 +16,39 @@ func makeNonOverlappingNumber() -> Set<Int> {
     return nonOverlappingNumber
 }
 
-func checkScore(answerNumber: [Int], playerNumber: [Int]) -> (Int, Int) {
+func checkScore(answerNumber: [Int], playerNumber: [Int]) {
     var ballScore: Int = 0
     var strikeScore: Int = 0
-    var checkBallNumber: [Int] = []
+    
     for i in 0...answerNumber.count - 1 {
-        if answerNumber == playerNumber {
-            strikeScore = 3
-            return (strikeScore, ballScore)
-        }
         if answerNumber[i] == playerNumber[i] {
             strikeScore += 1
-        } else {
-            checkBallNumber.append(playerNumber[i])
-        }
-    }
-    for i in checkBallNumber {
-        if answerNumber.contains(i) {
+        } else if answerNumber.contains(playerNumber[i]) {
             ballScore += 1
         }
     }
-    return (strikeScore, ballScore)
+    print("\n\(strikeScore) 스트라이트, \(ballScore) 볼")
 }
 
-func startGame(answerNumber: [Int]) {
+func startGame() {
+    let computerNumbers: [Int] = Array(makeNonOverlappingNumber())
     var gameCount: Int = 9
-    while gameCount > 0 {
-        var playerNumber = Array(makeNonOverlappingNumber())
-        checkScore(answerNumber: answerNumber, playerNumber: playerNumber)
-        gameCount -= 1
+
+    while true {
+        let playerNumbers = Array(makeNonOverlappingNumber())
+        if gameCount == 0 {
+            print("컴퓨터 승리...!")
+            break
+        } else if computerNumbers != playerNumbers {
+            gameCount -= 1
+            checkScore(answerNumber: computerNumbers, playerNumber: playerNumbers)
+            print("임의의 수 : ", terminator: "")
+            playerNumbers.forEach{ print($0, terminator: " ") }
+            print("\n남은 게임 횟수 : \(gameCount)")
+        } else {
+            print("3 스트라이크, 0 볼\n사용자 승리!")
+            break
+        }
     }
 }
-
-var answerNumber: [Int] = Array(makeNonOverlappingNumber())
-//var gameCount: Int = 9
-
-startGame(answerNumber: answerNumber)
+startGame()
