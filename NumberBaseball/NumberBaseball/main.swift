@@ -21,7 +21,7 @@ func returnRandomNumbers() -> [Int] {
 }
 
 func returnResult() -> String {
-    return "\(checkStrike()) 스트라이크, 볼"
+    return "\(checkStrike()) 스트라이크, \(checkBall()) 볼"
 }
 
 func checkStrike() -> Int {
@@ -33,28 +33,41 @@ func checkStrike() -> Int {
     }
     return count
 }
-/*
+
 func checkBall() -> Int {
-    
+    var count: Int = 0
+    for i in 0...2 {
+        if numbersByComputer.contains(numbersByUser[i]) && numbersByUser[i] != numbersByComputer[i] {
+            count += 1
+        }
+    }
+    return count
 }
- */
 
 func startGame() {
+    numbersByComputer = returnRandomNumbers()
     
-}
-
-numbersByComputer = returnRandomNumbers()
-
-while(numberOfChance > 0) {
-    numbersByUser = returnRandomNumbers()
-    print(numbersByUser)
-    let gameResult = returnResult()
-    print(gameResult)
-    if gameResult == "3 스트라이크, 0 볼" {
-        print("사용자 승리!")
-        break
+    while(numberOfChance > 0) {
+        numbersByUser = returnRandomNumbers()
+        print("임의의 수 : ", terminator: "")
+        numbersByUser.forEach {
+            print($0, terminator: " ")
+        }
+        print()
+        
+        let gameResult = returnResult()
+        print(gameResult)
+        if gameResult == "3 스트라이크, 0 볼" {
+            print("사용자 승리!")
+            break
+        }
+        
+        numberOfChance -= 1
+        print("남은 기회 : \(numberOfChance)")
+        if numberOfChance == 0 {
+            print("컴퓨터 승리...!")
+        }
     }
-    numberOfChance -= 1
-    print("남은 기회 : \(numberOfChance)")
 }
 
+startGame()
