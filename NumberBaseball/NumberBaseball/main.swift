@@ -27,4 +27,29 @@ func compare(computerNumber: [Int], playerNumber: [Int]) -> [Int] {
     return strikeBallStack
 }
 
+func startGame() {
+    computerRandomNumber = createThreeRamdomNumber()
+
+    repeat {
+        playerRanomNumber = createThreeRamdomNumber()
+        let strikeBallStack = compare(computerNumber: computerRandomNumber, playerNumber: playerRanomNumber)
+
+        remainingTime -= 1
+
+        print("임의의 수 : \(computerRandomNumber[0]) \(computerRandomNumber[1]) \(computerRandomNumber[2])")
+        
+        
+        if strikeBallStack[0] == 3 {
+            print("사용자 승리!")
+            return
+        } else if remainingTime == 0 {
+            print("컴퓨터 승리...!")
+        }
+        print("\(strikeBallStack[0]) 스트라이크, \(strikeBallStack[1]) 볼")
+        print("남은 기회 : \(remainingTime)")
+
+    } while remainingTime != 0
+}
+
+startGame()
 
