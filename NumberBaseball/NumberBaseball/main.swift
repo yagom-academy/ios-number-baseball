@@ -45,7 +45,7 @@ func compareUserAndComputer() {
 
 func findNotStrike() -> Array<Int> {
     var result: [Int] = []
-    for (usernumber, userindex) in userRandomNumbers.enumerated() {
+    for (userindex, usernumber) in userRandomNumbers.enumerated() {
         if let numberNotStrike = compareForStrike(userNumber: usernumber, index: userindex) {
             result.append(numberNotStrike)
         }
@@ -54,15 +54,13 @@ func findNotStrike() -> Array<Int> {
 }
 
 func compareForStrike(userNumber: Int, index: Int) -> Int? {
-    for (computernumber, computerindex) in computerRandomNumbers.enumerated() {
+    for (computerindex, computernumber) in computerRandomNumbers.enumerated() {
         if computernumber == userNumber && computerindex == index {
             strike += 1
-        }
-        if userRandomNumbers.last == computernumber {
-            return userNumber
+            return nil
         }
     }
-    return nil
+    return userNumber
 }
 
 func findBall(numbersNotStrike:[Int]) { // 매개변수가 스트라이크는 아니지만 볼 일수도 있는 숫자들
