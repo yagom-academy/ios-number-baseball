@@ -11,11 +11,11 @@ var computerNumbers: [Int] = []
 var matchCount: Int = 9
 var computerOut: Int = 3
 
-func generateRandomThreeNumbers() -> [Int] {
+func generateRandomNumbers(from startNumber: Int = 1, to endNumber: Int = 9, quantity: Int = 3) -> [Int] {
     var numbers: Set<Int> = []
-    
-    while numbers.count < 3 {
-        numbers.insert(Int.random(in: 1...9))
+
+    while numbers.count < quantity {
+        numbers.insert(Int.random(in: startNumber...endNumber))
     }
     return Array(numbers)
 }
@@ -60,12 +60,12 @@ func playNumberBaseBallGame() {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
-    computerNumbers = generateRandomThreeNumbers()
+    computerNumbers = generateRandomNumbers()
     
     for match in stride(from: matchCount, to: 0, by: -1) {
         print("임의의 수 : ", terminator: "")
 
-        playerNumbers = generateRandomThreeNumbers()
+        playerNumbers = generateRandomNumbers()
         print(convertArrayToString(of: playerNumbers))
         
         strikeCount = checkStrikeCount()
