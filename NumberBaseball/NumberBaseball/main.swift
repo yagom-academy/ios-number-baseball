@@ -69,7 +69,7 @@ func playNumberBaseball() {
             flag = menu
             switch flag {
             case "1":
-                startGame(numberOfChance: 9)
+                print("1번 메뉴입니다")
             case "2":
                 print("프로그램 종료")
             default:
@@ -78,5 +78,4 @@ func playNumberBaseball() {
         }
     } while(flag != "2")
 }
-
 playNumberBaseball()
