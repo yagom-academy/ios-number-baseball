@@ -46,6 +46,23 @@ func judgeGameResult() {
     print(remainingChangeCount == .zero ? computerWin : userWin)
 }
 
+func startMenu() {
+    print("1. 게임시작\n 2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    let input: String? = readLine()
+    
+    switch input {
+    case "1":
+        playGame()
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+        startMenu()
+    }
+}
+
 func playGame() {
     let chancePoint = 1
     
@@ -58,4 +75,14 @@ func playGame() {
     }
     judgeGameResult()
 }
-playGame()
+startMenu()
+
+"""
+목표 종료 시간!! 10 시 30분
+
+1. 다음 함수를 구현합니다
+i. 사용자 메뉴를 출력하고 메뉴를 입력받는 함수 (게임시작, 게임종료)
+ii. 게임 숫자를 입력받는 함수
+2. 게임 메뉴 및 사용자가 입력하는 세 개의 숫자의 유효성을 검증하는 과정을 구현합니다
+3. 사용자가 입력한 수와 임의로 생성한 정수를 비교하는 게임을 진행하도록 구현합니다
+"""
