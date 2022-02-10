@@ -116,18 +116,51 @@ func secondMenuChoice(numChoice: String) {
     }
 }
 
-func checkUserInput() -> [Character] {
-    var userThreeNumbers: [Character] = []
+func checkUserInput() -> [String] {
+    var userThreeNumbers: [String] = []
     guard let userNumbers = readLine() else {
         return []
     }
     for number in userNumbers {
-        userThreeNumbers.append(number)
+        userThreeNumbers.append(String(number))
     }
     
     return userThreeNumbers
 }
 
-print(computerRandomNumbers)
+func checkUserNumberFormat(userInput: [String]) -> [Int] {
+    if userInput.isEmpty {
+        return []
+    }
+    if userInput.count != 5 {
+        return []
+    }
+    if userInput[1] != " " && userInput[3] != " " {
+        return []
+    }
+    let S: String = userInput.filter{ $0 != " " }.reduce("") { $0 + String($1) }
+    if S.count != 3 {
+        return []
+    }
+    guard let _ = Int(S) else {
+        return []
+    }
+    if Set(userInput).count != 4 {
+        return []
+    }
+    var result: [String] = []
+    for a in S {
+        result.append(String(a))
+        print(result)
+    }
+    var result2: [Int] = []
+    for n in result {
+        if let num = Int((n)) {
+            result2.append(num)
+        }
+    }
+    return result2
+}
+
 startGame()
 
