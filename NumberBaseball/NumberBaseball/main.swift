@@ -12,14 +12,14 @@ func makeRandomNumbers() -> [String] {
     var randomNumbers: Set<String> = []
     
     while randomNumbers.count < 3 {
-        let numbers = Int.random(in: 1...9)
-        randomNumbers.insert(String(numbers))
+        let number = Int.random(in: 1...9)
+        randomNumbers.insert(String(number))
     }
     
     return Array(randomNumbers)
 }
 
-func calculateStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+func calcStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
     var strikeCounts = 0
     
     for (index, number) in userNumbers.enumerated() {
@@ -29,7 +29,7 @@ func calculateStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> In
     return strikeCounts
 }
 
-func calculateBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+func calcBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
     var ballCounts = 0
     
     for (index, number) in userNumbers.enumerated() {
@@ -40,12 +40,12 @@ func calculateBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int 
 }
 
 func printCounts(userNumbers: [String], randomNumbers: [String]) {
-    let strikeCounts = calculateStrikeCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
-    let ballCounts = calculateBallCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+    let strikeCounts = calcStrikeCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+    let ballCounts = calcBallCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
     print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
 }
 
-func checkVictory(userNumbers: [String], randomNumbers: [String]) -> Bool {
+func checkUserWin(userNumbers: [String], randomNumbers: [String]) -> Bool {
     if userNumbers == randomNumbers {
         print("사용자 승리...!")
         return true
@@ -63,9 +63,9 @@ func playGame() {
     
     while remainedChances > 0 {
         let userNumbers = makeRandomNumbers()
-        
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
-        if checkVictory(userNumbers: userNumbers, randomNumbers: randomNumbers) {
+        
+        if checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) {
             return
         }
         else if remainedChances == 0 {
