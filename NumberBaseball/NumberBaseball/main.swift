@@ -38,76 +38,80 @@ func startGame(numberOfChance: Int) {
     numbersByComputer = generateRandomNumbers()
     var numberOfChance = numberOfChance
     
-    while(numberOfChance > 0 && strikeCount < 3) {
+    while(numberOfChance > 0) {
         numbersByUser = getUserNumbers()
         
         updateStrikeAndBallCount()
         numberOfChance -= 1
         
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        
         if strikeCount == 3 {
             print("사용자 승리!")
-        } else if numberOfChance == 0 {
+            break
+        }
+        print("남은 기회 : \(numberOfChance)")
+        
+        if numberOfChance == 0 {
             print("컴퓨터 승리...!")
         }
         
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        print("남은 기회 : \(numberOfChance)")
     }
 }
 
 func playNumberBaseball() {
-    var flag: String = ""
+    var exitFlag: Bool = false
     
-    repeat{
+    repeat {
         print("1. 게임시작")
         print("2. 게임종료")
         print("원하는 기능을 선택해주세요", terminator: " : ")
         let input: String? = readLine()
         if let menu = input {
-            flag = menu
-            switch flag {
+            switch menu {
             case "1":
-                print("1번 메뉴입니다")
+                startGame(numberOfChance: 9)
             case "2":
-                print("프로그램 종료")
+                exitFlag = true
             default:
                 print("입력이 잘못되었습니다")
             }
         }
-    } while(flag != "2")
+    } while(exitFlag == false)
 }
 
 func getUserNumbers() -> [Int] {
-    var flag: Bool = false
     var userNumbers: [Int] = []
-    while flag == false {
+    
+    while(true) {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
         print("입력", terminator: " : ")
         let input: String? = readLine()
         if let numbers = input {
             userNumbers = numbers.split(separator: " ").compactMap({ Int($0) })
-            if checkValidation(userNumbers: userNumbers) == false {
-                print("입력이 잘못되었습니다")
-            } else {
-                flag = true
-            }
+        }
+        if isValid(userNumbers: userNumbers) == true {
+            break
+        } else {
+            print("입력이 잘못되었습니다")
         }
     }
+    
     return userNumbers
 }
 
-func checkValidation(userNumbers: [Int]) -> Bool {
+func isValid(userNumbers: [Int]) -> Bool {
     if userNumbers.count != 3 {
         return false
     }
     if userNumbers.filter({ $0 < 10 }).count != 3 {
         return false
     }
-    let numbersSet : Set<Int> = Set(userNumbers)
-    if numbersSet.count != 3 {
+    if Set(userNumbers).count != 3 {
         return false
     }
     return true
 }
 
-print(getUserNumbers())
+
+playNumberBaseball()
