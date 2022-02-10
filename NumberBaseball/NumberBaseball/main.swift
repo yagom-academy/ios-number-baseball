@@ -54,7 +54,7 @@ func startGame() {
     let randomNumbers = makeRandomNumbers()
     
     while remainedChances > 0 {
-        let userNumbers = randomNumbers
+        let userNumbers = receiveNumbers()
         guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { break }
         printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
         print("남은 기회 : \(remainedChances)")
