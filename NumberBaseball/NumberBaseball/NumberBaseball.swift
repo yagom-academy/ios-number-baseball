@@ -1,8 +1,8 @@
 //
-//  STEP1.swift
+//  NumberBaseball.swift
 //  NumberBaseball
 //
-//  Created by 조성훈 on 2022/02/09.
+//  Created by mmim, onetool on 2022/02/10.
 //
 
 import Foundation
@@ -21,7 +21,6 @@ func startGame() {
         checkGameResult()
         resetValue()
     }
-    
 }
 
 func checkGameResult() {
@@ -64,24 +63,22 @@ func comparePlayerNumbers() {
 }
 
 func printRandomNumbers() {
-    print("\n컴퓨터 임의의 수 : ", terminator: "") // 테스트를 위한 텍스트, 삭제해야하는 줄
-    computerNumbers.forEach{ print($0, terminator: " ") } // 테스트를 위한 텍스트, 삭제해야하는 줄
-    print("\n유저 임의의 수 : ", terminator: "")
+    print("\n임의의 수 : ", terminator: "")
     playerNumbers.forEach{ print($0, terminator: " ") }
 }
 
 func checkScoreCondition() {
     let sameNumbers = computerNumbers.filter{ playerNumbers.contains($0) }
     for element in 0..<3 {
-        checkStrikeCondition(element: element)
+        checkStrikeCondition(numberInArray: element)
     }
     checkBallCondition(sameNumbers: sameNumbers.count)
     printRandomNumbers()
     printScoreInformation()
 }
 
-func checkStrikeCondition(element: Int) {
-    if computerNumbers[element] == playerNumbers[element] {
+func checkStrikeCondition(numberInArray: Int) {
+    if computerNumbers[numberInArray] == playerNumbers[numberInArray] {
         strike += 1
     }
 }
