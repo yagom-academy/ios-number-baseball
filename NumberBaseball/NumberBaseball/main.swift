@@ -9,7 +9,7 @@ import Foundation
 var playerNumbers: [Int] = []
 var computerNumbers: [Int] = []
 var matchCount: Int = 9
-var computerOut: Int = 3
+var targetStrikeCount: Int = 3
 
 func generateRandomNumbers(from startNumber: Int = 1, to endNumber: Int = 9, quantity: Int = 3) -> [Int] {
     var numbers: Set<Int> = []
@@ -18,10 +18,6 @@ func generateRandomNumbers(from startNumber: Int = 1, to endNumber: Int = 9, qua
         numbers.insert(Int.random(in: startNumber...endNumber))
     }
     return Array(numbers)
-}
-
-func makeMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
-    return "\(strikeCount) 스트라이크, \(ballCount) 볼"
 }
 
 func checkStrikeCount() -> Int {
@@ -62,25 +58,32 @@ func playNumberBaseBallGame() {
     
     computerNumbers = generateRandomNumbers()
     
-    for match in stride(from: matchCount, to: 0, by: -1) {
+    while matchCount > 0 {
         print("임의의 수 : ", terminator: "")
-
+        
         playerNumbers = generateRandomNumbers()
         print(convertArrayToString(of: playerNumbers))
         
         strikeCount = checkStrikeCount()
         ballCount = checkBallCount()
         
-        if strikeCount == computerOut {
-            print("사용자 승리!")
-            break
-        } else if match == 1 {
-            print("컴퓨터 승리...!")
-        }
+        matchCount -= 1
         
-        print(makeMatchScore(strikeCount, ballCount))
-        print("남은 기회 : \(match - 1)")
+        displayScoreBoard(&strikeCount, &ballCount)
     }
+}
+
+func displayScoreBoard(_ strikeCount: inout Int, _ ballCount: inout Int) {
+    if strikeCount == targetStrikeCount {
+        matchCount = 0
+        print("사용자 승리!")
+        return
+    } else if matchCount == 0 {
+        print("컴퓨터 승리...!")
+        return
+    }
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("남은 기회 : \(matchCount)")
 }
 
 func main() {
