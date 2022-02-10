@@ -14,37 +14,38 @@ func createDeduplicatedRadnomNumbers() -> [Int] {
     return Array(deduplicatedRandomNumbers)
 }
 
-func compare(computerNumber: [Int], playerNumber: [Int]) -> [Int] {
-    var strikeBallStack: [Int] = [0, 0]
+func compare(computerNumber: [Int], playerNumber: [Int]) -> (Int, Int) {
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
     let iterationOfRange: Range<Int> = 0..<3
     
     for index in iterationOfRange {
         if computerNumbers[index] == playerNumber[index] {
-            strikeBallStack[0] += 1
+            strikeCount += 1
         } else if computerNumbers.contains(playerNumber[index]) {
-            strikeBallStack[1] += 1
+            ballCount += 1
         }
     }
-    return strikeBallStack
+    return (strikeCount, ballCount)
 }
 
 func startGame() {
     repeat {
         computerNumbers = createDeduplicatedRadnomNumbers()
         let playerNumbers: [Int] = createDeduplicatedRadnomNumbers()
-        let strikeBallOfResult = compare(computerNumber: computerNumbers, playerNumber: playerNumbers)
+        let strikeBallOfResult: (strikeCount: Int, ballCount: Int) = compare(computerNumber: computerNumbers, playerNumber: playerNumbers)
         remainingTime -= 1
         
         print("임의의 수 : \(computerNumbers[0]) \(computerNumbers[1]) \(computerNumbers[2])")
         
-        if strikeBallOfResult[0] == 3 {
+        if strikeBallOfResult.strikeCount == 3 {
             print("사용자 승리!")
             return
         } else if remainingTime == 0 {
             print("컴퓨터 승리...!")
         }
         
-        print("\(strikeBallOfResult[0]) 스트라이크, \(strikeBallOfResult[1]) 볼")
+        print("\(strikeBallOfResult.strikeCount) 스트라이크, \(strikeBallOfResult.ballCount) 볼")
         print("남은 기회 : \(remainingTime)")
         
     } while remainingTime != .zero
