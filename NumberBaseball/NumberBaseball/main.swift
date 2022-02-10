@@ -49,8 +49,7 @@ func startGame() {
     var matchCount = 9
     
     while matchCount > .zero && strikeCount != winnerGoalCount {
-        let userNumbers = generatedThreeRandomNumbers()
-        let stringTypeUserNumbers = convertIntArrayToString(intArray: userNumbers)
+        let userNumbers = generatedUserThreeRandomNumbers()
         
         strikeCount = 0
         ballCount = 0
@@ -59,11 +58,21 @@ func startGame() {
         
         matchCount -= 1
 
-        print("임의의 수 : \(stringTypeUserNumbers)")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(matchCount)")
     }
     showGameResult()
+}
+
+func generatedUserThreeRandomNumbers() -> [Int] {
+    var userEnteredNumbers = [Int]()
+    
+    while userEnteredNumbers.isEmpty {
+        printUserGuideMenu()
+        userEnteredNumbers = inputUserThreeNumbers()
+    }
+    
+    return userEnteredNumbers
 }
 
 func printUserGuideMenu() {
@@ -156,4 +165,4 @@ func convertIntArrayToString(intArray: [Int]) -> String {
     intArray.map { String($0) }.joined(separator: " ")
 }
 
-startGame()
+startProgram()
