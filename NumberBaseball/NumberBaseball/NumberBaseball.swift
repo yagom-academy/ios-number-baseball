@@ -14,13 +14,14 @@ var strike: Int = 0
 var ball: Int = 0
 
 func startGame() {
+    saveComputerNumbers()
     while roundCount > 0 {
-        saveComputerNumbers()
         savePlayerNumbers()
         checkScoreCondition()
         checkGameResult()
         resetValue()
     }
+    
 }
 
 func checkGameResult() {
@@ -96,7 +97,6 @@ func printScoreInformation() {
 }
 
 func resetValue() {
-    computerNumbers.removeAll()
     playerNumbers.removeAll()
     strike = 0
     ball = 0
