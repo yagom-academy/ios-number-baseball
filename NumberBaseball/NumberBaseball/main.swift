@@ -104,7 +104,7 @@ func isValid(userNumbers: [Int]) -> Bool {
     if userNumbers.count != 3 {
         return false
     }
-    if userNumbers.filter({ $0 < 10 }).count != 3 {
+    if userNumbers.filter({ $0 < 10 && $0 > 0 }).count != 3 {
         return false
     }
     if Set(userNumbers).count != 3 {
