@@ -6,6 +6,7 @@
 
 import Foundation
 
+var userInputNumbers: Array<String> = []
 let computerNumbers = generateRandomNumbers()
 var remainingChangeCount: Int = 9
 var strikeCounting = 0
@@ -47,7 +48,7 @@ func judgeGameResult() {
 }
 
 func startMenu() {
-    print("1. 게임시작\n 2. 게임종료")
+    print("1. 게임시작\n2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
     
     let input: String? = readLine()
@@ -61,6 +62,15 @@ func startMenu() {
         print("입력이 잘못되었습니다.")
         startMenu()
     }
+}
+
+func receiveInputNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫지는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    
+    guard let inputNumbers = readLine() else { return }
+    userInputNumbers.append(contentsOf: inputNumbers.components(separatedBy: ""))
 }
 
 func playGame() {
