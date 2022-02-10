@@ -4,23 +4,21 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var computerRandomNumbers:[Int] = makeThreeRandomNumbers()
+import Foundation
+
+var computerRandomNumbers:[Int] = [0, 0, 0]
 var tryCount: Int = 9
 
 func startGame() {
-    var userStrikeCount = 0
-    var userBallCount = 0
-    var userRandomNumbers: [Int]
+    var userStrikeCount: Int = 0
+    var userBallCount: Int = 0
+    computerRandomNumbers = makeThreeRandomNumbers()
+    tryCount = 9
     while tryCount > 0 && userStrikeCount < 3 {
         userStrikeCount = 0
         userBallCount = 0
-        userRandomNumbers = makeThreeRandomNumbers()
-        print("임의의 수 : ", terminator: "")
-        for userNumber in userRandomNumbers {
-            print(userNumber, terminator: " ")
-        }
-        print()
-        (userStrikeCount, userBallCount) = checkBall(notStrikeNumbers: findNotStrike(userStrikeCount: userStrikeCount, userNumbers: userRandomNumbers), userBallCount: userBallCount)
+        let userFinalNumber = secondMenuChoice()
+        (userStrikeCount, userBallCount) = checkBall(notStrikeNumbers: findNotStrike(userStrikeCount: userStrikeCount, userNumbers: userFinalNumber), userBallCount: userBallCount)
         tryCount -= 1
         if userStrikeCount == 3 {
             print("사용자 승리...!")
@@ -43,14 +41,13 @@ func makeThreeRandomNumbers() -> [Int] {
 
 func findNotStrike(userStrikeCount: Int, userNumbers: [Int]) -> ([Int], Int) {
     var notStrikeNumbers: [Int] = []
-    var strikeCount = userStrikeCount //var
+    var strikeCount = userStrikeCount
     for (userIndex, userNumber) in userNumbers.enumerated() {
         if let (notStrikeNumber, strikeCount2) = countStrike(userNumber: userNumber, userIndex: userIndex, userStrikeCount: strikeCount) {
             strikeCount = strikeCount2
             if let notStrikeNum = notStrikeNumber {
                 notStrikeNumbers.append(notStrikeNum)
             }
-            
         }
     }
     return (notStrikeNumbers, strikeCount)
@@ -88,32 +85,38 @@ func countBall(userNumber: Int, userBallCount: Int) -> Int {
 
 func menuChoice() {
     var userNum: String?
-    while userNum == "2" {
+    while userNum != "2" {
         print("1. 게임시작")
         print("2. 게임종료")
         print("원하는 기능을 선택해주세요 :", terminator: " ")
         userNum = readLine()
         if let userNum2 = userNum {
             if userNum2 == "1" {
-                secondMenuChoice(numChoice: userNum2)
+                startGame()
             } else if userNum2 == "2" {
                 return
             } else {
                 print("입력이 잘못 되었습니다.")
             }
         }
-        
     }
 }
 
-func secondMenuChoice(numChoice: String) {
-    if numChoice == "1" {
+func secondMenuChoice() -> [Int] {
+    var flag:Bool = true
+    var returnNumber: [Int] = []
+    while flag == true {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 ", terminator: "")
-        var input = checkUserInput()
-        
+        let input1 = checkUserInput()
+        if checkUserNumberFormat(userInput: input1).isEmpty {
+        } else {
+            returnNumber = checkUserNumberFormat(userInput: input1)
+            flag = false
+        }
     }
+    return returnNumber
 }
 
 func checkUserInput() -> [String] {
@@ -135,7 +138,7 @@ func checkUserNumberFormat(userInput: [String]) -> [Int] {
     if userInput.count != 5 {
         return []
     }
-    if userInput[1] != " " && userInput[3] != " " {
+    if userInput[1] != " " || userInput[3] != " " {
         return []
     }
     let S: String = userInput.filter{ $0 != " " }.reduce("") { $0 + String($1) }
@@ -151,16 +154,17 @@ func checkUserNumberFormat(userInput: [String]) -> [Int] {
     var result: [String] = []
     for a in S {
         result.append(String(a))
-        print(result)
     }
     var result2: [Int] = []
     for n in result {
         if let num = Int((n)) {
+            if num == 0 {
+                return []
+            }
             result2.append(num)
         }
     }
     return result2
 }
 
-startGame()
-
+menuChoice()
