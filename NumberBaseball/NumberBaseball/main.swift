@@ -47,8 +47,9 @@ func judgeGameResult() {
     print(remainingChangeCount == .zero ? computerWin : userWin)
 }
 
-func startMenu() {
-    print("1. 게임시작\n2. 게임종료")
+func selectMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
     
     let input: String? = readLine()
@@ -60,7 +61,7 @@ func startMenu() {
         return
     default:
         print("입력이 잘못되었습니다.")
-        startMenu()
+        selectMenu()
     }
 }
 
@@ -71,6 +72,9 @@ func receiveInputNumbers() {
     
     guard let inputNumbers = readLine() else { return }
     userInputNumbers.append(contentsOf: inputNumbers.components(separatedBy: ""))
+    
+    let unconvertNumbers = inputNumbers.components(separatedBy: " ").filter({ $0 != "" })
+    var putNumbers = Array<Int>()
 }
 
 func playGame() {
@@ -85,7 +89,7 @@ func playGame() {
     }
     judgeGameResult()
 }
-startMenu()
+selectMenu()
 
 """
 목표 종료 시간!! 10 시 30분
