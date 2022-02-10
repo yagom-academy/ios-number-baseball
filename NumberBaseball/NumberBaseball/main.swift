@@ -70,8 +70,8 @@ func countStrike(userNumber: Int, userIndex: Int, userStrikeCount: Int) -> (Int?
 func checkBall(notStrikeNumbers: ([Int], Int), userBallCount: Int) -> (Int, Int) {
     var ballCount = userBallCount
     let strikeCount = notStrikeNumbers.1
-    for checkNumber in notStrikeNumbers.0 {
-        ballCount = countBall(userNumber: checkNumber, userBallCount: ballCount)
+    for checkingNumber in notStrikeNumbers.0 {
+        ballCount = countBall(userNumber: checkingNumber, userBallCount: ballCount)
     }
     return (strikeCount, ballCount)
 }
