@@ -57,6 +57,12 @@ func checkUserWin(userNumbers: [String], randomNumbers: [String]) -> Bool {
     return false
 }
 
+func checkComputerWin(remainedChances: Int) {
+    if remainedChances == 0 {
+        print("컴퓨터 승리...!")
+    }
+}
+
 func playGame() {
     remainedChances = 9
     let randomNumbers = makeRandomNumbers()
@@ -64,14 +70,12 @@ func playGame() {
     while remainedChances > 0 {
         let userNumbers = makeRandomNumbers()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+
+        guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { return }
+        checkComputerWin(remainedChances: remainedChances)
         
-        if checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) {
-            return
-        }
-        else if remainedChances == 0 {
-            print("컴퓨터 승리...!")
-        }
         printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+        
         print("남은 기회 \(remainedChances)")
     }
 }
