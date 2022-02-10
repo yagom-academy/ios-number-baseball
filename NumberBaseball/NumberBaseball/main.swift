@@ -6,8 +6,6 @@
 
 import Foundation
 
-var answerNumbers: Array<Int> = []
-var randomNumbers: Array<Int> = []
 
 func makeRandomNum() -> Set<Int> {
     var randomSet: Set<Int> = []
@@ -19,13 +17,15 @@ func makeRandomNum() -> Set<Int> {
     return randomSet
 }
 
+
 func changeArray() -> Array<Int> {
     let setRandomNum = makeRandomNum()
     let arrayRandomNum = Array(setRandomNum)
     return arrayRandomNum
 }
 
-func checkStrikeBall() -> (Int, Int) {
+
+func checkStrikeBall(answerNumbers: Array<Int>, randomNumbers: Array<Int>) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
     
@@ -39,17 +39,18 @@ func checkStrikeBall() -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
+
 func startGame() {
+    var answerNumbers: Array<Int> = []
+    var randomNumbers: Array<Int> = []
     var tryCount = 9
-    answerNumbers = changeArray()
     
+    answerNumbers = changeArray()
     while tryCount != 0 {
         randomNumbers = changeArray()
-        let (strike, ball) = checkStrikeBall()
+        let (strike, ball) = checkStrikeBall(answerNumbers: answerNumbers, randomNumbers: randomNumbers)
         tryCount -= 1
-        
         printResult(randomNumbers: randomNumbers, strike: strike, ball: ball, tryCount: tryCount)
-        
         if strike == 3 {
             print("사용자 승리...!")
             break
@@ -59,10 +60,12 @@ func startGame() {
     }
 }
 
+
 func printResult(randomNumbers: Array<Int>, strike: Int, ball: Int, tryCount: Int) {
     print("임의의 수 : \(randomNumbers[0]) \(randomNumbers[1]) \(randomNumbers[2])")
     print("\(strike) 스트라이크, \(ball) 볼")
     print("남은 기회 : \(tryCount)")
 }
+
 
 startGame()
