@@ -7,7 +7,6 @@
 import Foundation
 
 var numbersByComputer: [Int] = []
-var numberOfChance: Int = 9
 var numbersByUser: [Int] = []
 var strikeCount: Int = 0
 var ballCount: Int = 0
@@ -58,4 +57,4 @@ func startGame(numberOfChance: Int) {
     }
 }
 
-startGame(numberOfChance: numberOfChance)
+startGame(numberOfChance: 9)
