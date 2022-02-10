@@ -63,12 +63,31 @@ func checkComputerWin(remainedChances: Int) {
     }
 }
 
+func receiveNumbers() -> [String] {
+    print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
+    let receivedNumbers = readLine()
+    guard let receivedNumbers = receivedNumbers else { return receiveNumbers() }
+    
+    if receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ").count != 3 {
+        print("입력이 잘못되었습니다.")
+        return receiveNumbers()
+    }
+    
+    let userNumbers = receivedNumbers.components(separatedBy: " ")
+    
+    return userNumbers
+}
+
 func playGame() {
     remainedChances = 9
     let randomNumbers = makeRandomNumbers()
     
     while remainedChances > 0 {
-        let userNumbers = makeRandomNumbers()
+        let userNumbers = receiveNumbers()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
 
         guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { return }
