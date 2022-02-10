@@ -28,11 +28,15 @@ func checkStrikeCount() -> Int {
     var strikeCount: Int = 0
     
     for (playerNumber, computerNumber) in zip(playerNumbers, computerNumbers) {
-        if playerNumber == computerNumber {
-            strikeCount += 1
-        }
+        increase(in: &strikeCount, playerNumber, computerNumber)
     }
     return strikeCount
+}
+
+func increase(in strikeCount: inout Int, _ playerNumber: Int, _ computerNumber: Int) {
+    if playerNumber == computerNumber {
+        strikeCount += 1
+    }
 }
 
 func checkBallCount() -> Int {
