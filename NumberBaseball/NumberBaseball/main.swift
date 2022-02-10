@@ -72,6 +72,35 @@ func printUserGuideMenu() {
     print("입력 : ", terminator: "")
 }
 
+func isUserInputValid(list: [String]) -> Bool{
+    guard isCountIsThree(numberList: list) else {
+        return false
+    }
+    
+    guard isNumbersDuplication(numberList: list) else {
+        return false
+    }
+    
+    guard isValidRange(numberList: list) else {
+        return false
+    }
+    return true
+}
+
+func isCountIsThree(numberList: [String]) -> Bool {
+    return numberList.count == 3
+}
+
+func isNumbersDuplication(numberList: [String]) -> Bool{
+    return Set(numberList).count == 3
+}
+
+func isValidRange(numberList: [String]) -> Bool {
+    return numberList.compactMap {Int($0)}
+    .filter{ (1...9).contains($0)}
+    .count == 3
+}
+
 func generatedThreeRandomNumbers() -> [Int] {
     var extractedNumbers: Set<Int> = []
     let limitCount = 3
