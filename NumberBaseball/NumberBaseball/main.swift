@@ -53,11 +53,11 @@ func printGameResult(solutionNumber: [Int], playerStrikeScore: Int, playerBallSc
 
 func startGame() {
     var playerScore: (strikeScore: Int, ballScore: Int)
-    guard let computerNumbers = makeRandomNumber(to: 1, from: 9, count: 3) else { return }
-    var gameCount: Int = 9
+    guard let computerNumbers: [Int] = makeRandomNumber(to: 1, from: 9, count: 3) else { return }
+    var gameCount = 9
     repeat {
         gameCount -= 1
-        guard let playerNumbers = makeRandomNumber(to: 1, from: 9, count: 3) else { return }
+        guard let playerNumbers: [Int] = makeRandomNumber(to: 1, from: 9, count: 3) else { return }
         playerScore = getScore(problemNumber: playerNumbers, solutionNumber: computerNumbers)
         printGameResult(solutionNumber: playerNumbers, playerStrikeScore: playerScore.strikeScore, playerBallScore: playerScore.ballScore, gameCount: gameCount)
     } while gameCount > Int.zero && playerScore.strikeScore != 3
