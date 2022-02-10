@@ -19,7 +19,7 @@ func makeRandomNumber(to: Int, from: Int, count: Int) -> [Int]? {
 
 func getScore(problemNumber: [Int], solutionNumber: [Int]) -> (strikeScore: Int, ballScore: Int) {
     var score: (strikeScore: Int, ballScore: Int) = (strikeScore: 0, ballScore: 0)
-
+    
     for i in 0..<problemNumber.count {
         score.strikeScore += checkScore(problemNumber: problemNumber, solutionNumber: solutionNumber, index: i).strike
         score.ballScore += checkScore(problemNumber: problemNumber, solutionNumber: solutionNumber, index: i).ball
@@ -38,18 +38,17 @@ func checkScore(problemNumber: [Int], solutionNumber: [Int], index: Int) -> (str
 }
 
 func printGameResult(solutionNumber: [Int], playerStrikeScore: Int, playerBallScore: Int, gameCount: Int) {
-    print("임의의 수 : ", terminator: "")
-    solutionNumber.forEach{ print($0, terminator: " ") }
-
+    print("임의의 수 : " + solutionNumber.map({ (value : Int) -> String in return String(value) }).joined(separator: " "))
     if playerStrikeScore == 3 {
-        print("\n사용자 승리!", terminator: "")
-
+        print("\n사용자 승리!")
+        
     } else if gameCount == 0 {
-        print("\n컴퓨터 승리...!", terminator: "")
+        print("컴퓨터 승리...!")
     }
-    print("\n(playerStrikeScore) 스트라이크,(playerBallScore) 볼", terminator: "")
-    print("\n남은 기회 : (gameCount)")
+    print("\(playerStrikeScore) 스트라이크, \(playerBallScore) 볼")
+    print("남은 기회 : \(gameCount)")
 }
+
 
 func startGame() {
     var playerScore: (strikeScore: Int, ballScore: Int)
