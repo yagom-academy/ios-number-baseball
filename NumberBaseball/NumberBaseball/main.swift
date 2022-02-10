@@ -6,18 +6,18 @@
 
 import Foundation
 
-var playerNums: Set<Int> = Set()
-var computerNums: Set<Int> = Set()
+var playerNumbers: Set<Int> = Set()
+var computerNumbers: Set<Int> = Set()
 var matchCount: Int = 9
 var computerOut: Int = 3
 
-func generateRandomThreeNums() -> Set<Int> {
-    var nums: Set<Int> = Set()
+func generateRandomThreeNumbers() -> Set<Int> {
+    var numbers: Set<Int> = Set()
     
-    while nums.count < 3 {
-        nums.insert(Int.random(in: 1...9))
+    while numbers.count < 3 {
+        numbers.insert(Int.random(in: 1...9))
     }
-    return nums
+    return numbers
 }
 
 func makeMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
@@ -27,8 +27,8 @@ func makeMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
 func checkStrikeCount() -> Int {
     var strikeCount: Int = 0
     
-    for (playerNum, computerNum) in zip(playerNums, computerNums) {
-        if playerNum == computerNum {
+    for (playerNumber, computerNumber) in zip(playerNumbers, computerNumbers) {
+        if playerNumber == computerNumber {
             strikeCount += 1
         }
     }
@@ -36,24 +36,24 @@ func checkStrikeCount() -> Int {
 }
 
 func checkBallCount() -> Int {
-    return computerNums.intersection(playerNums).count
+    return computerNumbers.intersection(playerNumbers).count
 }
 
 func convertSetToString(of values: Set<Int>) -> String {
     return values.map { "\($0)" }.joined(separator: " ")
 }
 
-func playGame() {
+func playNumberBaseBallGame() {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
-    computerNums = generateRandomThreeNums()
+    computerNumbers = generateRandomThreeNumbers()
     
     for match in stride(from: matchCount, to: 0, by: -1) {
         print("임의의 수 : ", terminator: "")
 
-        playerNums = generateRandomThreeNums()
-        print(convertSetToString(of: playerNums))
+        playerNumbers = generateRandomThreeNumbers()
+        print(convertSetToString(of: playerNumbers))
         
         strikeCount = checkStrikeCount()
         ballCount = checkBallCount()
@@ -71,7 +71,7 @@ func playGame() {
 }
 
 func main() {
-    playGame()
+    playNumberBaseBallGame()
 }
 
 main()
