@@ -6,43 +6,39 @@
 
 import Foundation
 
-func generateRandomNumbers() -> Set<Int> {
+let computerNumbers = generateRandomNumbers()
+var remainingChangeCount: Int = 9
+
+func generateRandomNumbers(range: ClosedRange<Int> = 1...9, three: Int = 3) -> Set<Int> {
     var randomNumbers: Set<Int> = []
-    while randomNumbers.count < 3 {
-        randomNumbers.insert(Int.random(in: 1...9))
+    while randomNumbers.count < three {
+        randomNumbers.insert(Int.random(in: range))
     }
     return randomNumbers
 }
 
-func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (Int, Int) {
-    var (strike, ball) = (0, 0)
-    let computerNumbers = Array(computer)
-    let userNumbers = Array(user)
-    
-    for index in userNumbers.indices {
-        strike += userNumbers[index] == computerNumbers[index] ? 1 : 0
+func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (strikeResult: Int, ballResult: Int) {
+    var (strikeCount, ballCount) = (0, 0)
+    for index in Array(user).indices {
+        strikeCount += Array(user)[index] == Array(computer)[index] ? 1 : 0
     }
-    ball = computer.intersection(userNumbers).count
-    ball = (ball - strike)
-    return (strike, ball)
+    ballCount = (computer.intersection(user).count - strikeCount)
+    return (strikeCount, ballCount)
 }
 
 func startGame() {
-    let computerPlayer = generateRandomNumbers()
-    var userIning: Int = 9
-    
-    while userIning > 0 {
-        let userPlayer = generateRandomNumbers()
-        let (strike, ball) = compareNumbers(user: userPlayer, computer: computerPlayer)
-        userIning -= 1
-        print("임의의 수 : \(userPlayer.description.trimmingCharacters(in: [",","[","]"]))")
-        print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(userIning)")
+    while remainingChangeCount > 0 {
+        let userNumbers = generateRandomNumbers()
+        let (strikeCount, ballCount) = compareNumbers(user: userNumbers, computer: computerNumbers)
+        remainingChangeCount -= 1 // 보류
+        print("임의의 수 : \(userNumbers.description.trimmingCharacters(in: [",","[","]"]))")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        print("남은 기회 : \(remainingChangeCount)")
         
-        if strike > 2 {
+        if strikeCount > 2 {
             print("사용자 승리...!")
             return
-        } else if userIning == 0 {
+        } else if remainingChangeCount == 0 {
             print("컴퓨터 승리...!")
         }
     }
