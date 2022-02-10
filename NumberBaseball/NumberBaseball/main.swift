@@ -12,33 +12,33 @@ var strikeCounting = 0
 let endGameCount = 3
 
 // 사용자정의를 못만드니 전역변수로 처리하는데, one이라는 숫자대신 변수로
-func generateRandomNumbers(range: ClosedRange<Int> = 1...9, three: Int = 3) -> Set<Int> {
+func generateRandomNumbers(range: ClosedRange<Int> = 1...9, numbersCount: Int = 3) -> Array<Int> {
     var randomNumbers: Set<Int> = []
-    while randomNumbers.count < three {
+    while randomNumbers.count < numbersCount {
         randomNumbers.insert(Int.random(in: range))
     }
-    return randomNumbers
+    return Array(randomNumbers)
 }
 
-func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (strikeResult: Int, ballResult: Int) {
+func calculateStrikeBallWith(_ userNumbers: Array<Int>, and computerNumbers: Array<Int>) -> (strikeResult: Int, ballResult: Int) {
     let strikePoint = 1
     var (strikeCount, ballCount) = (Int.zero, Int.zero)
-    for index in Array(user).indices {
-        strikeCount += Array(user)[index] == Array(computer)[index] ? strikePoint : .zero
+    for index in userNumbers.indices {
+        strikeCount += userNumbers[index] == computerNumbers[index] ? strikePoint : .zero
     }
-    ballCount = (computer.intersection(user).count - strikeCount)
+    ballCount = (Set(computerNumbers).intersection(userNumbers).count - strikeCount)
     strikeCounting += strikeCount
     return (strikeCount, ballCount)
 }
 
-func printPlayingGameMessage(userNumbers: Set<Int> ,ballCount: Int ,strikeCount: Int) {
-    let (strike, ball) =  ("스트라이크," ,"볼")
-    let (randomNumbers, remainingChance) = ("임의의 수 : " ,"남은 기회 :")
-    let squareBraketRight: CharacterSet = ["[","]"]
+func printPlayingGameMessage(userNumbers: Array<Int> ,ballCount: Int ,strikeCount: Int) {
+    let (strikeDescription, ballDescription) =  ("스트라이크," ,"볼")
+    let (randomNumbersDescription, remainingChanceDescription) = ("임의의 수 : " ,"남은 기회 :")
+    let squareBrakets: CharacterSet = ["[","]"]
     
-    print("\(randomNumbers) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBraketRight))")
-    print("\(strikeCount) \(strike) \(ballCount) \(ball) ")
-    print("\(remainingChance) \(remainingChangeCount)")
+    print("\(randomNumbersDescription) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBrakets))")
+    print("\(strikeCount) \(strikeDescription) \(ballCount) \(ballDescription) ")
+    print("\(remainingChanceDescription) \(remainingChangeCount)")
 }
 
 func judgeGameResult() {
@@ -47,13 +47,13 @@ func judgeGameResult() {
 }
 
 func playGame() {
-    let change = 1
+    let chancePoint = 1
     
     while remainingChangeCount > .zero {
         let userNumbers = generateRandomNumbers()
-        let (strikeCount, ballCount) = compareNumbers(user: userNumbers, computer: computerNumbers)
-        remainingChangeCount -= change
-        printPlayingGameMessage(userNumbers: userNumbers, ballCount: ballCount, strikeCount: strikeCount)
+        let (strikeResult, ballResult) = calculateStrikeBallWith(userNumbers, and: computerNumbers)
+        remainingChangeCount -= chancePoint
+        printPlayingGameMessage(userNumbers: userNumbers, ballCount: ballResult, strikeCount: strikeResult)
         if strikeCounting == endGameCount { break }
     }
     judgeGameResult()
