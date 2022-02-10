@@ -37,6 +37,24 @@ func printWinner(strikeCount: Int) {
     }
 }
 
+func inputPlayerNumbers() -> [String] {
+    var playerInputNumberList: [String] = []
+    
+    print("""
+         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+         중복 숫자는 허용하지 않습니다.
+         """)
+    print("입력 : ", terminator: "")
+    
+    if let playerInputNumbers = readLine(), playerInputNumbers != "" {
+        playerInputNumberList = playerInputNumbers.components(separatedBy: " ")
+    } else {
+        print("입력이 잘못되었습니다.")
+    }
+    
+    return playerInputNumberList
+}
+
 func startProgram() {
     var isgameOver: Bool = false
     
