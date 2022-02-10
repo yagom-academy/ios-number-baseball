@@ -67,9 +67,23 @@ func startGame() {
 }
 
 func printUserGuideMenu() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주새요.")
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
+}
+
+func inputUserThreeNumbers() -> [Int] {
+    guard let input = readLine()?.components(separatedBy: " ") else {
+        print("입력이 잘못되었습니다")
+        return []
+    }
+
+    guard isUserInputValid(list: input) else {
+        print("입력이 잘못되었습니다")
+        return []
+    }
+    
+    return input.compactMap{Int($0)}
 }
 
 func isUserInputValid(list: [String]) -> Bool{
