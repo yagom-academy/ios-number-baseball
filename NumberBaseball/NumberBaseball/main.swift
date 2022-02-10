@@ -18,7 +18,7 @@ func generateRandomNumbers(range: ClosedRange<Int> = 1...9, three: Int = 3) -> S
 }
 
 func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (strikeResult: Int, ballResult: Int) {
-    var (strikeCount, ballCount) = (0, 0)
+    var (strikeCount, ballCount) = (Int.zero, Int.zero)
     for index in Array(user).indices {
         strikeCount += Array(user)[index] == Array(computer)[index] ? 1 : 0
     }
@@ -26,19 +26,26 @@ func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (strikeResult: Int, b
     return (strikeCount, ballCount)
 }
 
+func printPlayingGameMessage(userNumbers: Set<Int> ,ballCount: Int ,strikeCount: Int) {
+    let (strike, ball) =  ("스트라이크," ,"볼")
+    let (randomNumbers, remainingChance) = ("임이의 수 : " ,"남은 기회 :")
+    let squareBraketRight: CharacterSet = ["[","]"]
+    
+    print("\(randomNumbers) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBraketRight))")
+    print("\(strikeCount) \(strike) \(ballCount) \(ball) ")
+    print("\(remainingChance) \(remainingChangeCount)")
+}
+
 func startGame() {
-    while remainingChangeCount > 0 {
+    while remainingChangeCount > .zero {
         let userNumbers = generateRandomNumbers()
         let (strikeCount, ballCount) = compareNumbers(user: userNumbers, computer: computerNumbers)
-        remainingChangeCount -= 1 // 보류
-        print("임의의 수 : \(userNumbers.description.trimmingCharacters(in: [",","[","]"]))")
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        print("남은 기회 : \(remainingChangeCount)")
-        
+        remainingChangeCount -= 1
+        printPlayingGameMessage(userNumbers: userNumbers, ballCount: ballCount, strikeCount: strikeCount)
         if strikeCount > 2 {
             print("사용자 승리...!")
             return
-        } else if remainingChangeCount == 0 {
+        } else if remainingChangeCount == .zero {
             print("컴퓨터 승리...!")
         }
     }
