@@ -86,5 +86,48 @@ func countBall(userNumber: Int, userBallCount: Int) -> Int {
     return ballCount
 }
 
+func menuChoice() {
+    var userNum: String?
+    while userNum == "2" {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요 :", terminator: " ")
+        userNum = readLine()
+        if let userNum2 = userNum {
+            if userNum2 == "1" {
+                secondMenuChoice(numChoice: userNum2)
+            } else if userNum2 == "2" {
+                return
+            } else {
+                print("입력이 잘못 되었습니다.")
+            }
+        }
+        
+    }
+}
+
+func secondMenuChoice(numChoice: String) {
+    if numChoice == "1" {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 ", terminator: "")
+        var input = checkUserInput()
+        
+    }
+}
+
+func checkUserInput() -> [Character] {
+    var userThreeNumbers: [Character] = []
+    guard let userNumbers = readLine() else {
+        return []
+    }
+    for number in userNumbers {
+        userThreeNumbers.append(number)
+    }
+    
+    return userThreeNumbers
+}
+
 print(computerRandomNumbers)
 startGame()
+
