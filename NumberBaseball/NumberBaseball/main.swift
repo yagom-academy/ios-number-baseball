@@ -37,15 +37,49 @@ func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> (strike: I
     
     for answerIndex in 0..<answerNumbers.count {
         for guessIndex in 0..<guessNumbers.count {
-            //스트라이크: 순서와 숫자가 모두 일치할때
             if answerNumbers[answerIndex] == guessNumbers[guessIndex] && answerIndex == guessIndex {
                 strike += 1
-            }
-            //ball: 숫자는 일치하는대 순서는 다를때
-            else if answerNumbers[answerIndex] == guessNumbers[guessIndex] && answerIndex != guessIndex {
+                //스트라이크: 순서와 숫자가 모두 일치할때
+            } else if answerNumbers[answerIndex] == guessNumbers[guessIndex] && answerIndex != guessIndex {
                 ball += 1
+                //ball: 숫자는 일치하는대 순서는 다를때
             }
         }
     }
     return (strike, ball)
 }
+
+func playGame() {
+    let answerNumbers = createThreeRandomNumbers()
+    var trialCount: Int = 9
+    
+    while trialCount != 0 {
+        let guessNumbers = createThreeRandomNumbers()
+        let score = getScore(answerNumbers: answerNumbers, guessNumbers: guessNumbers)
+        
+        print("""
+         \(score.strike) 스트라이크, \(score.ball) 볼
+         임의의 수 : \(guessNumbers[0]) \(guessNumbers[1]) \(guessNumbers[2])
+         """)
+        trialCount -= 1
+        if score.strike == 3 {
+            print("사용자의 승리...!")
+            break
+        } else if trialCount == 0 {
+            print("컴퓨터의 승리...!")
+        }
+        print("남은 기회 : \(trialCount)")
+    }
+}
+
+playGame()
+
+
+
+
+
+
+
+
+
+
