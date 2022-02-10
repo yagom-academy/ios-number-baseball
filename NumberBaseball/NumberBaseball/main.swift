@@ -98,10 +98,10 @@ func inputUserNumbers() -> [Int] {
         return []
     }
     
-    return input.compactMap{ Int($0) }
+    return convertedInput
 }
 
-func verifyUserInput(input: [Int]) -> Bool{
+func verifyUserInput(input: [Int]) -> Bool {
     guard verifyNumbersDuplication(numberList: input) else {
         return false
     }
@@ -113,7 +113,7 @@ func verifyUserInput(input: [Int]) -> Bool{
     return true
 }
 
-func verifyNumbersDuplication(numberList: [Int]) -> Bool{
+func verifyNumbersDuplication(numberList: [Int]) -> Bool {
     return Set(numberList).count == 3
 }
 
