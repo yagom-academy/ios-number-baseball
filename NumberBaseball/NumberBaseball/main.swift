@@ -37,9 +37,27 @@ func printWinner(strikeCount: Int) {
     }
 }
 
+func startProgram() {
+    var isgameOver: Bool = false
+    
+    while isgameOver == false {
+        print("1.게임시작\n2.게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
+        
+        let playerInput = readLine()
+            
+        switch playerInput {
+        case "1":
+            startGame()
+        case "2":
+            isgameOver = true
+        default:
+            print("입력이 잘못되었습니다")
+        }
+    }
+}
+
 func startGame() {
     computerNumbers = createUniqueRadnomNumbers()
-    
     repeat {
         let playerNumbers: [Int] = createUniqueRadnomNumbers()
         let strikeBallOfResult = compare(computerNumber: computerNumbers, playerNumber: playerNumbers)
@@ -59,4 +77,4 @@ func startGame() {
     } while remainingTime != .zero
 }
 
-startGame()
+startProgram()
