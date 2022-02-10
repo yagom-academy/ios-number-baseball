@@ -6,34 +6,43 @@
 
 import Foundation
 
-var chance = 9
+var remainedChances = 9
 
 func makeRandomNumbers() -> [String] {
     var randomNumbers: Set<String> = []
-
+    
     while randomNumbers.count < 3 {
         let numbers = Int.random(in: 1...9)
         randomNumbers.insert(String(numbers))
     }
-
+    
     return Array(randomNumbers)
 }
 
-func calculateCounts(userNumbers: [String], randomNumbers: [String]) -> (strikeCounts: Int, ballCounts: Int) {
+func calculateStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
     var strikeCounts = 0
-    var ballCounts = 0
-
-    for number in userNumbers {
-        ballCounts += randomNumbers.filter { $0.contains(number) }.count
-    }
-
+    
     for (index, number) in userNumbers.enumerated() {
         strikeCounts += randomNumbers.enumerated().filter { $0.element == number && $0.offset == index }.count
     }
+    
+    return strikeCounts
+}
 
-    ballCounts -= strikeCounts
+func calculateBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+    var ballCounts = 0
+    
+    for (index, number) in userNumbers.enumerated() {
+        ballCounts += randomNumbers.enumerated().filter { $0.element == number && $0.offset != index }.count
+    }
+    
+    return ballCounts
+}
 
-    return (strikeCounts, ballCounts)
+func printCounts(userNumbers: [String], randomNumbers: [String]) {
+    let strikeCounts = calculateStrikeCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+    let ballCounts = calculateBallCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+    print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
 }
 
 func checkVictory(userNumbers: [String], randomNumbers: [String]) -> Bool {
@@ -42,28 +51,28 @@ func checkVictory(userNumbers: [String], randomNumbers: [String]) -> Bool {
         return true
     }
     else {
-        chance -= 1
+        remainedChances -= 1
     }
-
+    
     return false
 }
 
 func playGame() {
-    chance = 9
+    remainedChances = 9
     let randomNumbers = makeRandomNumbers()
-    while chance > 0 {
+    
+    while remainedChances > 0 {
         let userNumbers = makeRandomNumbers()
-
+        
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         if checkVictory(userNumbers: userNumbers, randomNumbers: randomNumbers) {
             return
         }
-        else if chance == 0 {
+        else if remainedChances == 0 {
             print("컴퓨터 승리...!")
         }
-        print("\(calculateCounts(userNumbers: userNumbers, randomNumbers: randomNumbers).strikeCounts) 스트라이크, \(calculateCounts(userNumbers: userNumbers, randomNumbers: randomNumbers).ballCounts) 볼")
-
-        print("남은 기회 \(chance)")
+        printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+        print("남은 기회 \(remainedChances)")
     }
 }
 
