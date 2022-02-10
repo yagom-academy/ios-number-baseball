@@ -52,7 +52,7 @@ func startGame() {
     var matchCount = 9
     
     while matchCount > .zero && strikeCount != winnerGoalCount {
-        let userNumbers = generatedUserRandomNumbers()
+        let userNumbers = generatedUserNumbers()
         
         strikeCount = .zero
         ballCount = .zero
@@ -68,15 +68,15 @@ func startGame() {
     showGameResult()
 }
 
-func generatedUserRandomNumbers() -> [Int] {
-    var verifiedRandomNumbers = [Int]()
+func generatedUserNumbers() -> [Int] {
+    var verifiedUserNumbers = [Int]()
     
-    while verifiedRandomNumbers.isEmpty {
+    while verifiedUserNumbers.isEmpty {
         printUserGuideMenu()
-        verifiedRandomNumbers = inputUserNumbers()
+        verifiedUserNumbers = inputUserNumbers()
     }
     
-    return verifiedRandomNumbers
+    return verifiedUserNumbers
 }
 
 func printUserGuideMenu() {
