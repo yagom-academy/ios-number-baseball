@@ -57,4 +57,26 @@ func startGame(numberOfChance: Int) {
     }
 }
 
-startGame(numberOfChance: 9)
+func playNumberBaseball() {
+    var flag: String = ""
+    
+    repeat{
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요", terminator: " : ")
+        let input: String? = readLine()
+        if let menu = input {
+            flag = menu
+            switch flag {
+            case "1":
+                startGame(numberOfChance: 9)
+            case "2":
+                print("프로그램 종료")
+            default:
+                print("입력이 잘못되었습니다")
+            }
+        }
+    } while(flag != "2")
+}
+
+playNumberBaseball()
