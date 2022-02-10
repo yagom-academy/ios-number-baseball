@@ -8,6 +8,61 @@ import Foundation
 
 var remainedChances = 9
 
+func selectMenu() {
+    print("""
+          1.게임 시작
+          2.게임 종료
+          원하는 기능을 선택해주세요 :
+          """, terminator: " ")
+    guard let selectedMenu = readLine()?.trimmingCharacters(in: .whitespaces) else { return }
+    
+    if selectedMenu == "1" {
+        return startGame()
+    }
+    else if selectedMenu == "2" {
+        return
+    }
+    else {
+        print("입력이 잘못되었습니다.")
+        return selectMenu()
+    }
+}
+
+func receiveNumbers() -> [String] {
+    print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
+    guard let receivedNumbers = readLine() else { return receiveNumbers() }
+    let userNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ")
+    guard checkReceivedNumbers(userNumbers: userNumbers) else { return receiveNumbers() }
+    
+    return userNumbers
+}
+
+func checkReceivedNumbers(userNumbers: [String]) -> Bool {
+    if Set(userNumbers).count != 3 || Int(userNumbers.joined()) == nil {
+        print("입력이 잘못되었습니다.")
+        return false
+    }
+    return true
+}
+
+func startGame() {
+    remainedChances = 9
+    let randomNumbers = makeRandomNumbers()
+    
+    while remainedChances > 0 {
+        let userNumbers = randomNumbers
+        guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { break }
+        printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+        print("남은 기회 : \(remainedChances)")
+        checkComputerWin(remainedChances: remainedChances)
+    }
+    selectMenu()
+}
+
 func makeRandomNumbers() -> [String] {
     var randomNumbers: Set<String> = []
     
@@ -57,65 +112,9 @@ func checkUserWin(userNumbers: [String], randomNumbers: [String]) -> Bool {
     return false
 }
 
-func checkComputerWin(remainedChances: Int) -> Bool {
+func checkComputerWin(remainedChances: Int) {
     if remainedChances == 0 {
         print("컴퓨터 승리...!")
-        return true
-    }
-    return false
-}
-
-func receiveNumbers() -> [String] {
-    print("""
-        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
-        중복 숫자는 허용하지 않습니다.
-        입력 :
-        """, terminator: " ")
-    guard let receivedNumbers = readLine() else { return receiveNumbers() }
-    let userNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ")
-    
-    if Set(userNumbers).count != 3 || Int(userNumbers.joined()) == nil {
-        print("입력이 잘못되었습니다.")
-        return receiveNumbers()
-    }
-    
-    return userNumbers
-}
-
-func selectMenu() {
-    print("""
-          1.게임 시작
-          2.게임 종료
-          원하는 기능을 선택해주세요 :
-          """, terminator: " ")
-    guard let selectedMenu = readLine()?.trimmingCharacters(in: .whitespaces) else { return }
-    
-    if selectedMenu == "1" {
-        return startGame()
-    }
-    else if selectedMenu == "2" {
-        return
-    }
-    else {
-        print("입력이 잘못되었습니다.")
-        return selectMenu()
-    }
-}
-
-func startGame() {
-    remainedChances = 9
-    let randomNumbers = makeRandomNumbers()
-    
-    while remainedChances > 0 {
-        let userNumbers = receiveNumbers()
-        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
-        
-        guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { return selectMenu() }
-        
-        printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
-        
-        print("남은 기회 \(remainedChances)")
-        guard checkComputerWin(remainedChances: remainedChances) == false else { return selectMenu() }
     }
 }
 
