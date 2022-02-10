@@ -23,20 +23,23 @@ func printMenu() {
 
 func selectedMenu() -> Int {
     guard let menuInput = readLine(),
-            let intValue = Int(menuInput)
+          let convertedMenuInput = Int(menuInput)
     else {
         print("입력이 잘못되었습니다")
         return .zero
     }
     
-    return intValue
+    return convertedMenuInput
 }
 
 func runSelectedMenu(menuInput: Int) {
+    let gameStart = 1
+    let gameExit = 2
+    
     switch menuInput {
-    case 1:
+    case gameStart:
         startGame()
-    case 2:
+    case gameExit:
         break
     default:
         print("입력이 잘못되었습니다.")
@@ -49,10 +52,10 @@ func startGame() {
     var matchCount = 9
     
     while matchCount > .zero && strikeCount != winnerGoalCount {
-        let userNumbers = generatedUserThreeRandomNumbers()
+        let userNumbers = generatedUserRandomNumbers()
         
-        strikeCount = 0
-        ballCount = 0
+        strikeCount = .zero
+        ballCount = .zero
         
         judgeBallOrStrike(targetNumbers: randomNumbers, userNumbers: userNumbers)
         
@@ -61,18 +64,19 @@ func startGame() {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(matchCount)")
     }
+    
     showGameResult()
 }
 
-func generatedUserThreeRandomNumbers() -> [Int] {
-    var userEnteredNumbers = [Int]()
+func generatedUserRandomNumbers() -> [Int] {
+    var verifiedRandomNumbers = [Int]()
     
-    while userEnteredNumbers.isEmpty {
+    while verifiedRandomNumbers.isEmpty {
         printUserGuideMenu()
-        userEnteredNumbers = inputUserThreeNumbers()
+        verifiedRandomNumbers = inputUserNumbers()
     }
     
-    return userEnteredNumbers
+    return verifiedRandomNumbers
 }
 
 func printUserGuideMenu() {
@@ -81,47 +85,42 @@ func printUserGuideMenu() {
     print("입력 : ", terminator: "")
 }
 
-func inputUserThreeNumbers() -> [Int] {
+func inputUserNumbers() -> [Int] {
     guard let input = readLine()?.components(separatedBy: " ") else {
         print("입력이 잘못되었습니다")
         return []
     }
+    
+    let convertedInput = input.compactMap { Int($0) }
 
-    guard isUserInputValid(list: input) else {
+    guard verifyUserInput(input: convertedInput) else {
         print("입력이 잘못되었습니다")
         return []
     }
     
-    return input.compactMap{Int($0)}
+    return input.compactMap{ Int($0) }
 }
 
-func isUserInputValid(list: [String]) -> Bool{
-    guard isCountIsThree(numberList: list) else {
+func verifyUserInput(input: [Int]) -> Bool{
+    guard verifyNumbersDuplication(numberList: input) else {
         return false
     }
     
-    guard isNumbersDuplication(numberList: list) else {
+    guard verifyValidRange(numberList: input) else {
         return false
     }
     
-    guard isValidRange(numberList: list) else {
-        return false
-    }
     return true
 }
 
-func isCountIsThree(numberList: [String]) -> Bool {
-    return numberList.count == 3
-}
-
-func isNumbersDuplication(numberList: [String]) -> Bool{
+func verifyNumbersDuplication(numberList: [Int]) -> Bool{
     return Set(numberList).count == 3
 }
 
-func isValidRange(numberList: [String]) -> Bool {
-    return numberList.compactMap {Int($0)}
-    .filter{ (1...9).contains($0)}
-    .count == 3
+func verifyValidRange(numberList: [Int]) -> Bool {
+    return numberList
+        .filter{ (1...9).contains($0) }
+        .count == 3
 }
 
 func generatedThreeRandomNumbers() -> [Int] {
