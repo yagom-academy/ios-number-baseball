@@ -91,34 +91,33 @@ func inputUserNumbers() -> [Int] {
         return []
     }
     
-    let convertedInput = input.compactMap { Int($0) }
-
-    guard verifyUserInput(input: convertedInput) else {
+    guard verifyUserInput(input: input) else {
         print("입력이 잘못되었습니다")
         return []
     }
     
-    return convertedInput
+    return input.compactMap { Int($0) }
 }
 
-func verifyUserInput(input: [Int]) -> Bool {
-    guard verifyNumbersDuplication(numberList: input) else {
+func verifyUserInput(input: [String]) -> Bool {
+    guard verifyNumbersDuplication(input: input) else {
         return false
     }
     
-    guard verifyValidRange(numberList: input) else {
+    guard verifyValidRange(input: input) else {
         return false
     }
     
     return true
 }
 
-func verifyNumbersDuplication(numberList: [Int]) -> Bool {
-    return Set(numberList).count == 3
+func verifyNumbersDuplication(input: [String]) -> Bool {
+    return Set(input).count == 3
 }
 
-func verifyValidRange(numberList: [Int]) -> Bool {
-    return numberList
+func verifyValidRange(input: [String]) -> Bool {
+    return input
+        .compactMap { Int($0) }
         .filter{ (1...9).contains($0) }
         .count == 3
 }
