@@ -73,7 +73,7 @@ func comparePlayerNumbers() {
 }
 
 func checkTotalStatus() {
-    let sameNumbers = computerNumbers.filter{ computerNumbers.contains($0)}
+    let sameNumbers = computerNumbers.filter{ playerNumbers.contains($0) }
     for element in 0..<3 {
         checkStrikeCondition(element: element)
     }
