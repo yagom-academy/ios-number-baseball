@@ -12,11 +12,14 @@ var playerNumbers: [Int] = []
 var roundCount: Int = 9
 var strike: Int = 0
 var ball: Int = 0
+let maxArrayCount: Int = 3
+let firstRange: Int = 1
+let lastRange: Int = 9
 
 func startGame() {
-    saveComputerNumbers()
+    computerNumbers = transformSetToArray()
     while roundCount > 0 {
-        savePlayerNumbers()
+        playerNumbers = transformSetToArray()
         checkScoreCondition()
         checkGameResult()
         resetValue()
@@ -33,47 +36,33 @@ func checkGameResult() {
 }
 
 func generateRandomNumber() -> Int {
-    return Int.random(in: 1...9)
+    return Int.random(in: firstRange...lastRange)
 }
 
-func saveComputerNumbers() {
-    while computerNumbers.count < 3 {
-        compareComputerNumbers()
+func saveNumbersToSet() -> Set<Int> {
+    var randomNumbersSet: Set<Int> = []
+    while randomNumbersSet.count < maxArrayCount {
+        randomNumbersSet.insert(generateRandomNumber())
     }
+    return randomNumbersSet
 }
 
-func compareComputerNumbers() {
-    let randomNumber = generateRandomNumber()
-    if computerNumbers.contains(randomNumber) == false {
-        computerNumbers.append(randomNumber)
-    }
+func transformSetToArray() -> [Int] {
+    return Array(saveNumbersToSet())
 }
 
-func savePlayerNumbers() {
-    while playerNumbers.count < 3 {
-        comparePlayerNumbers()
-    }
-}
-
-func comparePlayerNumbers() {
-    let randomNumber = generateRandomNumber()
-    if playerNumbers.contains(randomNumber) == false {
-        playerNumbers.append(randomNumber)
-    }
-}
-
-func printRandomNumbers() {
+func printPlayerNumbers() {
     print("\n임의의 수 : ", terminator: "")
     playerNumbers.forEach{ print($0, terminator: " ") }
 }
 
 func checkScoreCondition() {
     let sameNumbers = computerNumbers.filter{ playerNumbers.contains($0) }
-    for element in 0..<3 {
+    for element in 0..<maxArrayCount {
         checkStrikeCondition(numberInArray: element)
     }
     checkBallCondition(sameNumbers: sameNumbers.count)
-    printRandomNumbers()
+    printPlayerNumbers()
     printScoreInformation()
 }
 
