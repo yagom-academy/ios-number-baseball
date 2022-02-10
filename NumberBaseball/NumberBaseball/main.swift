@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 var numbersByComputer: [Int] = []
 var numberOfChance: Int = 9
 var numbersByUser: [Int] = []
@@ -14,18 +13,16 @@ var strikeCount: Int = 0
 var ballCount: Int = 0
 
 func generateRandomNumbers() -> [Int] {
-    var numberArray: [Int] = []
-    var numberPool: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    
+    var randomNumbers: [Int] = []
+    var numberPool: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
     for _ in 1...3 {
-        numberArray.append(numberPool[Int.random(in: 0..<numberPool.count)])
-        numberPool = numberPool.filter({ !numberArray.contains($0) })
+        randomNumbers.append(numberPool.removeFirst())
     }
 
-    return numberArray
+    return randomNumbers
 }
 
-func judgeGameResult() {
+func updateStrikeAndBallCount() {
     strikeCount = 0
     ballCount = 0
     
@@ -38,29 +35,27 @@ func judgeGameResult() {
     }
 }
 
-func startGame() {
+func startGame(numberOfChance: Int) {
     numbersByComputer = generateRandomNumbers()
+    var numberOfChance = numberOfChance
     
     while(numberOfChance > 0 && strikeCount < 3) {
         numbersByUser = generateRandomNumbers()
         let convertedNumbers = numbersByUser.map({ String($0) })
         print("임의의 수 :", convertedNumbers.joined(separator: " "))
-        judgeGameResult()
+        
+        updateStrikeAndBallCount()
+        numberOfChance -= 1
         
         if strikeCount == 3 {
             print("사용자 승리!")
-            print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-            break
-        }
-
-        if (numberOfChance - 1) == .zero {
+        } else if numberOfChance == 0 {
             print("컴퓨터 승리...!")
-            print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         }
         
-        numberOfChance -= 1
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(numberOfChance)")
     }
 }
 
-startGame()
+startGame(numberOfChance: numberOfChance)
