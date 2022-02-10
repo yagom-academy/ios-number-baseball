@@ -39,12 +39,16 @@ func judgeBallOrStrike(targetNumbers: [Int], userNumbers: [Int]) {
     }
 }
 
-func printWinnerMessage() {
+func showGameResult() {
     if strikeCount == winnerGoalCount {
         print("사용자 승리!")
     } else {
         print("컴퓨터 승리...!")
     }
+}
+
+func convertIntArrayToString(intArray: [Int]) -> String {
+    intArray.map { String($0) }.joined(separator: " ")
 }
 
 func startGame() {
@@ -53,7 +57,8 @@ func startGame() {
     
     while matchCount > .zero && strikeCount != winnerGoalCount {
         let userNumbers = generatedThreeRandomNumbers()
-        let convertedString = convertIntArrayToString(intArray: userNumbers)
+        let stringTypeUserNumbers = convertIntArrayToString(intArray: userNumbers)
+        
         strikeCount = 0
         ballCount = 0
         
@@ -61,15 +66,11 @@ func startGame() {
         
         matchCount -= 1
 
-        print("임의의 수 : \(convertedString)")
+        print("임의의 수 : \(stringTypeUserNumbers)")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회 : \(matchCount)")
     }
-    printWinnerMessage()
-}
-
-func convertIntArrayToString(intArray: [Int]) -> String {
-    intArray.map { String($0) }.joined(separator: " ")
+    showGameResult()
 }
 
 startGame()
