@@ -7,16 +7,31 @@
 import Foundation
 
 func createThreeRandomNumbers() -> [Int] {
-    var returnNumbers: Int[] = []
+    var returnNumbers: [Int] = []
     
     while returnNumbers.count < 3 {
-        returnNumbers.insert(Int.random(in: 1...9))
+        let randomNumber = Int.random(in: 1...9)
+        if !isDuplicated(compareNumbers: returnNumbers, compareNumber: randomNumber) {
+            returnNumbers.append(randomNumber)
+        }
     }
-    
     return returnNumbers
 }
 
-func getScore(answerNumbers : Array<Int>, guessNumbers : Array<Int>) -> (strike: int, ball: int) {
+func isDuplicated(compareNumbers: Array<Int>, compareNumber: Int) -> Bool {
+    
+    if compareNumbers.count == 0 {
+        return false
+    }
+    for arrayIndex in 0..<compareNumbers.count {
+        if compareNumbers[arrayIndex] == compareNumber {
+            return true
+        }
+    }
+    return false
+}
+
+func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> (strike: Int, ball: Int) {
     var strike = 0
     var ball = 0
     
@@ -32,6 +47,5 @@ func getScore(answerNumbers : Array<Int>, guessNumbers : Array<Int>) -> (strike:
             }
         }
     }
-    
     return (strike, ball)
 }
