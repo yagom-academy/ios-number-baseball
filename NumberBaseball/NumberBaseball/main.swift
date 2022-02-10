@@ -72,44 +72,31 @@ func receiveNumbers() -> [String] {
     guard let receivedNumbers = readLine() else { return receiveNumbers() }
     let userNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ")
     
-    if userNumbers.filter({ Character($0).isNumber }).count != 3 {
+    if Set(userNumbers).count != 3 || Int(userNumbers.joined()) == nil {
         print("입력이 잘못되었습니다.")
         return receiveNumbers()
     }
     
-    
     return userNumbers
 }
 
-func selectMenu() -> Int? {
+func selectMenu() {
     print("""
           1.게임 시작
           2.게임 종료
           원하는 기능을 선택해주세요 :
           """, terminator: " ")
-    guard let selectedMenu = readLine() else { return nil }
-    switch selectedMenu {
-    case "1":
-        return 1
-    case "2":
-        return 2
-        
-    default:
-        return nil
-    }
+    guard let selectedMenu = readLine()?.trimmingCharacters(in: .whitespaces) else { return }
     
-}
-
-func playGame() {
-    var selectedMenu = selectMenu()
-    while selectedMenu == nil {
-        print("입력이 잘못되었습니다")
-        selectedMenu = selectMenu()
+    if selectedMenu == "1" {
+        return startGame()
     }
-    if selectedMenu == 1 {
-        startGame()
-    } else {
+    else if selectedMenu == "2" {
         return
+    }
+    else {
+        print("입력이 잘못되었습니다.")
+        return selectMenu()
     }
 }
 
@@ -130,4 +117,4 @@ func startGame() {
     }
 }
 
-playGame()
+selectMenu()
