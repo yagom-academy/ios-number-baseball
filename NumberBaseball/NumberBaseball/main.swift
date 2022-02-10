@@ -6,22 +6,22 @@
 
 import Foundation
 
-var playerNumbers: Set<Int> = Set()
-var computerNumbers: Set<Int> = Set()
+var playerNumbers: [Int] = []
+var computerNumbers: [Int] = []
 var matchCount: Int = 9
 var computerOut: Int = 3
 
-func generateRandomThreeNumbers() -> Set<Int> {
-    var numbers: Set<Int> = Set()
+func generateRandomThreeNumbers() -> [Int] {
+    var numbers: Set<Int> = []
     
     while numbers.count < 3 {
         numbers.insert(Int.random(in: 1...9))
     }
-    return numbers
+    return Array(numbers)
 }
 
 func makeMatchScore(_ strikeCount: Int, _ ballCount: Int) -> String {
-    return "\(strikeCount) 스트라이크, \(ballCount - strikeCount) 볼"
+    return "\(strikeCount) 스트라이크, \(ballCount) 볼"
 }
 
 func checkStrikeCount() -> Int {
@@ -40,10 +40,19 @@ func increase(in strikeCount: inout Int, _ playerNumber: Int, _ computerNumber: 
 }
 
 func checkBallCount() -> Int {
-    return computerNumbers.intersection(playerNumbers).count
+    var ballCount: Int = 0
+
+    for (index, number) in computerNumbers.enumerated() {
+        for i in 0...playerNumbers.count - 1 {
+            if index != i && number == playerNumbers[i] {
+                ballCount += 1
+            }
+        }
+    }
+    return ballCount
 }
 
-func convertSetToString(of values: Set<Int>) -> String {
+func convertArrayToString(of values: [Int]) -> String {
     return values.map { "\($0)" }.joined(separator: " ")
 }
 
@@ -57,7 +66,7 @@ func playNumberBaseBallGame() {
         print("임의의 수 : ", terminator: "")
 
         playerNumbers = generateRandomThreeNumbers()
-        print(convertSetToString(of: playerNumbers))
+        print(convertArrayToString(of: playerNumbers))
         
         strikeCount = checkStrikeCount()
         ballCount = checkBallCount()
