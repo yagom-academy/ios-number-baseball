@@ -29,6 +29,15 @@ func compare(computerNumber: [Int], playerNumber: [Int]) -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
+func printWinner(strikeCount: Int) {
+    if strikeCount == 3 {
+        print("사용자 승리!")
+        return
+    } else if remainingTime == 0 {
+        print("컴퓨터 승리...!")
+    }
+}
+
 func startGame() {
     repeat {
         computerNumbers = createDeduplicatedRadnomNumbers()
@@ -38,12 +47,7 @@ func startGame() {
         
         print("임의의 수 : \(computerNumbers[0]) \(computerNumbers[1]) \(computerNumbers[2])")
         
-        if strikeBallOfResult.strikeCount == 3 {
-            print("사용자 승리!")
-            return
-        } else if remainingTime == 0 {
-            print("컴퓨터 승리...!")
-        }
+        printWinner(strikeCount: strikeBallOfResult.strikeCount)
         
         print("\(strikeBallOfResult.strikeCount) 스트라이크, \(strikeBallOfResult.ballCount) 볼")
         print("남은 기회 : \(remainingTime)")
