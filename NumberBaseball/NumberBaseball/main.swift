@@ -72,9 +72,11 @@ func receiveInputNumbers() {
     
     guard let inputNumbers = readLine() else { return }
     userInputNumbers.append(contentsOf: inputNumbers.components(separatedBy: ""))
-    
-    let unconvertNumbers = inputNumbers.components(separatedBy: " ").filter({ $0 != "" })
-    var putNumbers = Array<Int>()
+    }
+
+
+func verifyNumbers(to numbers: Array<String>) -> Array<Int> {
+   return [0]
 }
 
 func playGame() {
