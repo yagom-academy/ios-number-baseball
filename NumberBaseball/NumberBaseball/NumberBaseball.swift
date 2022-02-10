@@ -12,21 +12,21 @@ var playerNumbers: [Int] = []
 var roundCount: Int = 9
 var strike: Int = 0
 var ball: Int = 0
-let maxArrayCount: Int = 3
-let firstRange: Int = 1
-let lastRange: Int = 9
+let maxNumberCount: Int = 3
+let range = 1...9
 
 func startGame() {
-    computerNumbers = transformSetToArray()
+    computerNumbers = notOverlapNumbersArray()
     while roundCount > 0 {
-        playerNumbers = transformSetToArray()
+        playerNumbers = notOverlapNumbersArray()
         checkScoreCondition()
         checkGameResult()
-        resetValue()
     }
 }
 
 func checkGameResult() {
+    strike = 0
+    ball = 0
     if roundCount == 0 {
         print("컴퓨터 승리🤣")
     } else if strike == 3 {
@@ -36,18 +36,18 @@ func checkGameResult() {
 }
 
 func generateRandomNumber() -> Int {
-    return Int.random(in: firstRange...lastRange)
+    return Int.random(in: range)
 }
 
 func saveNumbersToSet() -> Set<Int> {
     var randomNumbersSet: Set<Int> = []
-    while randomNumbersSet.count < maxArrayCount {
+    while randomNumbersSet.count < maxNumberCount {
         randomNumbersSet.insert(generateRandomNumber())
     }
     return randomNumbersSet
 }
 
-func transformSetToArray() -> [Int] {
+func notOverlapNumbersArray() -> [Int] {
     return Array(saveNumbersToSet())
 }
 
@@ -58,8 +58,8 @@ func printPlayerNumbers() {
 
 func checkScoreCondition() {
     let sameNumbers = computerNumbers.filter{ playerNumbers.contains($0) }
-    for element in 0..<maxArrayCount {
-        checkStrikeCondition(numberInArray: element)
+    for eachNumber in 0..<maxNumberCount {
+        checkStrikeCondition(numberInArray: eachNumber)
     }
     checkBallCondition(sameNumbers: sameNumbers.count)
     printPlayerNumbers()
@@ -82,8 +82,4 @@ func printScoreInformation() {
     print("남은 기회 : \(roundCount)")
 }
 
-func resetValue() {
-    playerNumbers.removeAll()
-    strike = 0
-    ball = 0
-}
+    
