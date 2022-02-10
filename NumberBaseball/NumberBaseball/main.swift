@@ -16,6 +16,14 @@ func printMenu() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
+func selectMenu() -> Int {
+    guard let menuInput = readLine(), let intValue = Int(menuInput) else {
+        print("입력이 잘못되었습니다")
+        return .zero
+    }
+    return intValue
+}
+
 func startGame() {
     let randomNumbers = generatedThreeRandomNumbers()
     var matchCount = 9
