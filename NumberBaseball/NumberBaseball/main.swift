@@ -78,15 +78,36 @@ func playNumberBaseball() {
 }
 
 func getUserNumbers() -> [Int] {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
-    print("입력", terminator: " : ")
-    let input: String? = readLine()
+    var flag: Bool = false
     var userNumbers: [Int] = []
-    if let numbers = input {
-        print(numbers)
-        userNumbers = numbers.split(separator: " ").compactMap({ Int($0) })
+    while flag == false {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+        print("입력", terminator: " : ")
+        let input: String? = readLine()
+        if let numbers = input {
+            userNumbers = numbers.split(separator: " ").compactMap({ Int($0) })
+            if checkValidation(userNumbers: userNumbers) == false {
+                print("입력이 잘못되었습니다")
+            } else {
+                flag = true
+            }
+        }
     }
     return userNumbers
 }
 
-startGame(numberOfChance: 9)
+func checkValidation(userNumbers: [Int]) -> Bool {
+    if userNumbers.count != 3 {
+        return false
+    }
+    if userNumbers.filter({ $0 < 10 }).count != 3 {
+        return false
+    }
+    let numbersSet : Set<Int> = Set(userNumbers)
+    if numbersSet.count != 3 {
+        return false
+    }
+    return true
+}
+
+print(getUserNumbers())
