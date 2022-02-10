@@ -69,27 +69,58 @@ func receiveNumbers() -> [String] {
         중복 숫자는 허용하지 않습니다.
         입력 :
         """, terminator: " ")
-    let receivedNumbers = readLine()
-    guard let receivedNumbers = receivedNumbers else { return receiveNumbers() }
+    guard let receivedNumbers = readLine() else { return receiveNumbers() }
+    let userNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ")
     
-    if receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ").count != 3 {
+    if userNumbers.filter({ Character($0).isNumber }).count != 3 {
         print("입력이 잘못되었습니다.")
         return receiveNumbers()
     }
     
-    let userNumbers = receivedNumbers.components(separatedBy: " ")
     
     return userNumbers
 }
 
+func selectMenu() -> Int? {
+    print("""
+          1.게임 시작
+          2.게임 종료
+          원하는 기능을 선택해주세요 :
+          """, terminator: " ")
+    guard let selectedMenu = readLine() else { return nil }
+    switch selectedMenu {
+    case "1":
+        return 1
+    case "2":
+        return 2
+        
+    default:
+        return nil
+    }
+    
+}
+
 func playGame() {
+    var selectedMenu = selectMenu()
+    while selectedMenu == nil {
+        print("입력이 잘못되었습니다")
+        selectedMenu = selectMenu()
+    }
+    if selectedMenu == 1 {
+        startGame()
+    } else {
+        return
+    }
+}
+
+func startGame() {
     remainedChances = 9
     let randomNumbers = makeRandomNumbers()
     
     while remainedChances > 0 {
         let userNumbers = receiveNumbers()
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
-
+        
         guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { return }
         checkComputerWin(remainedChances: remainedChances)
         
