@@ -10,18 +10,38 @@ let winnerGoalCount = 3
 var strikeCount = 0
 var ballCount = 0
 
+func startProgram() {
+    printMenu()
+    runSelectedMenu(menuInput: selectedMenu())
+}
+
 func printMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
-func selectMenu() -> Int {
-    guard let menuInput = readLine(), let intValue = Int(menuInput) else {
+func selectedMenu() -> Int {
+    guard let menuInput = readLine(),
+            let intValue = Int(menuInput)
+    else {
         print("입력이 잘못되었습니다")
         return .zero
     }
+    
     return intValue
+}
+
+func runSelectedMenu(menuInput: Int) {
+    switch menuInput {
+    case 1:
+        startGame()
+    case 2:
+        break
+    default:
+        print("입력이 잘못되었습니다.")
+        startProgram()
+    }
 }
 
 func startGame() {
