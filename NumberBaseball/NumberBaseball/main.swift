@@ -28,28 +28,28 @@ func checkStrikeCount() -> Int {
     var strikeCount: Int = 0
     
     for (playerNumber, computerNumber) in zip(playerNumbers, computerNumbers) {
-        increase(in: &strikeCount, playerNumber, computerNumber)
+        increase(in: &strikeCount) { () -> Bool in
+            return playerNumber == computerNumber
+        }
     }
     return strikeCount
 }
 
-func increase(in strikeCount: inout Int, _ playerNumber: Int, _ computerNumber: Int) {
-    if playerNumber == computerNumber {
-        strikeCount += 1
-    }
-}
-
 func checkBallCount() -> Int {
     var ballCount: Int = 0
-
-    for (index, number) in computerNumbers.enumerated() {
-        for i in 0...playerNumbers.count - 1 {
-            if index != i && number == playerNumbers[i] {
-                ballCount += 1
-            }
+    
+    for (index, number) in playerNumbers.enumerated() {
+        increase(in: &ballCount) { () -> Bool in
+            return number != computerNumbers[index] && computerNumbers.contains(number)
         }
     }
     return ballCount
+}
+
+func increase(in count: inout Int, condition: () -> Bool) {
+    if condition() {
+        count += 1
+    }
 }
 
 func convertArrayToString(of values: [Int]) -> String {
