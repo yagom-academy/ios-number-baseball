@@ -7,12 +7,13 @@
 import Foundation
 
 var targetStrikeCount: Int = 3
+var targetRange: ClosedRange<Int> = 1...9
 
-func generateRandomNumbers(from startNumber: Int = 1, to endNumber: Int = 9, quantity: Int = 3) -> [Int] {
+func generateRandomNumbers(range: ClosedRange<Int> = targetRange, quantity: Int = targetStrikeCount) -> [Int] {
     var numbers: Set<Int> = []
 
     while numbers.count < quantity {
-        numbers.insert(Int.random(in: startNumber...endNumber))
+        numbers.insert(Int.random(in: range))
     }
     return Array(numbers)
 }
@@ -55,6 +56,7 @@ func validatePlayerNumbers(_ inputNumber: String) -> Bool {
     var isNumber: Bool = false
     var isEqualWithTargetStrikeCount: Bool = false
     var isNotDuplicated: Bool = false
+    var isRanged: Bool = false
     let playerNumbers = inputNumber.components(separatedBy: " ")
     var setPlayerNumbers: Set<String> = []
     setPlayerNumbers = Set(playerNumbers)
@@ -73,7 +75,16 @@ func validatePlayerNumbers(_ inputNumber: String) -> Bool {
         isNotDuplicated = true
     }
     
-    return isNumber && isEqualWithTargetStrikeCount && isNotDuplicated
+    let intPlayerNumbers = setPlayerNumbers.compactMap { (number: String) -> Int? in
+        return Int(number)
+    }
+    
+    for number in intPlayerNumbers {
+        if targetRange.contains(number) {
+            isRanged = true
+        }
+    }
+    return isNumber && isEqualWithTargetStrikeCount && isNotDuplicated && isRanged
 }
 
 func convertInputToIntArray(_ inputNumber: String) -> [Int] {
