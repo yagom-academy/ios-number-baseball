@@ -87,6 +87,14 @@ func isHaveIntType(numbers: [String]?) -> Bool {
     return true
 }
 
+func isHaveInRange(numbers: [Int], range: ClosedRange<Int> = 1...9) -> Bool {
+    return numbers.filter { range.contains($0) }.count == 3
+}
+
+func isHaveVerifiedNumbers(_ numbers: [String]?) -> Bool {
+    return isHaveIntType(numbers: numbers) && isHaveInRange(numbers: userInputNumbers)
+}
+
 func playGame() {
     let chancePoint = 1
     
