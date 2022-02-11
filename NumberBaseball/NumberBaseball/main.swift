@@ -49,6 +49,47 @@ func inputPlayerNumbers() -> String? {
     return playerInputNumbers
 }
 
+func checkInputAvailability() -> [Int] {
+    let numberOfRange: ClosedRange<Int> = 1...9
+    
+    while true {
+        guard let playerNumbers = inputPlayerNumbers(), playerNumbers.isEmpty == false else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+        
+        let playerInputNumberList: [String] = playerNumbers.components(separatedBy: " ")
+        
+        guard playerInputNumberList.count == 3 else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+        
+        guard let fistInputNumber: Int = Int(playerInputNumberList[0]),
+              let secondInputNumber: Int = Int(playerInputNumberList[1]),
+              let thirdInputNumber: Int = Int(playerInputNumberList[2]) else {
+                  print("입력이 잘못되었습니다")
+                  continue
+              }
+        
+        guard (numberOfRange).contains(fistInputNumber),
+              (numberOfRange).contains(secondInputNumber),
+              (numberOfRange).contains(thirdInputNumber) else {
+                  print("입력이 잘못되었습니다")
+                  continue
+              }
+        
+        guard playerInputNumberList[0] != playerInputNumberList[1],
+              playerInputNumberList[0] != playerInputNumberList[2],
+              playerInputNumberList[1] != playerInputNumberList[2] else {
+                  print("입력이 잘못되었습니다")
+                  continue
+              }
+        
+        return [fistInputNumber, secondInputNumber, thirdInputNumber]
+    }
+}
+
 func startProgram() {
     var isgameOver: Bool = false
     
