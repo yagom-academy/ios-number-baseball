@@ -42,18 +42,19 @@ func generateRandomNumber() -> Int {
 
 func inputPlayerNumbers() {
     printInputGuide()
-    guard let inputNumbersString = readLine()?.components(separatedBy: " ") else { return }
-    let inputNumbersInt = convertInputNumbersStringToInt(inputNumbersString)
-    verifyInputPlayerNumbers(inputNumbersInt)
+    guard let userInput: String = readLine() else { return }
+    let inputNumbers: [String] = userInput.components(separatedBy: " ")
+    let convertedInputNumbers: [Int] = convertNumbersStringToInt(inputNumbers)
+    verifyInputPlayerNumbers(convertedInputNumbers)
 }
 
-func convertInputNumbersStringToInt(_ inputNumbersString: [String]) -> [Int] {
-    return inputNumbersString.compactMap{ Int($0) }
+func convertNumbersStringToInt(_ inputNumbers: [String]) -> [Int] {
+    return inputNumbers.compactMap{ Int($0) }
 }
 
-func verifyInputPlayerNumbers(_ inputNumbersInt: [Int]) {
-    if inputNumbersInt.count == maxNumberCount && isNotOverlappedPlayerNumbers(inputNumbersInt) {
-        playerNumbers = inputNumbersInt
+func verifyInputPlayerNumbers(_ convertedInputNumbers: [Int]) {
+    if convertedInputNumbers.count == maxNumberCount && isNotOverlappedPlayerNumbers(convertedInputNumbers) {
+        playerNumbers = convertedInputNumbers
         checkScoreCondition()
     } else {
         printError()
