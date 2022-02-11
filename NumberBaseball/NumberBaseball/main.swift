@@ -45,7 +45,7 @@ func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> score {
 
 func playGame() {
     let answerNumbers = createThreeRandomNumbers()
-    var trialCount: Int = 9
+    var trialCount = 9
     
     while trialCount != 0 {
         let guessNumbers = createThreeRandomNumbers()
