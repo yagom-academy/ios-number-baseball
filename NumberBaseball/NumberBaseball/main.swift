@@ -1,6 +1,6 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by Lingo, RED. 
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -87,7 +87,28 @@ func displayScoreBoard(_ strikeCount: inout Int, _ ballCount: inout Int) {
 }
 
 func main() {
-    playNumberBaseBallGame()
+    var gameStatus: Bool = true
+    
+    while gameStatus {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        
+        takePlayerIntention(&gameStatus)
+    }
+}
+
+func takePlayerIntention(_ gameStatus: inout Bool) {
+    guard let choice = readLine() else { return }
+    
+    switch choice {
+    case "1":
+        playNumberBaseBallGame()
+    case "2":
+        gameStatus = false
+    default:
+        print("입력이 잘못되었습니다")
+    }
 }
 
 main()
