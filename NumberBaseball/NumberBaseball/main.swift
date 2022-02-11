@@ -42,7 +42,8 @@ func receiveNumbers() -> [String] {
 }
 
 func checkReceivedNumbers(userNumbers: [String]) -> Bool {
-    if Set(userNumbers).count != 3 || Int(userNumbers.joined()) == nil {
+    let checkedNumbers = userNumbers.filter { $0.count == 1 && $0 != "0" }
+    if Set(checkedNumbers).count != 3 || Int(checkedNumbers.joined()) == nil {
         print("입력이 잘못되었습니다.")
         return false
     }
