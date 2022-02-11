@@ -55,9 +55,8 @@ func secondMenuChoice() -> [Int] {
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 ", terminator: "")
         let input1 = checkUserInput()
-        if checkUserNumberFormat(userInput: input1).isEmpty {
-        } else {
-            returnNumber = checkUserNumberFormat(userInput: input1)
+        returnNumber = checkUserNumberFormat(userInput: input1)
+        if returnNumber != [] {
             flag = false
         }
     }
@@ -89,7 +88,7 @@ func checkStrike(userStrikeCount: Int, userNumbers: [Int]) -> ([Int], Int) {
     for (userIndex, userNumber) in userNumbers.enumerated() {
         if let (notStrikeNumber, strikeCount2) = countStrike(userNumber: userNumber, userIndex: userIndex, userStrikeCount: strikeCount) {
             strikeCount = strikeCount2
-            notStrikeNumbers = makeNotStrikeNumbers(notStrikeNumber: notStrikeNumber)
+            notStrikeNumbers.append(makeNotStrikeNumbers(notStrikeNumber: notStrikeNumber))
         }
     }
     return (notStrikeNumbers, strikeCount)
@@ -106,12 +105,11 @@ func countStrike(userNumber: Int, userIndex: Int, userStrikeCount: Int) -> (Int?
     return (userNumber, strikeCount)
 }
 
-func makeNotStrikeNumbers(notStrikeNumber: Int?) -> [Int] {
-    var notStrikeNumbers: [Int] = []
+func makeNotStrikeNumbers(notStrikeNumber: Int?) -> Int {
     if let notStrikeNum = notStrikeNumber {
-        notStrikeNumbers.append(notStrikeNum)
+        return notStrikeNum
     }
-    return notStrikeNumbers
+    return 0
 }
 
 func checkBall(notStrikeNumbers: ([Int], Int), userBallCount: Int) -> (Int, Int) {
@@ -141,19 +139,16 @@ func checkUserInput() -> [String] {
     for number in userNumbers {
         userThreeNumbers.append(String(number))
     }
-    
     return userThreeNumbers
 }
 
 func checkUserNumberFormat(userInput: [String]) -> [Int] {
-    if !isStringFormat(userInput: userInput),
-       !isThreeDigits(userInput: userInput) {
-        return []
+    if isStringFormat(userInput: userInput),
+        isThreeDigits(userInput: userInput),
+        isSameCharacter(userInput: userInput) {
+        return makeIntArry(userInput: userInput)
     }
-    if Set(userInput).count != 4 {
-        return []
-    }
-    return makeIntArry(userInput: userInput)
+    return []
 }
 
 func isStringFormat(userInput: [String]) -> Bool {
@@ -171,10 +166,17 @@ func isStringFormat(userInput: [String]) -> Bool {
 
 func isThreeDigits(userInput: [String]) -> Bool {
     let S: String = userInput.filter{ $0 != " " }.reduce("") { $0 + String($1) }
-    if S.count != 3 , S.contains("0") {
+    if S.count != 3 || S.contains("0") {
         return false
     }
     guard let _ = Int(S) else {
+        return false
+    }
+    return true
+}
+
+func isSameCharacter(userInput: [String]) -> Bool {
+    if Set(userInput).count != 4 {
         return false
     }
     return true
@@ -184,7 +186,7 @@ func makeIntArry(userInput: [String]) -> [Int] {
     var result2: [Int] = []
     for n in userInput {
         if n == " " {
-            return []
+            continue
         }
         if let num = Int(String(n)) {
             result2.append(num)
