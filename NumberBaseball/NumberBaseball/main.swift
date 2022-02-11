@@ -1,73 +1,79 @@
 import Foundation
 
 
-func makeRandomNum() -> Set<Int> {
-    var randomSet: Set<Int> = []
-
-    while randomSet.count < 3 {
-        let randomNumberInSet = Int.random(in: 1...9)
-        randomSet.insert(randomNumberInSet)
+func makeNonDuplicatedNumbers() -> Set<Int> {
+    var nonDuplicatedNumbers: Set<Int> = []
+    
+    while nonDuplicatedNumbers.count < 3 {
+        let triedNonDuplicatedNumber = Int.random(in: 1...9)
+        nonDuplicatedNumbers.insert(triedNonDuplicatedNumber)
     }
-    return randomSet
+    return nonDuplicatedNumbers
 }
 
-
-func changeArray() -> Array<Int> {
-    let setRandomNum = makeRandomNum()
-    let arrayRandomNum = Array(setRandomNum)
-    return arrayRandomNum
+func convertSetToArray() -> Array<Int> {
+    let nonDuplicatedNumbers = makeNonDuplicatedNumbers()
+    let sortedNumbers = Array(nonDuplicatedNumbers)
+    return sortedNumbers
 }
 
+func increaseStrikeBallCount(_ answerNumbers: Array<Int>, _ randomNumbers: Array<Int>, _ strikeCount: Int, _ ballCount: Int, _ index: Int) -> (Int, Int) {
+    var increaseStrikeCount = strikeCount
+    var increaseBallCount = ballCount
+    
+    if answerNumbers[index] == randomNumbers[index] {
+        increaseStrikeCount += 1
+    } else if answerNumbers.contains(randomNumbers[index]) {
+        increaseBallCount += 1
+    }
+    return (increaseStrikeCount, increaseBallCount)
+}
 
-func checkStrikeBall(answerNumbers: Array<Int>, randomNumbers: Array<Int>) -> (Int, Int) {
+func returnStrikeBallCount(_ answerNumbers: Array<Int>, _ randomNumbers: Array<Int>) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
-
+    
     for index in 0...2 {
-        if answerNumbers[index] == randomNumbers[index] {
-            strikeCount += 1
-        } else if answerNumbers.contains(randomNumbers[index]) {
-            ballCount += 1
-        }
+        (strikeCount, ballCount) = increaseStrikeBallCount(answerNumbers, randomNumbers, strikeCount, ballCount, index)
     }
     return (strikeCount, ballCount)
 }
 
-
-func printResult(randomNumbers: Array<Int>, strikeCount: Int, ballCount: Int, tryCount: Int) {
-    print("임의의 수 : \(randomNumbers[0]) \(randomNumbers[1]) \(randomNumbers[2])")
+func printResult(_ randomNumbers: Array<Int>, _ strikeCount: Int, _ ballCount: Int, _ remainCount: Int) {
+    let firstNumber = randomNumbers[0]
+    let secondNumber = randomNumbers[1]
+    let thirdNumber = randomNumbers[2]
+    
+    print("임의의 수 : \(firstNumber) \(secondNumber) \(thirdNumber)")
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    print("남은 기회 : \(tryCount)")
+    print("남은 기회 : \(remainCount)")
 }
 
-
-func finishGame(strikeCount: Int, tryCount: Int) -> Int {
-    var endCount = tryCount
-
+func decideWinner(_ strikeCount: Int, _ remainCount: Int) -> Int {
+    var exitWhile = remainCount
+    
     if strikeCount == 3 {
         print("사용자 승리...!")
-        endCount = 0
-    } else if tryCount == 0 {
+        exitWhile = 0
+    } else if remainCount == 0 {
         print("컴퓨터 승리...!")
     }
-    return endCount
+    return exitWhile
 }
-
 
 func startGame() {
     var answerNumbers: Array<Int> = []
     var randomNumbers: Array<Int> = []
-    var tryCount = 9
-
-    answerNumbers = changeArray()
-    while tryCount != 0 {
-        randomNumbers = changeArray()
-        let (strikeCount, ballCount) = checkStrikeBall(answerNumbers: answerNumbers, randomNumbers: randomNumbers)
-        tryCount -= 1
-        printResult(randomNumbers: randomNumbers, strikeCount: strikeCount, ballCount: ballCount, tryCount: tryCount)
-        tryCount = finishGame(strikeCount: strikeCount, tryCount: tryCount)
+    var remainCount = 1000
+    
+    answerNumbers = convertSetToArray()
+    while remainCount != 0 {
+        randomNumbers = convertSetToArray()
+        let (strikeCount, ballCount) = returnStrikeBallCount(answerNumbers, randomNumbers)
+        remainCount -= 1
+        printResult(randomNumbers, strikeCount, ballCount, remainCount)
+        remainCount = decideWinner(strikeCount, remainCount)
     }
 }
-
 
 startGame()
