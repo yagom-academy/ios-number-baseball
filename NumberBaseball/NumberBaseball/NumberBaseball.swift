@@ -2,7 +2,7 @@
 //  NumberBaseball.swift
 //  NumberBaseball
 //
-//  Created by mmim, onetool on 2022/02/11.
+//  Created by mmim on 2022/02/11.
 //
 
 import Foundation

@@ -2,12 +2,14 @@
 //  StartMenu.swift
 //  NumberBaseball
 //
-//  Created by mmim, onetool on 2022/02/11.
+//  Created by mmim on 2022/02/11.
 //
 
 import Foundation
 
-func startGameInterface() {
+func startGameMenu() {
+    let firstOption = "1"
+    let secondOption = "2"
     print("""
         1. 게임시작
         2. 게임종료
@@ -15,12 +17,12 @@ func startGameInterface() {
         """, terminator: " ")
     guard let userSelectedOption = readLine() else { return }
     switch userSelectedOption {
-    case "1":
+    case firstOption:
         startGame()
-    case "2":
+    case secondOption:
         break
     default :
         print("입력이 잘못되었습니다")
-        startGameInterface()
+        startGameMenu()
     }
 }
