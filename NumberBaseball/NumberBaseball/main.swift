@@ -8,6 +8,10 @@ import Foundation
 
 typealias score = (strike: Int, ball: Int)
 
+enum Menu: String {
+    case gameStart = "1", gameEnd = "2"
+}
+
 func createThreeRandomNumbers() -> [Int] {
     var returnNumbers: [Int] = []
     
@@ -66,8 +70,19 @@ func playGame() {
     }
 }
 
-playGame()
+func chooseMenu() -> String {
+    print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요.")
+    let enteredNumber = readLine()
+    if let userMenu = enteredNumber {
+        if userMenu == Menu.gameStart.rawValue || userMenu == Menu.gameEnd.rawValue {
+            return userMenu
+        }
+    }
+    print("입력이 잘못되었습니다.")
+    return chooseMenu()
+}
 
+playGame()
 
 
 
