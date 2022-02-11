@@ -12,7 +12,7 @@ Created by: safari & malrang
 * 수의 범위는 1~9 이며 중복된 수는 없습니다.
 
 ### Flow Chart
-<img src = "https://user-images.githubusercontent.com/91936941/153184248-2997a8f8-4109-4060-91c6-ac7d04f8341d.png" width="500px">
+<img src = "https://user-images.githubusercontent.com/91936941/153622391-f5674de0-8efe-4400-abcc-c1d1ac0aa9fe.png" width="500px">
 
 ### Naming
 
