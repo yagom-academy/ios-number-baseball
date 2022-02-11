@@ -12,7 +12,49 @@ var remainingChangeCount: Int = 9
 var strikeCounting = 0
 let endGameCount = 3
 
-// 사용자정의를 못만드니 전역변수로 처리하는데, one이라는 숫자대신 변수로
+func playGame() {
+    let chancePoint = 1
+    
+    while remainingChangeCount > .zero {
+        if isHaveVerifiedNumbers(receiveUserInputNumbers()) {
+            let (strikeResult, ballResult) = calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
+            remainingChangeCount -= chancePoint
+            printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballResult, strikeCount: strikeResult)
+            if strikeCounting == endGameCount { break }
+        } else {
+            receiveUserInputNumbers()
+        }
+    }
+    judgeGameResult()
+}
+
+func selectMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    let inputNumbers: String? = readLine()
+    
+    switch inputNumbers {
+    case "1":
+        playGame()
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+        selectMenu()
+    }
+}
+
+@discardableResult func receiveUserInputNumbers() -> [String]? {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫지는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    
+    let inputNumbers = readLine()?.components(separatedBy: " ")
+    return inputNumbers
+}
+
 func generateRandomNumbers(range: ClosedRange<Int> = 1...9, numbersCount: Int = 3) -> Array<Int> {
     var randomNumbers: Set<Int> = []
     while randomNumbers.count < numbersCount {
@@ -30,48 +72,6 @@ func calculateStrikeBallWith(_ userNumbers: Array<Int>, and computerNumbers: Arr
     ballCount = (Set(computerNumbers).intersection(userNumbers).count - strikeCount)
     strikeCounting += strikeCount
     return (strikeCount, ballCount)
-}
-
-func printPlayingGameMessage(userNumbers: Array<Int> ,ballCount: Int ,strikeCount: Int) {
-    let (strikeDescription, ballDescription) =  ("스트라이크," ,"볼")
-    let (randomNumbersDescription, remainingChanceDescription) = ("임의의 수 : " ,"남은 기회 :")
-    let squareBrakets: CharacterSet = ["[","]"]
-    
-    print("\(randomNumbersDescription) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBrakets))")
-    print("\(strikeCount) \(strikeDescription) \(ballCount) \(ballDescription) ")
-    print("\(remainingChanceDescription) \(remainingChangeCount)")
-}
-
-func judgeGameResult() {
-    let (userWin, computerWin) = ("사용자의 승리...!", "컴퓨터의 승리...!")
-    print(remainingChangeCount == .zero ? computerWin : userWin)
-}
-
-func selectMenu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-    
-    let input: String? = readLine()
-    
-    switch input {
-    case "1":
-        playGame()
-    case "2":
-        return
-    default:
-        print("입력이 잘못되었습니다.")
-        selectMenu()
-    }
-}
-
-@discardableResult func receiveInputNumbers() -> [String]? {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫지는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
-    
-    let inputNumbers = readLine()?.components(separatedBy: " ")
-    return inputNumbers
 }
 
 func saveConvertedNumbers(_ numbers: [Int]) {
@@ -95,19 +95,18 @@ func isHaveVerifiedNumbers(_ numbers: [String]?) -> Bool {
     return isHaveIntType(numbers: numbers) && isHaveInRange(numbers: userInputNumbers)
 }
 
-func playGame() {
-    let chancePoint = 1
+func printPlayingGameMessage(userNumbers: Array<Int> ,ballCount: Int ,strikeCount: Int) {
+    let (strikeDescription, ballDescription) =  ("스트라이크," ,"볼")
+    let (randomNumbersDescription, remainingChanceDescription) = ("임의의 수 : " ,"남은 기회 :")
+    let squareBrakets: CharacterSet = ["[","]"]
     
-    while remainingChangeCount > .zero {
-        if isHaveVerifiedNumbers(receiveInputNumbers()) {
-            let (strikeResult, ballResult) = calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
-            remainingChangeCount -= chancePoint
-            printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballResult, strikeCount: strikeResult)
-            if strikeCounting == endGameCount { break }
-        } else {
-            receiveInputNumbers()
-        }
-    }
-    judgeGameResult()
+    print("\(randomNumbersDescription) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBrakets))")
+    print("\(strikeCount) \(strikeDescription) \(ballCount) \(ballDescription) ")
+    print("\(remainingChanceDescription) \(remainingChangeCount)")
+}
+
+func judgeGameResult() {
+    let (userWin, computerWin) = ("사용자의 승리...!", "컴퓨터의 승리...!")
+    print(remainingChangeCount == .zero ? computerWin : userWin)
 }
 selectMenu()
