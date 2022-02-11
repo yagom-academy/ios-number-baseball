@@ -11,7 +11,7 @@ func createThreeRandomNumbers() -> [Int] {
     
     while returnNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
-        if !isDuplicated(compareNumbers: returnNumbers, compareNumber: randomNumber) {
+        if isDuplicated(compareNumbers: returnNumbers, compareNumber: randomNumber) == false {
             returnNumbers.append(randomNumber)
         }
     }
