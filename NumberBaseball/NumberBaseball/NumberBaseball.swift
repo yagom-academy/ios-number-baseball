@@ -66,9 +66,11 @@ func isNotOverlappedPlayerNumbers(_ inputNumbersInt: [Int]) -> Bool {
 }
 
 func printInputGuide() {
-    print("🪧숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("🪧중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
+    print("""
+        🪧숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        🪧중복 숫자는 허용하지 않습니다.
+        ⌨️입력 :
+        """, terminator: " ")
 }
 
 func printError() {
@@ -101,9 +103,15 @@ func printPlayerNumbers() {
 }
 
 func printScoreInformation() {
-    print("\n\(strike) 스트라이크, \(ball) 볼")
+    reduceRoundCount()
+    print("""
+        \n\(strike) 스트라이크, \(ball) 볼
+        남은 기회 : \(roundCount)
+        """)
+}
+
+func reduceRoundCount() {
     roundCount -= 1
-    print("남은 기회 : \(roundCount)")
 }
 
 func checkGameResult() {
