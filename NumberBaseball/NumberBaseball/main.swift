@@ -6,12 +6,12 @@
 
 import Foundation
 
-func menuView() {
+func selectGameMenu() {
     while true {
         print("1. 게임시작\n2. 게임종료")
         print("원하는 기능을 선택해 주세요 : ", terminator: "")
-        guard let menuNumber = readLine() else { return }
-        switch menuNumber {
+        guard let inputMenuNumber = readLine() else { return }
+        switch inputMenuNumber {
         case "1": startGame()
         case "2": return
         default: print("입력이 잘못되었습니다."); continue
@@ -30,6 +30,12 @@ func makeRandomNumber(to: Int, from: Int, count: Int) -> [Int]? {
     return nonOverlappingNumber
 }
 
+func inputPlayerNumber() {
+    print("숫자 3개를 띄어쓰고 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    guard let inputPlayerNumbers = readLine()?.components(separatedBy: " ") else { return }
+    print(type(of: inputPlayerNumbers[0]))
+}
 
 func getScore(problemNumber: [Int], solutionNumber: [Int]) -> (strikeScore: Int, ballScore: Int) {
     var score: (strikeScore: Int, ballScore: Int) = (strikeScore: 0, ballScore: 0)
@@ -77,4 +83,4 @@ func startGame() {
     } while gameCount > Int.zero && playerScore.strikeScore != 3
 }
 
-menuView()
+inputPlayNumber()
