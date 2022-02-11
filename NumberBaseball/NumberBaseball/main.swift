@@ -6,6 +6,7 @@
 
 import Foundation
 
+
 func selectGameMenu() {
     while true {
         print("1. 게임시작\n2. 게임종료")
@@ -19,9 +20,9 @@ func selectGameMenu() {
     }
 }
 
-func makeRandomNumber(to: Int, from: Int, count: Int) -> [Int]? {
+func makeRandomNumber(from: Int, to: Int, count: Int) -> [Int]? {
     var nonOverlappingNumber: [Int] = []
-    var range: Set<Int> = Set<Int>(to...from)
+    var range: Set<Int> = Set<Int>(from...to)
     while nonOverlappingNumber.count < count {
         guard let randomNumber: Int = range.randomElement() else { return nil }
         nonOverlappingNumber.append(randomNumber)
@@ -33,8 +34,16 @@ func makeRandomNumber(to: Int, from: Int, count: Int) -> [Int]? {
 func inputPlayerNumber() {
     print("숫자 3개를 띄어쓰고 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
     guard let inputPlayerNumbers = readLine()?.components(separatedBy: " ") else { return }
-    print(type(of: inputPlayerNumbers[0]))
+    veryfyNumber(playerNumbers: inputPlayerNumbers)
+    
+}
+
+func veryfyNumber(playerNumbers: [String]) {
+    guard playerNumbers.count == 3 else { return }
+    let veryfyNumbers: [Int] = playerNumbers.compactMap{Int($0)}
+    
 }
 
 func getScore(problemNumber: [Int], solutionNumber: [Int]) -> (strikeScore: Int, ballScore: Int) {
@@ -73,14 +82,14 @@ func printGameResult(solutionNumber: [Int], playerStrikeScore: Int, playerBallSc
 
 func startGame() {
     var playerScore: (strikeScore: Int, ballScore: Int)
-    guard let computerNumbers = makeRandomNumber(to: 1, from: 9, count: 3) else { return }
+    guard let computerNumbers = makeRandomNumber(from: 1, to: 9, count: 3) else { return }
     var gameCount: Int = 9
     repeat {
         gameCount -= 1
-        guard let playerNumbers = makeRandomNumber(to: 1, from: 9, count: 3) else { return }
+        guard let playerNumbers = makeRandomNumber(from: 1, to: 9, count: 3) else { return }
         playerScore = getScore(problemNumber: playerNumbers, solutionNumber: computerNumbers)
         printGameResult(solutionNumber: playerNumbers, playerStrikeScore: playerScore.strikeScore, playerBallScore: playerScore.ballScore, gameCount: gameCount)
     } while gameCount > Int.zero && playerScore.strikeScore != 3
 }
 
-inputPlayNumber()
+
