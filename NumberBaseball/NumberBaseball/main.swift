@@ -6,9 +6,6 @@
 
 import Foundation
 
-var playerNumbers: [Int] = []
-var computerNumbers: [Int] = []
-var matchCount: Int = 9
 var targetStrikeCount: Int = 3
 
 func generateRandomNumbers(from startNumber: Int = 1, to endNumber: Int = 9, quantity: Int = 3) -> [Int] {
@@ -20,7 +17,7 @@ func generateRandomNumbers(from startNumber: Int = 1, to endNumber: Int = 9, qua
     return Array(numbers)
 }
 
-func checkStrikeCount() -> Int {
+func checkStrikeCount(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> Int {
     var strikeCount: Int = 0
     
     for (playerNumber, computerNumber) in zip(playerNumbers, computerNumbers) {
@@ -31,7 +28,7 @@ func checkStrikeCount() -> Int {
     return strikeCount
 }
 
-func checkBallCount() -> Int {
+func checkBallCount(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> Int {
     var ballCount: Int = 0
     
     for (index, number) in playerNumbers.enumerated() {
@@ -53,6 +50,9 @@ func convertArrayToString(of values: [Int]) -> String {
 }
 
 func playNumberBaseBallGame() {
+    var playerNumbers: [Int] = []
+    var computerNumbers: [Int] = []
+    var matchCount: Int = 9
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
@@ -64,26 +64,27 @@ func playNumberBaseBallGame() {
         playerNumbers = generateRandomNumbers()
         print(convertArrayToString(of: playerNumbers))
         
-        strikeCount = checkStrikeCount()
-        ballCount = checkBallCount()
+        strikeCount = checkStrikeCount(playerNumbers, computerNumbers)
+        ballCount = checkBallCount(playerNumbers, computerNumbers)
         
         matchCount -= 1
         
-        displayScoreBoard(&strikeCount, &ballCount)
+        displayScoreBoard(&matchCount, strikeCount, ballCount)
     }
 }
 
-func displayScoreBoard(_ strikeCount: inout Int, _ ballCount: inout Int) {
+func displayScoreBoard(_ matchCount: inout Int, _ strikeCount: Int, _ ballCount: Int) {
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    
     if strikeCount == targetStrikeCount {
         matchCount = 0
         print("사용자 승리!")
-        return
     } else if matchCount == 0 {
+        print("남은 기회 : \(matchCount)")
         print("컴퓨터 승리...!")
-        return
+    } else {
+        print("남은 기회 : \(matchCount)")
     }
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    print("남은 기회 : \(matchCount)")
 }
 
 func main() {
