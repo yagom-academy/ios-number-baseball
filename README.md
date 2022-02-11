@@ -118,11 +118,14 @@ func increaseBallOrStrike(targetNumbers: [Int], userNumberIndex: Int, userNumber
 
 ### 구현 결과
 
-메뉴의 잘못된 입력 처리
-![잘못된입력](https://user-images.githubusercontent.com/69573768/153528908-21c9e027-fcf7-428f-b391-e150cce91ff0.gif)
-정상적인 게임 결과 출력 - 사용자 승리
-![사용자 승리](https://user-images.githubusercontent.com/69573768/153528916-ea8dd9e6-bd65-4742-852f-c74762cf37cb.gif)
-정상적인 게임 결과 출력 - 컴퓨터 승리
-![컴퓨터 승리](https://user-images.githubusercontent.com/69573768/153528917-c94f7dc2-ca0a-4570-9a80-3eaf83010397.gif)
-게임 종료
-![게임종료](https://user-images.githubusercontent.com/69573768/153528919-60b49407-366f-4e71-86ad-be8ebc232d84.gif)
+### 메뉴의 잘못된 입력 처리
+<img src="https://user-images.githubusercontent.com/69573768/153528908-21c9e027-fcf7-428f-b391-e150cce91ff0.gif" width="250" height="300"/>
+
+### 정상적인 게임 결과 출력 - 사용자 승리
+<img src="https://user-images.githubusercontent.com/69573768/153528916-ea8dd9e6-bd65-4742-852f-c74762cf37cb.gif" width="250" height="300"/>
+
+### 정상적인 게임 결과 출력 - 컴퓨터 승리
+<img src="https://user-images.githubusercontent.com/69573768/153528917-c94f7dc2-ca0a-4570-9a80-3eaf83010397.gif" width="250" height="300"/>
+
+### 게임 종료
+<img src="https://user-images.githubusercontent.com/69573768/153528919-60b49407-366f-4e71-86ad-be8ebc232d84.gif" width="250" height="300"/>
