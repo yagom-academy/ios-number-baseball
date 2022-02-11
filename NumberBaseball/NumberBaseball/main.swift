@@ -41,11 +41,10 @@ func startGame(numberOfChance: Int) {
     numbersByComputer = generateRandomNumbers()
     var numberOfChance = numberOfChance
     
-    while(numberOfChance > 0) {
+    while numberOfChance > 0 {
         numbersByUser = getUserNumbers()
         updateStrikeAndBallCount()
         numberOfChance -= 1
-        
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         if strikeCount == 3 {
             print("사용자 승리!")
