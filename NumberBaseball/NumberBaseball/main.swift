@@ -46,7 +46,55 @@ func increase(in count: inout Int, condition: () -> Bool) {
 }
 
 func convertArrayToString(of values: [Int]) -> String {
-    return values.map { "\($0)" }.joined(separator: " ")
+    return values.map { (value: Int) -> String in
+        return String(value)
+    }.joined(separator: " ")
+}
+
+func validatePlayerNumbers(_ inputNumber: String) -> Bool {
+    var isNumber: Bool = false
+    var isEqualWithTargetStrikeCount: Bool = false
+    var isNotDuplicated: Bool = false
+    let playerNumbers = inputNumber.components(separatedBy: " ")
+    var setPlayerNumbers: Set<String> = []
+    setPlayerNumbers = Set(playerNumbers)
+    
+    if playerNumbers.count == targetStrikeCount {
+        isEqualWithTargetStrikeCount = true
+    }
+    
+    for numbers in playerNumbers {
+        isNumber = numbers.allSatisfy { value in
+            value.isNumber
+        }
+    }
+    
+    if playerNumbers.count == setPlayerNumbers.count {
+        isNotDuplicated = true
+    }
+    
+    return isNumber && isEqualWithTargetStrikeCount && isNotDuplicated
+}
+
+func convertInputToIntArray(_ inputNumber: String) -> [Int] {
+    let playerNumbers = inputNumber.components(separatedBy: " ")
+    return playerNumbers.compactMap { (stringNumber: String) -> Int? in
+        return Int(stringNumber)
+    }
+}
+
+func createPlayerInput() -> [Int] {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    guard let inputNumber = readLine() else { return [] }
+    
+    if validatePlayerNumbers(inputNumber) {
+        return convertInputToIntArray(inputNumber)
+    } else {
+        print("입력이 잘못되었습니다")
+        return []
+    }
 }
 
 func playNumberBaseBallGame() {
@@ -59,10 +107,11 @@ func playNumberBaseBallGame() {
     computerNumbers = generateRandomNumbers()
     
     while matchCount > 0 {
-        print("임의의 수 : ", terminator: "")
         
-        playerNumbers = generateRandomNumbers()
-        print(convertArrayToString(of: playerNumbers))
+        playerNumbers = []
+        while playerNumbers == [] {
+            playerNumbers = createPlayerInput()
+        }
         
         strikeCount = checkStrikeCount(playerNumbers, computerNumbers)
         ballCount = checkBallCount(playerNumbers, computerNumbers)
