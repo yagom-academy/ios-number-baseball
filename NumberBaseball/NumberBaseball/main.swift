@@ -19,29 +19,31 @@ func generateRandomNumbers(range: ClosedRange<Int> = targetRange, quantity: Int 
 }
 
 func checkStrikeCount(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> Int {
-    var strikeCount: Int = 0
+    var strikeCount: Int = Int.zero
     
     for (playerNumber, computerNumber) in zip(playerNumbers, computerNumbers) {
-        increase(in: &strikeCount) { () -> Bool in
-            return playerNumber == computerNumber
-        }
+        increaseStrikeCount(in: &strikeCount, playerNumber, computerNumber)
     }
     return strikeCount
 }
 
 func checkBallCount(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> Int {
-    var ballCount: Int = 0
+    var ballCount: Int = Int.zero
     
     for (index, number) in playerNumbers.enumerated() {
-        increase(in: &ballCount) { () -> Bool in
-            return number != computerNumbers[index] && computerNumbers.contains(number)
-        }
+        increaseBallCount(in: &ballCount, computerNumbers, index, number)
     }
     return ballCount
 }
 
-func increase(in count: inout Int, condition: () -> Bool) {
-    if condition() {
+func increaseStrikeCount(in count: inout Int, _ playerNumber: Int, _ computerNumber: Int) {
+    if playerNumber == computerNumber {
+        count += 1
+    }
+}
+
+func increaseBallCount(in count: inout Int, _ computerNumbers: [Int], _ index: Int, _ number: Int) {
+    if number != computerNumbers[index] && computerNumbers.contains(number) {
         count += 1
     }
 }
@@ -76,24 +78,30 @@ func validatePlayerNumbers(_ inputString: String) -> Bool {
     return checkDuplicated(inputNumber) && checkEqualTargetStrikeCount(inputNumber) && checkRanged(inputNumber)
 }
 
-func convertInputToIntArray(_ inputNumber: String) -> [Int] {
-    let playerNumbers = inputNumber.components(separatedBy: " ")
-    return playerNumbers.compactMap { (stringNumber: String) -> Int? in
-        return Int(stringNumber)
+func convertInputToIntArray(_ inputString: String) -> [Int] {
+    let playerNumbers = inputString.components(separatedBy: " ")
+    return playerNumbers.compactMap { (number: String) -> Int? in
+        return Int(number)
     }
 }
 
-func createPlayerInput() -> [Int] {
+func generatePlayerNumbers() -> [Int] {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
-    guard let inputNumber = readLine() else { return [] }
+    guard let inputString = readLine() else { return [] }
     
-    if validatePlayerNumbers(inputNumber) {
-        return convertInputToIntArray(inputNumber)
+    if validatePlayerNumbers(inputString) {
+        return convertInputToIntArray(inputString)
     } else {
         print("입력이 잘못되었습니다")
         return []
+    }
+}
+
+func allocatePlayerNumbers(_ playerNumbers: inout [Int]) {
+   while playerNumbers == [] {
+        playerNumbers = generatePlayerNumbers()
     }
 }
 
@@ -101,17 +109,16 @@ func playNumberBaseBallGame() {
     var playerNumbers: [Int] = []
     var computerNumbers: [Int] = []
     var matchCount: Int = 9
-    var strikeCount: Int = 0
-    var ballCount: Int = 0
+    var strikeCount: Int = Int.zero
+    var ballCount: Int = Int.zero
     
     computerNumbers = generateRandomNumbers()
     
-    while matchCount > 0 {
+    while matchCount > Int.zero {
         
         playerNumbers = []
-        while playerNumbers == [] {
-            playerNumbers = createPlayerInput()
-        }
+        
+        allocatePlayerNumbers(&playerNumbers)
         
         strikeCount = checkStrikeCount(playerNumbers, computerNumbers)
         ballCount = checkBallCount(playerNumbers, computerNumbers)
@@ -126,9 +133,9 @@ func displayScoreBoard(_ matchCount: inout Int, _ strikeCount: Int, _ ballCount:
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     
     if strikeCount == targetStrikeCount {
-        matchCount = 0
+        matchCount = Int.zero
         print("사용자 승리!")
-    } else if matchCount == 0 {
+    } else if matchCount == Int.zero {
         print("남은 기회 : \(matchCount)")
         print("컴퓨터 승리...!")
     } else {
