@@ -97,7 +97,7 @@ func getUserNumbers() -> [Int] {
         printInputGuideline()
         guard let userInput = readLine() else {
             print("nil을 입력 하지마세요! 😡")
-            exit(0)
+            exit(.zero)
         }
         if isValid(userInput: userInput) {
             userNumbers = generateValidNumbers(userInput: userInput)
@@ -113,13 +113,8 @@ func isValid(userInput: String) -> Bool {
     let strNumberPool: [String] = numberPool.map({ String($0) })
     let userInputToArray = userInput.components(separatedBy: " ")
     
-    if userInputToArray.filter({ strNumberPool.contains($0) }).count != userInputToArray.count {
-        return false
-    }
-    
-    if Set(userInputToArray).count != lengthOfNumbers {
-        return false
-    }
+    guard userInputToArray.filter({ strNumberPool.contains($0) }).count == userInputToArray.count else { return false }
+    guard Set(userInputToArray).count == lengthOfNumbers else { return false }
     return true
 }
 
