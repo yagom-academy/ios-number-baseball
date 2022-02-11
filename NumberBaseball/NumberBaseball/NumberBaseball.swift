@@ -2,7 +2,7 @@
 //  NumberBaseball.swift
 //  NumberBaseball
 //
-//  Created by mmim on 2022/02/11.
+//  Created by mmim, onetool on 2022/02/11.
 //
 
 import Foundation
@@ -40,13 +40,13 @@ func generateRandomNumber() -> Int {
 }
 
 func inputPlayerNumbers() {
-    printInputNotice()
+    printInputGuide()
     guard let inputNumbersString = readLine()?.components(separatedBy: " ") else { return }
-    let inputNumbersInt = convertStringToInt(inputNumbersString)
+    let inputNumbersInt = convertInputNumbersStringToInt(inputNumbersString)
     verifyInputPlayerNumbers(inputNumbersInt)
 }
 
-func convertStringToInt(_ inputNumbersString: [String]) -> [Int] {
+func convertInputNumbersStringToInt(_ inputNumbersString: [String]) -> [Int] {
     return inputNumbersString.compactMap{ Int($0) }
 }
 
@@ -55,18 +55,18 @@ func verifyInputPlayerNumbers(_ inputNumbersInt: [Int]) {
         playerNumbers = inputNumbersInt
         checkScoreCondition()
     } else {
-        printErrorNotice()
+        printError()
         inputPlayerNumbers()
     }
 }
 
-func printInputNotice() {
+func printInputGuide() {
     print("🪧숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("🪧중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
 }
 
-func printErrorNotice() {
+func printError() {
     print("입력이 잘못되었습니다.😜")
 }
 
