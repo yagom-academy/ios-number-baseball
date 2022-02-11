@@ -11,22 +11,16 @@ func createThreeRandomNumbers() -> [Int] {
     
     while returnNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
-        if isDuplicated(compareNumbers: returnNumbers, compareNumber: randomNumber) == false {
+        if isDuplicated(compareNumbers: returnNumbers, newNumber: randomNumber) == false {
             returnNumbers.append(randomNumber)
         }
     }
     return returnNumbers
 }
 
-func isDuplicated(compareNumbers: Array<Int>, compareNumber: Int) -> Bool {
-    
-    if compareNumbers.count == 0 {
-        return false
-    }
-    for arrayIndex in 0..<compareNumbers.count {
-        if compareNumbers[arrayIndex] == compareNumber {
-            return true
-        }
+func isDuplicated(compareNumbers: Array<Int>, newNumber: Int) -> Bool {
+    if compareNumbers.contains(newNumber) {
+        return true
     }
     return false
 }
