@@ -11,7 +11,7 @@ func makeNonDuplicatedNumbers() -> Set<Int> {
     return nonDuplicatedNumbers
 }
 
-func convertSetToArray() -> Array<Int> {
+func nonDuplicatedArray() -> Array<Int> {
     let nonDuplicatedNumbers = makeNonDuplicatedNumbers()
     let sortedNumbers = Array(nonDuplicatedNumbers)
     return sortedNumbers
@@ -39,97 +39,95 @@ func returnStrikeBallCount(_ answerNumbers: Array<Int>, _ randomNumbers: Array<I
     return (strikeCount, ballCount)
 }
 
-func printResult(_ strikeCount: Int, _ ballCount: Int, _ remainCount: Int) {
+func printResult(_ strikeCount: Int, _ ballCount: Int, _ remainedCount: Int) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    print("남은 기회 : \(remainCount)")
+    print("남은 기회 : \(remainedCount)")
 }
 
-func decideWinner(_ strikeCount: Int, _ remainCount: Int) -> Int {
-    var exitWhile = remainCount
+func decideWinner(_ strikeCount: Int, _ remainedCount: Int) -> Int {
+    var loopCondition = remainedCount
     
     if strikeCount == 3 {
         print("사용자 승리...!")
-        exitWhile = 0
-    } else if remainCount == 0 {
+        selectGameMenu()
+        loopCondition = 0
+    } else if remainedCount == 0 {
         print("컴퓨터 승리...!")
+        selectGameMenu()
     }
-    return exitWhile
+    return loopCondition
 }
 
-func startGame() {
+func tryBullsAndCows() {
     var answerNumbers: Array<Int> = []
     var randomNumbers: Array<Int> = []
-    var remainCount = 1000
+    var remainedCount = 9
     
-    answerNumbers = convertSetToArray()
-    while remainCount != 0 {
-        randomNumbers = checkDuplicatedUserNumbers()
+    answerNumbers = nonDuplicatedArray()
+    while remainedCount != 0 {
+        randomNumbers = checkDuplicatedNumbers()
         let (strikeCount, ballCount) = returnStrikeBallCount(answerNumbers, randomNumbers)
-        remainCount -= 1
-        printResult(strikeCount, ballCount, remainCount)
-        remainCount = decideWinner(strikeCount, remainCount)
+        remainedCount -= 1
+        printResult(strikeCount, ballCount, remainedCount)
+        remainedCount = decideWinner(strikeCount, remainedCount)
     }
 }
 
-
+func inputValue() -> String {
+    guard let inputtedValue = readLine() else { return "" }
+    let inputValue = inputtedValue
+    return inputValue
+}
 
 func selectGameMenu() {
-        print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해 주세요. : ", terminator: "")
-        guard let selectedGameMenuNumber = readLine() else { return }
-        
-        switch selectedGameMenuNumber {
-        case "1":
-            startGame()
-        case "2":
-            print("프로그램 종료")
-            return
-        default:
-            print("입력이 잘못되었습니다.")
-            selectGameMenu()
+    print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해 주세요. : ", terminator: "")
+    let selectedGameMenuNumber = inputValue()
+    switch selectedGameMenuNumber {
+    case "1":
+        tryBullsAndCows()
+    case "2":
+        print("프로그램 종료")
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+        selectGameMenu()
     }
 }
 
-func inputUserNumbers() -> [Int] {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
-    guard let inputUserNumbers = readLine() else { return [] }
-    let pushInArray = inputUserNumbers.split(separator: " ")
-    var userNumbers: Array<Int> = []
+func inputTriedNumbers() -> [Int] {
+    var TriedNumbers: Array<Int> = []
     
-    for index in 0..<pushInArray.count {
-        guard let convertStringToInt = Int(pushInArray[index]) else { return [] }
-        userNumbers.append(convertStringToInt)
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+    let inputTriedNumbers = inputValue()
+    let convertedStringToArray = inputTriedNumbers.split(separator: " ")
+    for index in 0..<convertedStringToArray.count {
+        guard let convertStringToInt = Int(convertedStringToArray[index]) else { return [] }
+        TriedNumbers.append(convertStringToInt)
     }
-    return userNumbers
+    return TriedNumbers
 }
 
-
-func countArrayIndex() -> [Int] {
-    var countArrayIndex = inputUserNumbers()
-        
-    while countArrayIndex.count != 3 {
-        countArrayIndex = inputUserNumbers()
+func checkThreeDigitNumbers() -> [Int] {
+    var arrayOfInputtedThreeDigit = inputTriedNumbers()
+    while arrayOfInputtedThreeDigit.count != 3 {
+        arrayOfInputtedThreeDigit = inputTriedNumbers()
     }
-    return countArrayIndex
+    return arrayOfInputtedThreeDigit
 }
 
 func convertArrayToSet() -> (Set<Int>, Array<Int>) {
-    let testArray = countArrayIndex()
-    let testSet = Set(testArray)
-    
-    return (testSet, testArray)
+    let arrayOfCheckedThreeDigit = checkThreeDigitNumbers()
+    let setOfConvertedArray = Set(arrayOfCheckedThreeDigit)
+    return (setOfConvertedArray, arrayOfCheckedThreeDigit)
 }
 
-
-func checkDuplicatedUserNumbers() -> Array<Int> {
-    var (convertedArrayToSet, nonConvertedArray) = convertArrayToSet()
-    
-    while convertedArrayToSet.count != 3 {
+func checkDuplicatedNumbers() -> Array<Int> {
+    var (setOfConvertedArray, arrayOfCheckedThreeDigit) = convertArrayToSet()
+    while setOfConvertedArray.count != 3 {
         print("숫자 3개를 구분하여 입력해주세요.\n중복문자를 허용하지 않습니다.")
-        (convertedArrayToSet, nonConvertedArray) = convertArrayToSet()
+        (setOfConvertedArray, arrayOfCheckedThreeDigit) = convertArrayToSet()
     }
-    return nonConvertedArray
+    return arrayOfCheckedThreeDigit
 }
-
 
 selectGameMenu()
-
