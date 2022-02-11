@@ -36,14 +36,14 @@ func inputPlayerNumber() {
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     guard let inputPlayerNumbers = readLine()?.components(separatedBy: " ") else { return }
-    veryfyNumber(playerNumbers: inputPlayerNumbers)
-    
 }
 
-func veryfyNumber(playerNumbers: [String]) {
-    guard playerNumbers.count == 3 else { return }
-    let veryfyNumbers: [Int] = playerNumbers.compactMap{Int($0)}
-    
+func checkPlayNumber(from: Int, to: Int, count: Int, playerNumbers: [String]) -> [Int]? {
+    let range: Set<Int> = Set<Int>(from...to)
+    let veryfyNumbers: [Int] = playerNumbers.compactMap{ Int($0) }
+    guard playerNumbers.count != count || range.intersection(veryfyNumbers).count != count else { return veryfyNumbers }
+    print("입력이 잘못되었습니다.")
+    return nil
 }
 
 func getScore(problemNumber: [Int], solutionNumber: [Int]) -> (strikeScore: Int, ballScore: Int) {
