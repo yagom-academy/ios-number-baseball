@@ -52,39 +52,28 @@ func convertArrayToString(of values: [Int]) -> String {
     }.joined(separator: " ")
 }
 
-func validatePlayerNumbers(_ inputNumber: String) -> Bool {
-    var isNumber: Bool = false
-    var isEqualWithTargetStrikeCount: Bool = false
-    var isNotDuplicated: Bool = false
-    var isRanged: Bool = false
-    let playerNumbers = inputNumber.components(separatedBy: " ")
-    var setPlayerNumbers: Set<String> = []
-    setPlayerNumbers = Set(playerNumbers)
-    
-    if playerNumbers.count == targetStrikeCount {
-        isEqualWithTargetStrikeCount = true
+func checkEqualTargetStrikeCount(_ inputNumber: [Int]) -> Bool {
+    return inputNumber.count == targetStrikeCount
+}
+
+func checkDuplicated(_ inputNumber: [Int]) -> Bool {
+    return inputNumber.count == Set(inputNumber).count
+}
+
+func checkRanged(_ inputNumber: [Int]) -> Bool {
+    var isRanged: [Bool] = []
+    for number in inputNumber {
+        isRanged.append(targetRange.contains(number))
     }
-    
-    for numbers in playerNumbers {
-        isNumber = numbers.allSatisfy { value in
-            value.isNumber
-        }
+
+    return isRanged.allSatisfy { (value: Bool) -> Bool in
+        return value == true
     }
-    
-    if playerNumbers.count == setPlayerNumbers.count {
-        isNotDuplicated = true
-    }
-    
-    let intPlayerNumbers = setPlayerNumbers.compactMap { (number: String) -> Int? in
-        return Int(number)
-    }
-    
-    for number in intPlayerNumbers {
-        if targetRange.contains(number) {
-            isRanged = true
-        }
-    }
-    return isNumber && isEqualWithTargetStrikeCount && isNotDuplicated && isRanged
+}
+
+func validatePlayerNumbers(_ inputString: String) -> Bool {
+    let inputNumber = convertInputToIntArray(inputString)
+    return checkDuplicated(inputNumber) && checkEqualTargetStrikeCount(inputNumber) && checkRanged(inputNumber)
 }
 
 func convertInputToIntArray(_ inputNumber: String) -> [Int] {
