@@ -6,6 +6,8 @@
 
 import Foundation
 
+typealias score = (strike: Int, ball: Int)
+
 func createThreeRandomNumbers() -> [Int] {
     var returnNumbers: [Int] = []
     
@@ -25,22 +27,20 @@ func isDuplicated(compareNumbers: Array<Int>, newNumber: Int) -> Bool {
     return false
 }
 
-func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> (strike: Int, ball: Int) {
+func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> score {
     var strike = 0
     var ball = 0
+    var gameScore: score
     
-    for answerIndex in 0..<answerNumbers.count {
-        for guessIndex in 0..<guessNumbers.count {
-            if answerNumbers[answerIndex] == guessNumbers[guessIndex] && answerIndex == guessIndex {
-                strike += 1
-                //스트라이크: 순서와 숫자가 모두 일치할때
-            } else if answerNumbers[answerIndex] == guessNumbers[guessIndex] && answerIndex != guessIndex {
-                ball += 1
-                //ball: 숫자는 일치하는대 순서는 다를때
-            }
+    for guessIndex in 0..<guessNumbers.count {
+        if answerNumbers[guessIndex] == guessNumbers[guessIndex] {
+            strike += 1
+        } else if isDuplicated(compareNumbers: answerNumbers, newNumber: guessNumbers[guessIndex]) {
+            ball += 1
         }
     }
-    return (strike, ball)
+    gameScore = (strike, ball)
+    return gameScore
 }
 
 func playGame() {
