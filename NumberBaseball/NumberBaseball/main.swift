@@ -1,8 +1,5 @@
 import Foundation
 
-var computerNumbers: [Int] = []
-var remainingTime: Int = 9
-
 func createUniqueRadnomNumbers() -> [Int] {
     var uniqueRandomNumbers: Set<Int> = []
     let numberOfDigits: Int = 3
@@ -29,7 +26,7 @@ func compare(computerNumber: [Int], playerNumber: [Int]) -> (strikeCount: Int, b
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-func printWinner(strikeCount: Int) {
+func printWinner(strikeCount: Int, remainingTime: Int) {
     if strikeCount == 3 {
         print("사용자 승리!")
     } else if remainingTime == 0 {
@@ -90,6 +87,7 @@ func checkInputAvailability() -> [Int] {
     }
 }
 
+
 func startProgram() {
     var isgameOver: Bool = false
     
@@ -97,7 +95,7 @@ func startProgram() {
         print("1.게임시작\n2.게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
         
         let playerInput = readLine()
-            
+        
         switch playerInput {
         case "1":
             startGame()
@@ -110,15 +108,16 @@ func startProgram() {
 }
 
 func startGame() {
-    computerNumbers = createUniqueRadnomNumbers()
+    let computerNumbers: [Int] = createUniqueRadnomNumbers()
+    var remainingTime: Int = 9
+    
     repeat {
-        let playerNumbers: [Int] = createUniqueRadnomNumbers()
-        let strikeBallOfResult = compare(computerNumber: computerNumbers, playerNumber: playerNumbers)
+        let checkedPlayerInputNumberList: [Int] = checkInputAvailability()
+        
+        let strikeBallOfResult = compare(computerNumber: computerNumbers, playerNumber: checkedPlayerInputNumberList)
         remainingTime -= 1
         
-        print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
-        
-        printWinner(strikeCount: strikeBallOfResult.strikeCount)
+        printWinner(strikeCount: strikeBallOfResult.strikeCount, remainingTime: remainingTime)
         
         print("\(strikeBallOfResult.strikeCount) 스트라이크, \(strikeBallOfResult.ballCount) 볼")
         print("남은 기회 : \(remainingTime)")
@@ -131,3 +130,4 @@ func startGame() {
 }
 
 startProgram()
+
