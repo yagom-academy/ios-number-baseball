@@ -20,6 +20,7 @@ func startGame() {
     while roundCount > 0 {
         inputPlayerNumbers()
         checkGameResult()
+        resetValue()
     }
 }
 
@@ -102,8 +103,7 @@ func printScoreInformation() {
 }
 
 func checkGameResult() {
-    strike = 0
-    ball = 0
+
     if roundCount == 0 {
         print("컴퓨터 승리🤣")
     } else if strike == 3 {
@@ -111,4 +111,10 @@ func checkGameResult() {
         roundCount = 0
     }
 }
+
+func resetValue() {
+    strike = 0
+    ball = 0
+}
+
 
