@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 func selectGameMenu() {
     while true {
         print("1. 게임시작\n2. 게임종료")
@@ -31,11 +30,13 @@ func makeRandomNumber(from: Int, to: Int, count: Int) -> [Int]? {
     return nonOverlappingNumber
 }
 
-func inputPlayerNumber() {
+func inputPlayNumber(from: Int, to: Int, count: Int) ->[Int]?  {
     print("숫자 3개를 띄어쓰고 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
-    guard let inputPlayerNumbers = readLine()?.components(separatedBy: " ") else { return }
+    guard let inputPlayNumbers: [String] = readLine()?.components(separatedBy: " ") else { return nil }
+    guard let playNumbers: [Int] = checkPlayNumber(from: from, to: to, count: count, playerNumbers: inputPlayNumbers) else { return inputPlayNumber(from: from, to: to, count: count) }
+    return playNumbers
 }
 
 func checkPlayNumber(from: Int, to: Int, count: Int, playerNumbers: [String]) -> [Int]? {
@@ -66,7 +67,6 @@ func checkScore(problemNumber: [Int], solutionNumber: [Int], index: Int) -> (str
     }
 }
 
-
 func printGameResult(solutionNumber: [Int], playerStrikeScore: Int, playerBallScore: Int, gameCount: Int) {
     print("임의의 수 : " + solutionNumber.map({ (value : Int) -> String in return String(value) }).joined(separator: " "))
     if playerStrikeScore == 3 {
@@ -79,17 +79,16 @@ func printGameResult(solutionNumber: [Int], playerStrikeScore: Int, playerBallSc
     print("남은 기회 : \(gameCount)")
 }
 
-
 func startGame() {
     var playerScore: (strikeScore: Int, ballScore: Int)
     guard let computerNumbers = makeRandomNumber(from: 1, to: 9, count: 3) else { return }
     var gameCount: Int = 9
     repeat {
         gameCount -= 1
-        guard let playerNumbers = makeRandomNumber(from: 1, to: 9, count: 3) else { return }
+        guard let playerNumbers = inputPlayNumber(from: 1, to: 9, count: 3) else { return }
         playerScore = getScore(problemNumber: playerNumbers, solutionNumber: computerNumbers)
         printGameResult(solutionNumber: playerNumbers, playerStrikeScore: playerScore.strikeScore, playerBallScore: playerScore.ballScore, gameCount: gameCount)
     } while gameCount > Int.zero && playerScore.strikeScore != 3
 }
 
-
+selectGameMenu()
