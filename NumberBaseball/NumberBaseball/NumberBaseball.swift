@@ -52,13 +52,17 @@ func convertInputNumbersStringToInt(_ inputNumbersString: [String]) -> [Int] {
 }
 
 func verifyInputPlayerNumbers(_ inputNumbersInt: [Int]) {
-    if inputNumbersInt.count == maxNumberCount {
+    if inputNumbersInt.count == maxNumberCount && isNotOverlappedPlayerNumbers(inputNumbersInt) {
         playerNumbers = inputNumbersInt
         checkScoreCondition()
     } else {
         printError()
         inputPlayerNumbers()
     }
+}
+
+func isNotOverlappedPlayerNumbers(_ inputNumbersInt: [Int]) -> Bool {
+    return inputNumbersInt.count == Set(inputNumbersInt).count
 }
 
 func printInputGuide() {
