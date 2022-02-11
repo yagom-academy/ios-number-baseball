@@ -6,7 +6,7 @@
 
 import Foundation
 
-var userInputNumbers: Array<String> = []
+var userInputNumbers: [Int] = []
 let computerNumbers = generateRandomNumbers()
 var remainingChangeCount: Int = 9
 var strikeCounting = 0
@@ -65,40 +65,41 @@ func selectMenu() {
     }
 }
 
-func receiveInputNumbers() {
+@discardableResult func receiveInputNumbers() -> [String]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫지는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     
-    guard let inputNumbers = readLine() else { return }
-    userInputNumbers.append(contentsOf: inputNumbers.components(separatedBy: ""))
+    let inputNumbers = readLine()?.components(separatedBy: " ")
+    return inputNumbers
+}
+
+func saveConvertedNumbers(_ numbers: [Int]) {
+    userInputNumbers = numbers
+}
+
+func isHaveIntType(numbers: [String]?) -> Bool {
+    let verifyNumbers = numbers?.compactMap{ Int($0) }
+    guard let verifiedNumber = verifyNumbers, verifiedNumber.count == 3 else {
+        return false
     }
-
-
-func verifyNumbers(to numbers: Array<String>) -> Array<Int> {
-   return [0]
+    saveConvertedNumbers(verifiedNumber)
+    return true
 }
 
 func playGame() {
     let chancePoint = 1
     
     while remainingChangeCount > .zero {
-        let userNumbers = generateRandomNumbers()
-        let (strikeResult, ballResult) = calculateStrikeBallWith(userNumbers, and: computerNumbers)
-        remainingChangeCount -= chancePoint
-        printPlayingGameMessage(userNumbers: userNumbers, ballCount: ballResult, strikeCount: strikeResult)
-        if strikeCounting == endGameCount { break }
+        if isHaveVerifiedNumbers(receiveInputNumbers()) {
+            let (strikeResult, ballResult) = calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
+            remainingChangeCount -= chancePoint
+            printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballResult, strikeCount: strikeResult)
+            if strikeCounting == endGameCount { break }
+        } else {
+            receiveInputNumbers()
+        }
     }
     judgeGameResult()
 }
 selectMenu()
-
-"""
-목표 종료 시간!! 10 시 30분
-
-1. 다음 함수를 구현합니다
-i. 사용자 메뉴를 출력하고 메뉴를 입력받는 함수 (게임시작, 게임종료)
-ii. 게임 숫자를 입력받는 함수
-2. 게임 메뉴 및 사용자가 입력하는 세 개의 숫자의 유효성을 검증하는 과정을 구현합니다
-3. 사용자가 입력한 수와 임의로 생성한 정수를 비교하는 게임을 진행하도록 구현합니다
-"""
