@@ -10,13 +10,16 @@ var numbersByComputer: [Int] = []
 var numbersByUser: [Int] = []
 var strikeCount: Int = 0
 var ballCount: Int = 0
-var numberSize: Int = 3
+var lengthOfNumbers: Int = 3
+let numberPool: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 
 func generateRandomNumbers() -> [Int] {
     var randomNumbers: [Int] = []
-    var numberPool: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
-    for _ in 1...3 {
-        randomNumbers.append(numberPool.removeFirst())
+    var randomNumberPool: [Int] = numberPool.shuffled()
+    
+    for _ in 0..<lengthOfNumbers {
+        randomNumbers.append(randomNumberPool.removeFirst())
     }
 
     return randomNumbers
@@ -65,6 +68,11 @@ func printMenus() {
     print("원하는 기능을 선택해주세요", terminator: " : ")
 }
 
+func printInputGuideline() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+    print("입력", terminator: " : ")
+}
+
 func playNumberBaseball(numberOfChance: Int) {
     printMenus()
     guard let userInput: String = readLine() else {
@@ -80,12 +88,6 @@ func playNumberBaseball(numberOfChance: Int) {
         print("입력이 잘못되었습니다")
         playNumberBaseball(numberOfChance: numberOfChance)
     }
-}
-
-func printInputGuideline() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
-    print("입력", terminator: " : ")
-
 }
 
 func getUserNumbers() -> [Int] {
@@ -108,15 +110,14 @@ func getUserNumbers() -> [Int] {
 }
 
 func isValid(userInput: String) -> Bool {
-    let splitedArray = userInput.components(separatedBy: " ")
+    let strNumberPool: [String] = numberPool.map({ String($0) })
+    let userInputToArray = userInput.components(separatedBy: " ")
     
-    let numberPool: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    
-    if splitedArray.filter({ numberPool.contains($0) }).count != splitedArray.count {
+    if userInputToArray.filter({ strNumberPool.contains($0) }).count != userInputToArray.count {
         return false
     }
     
-    if Set(splitedArray).count != numberSize {
+    if Set(userInputToArray).count != lengthOfNumbers {
         return false
     }
     return true
