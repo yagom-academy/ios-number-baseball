@@ -7,6 +7,10 @@
 import Foundation
 
 let winnerGoalCount = 3
+
+let numberRange: ClosedRange<Int> = 1...9
+let limitCount = 3
+
 var strikeCount = 0
 var ballCount = 0
 
@@ -111,19 +115,18 @@ func verifyUserInput(input: [String]) -> Bool {
 }
 
 func verifyNumbersDuplication(input: [String]) -> Bool {
-    return Set(input).count == 3
+    return Set(input).count == limitCount
 }
 
 func verifyValidRange(input: [String]) -> Bool {
     return input
         .compactMap { Int($0) }
-        .filter{ (1...9).contains($0) }
-        .count == 3
+        .filter{ (numberRange).contains($0) }
+        .count == limitCount
 }
 
 func generatedThreeRandomNumbers() -> [Int] {
     var extractedNumbers: Set<Int> = []
-    let limitCount = 3
     
     while extractedNumbers.count != limitCount {
         extractedNumbers.insert(generateRandomNumber())
@@ -132,7 +135,7 @@ func generatedThreeRandomNumbers() -> [Int] {
     return Array(extractedNumbers)
 }
 
-func generateRandomNumber(numberRange: ClosedRange<Int> = (1...9)) -> Int {
+func generateRandomNumber(numberRange: ClosedRange<Int> = (numberRange)) -> Int {
     return Int.random(in: numberRange)
 }
 
