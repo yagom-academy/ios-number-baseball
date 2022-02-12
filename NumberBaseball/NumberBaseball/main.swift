@@ -82,18 +82,21 @@ func chooseMenu() -> String {
     return chooseMenu()
 }
 
-// 개발중
-//func getUserThreeNumbers() -> [Int] {
-//    print("""
-//숫자 세개를 띄어쓰기로 구분해 입력해주세요.
-//중복 숫자는 허용하지 않습니다.
-//입력 :
-//""")
-//    let userInput = readLine()
-//    if let checkInput = userInput {
-//
-//    }
-//}
+func getUserThreeNumbers() -> [Int]? {
+    print("""
+     숫자 세개를 띄어쓰기로 구분해 입력해주세요.
+     중복 숫자는 허용하지 않습니다.
+     입력 :
+     """)
+    let userInput = readLine()
+    guard let checkInput = userInput else {
+        return nil
+    }
+    guard let intArray = checkUserInput(checkInput: checkInput) else {
+        return nil
+    }
+    return intArray
+}
 
 func checkUserInput(checkInput: String) -> [Int]? {
     let checkArray = checkInput.components(separatedBy: " ")
