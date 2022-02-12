@@ -56,11 +56,9 @@ func checkReceivedNumbers(userNumbers: [String]) -> Bool {
 func startGame() {
     remainedChances = 9
     let randomNumbers = makeRandomNumbers()
-    print(randomNumbers)
     
     while remainedChances > 0 {
         let userNumbers = receiveNumbers()
-        print(userNumbers)
         guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { break }
         printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
         print("남은 기회 : \(remainedChances)")
