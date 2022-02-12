@@ -89,10 +89,7 @@ func getUserThreeNumbers() -> [Int]? {
      입력 :
      """)
     let userInput = readLine()
-    guard let checkInput = userInput else {
-        return nil
-    }
-    guard let intArray = checkUserInput(checkInput: checkInput) else {
+    guard let checkInput = userInput, let intArray = checkUserInput(checkInput: checkInput) else {
         return nil
     }
     return intArray
@@ -105,7 +102,7 @@ func checkUserInput(checkInput: String) -> [Int]? {
         return nil
     }
     for arrayString in checkArray {
-        guard let arrayInt = Int(arrayString) else {
+        guard let arrayInt = Int(arrayString), arrayInt < 10, arrayInt > 0 else {
             return nil
         }
         returnArray.append(arrayInt)
