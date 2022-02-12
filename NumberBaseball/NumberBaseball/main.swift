@@ -8,6 +8,8 @@ import Foundation
 
 typealias score = (strike: Int, ball: Int)
 
+var menu: String = "0"
+
 enum Menu: String {
     case gameStart = "1", gameEnd = "2"
 }
@@ -52,7 +54,7 @@ func playGame() {
     var trialCount = 9
     
     while trialCount != 0 {
-        let guessNumbers = createThreeRandomNumbers()
+        let guessNumbers = getUserThreeNumbers()
         let score = getScore(answerNumbers: answerNumbers, guessNumbers: guessNumbers)
         
         print("""
@@ -71,7 +73,7 @@ func playGame() {
 }
 
 func chooseMenu() -> String {
-    print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요.")
+    print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요 : ",terminator: "")
     let enteredNumber = readLine()
     if let userMenu = enteredNumber {
         if userMenu == Menu.gameStart.rawValue || userMenu == Menu.gameEnd.rawValue {
@@ -82,15 +84,16 @@ func chooseMenu() -> String {
     return chooseMenu()
 }
 
-func getUserThreeNumbers() -> [Int]? {
+func getUserThreeNumbers() -> [Int] {
     print("""
      숫자 세개를 띄어쓰기로 구분해 입력해주세요.
      중복 숫자는 허용하지 않습니다.
      입력 :
-     """)
+     """, terminator: "")
     let userInput = readLine()
     guard let checkInput = userInput, let intArray = checkUserInput(checkInput: checkInput) else {
-        return nil
+        print("입력이 잘못되었습니다.")
+        return getUserThreeNumbers()
     }
     return intArray
 }
@@ -98,11 +101,11 @@ func getUserThreeNumbers() -> [Int]? {
 func checkUserInput(checkInput: String) -> [Int]? {
     let checkArray = checkInput.components(separatedBy: " ")
     var returnArray: [Int] = []
-    if checkArray.count == 3 {
+    if checkArray.count != 3 {
         return nil
     }
     for arrayString in checkArray {
-        guard let arrayInt = Int(arrayString), arrayInt < 10, arrayInt > 0 else {
+        guard let arrayInt = Int(arrayString), arrayInt < 10, arrayInt > 0, isDuplicated(compareNumbers: returnArray, newNumber: arrayInt) == false else {
             return nil
         }
         returnArray.append(arrayInt)
@@ -110,8 +113,12 @@ func checkUserInput(checkInput: String) -> [Int]? {
     return returnArray
 }
 
-playGame()
-
+while menu != "2" {
+    menu = chooseMenu()
+    if menu == "1" {
+        playGame()
+    }
+}
 
 
 
