@@ -14,15 +14,16 @@ func selectMenu() {
           2.게임 종료
           원하는 기능을 선택해주세요 :
           """, terminator: " ")
-    guard let selectedMenu = readLine()?.trimmingCharacters(in: .whitespaces) else { return }
+    guard let selectedMenu = readLine() else { print("입력이 잘못되었습니다."); return }
+    let trimmedSelectedMenu = selectedMenu.trimmingCharacters(in: .whitespaces)
     
-    if selectedMenu == "1" {
+    if trimmedSelectedMenu == "1" {
         return startGame()
-    }
-    else if selectedMenu == "2" {
+        
+    } else if trimmedSelectedMenu == "2" {
         return
-    }
-    else {
+        
+    } else {
         print("입력이 잘못되었습니다.")
         return selectMenu()
     }
@@ -34,8 +35,10 @@ func receiveNumbers() -> [String] {
         중복 숫자는 허용하지 않습니다.
         입력 :
         """, terminator: " ")
-    guard let receivedNumbers = readLine() else { return receiveNumbers() }
-    let userNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces).components(separatedBy: " ")
+    guard let receivedNumbers = readLine() else { print("입력이 잘못되었습니다."); return receiveNumbers() }
+    let trimmedReceivedNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces)
+    let userNumbers = trimmedReceivedNumbers.components(separatedBy: " ").filter{ !$0.isEmpty }
+    
     guard checkReceivedNumbers(userNumbers: userNumbers) else { return receiveNumbers() }
     
     return userNumbers
@@ -53,15 +56,17 @@ func checkReceivedNumbers(userNumbers: [String]) -> Bool {
 func startGame() {
     remainedChances = 9
     let randomNumbers = makeRandomNumbers()
+    print(randomNumbers)
     
     while remainedChances > 0 {
         let userNumbers = receiveNumbers()
+        print(userNumbers)
         guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { break }
         printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
         print("남은 기회 : \(remainedChances)")
         checkComputerWin(remainedChances: remainedChances)
     }
-    selectMenu()
+    return selectMenu()
 }
 
 func makeRandomNumbers() -> [String] {
@@ -75,7 +80,7 @@ func makeRandomNumbers() -> [String] {
     return Array(randomNumbers)
 }
 
-func calcStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+func calculateStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
     var strikeCounts = 0
     
     for (index, number) in userNumbers.enumerated() {
@@ -85,7 +90,7 @@ func calcStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
     return strikeCounts
 }
 
-func calcBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+func calculateBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
     var ballCounts = 0
     
     for (index, number) in userNumbers.enumerated() {
@@ -96,8 +101,8 @@ func calcBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
 }
 
 func printCounts(userNumbers: [String], randomNumbers: [String]) {
-    let strikeCounts = calcStrikeCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
-    let ballCounts = calcBallCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+    let strikeCounts = calculateStrikeCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+    let ballCounts = calculateBallCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
     print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
 }
 
