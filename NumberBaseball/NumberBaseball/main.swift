@@ -93,7 +93,7 @@ func inputUserNumbers() -> [Int] {
         return []
     }
     
-    guard verifyUserInput(userInput: userInput) else {
+    if verifyUserInput(userInput: userInput) == false {
         print("입력이 잘못되었습니다")
         return []
     }
@@ -106,15 +106,15 @@ func inputUserNumbers() -> [Int] {
 }
 
 func verifyUserInput(userInput: [String]) -> Bool {
-    guard vertifyNumbersCountIsThree(userInput: userInput) else {
+    if vertifyNumbersCountIsThree(userInput: userInput) == false {
         return false
     }
     
-    guard  verifyNumbersDuplication(userInput: userInput) else {
+    if verifyNumbersDuplication(userInput: userInput) == false {
         return false
     }
     
-    guard verifyValidRange(userInput: userInput) else {
+    if verifyValidRange(userInput: userInput) == false {
         return false
     }
     
@@ -126,14 +126,21 @@ func vertifyNumbersCountIsThree(userInput: [String]) -> Bool {
 }
 
 func verifyNumbersDuplication(userInput: [String]) -> Bool {
-    return Set(userInput).count == limitCount
+    let setConvertedUserInput = Set(userInput)
+    
+    return setConvertedUserInput.count == limitCount
 }
 
 func verifyValidRange(userInput: [String]) -> Bool {
-    return userInput
-        .compactMap { Int($0) }
-        .filter{ (numberRange).contains($0) }
-        .count == limitCount
+    let convertedUserInput = userInput.compactMap { stringNumber in
+        Int(stringNumber)
+    }
+    
+    let rangeValidedUserNumbers = convertedUserInput.filter { number in
+        (numberRange).contains(number)
+    }
+        
+    return rangeValidedUserNumbers.count == limitCount
 }
 
 func generatedThreeRandomNumbers() -> [Int] {
