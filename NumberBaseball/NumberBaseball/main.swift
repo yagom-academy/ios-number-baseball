@@ -114,7 +114,7 @@ func checkZeroToTen(inputTriedNumber: Array<Int>, index: Int) -> [Int] {
     var digitToCheckNumber : Array<Int> = []
     
     digitToCheckNumber = inputTriedNumber
-    if inputTriedNumber[index] > 10 {
+    if inputTriedNumber[index] > 9 {
         print("자리수를 초과하였습니다")
         digitToCheckNumber = inputTriedNumbers()
     }
