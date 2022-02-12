@@ -27,8 +27,7 @@ func printMenu() {
 
 func selectedMenu() -> Int {
     guard let menuInput = readLine(),
-          let convertedMenuInput = Int(menuInput)
-    else {
+          let convertedMenuInput = Int(menuInput) else {
         return .zero
     }
     
@@ -89,37 +88,49 @@ func printUserGuideMenu() {
 }
 
 func inputUserNumbers() -> [Int] {
-    guard let input = readLine()?.components(separatedBy: " ") else {
+    guard let userInput = readLine()?.components(separatedBy: " ") else {
         print("입력이 잘못되었습니다")
         return []
     }
     
-    guard verifyUserInput(input: input) else {
+    guard verifyUserInput(userInput: userInput) else {
         print("입력이 잘못되었습니다")
         return []
     }
     
-    return input.compactMap { Int($0) }
+    let threeUserInputNumbers = userInput.compactMap { stringNumber in
+        Int(stringNumber)
+    }
+
+    return threeUserInputNumbers
 }
 
-func verifyUserInput(input: [String]) -> Bool {
-    guard verifyNumbersDuplication(input: input) else {
+func verifyUserInput(userInput: [String]) -> Bool {
+    guard vertifyNumbersCountIsThree(userInput: userInput) else {
         return false
     }
     
-    guard verifyValidRange(input: input) else {
+    guard  verifyNumbersDuplication(userInput: userInput) else {
+        return false
+    }
+    
+    guard verifyValidRange(userInput: userInput) else {
         return false
     }
     
     return true
 }
 
-func verifyNumbersDuplication(input: [String]) -> Bool {
-    return Set(input).count == limitCount
+func vertifyNumbersCountIsThree(userInput: [String]) -> Bool {
+    return userInput.count == limitCount
 }
 
-func verifyValidRange(input: [String]) -> Bool {
-    return input
+func verifyNumbersDuplication(userInput: [String]) -> Bool {
+    return Set(userInput).count == limitCount
+}
+
+func verifyValidRange(userInput: [String]) -> Bool {
+    return userInput
         .compactMap { Int($0) }
         .filter{ (numberRange).contains($0) }
         .count == limitCount
