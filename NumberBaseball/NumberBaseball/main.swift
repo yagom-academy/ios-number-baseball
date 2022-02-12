@@ -80,7 +80,7 @@ func inputValue() -> String {
 }
 
 func selectGameMenu() {
-    print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해 주세요. : ", terminator: "")
+    print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해 주세요 : ", terminator: "")
     let selectedGameMenuNumber = inputValue()
     switch selectedGameMenuNumber {
     case "1":
@@ -89,28 +89,42 @@ func selectGameMenu() {
         print("프로그램 종료")
         return
     default:
-        print("입력이 잘못되었습니다.")
+        print("입력이 잘못되었습니다")
         selectGameMenu()
     }
 }
 
 func inputTriedNumbers() -> [Int] {
-    var TriedNumbers: Array<Int> = []
-    
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
     let inputTriedNumbers = inputValue()
     let convertedStringToArray = inputTriedNumbers.split(separator: " ")
-    for index in 0..<convertedStringToArray.count {
-        guard let convertStringToInt = Int(convertedStringToArray[index]) else { return [] }
-        TriedNumbers.append(convertStringToInt)
+    let convertElementToInt = convertedStringToArray.compactMap {Int($0)}
+    return convertElementToInt
+}
+
+func checkZeroToTenInArray() -> [Int] {
+    var inputTriedNumber = inputTriedNumbers()
+    for index in 0..<inputTriedNumber.count{
+        inputTriedNumber =  checkZeroToTen(inputTriedNumber: inputTriedNumber, index: index)
     }
-    return TriedNumbers
+    return inputTriedNumber
+}
+
+func checkZeroToTen(inputTriedNumber: Array<Int>, index: Int) -> [Int] {
+    var digitToCheckNumber : Array<Int> = []
+    
+    digitToCheckNumber = inputTriedNumber
+    if inputTriedNumber[index] > 10 {
+        print("자리수를 초과하였습니다")
+        digitToCheckNumber = inputTriedNumbers()
+    }
+    return digitToCheckNumber
 }
 
 func checkThreeDigitNumbers() -> [Int] {
-    var arrayOfInputtedThreeDigit = inputTriedNumbers()
+    var arrayOfInputtedThreeDigit = checkZeroToTenInArray()
     while arrayOfInputtedThreeDigit.count != 3 {
-        arrayOfInputtedThreeDigit = inputTriedNumbers()
+        arrayOfInputtedThreeDigit = checkZeroToTenInArray()
     }
     return arrayOfInputtedThreeDigit
 }
