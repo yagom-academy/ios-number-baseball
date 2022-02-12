@@ -6,6 +6,11 @@
 
 import Foundation
 
+let from, to, numberCount: Int
+from = 1
+to = 9
+numberCount = 3
+
 func selectGameMenu() {
     while true {
         print("1. 게임시작\n2. 게임종료")
@@ -21,11 +26,11 @@ func selectGameMenu() {
 
 func startGame() {
     var playerScore: (strikeScore: Int, ballScore: Int)
-    guard let computerNumbers: [Int] = makeRandomNumber(from: 1, to: 9, count: 3) else { return }
+    guard let computerNumbers: [Int] = makeRandomNumber(from: from, to: to, count: numberCount) else { return }
     var gameCount: Int = 9
     repeat {
         gameCount -= 1
-        guard let playerNumbers: [Int] = inputPlayNumber(from: 1, to: 9, count: 3) else { return }
+        guard let playerNumbers: [Int] = inputPlayNumber(from: from, to: to, count: numberCount) else { return }
         playerScore = getScore(problemNumber: playerNumbers, solutionNumber: computerNumbers)
         printGameResult(solutionNumber: playerNumbers, playerStrikeScore: playerScore.strikeScore, playerBallScore: playerScore.ballScore, gameCount: gameCount)
     } while gameCount > Int.zero && playerScore.strikeScore != 3
