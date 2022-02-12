@@ -17,7 +17,7 @@ func generateRandomNumbers() -> [Int] {
     var randomNumbers: [Int] = []
     var randomNumberPool: [Int] = numberPool.shuffled()
     
-    for _ in 0..<lengthOfNumbers {
+    for _ in 1...lengthOfNumbers {
         randomNumbers.append(randomNumberPool.removeFirst())
     }
 
@@ -46,7 +46,7 @@ func startGame(numberOfChance: Int) {
         updateStrikeAndBallCount()
         numberOfChance -= 1
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        if strikeCount == 3 {
+        if strikeCount == lengthOfNumbers {
             print("사용자 승리!")
             break
         }
@@ -57,45 +57,47 @@ func startGame(numberOfChance: Int) {
     }
 }
 
-func printMenus() {
+func printMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요", terminator: " : ")
 }
 
 func printInputGuideline() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+    print("숫자 \(lengthOfNumbers)개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
 }
 
-func playNumberBaseball(numberOfChance: Int) {
-    printMenus()
+func showNumberBaseballMenu(numberOfChance: Int) {
+    printMenu()
     guard let userInput: String = readLine() else {
         print("nil을 입력 하지마세요! 😡")
-        return }
+        return
+    }
     switch userInput {
     case "1":
         startGame(numberOfChance: numberOfChance)
-        playNumberBaseball(numberOfChance: numberOfChance)
+        showNumberBaseballMenu(numberOfChance: numberOfChance)
     case "2":
         return
     default:
         print("입력이 잘못되었습니다")
-        playNumberBaseball(numberOfChance: numberOfChance)
+        showNumberBaseballMenu(numberOfChance: numberOfChance)
     }
 }
 
 func getUserNumbers() -> [Int] {
     var userNumbers: [Int] = []
     
-    while userNumbers == [] {
+    while userNumbers.isEmpty {
         printInputGuideline()
         guard let userInput = readLine() else {
             print("nil을 입력 하지마세요! 😡")
             exit(.zero)
         }
-        if isValid(userInput: userInput) {
-            userNumbers = generateValidNumbers(userInput: userInput)
+        if let validatedUserInput = validate(userInput) {
+            userNumbers = validatedUserInput
         } else {
             print("입력이 잘못되었습니다")
         }
@@ -103,18 +105,22 @@ func getUserNumbers() -> [Int] {
     return userNumbers
 }
 
-func isValid(userInput: String) -> Bool {
-    let strNumberPool: [String] = numberPool.map({ String($0) })
-    let userInputToArray = userInput.components(separatedBy: " ")
+func validate(_ userInput: String) -> [Int]? {
+    let separatedUserInput = userInput.components(separatedBy: " ")
+    let numberOnlyUserInput = separatedUserInput.compactMap({ Int($0) })
     
-    guard userInputToArray.filter({ strNumberPool.contains($0) }).count == userInputToArray.count else { return false }
-    guard Set(userInputToArray).count == lengthOfNumbers else { return false }
-    return true
+    guard numberOnlyUserInput.count == separatedUserInput.count else {
+        return nil
+    }
+    
+    guard Set(numberOnlyUserInput).count == lengthOfNumbers else {
+        return nil
+    }
+    
+    guard numberOnlyUserInput.filter({ numberPool.contains($0) }).count == lengthOfNumbers else {
+        return nil
+    }
+    return numberOnlyUserInput
 }
 
-func generateValidNumbers(userInput: String) -> [Int] {
-    return userInput.components(separatedBy: " ").compactMap({ Int($0) })
-}
-
-playNumberBaseball(numberOfChance: 9)
-
+showNumberBaseballMenu(numberOfChance: 9)
