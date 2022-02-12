@@ -10,7 +10,7 @@ func selectGameMenu() {
     while true {
         print("1. 게임시작\n2. 게임종료")
         print("원하는 기능을 선택해 주세요 : ", terminator: "")
-        guard let inputMenuNumber = readLine() else { return }
+        let inputMenuNumber = readLine()
         switch inputMenuNumber {
         case "1": startGame()
         case "2": return
