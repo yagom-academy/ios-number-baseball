@@ -10,6 +10,9 @@ var targetStrikeCount: Int = 3
 var targetRange: ClosedRange<Int> = 1...9
 
 func generateRandomNumbers(range: ClosedRange<Int> = targetRange, quantity: Int = targetStrikeCount) -> [Int] {
+    guard range.count >= quantity else {
+        return []
+    }
     var numbers: Set<Int> = []
 
     while numbers.count < quantity {
@@ -18,44 +21,34 @@ func generateRandomNumbers(range: ClosedRange<Int> = targetRange, quantity: Int 
     return Array(numbers)
 }
 
-func checkStrikeCount(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> Int {
+func checkGameScore(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> (Int, Int) {
     var strikeCount: Int = Int.zero
-    
+    var ballCount: Int = Int.zero
+
     for (playerNumber, computerNumber) in zip(playerNumbers, computerNumbers) {
-        increaseStrikeCount(in: &strikeCount, playerNumber, computerNumber)
+        let (strike, ball) = increaseGameScore(playerNumber, computerNumber, computerNumbers)
+        strikeCount += strike
+        ballCount += ball
     }
-    return strikeCount
+    return (strikeCount, ballCount)
 }
 
-func checkBallCount(_ playerNumbers: [Int], _ computerNumbers: [Int]) -> Int {
+func increaseGameScore(_ playerNumber: Int, _ computerNumber: Int, _ computerNumbers: [Int]) -> (Int, Int) {
+    var strikeCount = Int.zero
     var ballCount: Int = Int.zero
     
-    for (index, number) in playerNumbers.enumerated() {
-        increaseBallCount(in: &ballCount, computerNumbers, index, number)
-    }
-    return ballCount
-}
-
-func increaseStrikeCount(in count: inout Int, _ playerNumber: Int, _ computerNumber: Int) {
     if playerNumber == computerNumber {
-        count += 1
+        strikeCount += 1
+    } else if computerNumbers.contains(playerNumber) {
+        ballCount += 1
     }
-}
-
-func increaseBallCount(in count: inout Int, _ computerNumbers: [Int], _ index: Int, _ number: Int) {
-    if number != computerNumbers[index] && computerNumbers.contains(number) {
-        count += 1
-    }
+    return (strikeCount, ballCount)
 }
 
 func convertArrayToString(of values: [Int]) -> String {
     return values.map { (value: Int) -> String in
         return String(value)
     }.joined(separator: " ")
-}
-
-func checkEqualTargetStrikeCount(_ inputNumber: [Int]) -> Bool {
-    return inputNumber.count == targetStrikeCount
 }
 
 func checkDuplicated(_ inputNumber: [Int]) -> Bool {
@@ -75,7 +68,7 @@ func checkRanged(_ inputNumber: [Int]) -> Bool {
 
 func validatePlayerNumbers(_ inputString: String) -> Bool {
     let inputNumber = convertInputToIntArray(inputString)
-    return checkDuplicated(inputNumber) && checkEqualTargetStrikeCount(inputNumber) && checkRanged(inputNumber)
+    return checkDuplicated(inputNumber) && checkRanged(inputNumber)
 }
 
 func convertInputToIntArray(_ inputString: String) -> [Int] {
@@ -120,8 +113,7 @@ func playNumberBaseBallGame() {
         
         allocatePlayerNumbers(&playerNumbers)
         
-        strikeCount = checkStrikeCount(playerNumbers, computerNumbers)
-        ballCount = checkBallCount(playerNumbers, computerNumbers)
+        (strikeCount, ballCount) = checkGameScore(playerNumbers, computerNumbers)
         
         matchCount -= 1
         
@@ -169,3 +161,4 @@ func takePlayerIntention(_ gameStatus: inout Bool) {
 }
 
 main()
+
