@@ -6,10 +6,8 @@
 
 import Foundation
 
-let from, to, numberCount: Int
-from = 1
-to = 9
-numberCount = 3
+let numberCount: Int = 3
+let numberRange: ClosedRange<Int> = 1...9
 
 func selectGameMenu() {
     while true {
@@ -30,25 +28,51 @@ func selectGameMenu() {
 
 func startGame() {
     var playerScore: (strikeScore: Int, ballScore: Int)
-    guard let computerNumbers: [Int] = makeRandomNumber(from: from, to: to, count: numberCount) else { return }
+    guard let computerNumbers: [Int] = makeRandomNumber() else { return }
     var gameCount: Int = 9
     repeat {
         gameCount -= 1
-        guard let playerNumbers: [Int] = inputPlayNumber(from: from, to: to, count: numberCount) else { return }
+        let playerNumbers: [Int] = outputPlayNumber()
         playerScore = getScore(problemNumber: playerNumbers, solutionNumber: computerNumbers)
         printGameResult(solutionNumber: playerNumbers, playerStrikeScore: playerScore.strikeScore, playerBallScore: playerScore.ballScore, gameCount: gameCount)
     } while gameCount > Int.zero && playerScore.strikeScore != 3
 }
 
-func makeRandomNumber(from: Int, to: Int, count: Int) -> [Int]? {
+func makeRandomNumber() -> [Int]? {
     var nonOverlappingNumber: [Int] = []
-    var range: Set<Int> = Set<Int>(from...to)
-    while nonOverlappingNumber.count < count {
+    var range: Set<Int> = Set<Int>(numberRange)
+    while nonOverlappingNumber.count < numberCount {
         guard let randomNumber: Int = range.randomElement() else { return nil }
         nonOverlappingNumber.append(randomNumber)
         range.remove(randomNumber)
     }
     return nonOverlappingNumber
+}
+
+func outputPlayNumber() -> [Int]  {
+    guard let playNumbers: [Int] = checkPlayNumber(
+        playerNumbers: inputPlayNumber()
+    ) else {
+        return outputPlayNumber()
+    }
+    return playNumbers
+}
+
+func checkPlayNumber(playerNumbers: [String]) -> [Int]? {
+    let range: Set<Int> = Set<Int>(numberRange)
+    let verifyNumbers: [Int] = playerNumbers.compactMap{ Int($0) }
+    guard playerNumbers.count != numberCount || range.intersection(verifyNumbers).count != numberCount else { return verifyNumbers }
+    printInputError()
+    return nil
+}
+
+func inputPlayNumber() -> [String] {
+    printInputInfomation()
+    guard let inputPlayNumbers: [String] = readLine()?.components(separatedBy: " ") else {
+        printInputError()
+        return inputPlayNumber()
+    }
+    return inputPlayNumbers
 }
 
 func printInputInfomation() {
@@ -59,28 +83,6 @@ func printInputInfomation() {
 
 func printInputError() {
     print("입력이 잘못되었습니다.")
-}
-
-func inputPlayNumber(from: Int, to: Int, count: Int) ->[Int]?  {
-    printInputInfomation()
-    guard let inputPlayNumbers: [String] = readLine()?.components(separatedBy: " ") else { return nil }
-    guard let playNumbers: [Int] = checkPlayNumber(
-        from: from,
-        to: to,
-        count: count,
-        playerNumbers: inputPlayNumbers
-    ) else {
-        return inputPlayNumber(from: from, to: to, count: count)
-    }
-    return playNumbers
-}
-
-func checkPlayNumber(from: Int, to: Int, count: Int, playerNumbers: [String]) -> [Int]? {
-    let range: Set<Int> = Set<Int>(from...to)
-    let veryfyNumbers: [Int] = playerNumbers.compactMap{ Int($0) }
-    guard playerNumbers.count != count || range.intersection(veryfyNumbers).count != count else { return veryfyNumbers }
-    printInputError()
-    return nil
 }
 
 func getScore(problemNumber: [Int], solutionNumber: [Int]) -> (strikeScore: Int, ballScore: Int) {
