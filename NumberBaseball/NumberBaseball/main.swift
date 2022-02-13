@@ -89,13 +89,13 @@ func checkScore(problemNumber: [Int], solutionNumber: [Int], index: Int) -> (str
 }
 
 func printGameResult(solutionNumber: [Int], playerStrikeScore: Int, playerBallScore: Int, gameCount: Int) {
-    print("임의의 수 : " + solutionNumber.map({ (value : Int) -> String in return String(value) }).joined(separator: " "))
     print("\(playerStrikeScore) 스트라이크, \(playerBallScore) 볼")
-    print("남은 기회 : \(gameCount)")
+    if playerStrikeScore != 3 {
+        print("남은 기회 : \(gameCount)")
+    }
     
     if playerStrikeScore == 3 {
         print("사용자 승리!")
-        
     } else if gameCount == 0 {
         print("컴퓨터 승리...!")
     }
