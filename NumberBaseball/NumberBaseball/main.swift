@@ -17,9 +17,13 @@ func selectGameMenu() {
         print("원하는 기능을 선택해 주세요 : ", terminator: "")
         let inputMenuNumber = readLine()
         switch inputMenuNumber {
-        case "1": startGame()
-        case "2": return
-        default: print("입력이 잘못되었습니다."); continue
+        case "1":
+            startGame()
+        case "2":
+            return
+        default:
+            print("입력이 잘못되었습니다.")
+            continue
         }
     }
 }
