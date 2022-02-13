@@ -13,27 +13,31 @@ var strikeCounting = 0
 let endGameCount = 3
 
 func playGame() {
-    let chancePoint = 1
+    let chanceCount = 1
     
     while remainingChangeCount > .zero {
-        if isHaveVerifiedNumbers(receiveUserInputNumbers()) {
-            let (strikeResult, ballResult) = calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
-            remainingChangeCount -= chancePoint
-            printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballResult, strikeCount: strikeResult)
-            if strikeCounting == endGameCount { break }
-        } else {
-            receiveUserInputNumbers()
+        guard isHaveVerifiedNumbers(receiveUserInputNumbers()) else {
+            playGame()
+            return
         }
+        let (strikeResult, ballResult) = calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
+        remainingChangeCount -= chanceCount
+        printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballResult, strikeCount: strikeResult)
+//        if  strikeCounting >= 3 endGameCount {break}
+        
     }
     judgeGameResult()
 }
 
-func selectMenu() {
+func printMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
-    
-    let inputNumbers: String? = readLine()
+}
+
+func selectMenu() {
+    printMenu()
+    guard let inputNumbers: String = readLine()?.replacingOccurrences(of: " ", with: "") else { return }
     
     switch inputNumbers {
     case "1":
@@ -62,6 +66,7 @@ func generateRandomNumbers(range: ClosedRange<Int> = 1...9, numbersCount: Int = 
     }
     return Array(randomNumbers)
 }
+
 
 func calculateStrikeBallWith(_ userNumbers: Array<Int>, and computerNumbers: Array<Int>) -> (strikeResult: Int, ballResult: Int) {
     let strikePoint = 1
@@ -101,7 +106,7 @@ func printPlayingGameMessage(userNumbers: Array<Int> ,ballCount: Int ,strikeCoun
     let squareBrakets: CharacterSet = ["[","]"]
     
     print("\(randomNumbersDescription) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBrakets))")
-    print("\(strikeCount) \(strikeDescription) \(ballCount) \(ballDescription) ")
+    print("\(strikeCount)\(strikeDescription) \(ballCount) \(ballDescription) ")
     print("\(remainingChanceDescription) \(remainingChangeCount)")
 }
 
