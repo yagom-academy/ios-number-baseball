@@ -6,9 +6,7 @@
 
 import Foundation
 
-typealias score = (strike: Int, ball: Int)
-
-var menu: String = "0"
+typealias Score = (strike: Int, ball: Int)
 
 enum Menu: String {
     case gameStart = "1", gameEnd = "2"
@@ -19,29 +17,23 @@ func createThreeRandomNumbers() -> [Int] {
     
     while returnNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
-        if isDuplicated(compareNumbers: returnNumbers, newNumber: randomNumber) == false {
+        if returnNumbers.contains(randomNumber) == false {
             returnNumbers.append(randomNumber)
         }
     }
     return returnNumbers
 }
 
-func isDuplicated(compareNumbers: Array<Int>, newNumber: Int) -> Bool {
-    if compareNumbers.contains(newNumber) {
-        return true
-    }
-    return false
-}
 
-func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> score {
+func getScore(answerNumbers: Array<Int>, guessNumbers: Array<Int>) -> Score {
     var strike = 0
     var ball = 0
-    var gameScore: score
+    var gameScore: Score
     
     for guessIndex in 0..<guessNumbers.count {
         if answerNumbers[guessIndex] == guessNumbers[guessIndex] {
             strike += 1
-        } else if isDuplicated(compareNumbers: answerNumbers, newNumber: guessNumbers[guessIndex]) {
+        } else if answerNumbers.contains(guessNumbers[guessIndex]) {
             ball += 1
         }
     }
@@ -75,10 +67,12 @@ func playGame() {
 func chooseMenu() -> String {
     print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요 : ",terminator: "")
     let enteredNumber = readLine()
-    if let userMenu = enteredNumber {
-        if userMenu == Menu.gameStart.rawValue || userMenu == Menu.gameEnd.rawValue {
-            return userMenu
-        }
+    guard let userMenu = enteredNumber else {
+        print("입력이 잘못되었습니다.")
+        return chooseMenu()
+    }
+    if userMenu == Menu.gameStart.rawValue || userMenu == Menu.gameEnd.rawValue {
+        return userMenu
     }
     print("입력이 잘못되었습니다.")
     return chooseMenu()
@@ -91,7 +85,8 @@ func getUserThreeNumbers() -> [Int] {
      입력 :
      """, terminator: "")
     let userInput = readLine()
-    guard let checkInput = userInput, let intArray = checkUserInput(checkInput: checkInput) else {
+    guard let checkInput = userInput,
+         let intArray = checkUserInput(checkInput: checkInput) else {
         print("입력이 잘못되었습니다.")
         return getUserThreeNumbers()
     }
@@ -100,12 +95,14 @@ func getUserThreeNumbers() -> [Int] {
 
 func checkUserInput(checkInput: String) -> [Int]? {
     let checkArray = checkInput.components(separatedBy: " ")
-    var returnArray: [Int] = []
+    var returnArray = [Int]()
     if checkArray.count != 3 {
         return nil
     }
     for arrayString in checkArray {
-        guard let arrayInt = Int(arrayString), arrayInt < 10, arrayInt > 0, isDuplicated(compareNumbers: returnArray, newNumber: arrayInt) == false else {
+        guard let arrayInt = Int(arrayString),
+                 arrayInt < 10, arrayInt > 0,
+                 returnArray.contains(arrayInt) == false else {
             return nil
         }
         returnArray.append(arrayInt)
@@ -113,12 +110,17 @@ func checkUserInput(checkInput: String) -> [Int]? {
     return returnArray
 }
 
-while menu != "2" {
-    menu = chooseMenu()
-    if menu == "1" {
-        playGame()
-    }
+func startProgram() {
+    var menu: String
+    repeat {
+        menu = chooseMenu()
+        if menu == "1" {
+            playGame()
+        }
+    } while menu != Menu.gameEnd.rawValue
 }
+
+startProgram()
 
 
 
