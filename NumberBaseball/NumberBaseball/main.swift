@@ -51,12 +51,27 @@ func makeRandomNumber(from: Int, to: Int, count: Int) -> [Int]? {
     return nonOverlappingNumber
 }
 
-func inputPlayNumber(from: Int, to: Int, count: Int) ->[Int]?  {
+func printInputInfomation() {
     print("숫자 3개를 띄어쓰고 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
+}
+
+func printInputError() {
+    print("입력이 잘못되었습니다.")
+}
+
+func inputPlayNumber(from: Int, to: Int, count: Int) ->[Int]?  {
+    printInputInfomation()
     guard let inputPlayNumbers: [String] = readLine()?.components(separatedBy: " ") else { return nil }
-    guard let playNumbers: [Int] = checkPlayNumber(from: from, to: to, count: count, playerNumbers: inputPlayNumbers) else { return inputPlayNumber(from: from, to: to, count: count) }
+    guard let playNumbers: [Int] = checkPlayNumber(
+        from: from,
+        to: to,
+        count: count,
+        playerNumbers: inputPlayNumbers
+    ) else {
+        return inputPlayNumber(from: from, to: to, count: count)
+    }
     return playNumbers
 }
 
@@ -64,7 +79,7 @@ func checkPlayNumber(from: Int, to: Int, count: Int, playerNumbers: [String]) ->
     let range: Set<Int> = Set<Int>(from...to)
     let veryfyNumbers: [Int] = playerNumbers.compactMap{ Int($0) }
     guard playerNumbers.count != count || range.intersection(veryfyNumbers).count != count else { return veryfyNumbers }
-    print("입력이 잘못되었습니다.")
+    printInputError()
     return nil
 }
 
