@@ -50,45 +50,107 @@ func inputPlayerNumbers() -> String? {
     return playerInputNumbers
 }
 
-func checkInputAvailability() -> [Int] {
-    let numberOfRange = 1...9
+func checkIsThreeDigits(playerNumbers: [String]) -> [String] {
+    var checkedIsThreeDigitsPlayerNumbers: [String] = []
     
-    while true {
+    guard playerNumbers.count == 3 else {
+        print(wrongInputErrorMessage)
+        return []
+    }
+    
+    checkedIsThreeDigitsPlayerNumbers = playerNumbers
+
+    return checkedIsThreeDigitsPlayerNumbers
+}
+
+func checkIsInteger(playerNumbers: [String]) -> [Int] {
+    var checkedIntegerPlayerNumbers: [Int] = []
+    
+    guard let fistInputNumber = Int(playerNumbers[0]),
+          let secondInputNumber = Int(playerNumbers[1]),
+          let thirdInputNumber = Int(playerNumbers[2]) else {
+              print(wrongInputErrorMessage)
+              return []
+          }
+    
+    checkedIntegerPlayerNumbers = [fistInputNumber, secondInputNumber, thirdInputNumber]
+    
+    return checkedIntegerPlayerNumbers
+}
+
+func isConatinNumberOfRange(playerNumbers: [Int]) -> [Int] {
+    let numberOfRange = 1...9
+    var checkedConatinNumberOfRangePlayerNumbers: [Int] = []
+    
+    guard (numberOfRange).contains(playerNumbers[0]),
+          (numberOfRange).contains(playerNumbers[1]),
+          (numberOfRange).contains(playerNumbers[2]) else {
+              print(wrongInputErrorMessage)
+              return []
+          }
+    
+    checkedConatinNumberOfRangePlayerNumbers = [playerNumbers[0], playerNumbers[1], playerNumbers[2]]
+    
+    return checkedConatinNumberOfRangePlayerNumbers
+}
+
+func checkIsUnique(playerNumbers: [Int]) -> [Int] {
+    var checkedIsUniquePlayerNumbers: [Int] = []
+    
+    guard playerNumbers[0] != playerNumbers[1],
+          playerNumbers[0] != playerNumbers[2],
+          playerNumbers[1] != playerNumbers[2] else {
+              print(wrongInputErrorMessage)
+              return []
+          }
+    
+    checkedIsUniquePlayerNumbers = [playerNumbers[0], playerNumbers[1], playerNumbers[2]]
+    
+    return checkedIsUniquePlayerNumbers
+}
+
+func checkInputAvailability() -> [Int] {
+    var checkedPlayerNumbers: [Int] = []
+    var checkedIntegerPlayerNumbers: [String] = []
+    var isInputAvailability = false
+    
+    while isInputAvailability == false {
         guard let playerNumbers = inputPlayerNumbers(), playerNumbers.isEmpty == false else {
             print(wrongInputErrorMessage)
             continue
         }
-        
+    
         let playerInputNumbers: [String] = playerNumbers.components(separatedBy: " ")
         
-        guard playerInputNumbers.count == 3 else {
-            print(wrongInputErrorMessage)
+        checkedIntegerPlayerNumbers = checkIsThreeDigits(playerNumbers: playerInputNumbers)
+        
+        guard checkedIntegerPlayerNumbers != [] else {
             continue
         }
         
-        guard let fistInputNumber = Int(playerInputNumbers[0]),
-              let secondInputNumber = Int(playerInputNumbers[1]),
-              let thirdInputNumber = Int(playerInputNumbers[2]) else {
-                  print(wrongInputErrorMessage)
-                  continue
-              }
+        checkedPlayerNumbers = checkIsInteger(playerNumbers: checkedIntegerPlayerNumbers)
         
-        guard (numberOfRange).contains(fistInputNumber),
-              (numberOfRange).contains(secondInputNumber),
-              (numberOfRange).contains(thirdInputNumber) else {
-                  print(wrongInputErrorMessage)
-                  continue
-              }
+        guard checkedPlayerNumbers != [] else {
+            continue
+        }
         
-        guard playerInputNumbers[0] != playerInputNumbers[1],
-              playerInputNumbers[0] != playerInputNumbers[2],
-              playerInputNumbers[1] != playerInputNumbers[2] else {
-                  print(wrongInputErrorMessage)
-                  continue
-              }
+        checkedPlayerNumbers = isConatinNumberOfRange(playerNumbers: checkedPlayerNumbers)
         
-        return [fistInputNumber, secondInputNumber, thirdInputNumber]
+        guard checkedPlayerNumbers != [] else {
+            continue
+        }
+        
+        checkedPlayerNumbers = checkIsUnique(playerNumbers: checkedPlayerNumbers)
+        
+        guard checkedPlayerNumbers != [] else {
+            continue
+        }
+        
+        if checkedPlayerNumbers != [] {
+            isInputAvailability = true
+        }
     }
+    return checkedPlayerNumbers
 }
 
 
