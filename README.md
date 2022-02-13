@@ -41,7 +41,7 @@
 - `Sequence Protocol`
 - `inout`
 
-## STEP 1
+## [STEP 1]
 
 ### 고민한점
 
