@@ -7,10 +7,11 @@
 import Foundation
 
 var userInputNumbers: [Int] = []
-let computerNumbers = generateRandomNumbers()
 var remainingChangeCount: Int = 9
 var strikeCounting = 0
+var (strikeCount, ballCount) = (Int.zero, Int.zero)
 let endGameCount = 3
+let computerNumbers = generateRandomNumbers()
 
 func playGame() {
     let chanceCount = 1
@@ -20,9 +21,10 @@ func playGame() {
             playGame()
             return
         }
-        let (strikeResult, ballResult) = calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
+        calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
         remainingChangeCount -= chanceCount
-        printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballResult, strikeCount: strikeResult)
+        printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballCount, strikeCount: strikeCount)
+        resetStrikeBallCount()
 //        if  strikeCounting >= 3 endGameCount {break}
         
     }
@@ -43,18 +45,21 @@ func selectMenu() {
     case "1":
         playGame()
     case "2":
-        return
+       break
     default:
         print("입력이 잘못되었습니다.")
         selectMenu()
     }
 }
 
-@discardableResult func receiveUserInputNumbers() -> [String]? {
+func printInputGuidence() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫지는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
-    
+}
+
+func receiveUserInputNumbers() -> [String]? {
+    printInputGuidence()
     let inputNumbers = readLine()?.components(separatedBy: " ")
     return inputNumbers
 }
@@ -67,16 +72,25 @@ func generateRandomNumbers(range: ClosedRange<Int> = 1...9, numbersCount: Int = 
     return Array(randomNumbers)
 }
 
-
-func calculateStrikeBallWith(_ userNumbers: Array<Int>, and computerNumbers: Array<Int>) -> (strikeResult: Int, ballResult: Int) {
+func increaseStrikeCount(_ userNumbers: [Int], and computerNumbers: [Int])  {
     let strikePoint = 1
-    var (strikeCount, ballCount) = (Int.zero, Int.zero)
     for index in userNumbers.indices {
         strikeCount += userNumbers[index] == computerNumbers[index] ? strikePoint : .zero
     }
+}
+
+func increaseBallCount(_ userNumbers: [Int], and computerNumbers: [Int]) {
     ballCount = (Set(computerNumbers).intersection(userNumbers).count - strikeCount)
-    strikeCounting += strikeCount
-    return (strikeCount, ballCount)
+}
+
+func calculateStrikeBallWith(_ userNumbers: [Int], and computerNumbers: [Int]) {
+    increaseStrikeCount(userNumbers, and: computerNumbers)
+    increaseBallCount(userNumbers, and: computerNumbers)
+}
+
+func resetStrikeBallCount() {
+    strikeCount = .zero
+    ballCount = .zero
 }
 
 func saveConvertedNumbers(_ numbers: [Int]) {
