@@ -23,9 +23,9 @@ func playGame() {
         }
         calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
         remainingChangeCount -= chanceCount
-        printPlayingGameMessage(userNumbers: userInputNumbers, ballCount: ballCount, strikeCount: strikeCount)
+        printPlayingGameMessage()
         resetStrikeBallCount()
-//        if  strikeCounting >= 3 endGameCount {break}
+       if  strikeCounting >= 3 endGameCount {break}
         
     }
     judgeGameResult()
@@ -44,6 +44,7 @@ func selectMenu() {
     switch inputNumbers {
     case "1":
         playGame()
+        selectMenu()
     case "2":
        break
     default:
@@ -54,7 +55,7 @@ func selectMenu() {
 
 func printInputGuidence() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫지는 허용하지 않습니다.")
+    print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
 }
 
@@ -86,6 +87,7 @@ func increaseBallCount(_ userNumbers: [Int], and computerNumbers: [Int]) {
 func calculateStrikeBallWith(_ userNumbers: [Int], and computerNumbers: [Int]) {
     increaseStrikeCount(userNumbers, and: computerNumbers)
     increaseBallCount(userNumbers, and: computerNumbers)
+    strikeCounting += strikeCount
 }
 
 func resetStrikeBallCount() {
@@ -93,16 +95,18 @@ func resetStrikeBallCount() {
     ballCount = .zero
 }
 
-func saveConvertedNumbers(_ numbers: [Int]) {
-    userInputNumbers = numbers
+func saveConvertedNumbers(_ numbers: [String]?) {
+    if let verifiedNumber = numbers?.compactMap({ Int($0) }) {
+        userInputNumbers = verifiedNumber
+    }
 }
 
-func isHaveIntType(numbers: [String]?) -> Bool {
-    let verifyNumbers = numbers?.compactMap{ Int($0) }
-    guard let verifiedNumber = verifyNumbers, verifiedNumber.count == 3 else {
-        return false
-    }
-    saveConvertedNumbers(verifiedNumber)
+func isNumber(numbers: [String]?) -> Bool {
+    guard let verifiedNumber = numbers?.compactMap({ Int($0) }),
+          verifiedNumber.count == 3 else {
+              return false
+          }
+    saveConvertedNumbers(numbers)
     return true
 }
 
@@ -110,16 +114,19 @@ func isHaveInRange(numbers: [Int], range: ClosedRange<Int> = 1...9) -> Bool {
     return numbers.filter { range.contains($0) }.count == 3
 }
 
-func isHaveVerifiedNumbers(_ numbers: [String]?) -> Bool {
-    return isHaveIntType(numbers: numbers) && isHaveInRange(numbers: userInputNumbers)
+func isHaveDuplication(numbers: [Int]) -> Bool {
+    return Set(numbers).count == 3
 }
 
-func printPlayingGameMessage(userNumbers: Array<Int> ,ballCount: Int ,strikeCount: Int) {
-    let (strikeDescription, ballDescription) =  ("스트라이크," ,"볼")
-    let (randomNumbersDescription, remainingChanceDescription) = ("임의의 수 : " ,"남은 기회 :")
-    let squareBrakets: CharacterSet = ["[","]"]
+func isHaveVerifiedNumbers(_ numbers: [String]?) -> Bool {
+    return isNumber(numbers: numbers) && isHaveInRange(numbers: userInputNumbers) && isHaveDuplication(numbers: userInputNumbers)
     
-    print("\(randomNumbersDescription) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBrakets))")
+}
+
+func printPlayingGameMessage() {
+    let (strikeDescription, ballDescription) =  ("스트라이크," ,"볼")
+    let remainingChanceDescription: String = "남은 기회 :"
+    
     print("\(strikeCount)\(strikeDescription) \(ballCount) \(ballDescription) ")
     print("\(remainingChanceDescription) \(remainingChangeCount)")
 }
