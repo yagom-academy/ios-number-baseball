@@ -18,7 +18,8 @@
 
 
 ### STEP2 
-<img src = "https://i.imgur.com/OBkszO7.jpg" width="200px"> </br> 
+<img src = "https://i.imgur.com/OBkszO7.jpg" width="200px"> </br>
+ 
 <img src = "https://i.imgur.com/c8uOTct.jpg" width="200px">
 
 
