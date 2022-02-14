@@ -14,7 +14,11 @@ func selectMenu() {
           2.게임 종료
           원하는 기능을 선택해주세요 :
           """, terminator: " ")
-    guard let selectedMenu = readLine() else { print("입력이 잘못되었습니다."); return }
+    guard let selectedMenu = readLine() else {
+        print("입력이 잘못되었습니다.")
+        return
+    }
+    
     let trimmedSelectedMenu = selectedMenu.trimmingCharacters(in: .whitespaces)
     
     if trimmedSelectedMenu == "1" {
@@ -35,13 +39,18 @@ func receiveNumbers() -> [String] {
         중복 숫자는 허용하지 않습니다.
         입력 :
         """, terminator: " ")
-    guard let receivedNumbers = readLine() else { print("입력이 잘못되었습니다."); return receiveNumbers() }
-    let trimmedReceivedNumbers = receivedNumbers.trimmingCharacters(in: .whitespaces)
-    let userNumbers = trimmedReceivedNumbers.components(separatedBy: " ").filter{ !$0.isEmpty }
     
-    guard checkReceivedNumbers(userNumbers: userNumbers) else { return receiveNumbers() }
+    guard let userInput = readLine() else {
+        print("입력이 잘못되었습니다.")
+        return receiveNumbers()
+    }
     
-    return userNumbers
+    let trimmedReceivedNumbers = userInput.trimmingCharacters(in: .whitespaces)
+    let receivedNumbers = trimmedReceivedNumbers.components(separatedBy: " ").filter{ !$0.isEmpty }
+    
+    guard checkReceivedNumbers(userNumbers: receivedNumbers) else { return receiveNumbers() }
+    
+    return receivedNumbers
 }
 
 func checkReceivedNumbers(userNumbers: [String]) -> Bool {
@@ -59,8 +68,8 @@ func startGame() {
     
     while remainedChances > 0 {
         let userNumbers = receiveNumbers()
-        guard !checkUserWin(userNumbers: userNumbers, randomNumbers: randomNumbers) else { break }
-        printCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+        guard !checkUserWin(using: userNumbers, and: randomNumbers) else { break }
+        printCounts(using: userNumbers, and: randomNumbers)
         print("남은 기회 : \(remainedChances)")
         checkComputerWin(remainedChances: remainedChances)
     }
@@ -78,7 +87,7 @@ func makeRandomNumbers() -> [String] {
     return Array(randomNumbers)
 }
 
-func calculateStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+func calculateStrikeCounts(using userNumbers: [String], and randomNumbers: [String]) -> Int {
     var strikeCounts = 0
     
     for (index, number) in userNumbers.enumerated() {
@@ -88,7 +97,7 @@ func calculateStrikeCounts(userNumbers: [String], randomNumbers: [String]) -> In
     return strikeCounts
 }
 
-func calculateBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int {
+func calculateBallCounts(using userNumbers: [String], and randomNumbers: [String]) -> Int {
     var ballCounts = 0
     
     for (index, number) in userNumbers.enumerated() {
@@ -98,13 +107,13 @@ func calculateBallCounts(userNumbers: [String], randomNumbers: [String]) -> Int 
     return ballCounts
 }
 
-func printCounts(userNumbers: [String], randomNumbers: [String]) {
-    let strikeCounts = calculateStrikeCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
-    let ballCounts = calculateBallCounts(userNumbers: userNumbers, randomNumbers: randomNumbers)
+func printCounts(using userNumbers: [String], and randomNumbers: [String]) {
+    let strikeCounts = calculateStrikeCounts(using: userNumbers, and: randomNumbers)
+    let ballCounts = calculateBallCounts(using: userNumbers, and: randomNumbers)
     print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
 }
 
-func checkUserWin(userNumbers: [String], randomNumbers: [String]) -> Bool {
+func checkUserWin(using userNumbers: [String], and randomNumbers: [String]) -> Bool {
     if userNumbers == randomNumbers {
         print("사용자 승리...!")
         return true
