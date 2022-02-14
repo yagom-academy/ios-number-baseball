@@ -2,7 +2,7 @@
 //  NumberBaseball.swift
 //  NumberBaseball
 //
-//  Created by mmim, onetool on 2022/02/10.
+//  Created by mmim on 2022/02/11.
 //
 
 import Foundation
@@ -18,25 +18,14 @@ let range = 1...9
 func startGame() {
     computerNumbers = notOverlapNumbersArray()
     while roundCount > 0 {
-        playerNumbers = notOverlapNumbersArray()
-        checkScoreCondition()
+        inputPlayerNumbers()
         checkGameResult()
+        resetValue()
     }
 }
 
-func checkGameResult() {
-    strike = 0
-    ball = 0
-    if roundCount == 0 {
-        print("컴퓨터 승리🤣")
-    } else if strike == 3 {
-        print("유저 승리❤️")
-        roundCount = 0
-    }
-}
-
-func generateRandomNumber() -> Int {
-    return Int.random(in: range)
+func notOverlapNumbersArray() -> [Int] {
+    return Array(saveNumbersToSet())
 }
 
 func saveNumbersToSet() -> Set<Int> {
@@ -47,13 +36,46 @@ func saveNumbersToSet() -> Set<Int> {
     return randomNumbersSet
 }
 
-func notOverlapNumbersArray() -> [Int] {
-    return Array(saveNumbersToSet())
+func generateRandomNumber() -> Int {
+    return Int.random(in: range)
 }
 
-func printPlayerNumbers() {
-    print("\n임의의 수 : ", terminator: "")
-    playerNumbers.forEach{ print($0, terminator: " ") }
+func inputPlayerNumbers() {
+    printInputGuide()
+    guard let userInput: String = readLine() else { return }
+    let inputNumbers: [String] = userInput.components(separatedBy: " ")
+    let convertedInputNumbers: [Int] = convertNumbersStringToInt(inputNumbers)
+    verifyInputPlayerNumbers(convertedInputNumbers)
+}
+
+func convertNumbersStringToInt(_ inputNumbers: [String]) -> [Int] {
+    return inputNumbers.compactMap{ Int($0) }
+}
+
+func verifyInputPlayerNumbers(_ convertedInputNumbers: [Int]) {
+    if convertedInputNumbers.count == maxNumberCount && isNotOverlappedPlayerNumbers(convertedInputNumbers) {
+        playerNumbers = convertedInputNumbers
+        checkScoreCondition()
+    } else {
+        printError()
+        inputPlayerNumbers()
+    }
+}
+
+func isNotOverlappedPlayerNumbers(_ inputNumbersInt: [Int]) -> Bool {
+    return inputNumbersInt.count == Set(inputNumbersInt).count
+}
+
+func printInputGuide() {
+    print("""
+        🪧숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        🪧중복 숫자는 허용하지 않습니다.
+        ⌨️입력 :
+        """, terminator: " ")
+}
+
+func printError() {
+    print("입력이 잘못되었습니다.😜")
 }
 
 func checkScoreCondition() {
@@ -76,10 +98,36 @@ func checkBallCondition(sameNumbers: Int) {
     ball = sameNumbers - strike
 }
 
-func printScoreInformation() {
-    print("\n\(strike) 스트라이크, \(ball) 볼")
-    roundCount -= 1
-    print("남은 기회 : \(roundCount)")
+func printPlayerNumbers() {
+    print("\n임의의 수 : ", terminator: "")
+    playerNumbers.forEach{ print($0, terminator: " ") }
 }
 
-    
+func printScoreInformation() {
+    reduceRoundCount()
+    print("""
+        \n\(strike) 스트라이크, \(ball) 볼
+        남은 기회 : \(roundCount)
+        """)
+}
+
+func reduceRoundCount() {
+    roundCount -= 1
+}
+
+func checkGameResult() {
+
+    if roundCount == 0 {
+        print("컴퓨터 승리🤣")
+    } else if strike == 3 {
+        print("유저 승리❤️")
+        roundCount = 0
+    }
+}
+
+func resetValue() {
+    strike = 0
+    ball = 0
+}
+
+

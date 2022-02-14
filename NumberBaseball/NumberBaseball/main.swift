@@ -1,9 +1,9 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by mmim, onetool. 
 //  Copyright © yagom academy. All rights reserved.
 // 
 
 import Foundation
 
-startGame()
+startGameMenu()
