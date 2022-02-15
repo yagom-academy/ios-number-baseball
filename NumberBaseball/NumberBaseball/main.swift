@@ -6,56 +6,133 @@
 
 import Foundation
 
-let computerNumbers = generateRandomNumbers()
+var userInputNumbers: [Int] = []
 var remainingChangeCount: Int = 9
 var strikeCounting = 0
+var (strikeCount, ballCount) = (Int.zero, Int.zero)
 let endGameCount = 3
+let computerNumbers = generateRandomNumbers()
 
-// 사용자정의를 못만드니 전역변수로 처리하는데, one이라는 숫자대신 변수로
-func generateRandomNumbers(range: ClosedRange<Int> = 1...9, three: Int = 3) -> Set<Int> {
+func playGame() {
+    let chanceCount = 1
+    
+    while remainingChangeCount > .zero {
+        guard isHaveVerifiedNumbers(receiveUserInputNumbers()) else {
+            playGame()
+            return
+        }
+        calculateStrikeBallWith(userInputNumbers, and: computerNumbers)
+        remainingChangeCount -= chanceCount
+        printPlayingGameMessage()
+        resetStrikeBallCount()
+       if  strikeCounting >= 3 endGameCount {break}
+        
+    }
+    judgeGameResult()
+}
+
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func selectMenu() {
+    printMenu()
+    guard let inputNumbers: String = readLine()?.replacingOccurrences(of: " ", with: "") else { return }
+    
+    switch inputNumbers {
+    case "1":
+        playGame()
+        selectMenu()
+    case "2":
+       break
+    default:
+        print("입력이 잘못되었습니다.")
+        selectMenu()
+    }
+}
+
+func printInputGuidence() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+}
+
+func receiveUserInputNumbers() -> [String]? {
+    printInputGuidence()
+    let inputNumbers = readLine()?.components(separatedBy: " ")
+    return inputNumbers
+}
+
+func generateRandomNumbers(range: ClosedRange<Int> = 1...9, numbersCount: Int = 3) -> Array<Int> {
     var randomNumbers: Set<Int> = []
-    while randomNumbers.count < three {
+    while randomNumbers.count < numbersCount {
         randomNumbers.insert(Int.random(in: range))
     }
-    return randomNumbers
+    return Array(randomNumbers)
 }
 
-func compareNumbers(user: Set<Int>, computer: Set<Int>) -> (strikeResult: Int, ballResult: Int) {
+func increaseStrikeCount(_ userNumbers: [Int], and computerNumbers: [Int])  {
     let strikePoint = 1
-    var (strikeCount, ballCount) = (Int.zero, Int.zero)
-    for index in Array(user).indices {
-        strikeCount += Array(user)[index] == Array(computer)[index] ? strikePoint : .zero
+    for index in userNumbers.indices {
+        strikeCount += userNumbers[index] == computerNumbers[index] ? strikePoint : .zero
     }
-    ballCount = (computer.intersection(user).count - strikeCount)
-    strikeCounting += strikeCount
-    return (strikeCount, ballCount)
 }
 
-func printPlayingGameMessage(userNumbers: Set<Int> ,ballCount: Int ,strikeCount: Int) {
-    let (strike, ball) =  ("스트라이크," ,"볼")
-    let (randomNumbers, remainingChance) = ("임의의 수 : " ,"남은 기회 :")
-    let squareBraketRight: CharacterSet = ["[","]"]
+func increaseBallCount(_ userNumbers: [Int], and computerNumbers: [Int]) {
+    ballCount = (Set(computerNumbers).intersection(userNumbers).count - strikeCount)
+}
+
+func calculateStrikeBallWith(_ userNumbers: [Int], and computerNumbers: [Int]) {
+    increaseStrikeCount(userNumbers, and: computerNumbers)
+    increaseBallCount(userNumbers, and: computerNumbers)
+    strikeCounting += strikeCount
+}
+
+func resetStrikeBallCount() {
+    strikeCount = .zero
+    ballCount = .zero
+}
+
+func saveConvertedNumbers(_ numbers: [String]?) {
+    if let verifiedNumber = numbers?.compactMap({ Int($0) }) {
+        userInputNumbers = verifiedNumber
+    }
+}
+
+func isNumber(numbers: [String]?) -> Bool {
+    guard let verifiedNumber = numbers?.compactMap({ Int($0) }),
+          verifiedNumber.count == 3 else {
+              return false
+          }
+    saveConvertedNumbers(numbers)
+    return true
+}
+
+func isHaveInRange(numbers: [Int], range: ClosedRange<Int> = 1...9) -> Bool {
+    return numbers.filter { range.contains($0) }.count == 3
+}
+
+func isHaveDuplication(numbers: [Int]) -> Bool {
+    return Set(numbers).count == 3
+}
+
+func isHaveVerifiedNumbers(_ numbers: [String]?) -> Bool {
+    return isNumber(numbers: numbers) && isHaveInRange(numbers: userInputNumbers) && isHaveDuplication(numbers: userInputNumbers)
     
-    print("\(randomNumbers) \(userNumbers.description.replacingOccurrences(of: ",", with: "").trimmingCharacters(in: squareBraketRight))")
-    print("\(strikeCount) \(strike) \(ballCount) \(ball) ")
-    print("\(remainingChance) \(remainingChangeCount)")
+}
+
+func printPlayingGameMessage() {
+    let (strikeDescription, ballDescription) =  ("스트라이크," ,"볼")
+    let remainingChanceDescription: String = "남은 기회 :"
+    
+    print("\(strikeCount)\(strikeDescription) \(ballCount) \(ballDescription) ")
+    print("\(remainingChanceDescription) \(remainingChangeCount)")
 }
 
 func judgeGameResult() {
     let (userWin, computerWin) = ("사용자의 승리...!", "컴퓨터의 승리...!")
     print(remainingChangeCount == .zero ? computerWin : userWin)
 }
-
-func playGame() {
-    let change = 1
-    
-    while remainingChangeCount > .zero {
-        let userNumbers = generateRandomNumbers()
-        let (strikeCount, ballCount) = compareNumbers(user: userNumbers, computer: computerNumbers)
-        remainingChangeCount -= change
-        printPlayingGameMessage(userNumbers: userNumbers, ballCount: ballCount, strikeCount: strikeCount)
-        if strikeCounting == endGameCount { break }
-    }
-    judgeGameResult()
-}
-playGame()
+selectMenu()
