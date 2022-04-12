@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var randomSet: Set<Int>
+var randomArray: Array<Int>
 var count: Int = 9
 
 func insertRandomNumber() -> Set<Int> {
@@ -18,12 +18,12 @@ func insertRandomNumber() -> Set<Int> {
     return randomSet
 }
 
-randomSet = insertRandomNumber()
+randomArray = insertRandomNumber()
 
 var strike: Int = 0
 var ball: Int = 0
 
-var inputArray: Set<Int> = []
+var inputArray: Array<Int> = []
 var userNumber: Array<Int?> = []
 
 func numberBaseball() {
