@@ -17,7 +17,7 @@ func generateNumbers() -> Set<Int> {
     return randomNumber
 }
 
-func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String: Int] {
+func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int] {
     let suggestNumber = Array<Int>(generateNumbers())
     var strikeCount = 0
     var ballCount = 0
@@ -47,16 +47,31 @@ func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String: Int]
         print("컴퓨터 승리...!")
     }
     
-    var strikeBallCount: [String: Int] = [:]
+    var strikeBallCount: [String : Int] = [:]
     strikeBallCount["strike"] = strikeCount
     strikeBallCount["trycount"] = tryCount
     
     return strikeBallCount
 }
 
-func checkGameOver( strikeTryCount: [String:Int]) {
+func gameStart() {
+    var answerNumber = Set<Int>()
+    var tryCount = 9
     
+    while answerNumber.count < 3 {
+        answerNumber.insert(Int.random(in: 1...9))
+    }
+    while repeatCheck {
+        tryCount -= 1
+        let strikeBallCount = checkStrikeOrBall(answerNumber: Array<Int>(answerNumber), tryCount: tryCount)
+        checkGameOver(strikeTryCount: strikeBallCount)
+    }
+}
+
+func checkGameOver(strikeTryCount: [String : Int]) {
     if strikeTryCount["strike"] == 3 || strikeTryCount["trycount"] ?? 0 < 1{
         repeatCheck = false
     }
 }
+
+gameStart()
