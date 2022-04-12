@@ -24,27 +24,35 @@ import Foundation
  */
 
 
-var randomNumbers = [Int]()
-var randomNumberCounter = 0
+var randomNumbers = [1,2,3,4,5]
+var index = 0
 var totalTrialNumber = 9
 
-func makeRandomNumbers() { // 난수 생성
-    
-}
-
-
-func searchDuplicatedNumber(randomNumbers: Array<Int>) { // 중복검사
-    while (randomNumberCounter != 3) {
-        let randomNumber = Int.random(in: 1...9) // 난수 생성하고
-        if !randomNumbers.contains(randomNumber) { // 방금 생성된 난수를 포함하지 않는다면
-            randomNumbers.  // 배열에 난수 추가
-            randomNumberCounter += 1
-        }
+func makeRandomNumbers() -> Array<Int> { // 난수 생성
+    var randomNumbers = Set<Int>()
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
     }
-}
-
-func checkStrikeBall() {
     
+    return Array(randomNumbers)
 }
 
+
+func checkStrikeBall() -> (Int, Int) {
+    var strike = 0
+    var ball = 0
+    let numbers = makeRandomNumbers() // 사용자 배열
+    
+    for numberindex in (0...numbers.count - 1) {
+        if numbers.contains(numbers[numberindex]) && index == numberindex {
+            strike += 1
+        } else if numbers.contains(numbers[numberindex]) && index != numberindex{
+            ball += 1
+        }
+        
+        index += 1
+    }
+    
+    return (strike, ball)
+}
 
