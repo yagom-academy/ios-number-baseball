@@ -4,3 +4,5 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
+
+![step1-flowchart](https://user-images.githubusercontent.com/50102522/163025430-93288675-0200-4054-a461-909c7cf14c78.png)
