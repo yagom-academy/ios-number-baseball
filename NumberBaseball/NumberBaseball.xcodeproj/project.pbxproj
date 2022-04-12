@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		908355382805366B0074B508 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908355372805366B0074B508 /* String+Extensions.swift */; };
+		9083553A280536A90074B508 /* BaseballGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90835539280536A90074B508 /* BaseballGame.swift */; };
 		C7A29CFC2551372B00CAC77A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A29CFB2551372B00CAC77A /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		908355372805366B0074B508 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		90835539280536A90074B508 /* BaseballGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballGame.swift; sourceTree = "<group>"; };
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,6 +42,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90835535280535740074B508 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				90835539280536A90074B508 /* BaseballGame.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		90835536280535800074B508 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				908355372805366B0074B508 /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C7A29CEF2551372B00CAC77A = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				C7A29CFB2551372B00CAC77A /* main.swift */,
+				90835535280535740074B508 /* Model */,
+				90835536280535800074B508 /* Extensions */,
 			);
 			path = NumberBaseball;
 			sourceTree = "<group>";
@@ -119,7 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908355382805366B0074B508 /* String+Extensions.swift in Sources */,
 				C7A29CFC2551372B00CAC77A /* main.swift in Sources */,
+				9083553A280536A90074B508 /* BaseballGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
