@@ -6,10 +6,12 @@
 
 import Foundation
 
-func generateNumbers() {
+func generateNumbers() -> Set<Int> {
     var randomNumber = Set<Int>()
     
     while randomNumber.count < 3 {
         randomNumber.insert(Int.random(in: 1...9))
     }
+    
+    return randomNumber
 }
