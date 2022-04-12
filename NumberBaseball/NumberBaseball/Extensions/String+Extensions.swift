@@ -9,9 +9,9 @@ import Foundation
 
 extension String {
     /// 필요한 내용 입력후 readline 출력.
-    func input() -> String? {
+    func input() -> [Int]? {
         print(self, terminator: " ")
-        
-        return readLine()?.replacingOccurrences(of: " ", with: "")
+
+        return readLine()?.split(separator: " ").map{ Int($0) ?? 0 }
     }
 }

@@ -16,6 +16,8 @@ class BaseballGame: Runable {
     private var randomNumbers: [Int] = []
     private var removedDuplicate: Set<Int> = []
     
+    private var randomArray: [Int] = []
+
     private var strike : Int = 0
     private var ball : Int = 0
     
@@ -27,7 +29,24 @@ class BaseballGame: Runable {
         else {
             return
         }
+        randomArray = Array(removedDuplicate)
         
+        for index in 0...2 {
+            comparison(of: result, and: randomArray, at: index)
+        }
+        
+        print(strike, " 스트라이크, ", ball, " 볼 ")
+    }
+}
+
+extension BaseballGame {
+    private func comparison (of data: [Int], and answer: [Int], at position:Int) {
+        if data[position] == answer[position] {
+            strike += 1
+        }
+        else if data.contains(answer[position]) {
+            ball += 1
+        }
     }
     
     private func createComputerNumber() {
