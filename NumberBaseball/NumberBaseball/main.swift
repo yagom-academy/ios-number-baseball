@@ -24,11 +24,11 @@ import Foundation
  */
 
 
-var randomNumbers = [1,2,3,4,5]
+var randomNumbers = [Int]()
 var index = 0
 var totalTrialNumber = 9
 
-func makeRandomNumbers() -> Array<Int> { // 난수 생성
+func makeRandomNumbers() -> Array<Int> {
     var randomNumbers = Set<Int>()
     while randomNumbers.count < 3 {
         randomNumbers.insert(Int.random(in: 1...9))
@@ -41,7 +41,7 @@ func makeRandomNumbers() -> Array<Int> { // 난수 생성
 func checkStrikeBall() -> (Int, Int) {
     var strike = 0
     var ball = 0
-    let numbers = makeRandomNumbers() // 사용자 배열
+    let numbers = makeRandomNumbers()
     
     for numberindex in (0...numbers.count - 1) {
         if numbers.contains(numbers[numberindex]) && index == numberindex {
