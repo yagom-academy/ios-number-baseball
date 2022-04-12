@@ -4,7 +4,4 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
-print("Hello, World!")
-
+let randomSet: Set<Int>
