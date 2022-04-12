@@ -5,3 +5,4 @@
 // 
 
 let randomSet: Set<Int>
+var count: Int = 9
