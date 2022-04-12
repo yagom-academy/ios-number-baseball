@@ -31,3 +31,20 @@ func peakThreeRandomNumbers() -> [Int] {
     
     return list
 }
+
+func calculateResult(computer: [Int], user: [Int]) -> [Int] {
+    
+    var resultStrikeAndBall: [Int] = [0, 0]
+
+    for i in 0...2 {
+        guard let foundIdx = computer.firstIndex(of: user[i]) else { continue }
+        
+        if foundIdx == i {
+            resultStrikeAndBall[0] += 1
+        } else {
+            resultStrikeAndBall[1] += 1
+        }
+    }
+    
+    return resultStrikeAndBall
+}
