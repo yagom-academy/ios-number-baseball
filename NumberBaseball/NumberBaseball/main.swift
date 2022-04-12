@@ -6,5 +6,22 @@
 
 import Foundation
 
-print("Hello, World!")
+var challenge: Int = 9
+var isEnd: Bool = false
+var randomNumberAnswer: Array<Int> = {
+    var result = Set<Int>()
+    while result.count < 3{
+        result.insert(Int.random(in: 1...9))
+    }
+    return Array(result)
+}()
 
+
+
+while isEnd{
+    print("임의의 수 :", terminator: " ")
+    guard let userInput = readLine()?.components(separatedBy: " ") else{
+        break
+    }
+    
+}
