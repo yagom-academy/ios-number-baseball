@@ -7,15 +7,34 @@ import Foundation
 
 func startGame() {
     
+    var chance: Int = 9
     var threeRandomNumbers: [Int]
-    var chance = 9
-    var result: String
+    var result: [Int]
     
-    threeRandomNumbers = peakThreeRandomNumbers()
+    threeRandomNumbers = pickThreeRandomNumbers()
+    
+    while chance > 0 {
+        
+        result = calculateResult(computer: threeRandomNumbers, user: pickThreeRandomNumbers())
+        
+        print("\(result[0]) 스트라이크, \(result[1]) 볼")
+        
+        if result[0] == 3 {
+            print("유저 승리...!")
+            break
+        }
+        
+        chance -= 1
+        
+    }
+    
+    if chance == 0 {
+        print("컴퓨터 승리...!")
+    }
     
 }
 
-func peakThreeRandomNumbers() -> [Int] {
+func pickThreeRandomNumbers() -> [Int] {
     var list: [Int] = []
     
     while true {
@@ -24,7 +43,7 @@ func peakThreeRandomNumbers() -> [Int] {
         list = Array(Set(list))
         
         if list.count == 3 {
-            print(list)
+            // print(list)
             break
         }
     }
@@ -33,6 +52,8 @@ func peakThreeRandomNumbers() -> [Int] {
 }
 
 func calculateResult(computer: [Int], user: [Int]) -> [Int] {
+    
+    print("임의의 수 : \(user[0]) \(user[1]) \(user[2])")
     
     var resultStrikeAndBall: [Int] = [0, 0]
 
@@ -48,3 +69,6 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     
     return resultStrikeAndBall
 }
+
+
+startGame()
