@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-let randomSet: Set<Int>
+var randomSet: Set<Int>
 var count: Int = 9
