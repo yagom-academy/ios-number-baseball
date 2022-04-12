@@ -6,3 +6,16 @@
 
 var randomSet: Set<Int>
 var count: Int = 9
+
+func insertRandomNumber() -> Set<Int> {
+    
+    var randomSet: Set<Int> = []
+    
+    while randomSet.count != 3 {
+        randomSet.insert(Int.random(in: 1...9))
+    }
+    
+    return randomSet
+}
+
+randomSet = insertRandomNumber()
