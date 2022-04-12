@@ -36,9 +36,7 @@ func decide() {
     for element in 0...2 {
         if verifiedComputerArray[element] == verifiedUserArray[element] {
             strikeCount += 1
-            continue
-        }
-        if verifiedUserArray.contains(verifiedComputerArray[element]) {
+        } else if verifiedUserArray.contains(verifiedComputerArray[element]) {
             ballCount += 1
         }
     }
@@ -57,7 +55,7 @@ func startGame() {
         generateRandomNumbersForUser()
         var result: String = "임의의 수 : "
         for element in 0...2 {
-            result += String(verifiedUserArray[element]) + " "
+            result += "\(verifiedUserArray[element]) "
         }
         result.removeLast()
         print(result)
@@ -68,11 +66,10 @@ func startGame() {
         }
         
         remainingChance -= 1
+        print("남은 기회 : \(remainingChance)")
         if remainingChance == 0 {
             print("컴퓨터 승리...!")
         }
-        
-        print("남은 기회 : \(remainingChance)")
     }
 }
 
