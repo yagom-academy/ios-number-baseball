@@ -28,10 +28,23 @@ var randomNumbers = [Int]()
 var randomNumberCounter = 0
 var totalTrialNumber = 9
 
-
-func searchDuplicatedNumber(randomNumbers: Array<Int>) {
-    for _ in (0...randomNumbers.count - 1) {
-        
-    }
-
+func makeRandomNumbers() { // 난수 생성
+    
 }
+
+
+func searchDuplicatedNumber(randomNumbers: Array<Int>) { // 중복검사
+    while (randomNumberCounter != 3) {
+        let randomNumber = Int.random(in: 1...9) // 난수 생성하고
+        if !randomNumbers.contains(randomNumber) { // 방금 생성된 난수를 포함하지 않는다면
+            randomNumbers.  // 배열에 난수 추가
+            randomNumberCounter += 1
+        }
+    }
+}
+
+func checkStrikeBall() {
+    
+}
+
+
