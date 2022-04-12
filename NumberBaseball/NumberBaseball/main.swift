@@ -53,3 +53,10 @@ func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String: Int]
     
     return strikeBallCount
 }
+
+func checkGameOver( strikeTryCount: [String:Int]) {
+    
+    if strikeTryCount["strike"] == 3 || strikeTryCount["trycount"] ?? 0 < 1{
+        repeatCheck = false
+    }
+}
