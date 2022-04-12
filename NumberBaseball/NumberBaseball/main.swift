@@ -22,12 +22,12 @@ func generateRandomNumbersForComputer() {
 }
 
 func generateRandomNumbersForUser() {
-    var initalUserInput: Set<Int> = Set<Int>()
-    while initalUserInput.count < 3 {
+    var initialUserInput: Set<Int> = Set<Int>()
+    while initialUserInput.count < 3 {
         let number: Int = Int.random(in: 1...9)
-        initalUserInput.insert(number)
+        initialUserInput.insert(number)
     }
-    verifiedUserArray = Array(initalUserInput)
+    verifiedUserArray = Array(initialUserInput)
 }
 
 func decide() {
