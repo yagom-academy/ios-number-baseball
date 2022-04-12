@@ -20,3 +20,13 @@ func makeRandomNumbers(in numbers: [Int]) -> [Int] {
     result.removeSubrange(0...result.count - totalAnswerNumbers - 1)
     return result
 }
+
+func printTryNumbers(whichIs numbers: [Int]) {
+    print("임의의 수 : ", terminator: "")
+    
+    for number in numbers {
+        print(number, terminator: " ")
+    }
+    print()
+}
+
