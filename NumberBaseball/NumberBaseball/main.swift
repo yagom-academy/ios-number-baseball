@@ -28,55 +28,56 @@ userNumber = makeRandomNumber()
 var userNumberList = Array(userNumber)
 let computerNumberList = Array(computerNumber)
 
-var strikes = 0
-var balls = 0
-
 func compareNumbers(computer: Array<Int>, user: Array<Int>) {
-    while remainingNumber > 0 {
+    
+    print("임의의 수 : ", terminator: " ")
+    userNumberList.forEach {
+        print($0, terminator: " ")
+    }
+    print("")
+    
+    let strikes = isStrike(computer: computer, user: user)
+    let balls = isBall(computer: computer, user: user)
+    print("\(strikes) 스트라이크, \(balls) 볼")
+    
+    remainingNumber -= 1
+    
+    if strikes == 3 {
+        print("사용자 승리!")
+        return
+    } else if remainingNumber == 0 {
+        print("남은 기회: \(remainingNumber)")
+        print("컴퓨터 승리...!")
+        return
+    } else {
+        print("남은 기회: \(remainingNumber)")
         userNumber = makeRandomNumber()
         userNumberList = Array(userNumber)
-        
-        isStrike(computer: computer, user: user, strikes: &strikes)
-        isBall(computer: computer, user: user, balls: &balls)
-        
-        print("임의의 수 : ", terminator: " ")
-        userNumberList.forEach {
-            print($0, terminator: " ")
-        }
-        print("")
-        print("\(strikes) 스트라이크, \(balls) 볼")
-        
-        remainingNumber -= 1
-        
-        if strikes == 3 {
-            print("사용자 승리!")
-            return
-        } else if remainingNumber == 0 {
-            print("남은 기회: \(remainingNumber)")
-            print("컴퓨터 승리...!")
-            return
-        } else {
-            print("남은 기회: \(remainingNumber)")
-            strikes = 0
-            balls = 0
-        }
+        compareNumbers(computer: computerNumberList, user: userNumberList)
+        return
     }
 }
 
-func isStrike(computer: Array<Int>, user: Array<Int>, strikes: inout Int) {
+func isStrike(computer: Array<Int>, user: Array<Int>) -> Int {
+    var strikes = 0
     for i in 0..<user.count {
         if user[i] == computer[i] {
             strikes += 1
         }
     }
+    
+    return strikes
 }
 
-func isBall(computer: Array<Int>, user: Array<Int>, balls: inout Int) {
+func isBall(computer: Array<Int>, user: Array<Int>) -> Int {
+    var balls = 0
     for i in 0..<user.count {
         if computer.contains(user[i]) && computer[i] != user[i] {
             balls += 1
         }
     }
+    
+    return balls
 }
 
 compareNumbers(computer: computerNumberList, user: userNumberList)
