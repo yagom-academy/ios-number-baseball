@@ -23,4 +23,13 @@ randomSet = insertRandomNumber()
 var strike: Int = 0
 var ball: Int = 0
 
+var inputArray: Set<Int> = []
+var userNumber: Array<Int?> = []
+
+func numberBaseball() {
+    let userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
+    if let unwrappedUserNumber: Array<Int> = userNumber {
+        inputArray = Set(unwrappedUserNumber)
+    }
+}
 
