@@ -24,18 +24,36 @@ class BaseballGame: Runable {
     func run() {
         createComputerNumber()
         
-        let info = "임의의 수 : "
-        guard let result = info.input()
-        else {
-            return
-        }
-        randomArray = Array(removedDuplicate)
-        
-        for index in 0...2 {
-            comparison(of: result, and: randomArray, at: index)
-        }
-        
-        print(strike, " 스트라이크, ", ball, " 볼 ")
+        repeat {
+            strike = 0
+            ball = 0
+            significantFigures -= 1
+            
+            let info = "임의의 수 : "
+            guard let result = info.input()
+            else {
+                return
+            }
+            
+            randomArray = Array(removedDuplicate)
+            print("computer : \(randomArray)")
+            
+            for index in 0...2 {
+                comparison(of: result, and: randomArray, at: index)
+            }
+            
+            print("\(strike) 스트라이크, \(ball) 볼 ")
+            print("남은 기회 : \(significantFigures)")
+            
+            if strike == 3 {
+                print("사용자 승리!")
+                break
+            }
+            else if significantFigures == 0 {
+                print("컴퓨터 승리!")
+                break
+            }
+        } while strike != 3 || significantFigures != 0
     }
 }
 
