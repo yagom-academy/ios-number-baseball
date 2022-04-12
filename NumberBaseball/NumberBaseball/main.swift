@@ -19,3 +19,8 @@ func insertRandomNumber() -> Set<Int> {
 }
 
 randomSet = insertRandomNumber()
+
+var strike: Int = 0
+var ball: Int = 0
+
+
