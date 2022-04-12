@@ -8,10 +8,13 @@
 import Foundation
 
 protocol Runable {
+    /// 프로그램 실행 함수
+    ///
+    /// Returns : 1
     func run()
 }
 
-class BaseballGame: Runable {
+final class BaseballGame: Runable {
     private var significantFigures: Int = 9
     private var randomNumbers: [Int] = []
     private var removedDuplicate: Set<Int> = []
@@ -36,7 +39,6 @@ class BaseballGame: Runable {
             }
             
             randomArray = Array(removedDuplicate)
-            print("computer : \(randomArray)")
             
             for index in 0...2 {
                 comparison(of: result, and: randomArray, at: index)
