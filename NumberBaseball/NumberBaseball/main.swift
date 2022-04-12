@@ -1,10 +1,12 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
+
+var repeatCheck = true
 
 func generateNumbers() -> Set<Int> {
     var randomNumber = Set<Int>()
@@ -15,7 +17,7 @@ func generateNumbers() -> Set<Int> {
     return randomNumber
 }
 
-func checkStrikeOrBall( answerNumber: Array<Int>, count: Int) {
+func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String: Int] {
     let suggestNumber = Array<Int>(generateNumbers())
     var strikeCount = 0
     var ballCount = 0
@@ -35,5 +37,19 @@ func checkStrikeOrBall( answerNumber: Array<Int>, count: Int) {
     } else if suggestNumber.contains(answerNumber[2]) {
         ballCount += 1
     }
+    
+    print("임의의 수:\(suggestNumber)")
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("남은기회 : \(tryCount)")
+    if strikeCount == 3 {
+        print("인간승리...!")
+    }else if tryCount == 0 {
+        print("컴퓨터 승리...!")
+    }
+    
+    var strikeBallCount: [String: Int] = [:]
+    strikeBallCount["strike"] = strikeCount
+    strikeBallCount["trycount"] = tryCount
+    
+    return strikeBallCount
 }
-
