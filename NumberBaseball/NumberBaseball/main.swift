@@ -34,21 +34,29 @@ func checkStrikeBall(numbers: Array<Int>) -> (Int, Int) {
 func printResult(result : (Int, Int)) {
     print("\(result.0) 스트라이크, \(result.1) 볼")
     if result.0 == 3 {
-        print("사용자 승리")
+        print("사용자 승리!")
         return
     } else {
         print("남은 기회 : \(totalTrialNumber)")
     }
     if totalTrialNumber == 0 {
-        print("컴퓨터 승리")
+        print("컴퓨터 승리...!")
     }
+}
+
+func printRandomNumbers(numbers: Array<Int>) {
+    print("임의의 수 : ", terminator: "")
+    for index in 0...numbers.count - 1 {
+        print(numbers[index], terminator: " ")
+    }
+    print()
 }
 
 func startGame() {
     computerRandomNumbers = makeRandomNumbers()
     while totalTrialNumber > 0 {
         let numbers = makeRandomNumbers()
-        print("임의의 수 : \(numbers)")
+        printRandomNumbers(numbers: numbers)
         totalTrialNumber -= 1
         printResult(result: checkStrikeBall(numbers: numbers))
     }
