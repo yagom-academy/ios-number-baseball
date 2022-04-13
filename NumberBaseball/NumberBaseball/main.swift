@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
 var computerRandomNumbers = [Int]()
 var totalTrialNumber = 9
 
@@ -21,19 +19,19 @@ func checkStrikeBall(numbers: Array<Int>) -> (Int, Int) {
     var strike = 0
     var ball = 0
     
-    for numberindex in (0...numbers.count - 1) {
-        if computerRandomNumbers.contains(numbers[numberindex]) && computerRandomNumbers[numberindex] == numbers[numberindex] {
+    for numberIndex in (0...numbers.count - 1) {
+        if computerRandomNumbers.contains(numbers[numberIndex]) && computerRandomNumbers[numberIndex] == numbers[numberIndex] {
             strike += 1
-        } else if computerRandomNumbers.contains(numbers[numberindex]) && computerRandomNumbers[numberindex] != numbers[numberindex] {
+        } else if computerRandomNumbers.contains(numbers[numberIndex]) && computerRandomNumbers[numberIndex] != numbers[numberIndex] {
             ball += 1
         }
     }
     return (strike, ball)
 }
 
-func printResult(result : (Int, Int)) {
-    print("\(result.0) 스트라이크, \(result.1) 볼")
-    if result.0 == 3 {
+func printResult(result: (strike: Int, ball: Int)) {
+    print("\(result.strike) 스트라이크, \(result.ball) 볼")
+    if result.strike == 3 {
         print("사용자 승리!")
         return
     } else {
@@ -46,8 +44,8 @@ func printResult(result : (Int, Int)) {
 
 func printRandomNumbers(numbers: Array<Int>) {
     print("임의의 수 : ", terminator: "")
-    for index in 0...numbers.count - 1 {
-        print(numbers[index], terminator: " ")
+    for elements in numbers {
+        print(elements, terminator: " ")
     }
     print()
 }
@@ -55,10 +53,10 @@ func printRandomNumbers(numbers: Array<Int>) {
 func startGame() {
     computerRandomNumbers = makeRandomNumbers()
     while totalTrialNumber > 0 {
-        let numbers = makeRandomNumbers()
-        printRandomNumbers(numbers: numbers)
+        let playerRandomNumbers = makeRandomNumbers()
+        printRandomNumbers(numbers: playerRandomNumbers)
         totalTrialNumber -= 1
-        printResult(result: checkStrikeBall(numbers: numbers))
+        printResult(result: checkStrikeBall(numbers: playerRandomNumbers))
     }
 }
 
