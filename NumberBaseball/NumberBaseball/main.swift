@@ -9,22 +9,26 @@ func startGame() {
     
     var chance: Int = 9
     var threeRandomNumbers: [Int]
+    var userPickedNumbers: [Int]
     var result: [Int]
     
     threeRandomNumbers = pickThreeRandomNumbers()
     
     while chance > 0 {
+    
+        userPickedNumbers = pickThreeRandomNumbers()
         
-        result = calculateResult(computer: threeRandomNumbers, user: pickThreeRandomNumbers())
-        
+        result = calculateResult(computer: threeRandomNumbers, user: userPickedNumbers)
+        print("임의의 수 : \(userPickedNumbers[0]) \(userPickedNumbers[1]) \(userPickedNumbers[2])")
         print("\(result[0]) 스트라이크, \(result[1]) 볼")
         
         if result[0] == 3 {
-            print("유저 승리...!")
+            print("사용자 승리...!")
             break
         }
         
         chance -= 1
+        print("남은 기회 : \(chance)")
         
     }
     
@@ -52,8 +56,6 @@ func pickThreeRandomNumbers() -> [Int] {
 }
 
 func calculateResult(computer: [Int], user: [Int]) -> [Int] {
-    
-    print("임의의 수 : \(user[0]) \(user[1]) \(user[2])")
     
     var resultStrikeAndBall: [Int] = [0, 0]
 
