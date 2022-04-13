@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var randomArray: Array<Int>
+var randomArray: Array<Int> = []
 var count: Int = 9
 
 func insertRandomNumber() -> Set<Int> {
@@ -18,7 +18,7 @@ func insertRandomNumber() -> Set<Int> {
     return randomSet
 }
 
-randomArray = Array(insertRandomNumber())
+
 
 var strike: Int = 0
 var ball: Int = 0
@@ -63,3 +63,9 @@ func compareNumber() {
     }
 }
 
+func startGame() {
+    randomArray = Array(insertRandomNumber())
+    compareNumber()
+}
+
+startGame()
