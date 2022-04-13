@@ -37,14 +37,8 @@ func compareNumber() {
         inputArray = generateRandomNumber()
         print("임의의 수 : \(inputArray[0]) \(inputArray[1]) \(inputArray[2])")
         
-        for number in 0...2 {
-            if randomArray[number] == inputArray[number] {
-                strikeCount += 1
-            }
-        }
-        
-        let intersectionOfArrays = Set(randomArray).intersection(inputArray)
-        ballCount = intersectionOfArrays.count - strikeCount
+        checkStrike()
+        checkBall()
         
         if strikeCount == 3 {
             print("사용자 승리...!")
@@ -59,6 +53,18 @@ func compareNumber() {
 func startGame() {
     randomArray = generateRandomNumber()
     compareNumber()
+}
+
+func checkStrike() {
+    for number in 0...2 {
+        let sameDigitNumber = (randomArray[number] - inputArray[number] == 0) ? 1 : 0
+        strikeCount += sameDigitNumber
+        }
+    }
+
+func checkBall() {
+    let intersectionOfArrays = Set(randomArray).intersection(inputArray)
+    ballCount = intersectionOfArrays.count - strikeCount
 }
 
 startGame()
