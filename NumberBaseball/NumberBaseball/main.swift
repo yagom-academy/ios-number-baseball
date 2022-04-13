@@ -44,7 +44,6 @@ func printResult(strikeCount: Int, ballCount: Int) {
     }
 }
 
-// 변수명 수정
 func printRandomNumbers(playerRandomNumbers: Array<Int>) {
     print("임의의 수 : ", terminator: "")
     for randomNumber in playerRandomNumbers {
@@ -63,5 +62,19 @@ func startGame() {
     }
 }
 
-startGame()
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : " , terminator: "")
 
+    if let inputNumber = readLine() {
+        switch inputNumber {
+        case "1" :
+            startGame()
+        case "2" :
+            return
+        default:
+            return
+        }
+    }
+}
