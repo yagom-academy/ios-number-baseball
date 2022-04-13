@@ -18,7 +18,8 @@
 - @ilim
 
 ## 🗞 순서도
-![step1-flowchart](https://user-images.githubusercontent.com/50102522/163025430-93288675-0200-4054-a461-909c7cf14c78.png)
+![step1,2 flowchart](https://user-images.githubusercontent.com/50102522/163167155-6d6d4166-f302-46d8-a7ac-419b6d152e0e.png)
+
 
 ## 🙈 고민한 점, 어려웠던 점
 
