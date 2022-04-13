@@ -5,11 +5,14 @@
 //
 
 var repeatCheck = true
+let countNumber = 3
+let randomNumberRange = 1...9
+let arrayRange = 0...2
+let gameOverStrikeCount = 3
+let gameOverTryCount = 0
 
 func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
     var randomNumbers = Set<Int>()
-    let countNumber = 3
-    let randomNumberRange = 1...9
     
     while randomNumbers.count < countNumber {
         randomNumbers.insert(Int.random(in: randomNumberRange))
@@ -19,7 +22,6 @@ func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
 
 func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> [String: Int] {
     let suggestNumber = [Int](generateThreeNonOverlappingRandomNumbers())
-    let arrayRange = 0...2
     var strikeCount = 0
     var ballCount = 0
     var StringSuggestNumber: String = String()
@@ -64,9 +66,6 @@ func gameStart() {
 }
 
 func checkGameOver(strikeTryCount: [String: Int]) {
-    let gameOverStrikeCount = 3
-    let gameOverTryCount = 0
-    
     if strikeTryCount["strike"] == gameOverStrikeCount || strikeTryCount["trycount"] == gameOverTryCount {
         repeatCheck = false
     }
