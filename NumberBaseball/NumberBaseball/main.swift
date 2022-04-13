@@ -6,50 +6,58 @@
 
 var randomArray: Array<Int> = []
 var inputArray: Array<Int> = []
-var count: Int = 9
-var strike: Int = 0
-var ball: Int = 0
+
+var remainingChances: Int = 9
+var strikeCount: Int = 0
+var ballCount: Int = 0
 
 
-func insertRandomNumber() -> Set<Int> {
+func generateRandomNumber() -> Array<Int> {
     var randomSet: Set<Int> = []
+    
     while randomSet.count != 3 {
         randomSet.insert(Int.random(in: 1...9))
     }
-    return randomSet
+    
+    return Array(randomSet)
 }
 
 func inputUserNumber() {
     let userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
+    
     if let unwrappedUserNumber: Array<Int> = userNumber {
         inputArray = unwrappedUserNumber
     }
 }
 
 func compareNumber() {
-    while strike != 3 && count != 0 {
-        strike = 0
-        count -= 1
-        inputArray = Array(insertRandomNumber())
+    while strikeCount < 3 && remainingChances > 0 {
+        strikeCount = 0
+        remainingChances -= 1
+        inputArray = generateRandomNumber()
         print("임의의 수 : \(inputArray[0]) \(inputArray[1]) \(inputArray[2])")
+        
         for number in 0...2 {
             if randomArray[number] == inputArray[number] {
-                strike += 1
+                strikeCount += 1
             }
         }
-        ball = Set(randomArray).intersection(inputArray).count - strike
-        if strike == 3 {
+        
+        let intersectionOfArrays = Set(randomArray).intersection(inputArray)
+        ballCount = intersectionOfArrays.count - strikeCount
+        
+        if strikeCount == 3 {
             print("사용자 승리...!")
-        } else if count == 0 {
+        } else if remainingChances == 0 {
             print("컴퓨터 승리...!")
         }
-        print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(count)")
+        
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼", "남은 기회 : \(remainingChances)", separator: "\n")
     }
 }
 
 func startGame() {
-    randomArray = Array(insertRandomNumber())
+    randomArray = generateRandomNumber()
     compareNumber()
 }
 
