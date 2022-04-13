@@ -62,6 +62,40 @@ func startGame() {
     }
 }
 
+func verifyInput(checkNumbers: String) {
+
+    // -> 숫자 입력 외
+    // 공백일 때 *
+    // 숫자가 아닌 값을 입력한 경우
+    // 잘못 입력
+    // 공백이 없을 때
+    // 그외 기타!
+    if checkNumbers.isEmpty {
+
+    } else if checkNumbers.components(separatedBy: " ").count == 3 {
+        //정상
+    }
+
+    // -> 숫자 입력
+    // 숫자가 중복 되었을 때
+    // 범위를 벗어난 경우
+    // 갯수가 잘못된 경우
+    if checkNumbers.count != 5 {
+        return false
+    }
+
+    return true
+}
+
+func inputNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    if let inputNumbers = readLine() {
+        verifyInput(checkNumbers: inputNumbers)
+    }
+}
+
 func showMenu() {
     var isStart = true
     while isStart {
