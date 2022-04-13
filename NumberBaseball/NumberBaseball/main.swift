@@ -1,6 +1,6 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom.
+//  Created by BaekGom,barrd.
 //  Copyright © yagom academy. All rights reserved.
 //
 
@@ -8,17 +8,17 @@ import Foundation
 
 var repeatCheck = true
 
-func generateNumbers() -> Set<Int> {
-    var randomNumber = Set<Int>()
+func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
+    var randomNumbers = Set<Int>()
     
-    while randomNumber.count < 3 {
-        randomNumber.insert(Int.random(in: 1...9))
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
     }
-    return randomNumber
+    return randomNumbers
 }
 
-func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int] {
-    let suggestNumber = Array<Int>(generateNumbers())
+func countStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int] {
+    let suggestNumber = Array<Int>(generateThreeNonOverlappingRandomNumbers())
     var strikeCount = 0
     var ballCount = 0
     
@@ -38,16 +38,18 @@ func checkStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int
         ballCount += 1
     }
     
-    print("임의의 수:\(suggestNumber)")
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    print("남은기회 : \(tryCount)")
+    print("""
+          임의의 수 : \(suggestNumber)
+          \(strikeCount) 스트라이크, \(ballCount) 볼
+          남은기회 : \(tryCount)
+          """)
     if strikeCount == 3 {
-        print("인간승리...!")
+        print("사용자 승리...!")
     }else if tryCount == 0 {
         print("컴퓨터 승리...!")
     }
     
-    var strikeBallCount: [String : Int] = [:]
+    var strikeBallCount: [String: Int] = [:]
     strikeBallCount["strike"] = strikeCount
     strikeBallCount["trycount"] = tryCount
     
@@ -63,7 +65,7 @@ func gameStart() {
     }
     while repeatCheck {
         tryCount -= 1
-        let strikeBallCount = checkStrikeOrBall(answerNumber: Array<Int>(answerNumber), tryCount: tryCount)
+        let strikeBallCount = countStrikeOrBall(answerNumber: Array<Int>(answerNumber), tryCount: tryCount)
         checkGameOver(strikeTryCount: strikeBallCount)
     }
 }
