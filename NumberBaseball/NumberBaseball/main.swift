@@ -19,7 +19,7 @@ func insertRandomNumber() -> Set<Int> {
     return randomSet
 }
 
-func numberBaseball() {
+func inputUserNumber() {
     let userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
     if let unwrappedUserNumber: Array<Int> = userNumber {
         inputArray = unwrappedUserNumber
@@ -30,14 +30,14 @@ func compareNumber() {
     while strike != 3 && count != 0 {
         strike = 0
         count -= 1
-        print("임의의 수 : ", terminator: "")
+        inputArray = Array(insertRandomNumber())
+        print("임의의 수 : \(inputArray[0]) \(inputArray[1]) \(inputArray[2])")
         for number in 0...2 {
             if randomArray[number] == inputArray[number] {
                 strike += 1
             }
         }
-        let intersectionOfArrays = Set(randomArray).intersection(inputArray)
-        ball = intersectionOfArrays.count - strike
+        ball = Set(randomArray).intersection(inputArray).count - strike
         if strike == 3 {
             print("사용자 승리...!")
         } else if count == 0 {
