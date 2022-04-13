@@ -23,7 +23,7 @@ for _ in 0...choiceOpportunity {
         break
     }
     print("\n남은기회: \(choiceOpportunity)")
-    
+
     if choiceOpportunity == 0 {
         print("컴퓨터 승리...!")
     }
@@ -31,33 +31,41 @@ for _ in 0...choiceOpportunity {
 }
 
 func comChoice() -> [Int] {
-    var RanArray: [Int] = []
-
-    while RanArray.count < 3 {
+    var RanArray:[Int] = []
+    var RanSet:Set<Int> = []
+    while RanSet.count < 3 {
         let RanNum = Int.random(in: 1...9)
-        if RanArray.contains(RanNum) == false {
-            RanArray.append(RanNum)
-        }
+        RanSet.insert(RanNum)
     }
+    RanArray = Array<Int>(RanSet)
+
     return RanArray
 }
 
 func ball (com: [Int], user: [Int]) -> Int {
-    var cnt = 0
-    for i in user {
-        if com.contains(i) {
-            cnt += 1
-        }
+    var ballCnt = 0
+    if com.contains(user[0]) {
+        ballCnt += 1
     }
-    return cnt
+    if com.contains(user[1]) {
+        ballCnt += 1
+    }
+    if com.contains(user[2]) {
+        ballCnt += 1
+    }
+    return ballCnt
 }
 
 func strike(com: [Int], user: [Int]) -> Int {
-    var result = 0
-    for i in 0...2 {
-        if com[i] == user[i] {
-            result += 1
-        }
+    var strikeCnt = 0
+    if com[0] == user[0] {
+        strikeCnt += 1
     }
-    return result
+    if com[1] == user[1] {
+        strikeCnt += 1
+    }
+    if com[2] == user[2] {
+        strikeCnt += 1
+    }
+    return strikeCnt
 }
