@@ -6,14 +6,15 @@
 
 import Foundation
 
+
 var computerNumber = Set<Int>()
+var userNumber = Set<Int>()
+var remainingNumber = 9
+
 
 while computerNumber.count < 3 {
     computerNumber.insert(Int.random(in: 1...9))
 }
-
-var remainingNumber = 9
-var userNumber = Set<Int>()
 
 func makeRandomNumber() -> Set<Int> {
     var numbers = Set<Int>()
@@ -21,23 +22,26 @@ func makeRandomNumber() -> Set<Int> {
     while numbers.count < 3 {
         numbers.insert(Int.random(in: 1...9))
     }
+    
     return numbers
 }
-
 userNumber = makeRandomNumber()
+
 var userNumberList = Array(userNumber)
 let computerNumberList = Array(computerNumber)
 
-func compareNumbers(computer: Array<Int>, user: Array<Int>) {
-    
+
+func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) {
+
     print("임의의 수 : ", terminator: " ")
-    userNumberList.forEach {
+    userArray.forEach {
         print($0, terminator: " ")
     }
     print("")
     
-    let strikes = isStrike(computer: computer, user: user)
-    let balls = isBall(computer: computer, user: user)
+    let strikes = countStrike(in: userArray, with: computerArray)
+    let balls = countBall(in: userArray, with: computerArray)
+    
     print("\(strikes) 스트라이크, \(balls) 볼")
     
     remainingNumber -= 1
@@ -53,15 +57,17 @@ func compareNumbers(computer: Array<Int>, user: Array<Int>) {
         print("남은 기회: \(remainingNumber)")
         userNumber = makeRandomNumber()
         userNumberList = Array(userNumber)
-        compareNumbers(computer: computerNumberList, user: userNumberList)
+        compareNumbers(in: userNumberList, with: computerNumberList)
         return
     }
 }
 
-func isStrike(computer: Array<Int>, user: Array<Int>) -> Int {
+
+func countStrike(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int {
     var strikes = 0
-    for i in 0..<user.count {
-        if user[i] == computer[i] {
+    
+    for i in 0..<userArray.count {
+        if userArray[i] == computerArray[i] {
             strikes += 1
         }
     }
@@ -69,10 +75,11 @@ func isStrike(computer: Array<Int>, user: Array<Int>) -> Int {
     return strikes
 }
 
-func isBall(computer: Array<Int>, user: Array<Int>) -> Int {
+func countBall(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int {
     var balls = 0
-    for i in 0..<user.count {
-        if computer.contains(user[i]) && computer[i] != user[i] {
+    
+    for i in 0..<userArray.count {
+        if computerArray.contains(userArray[i]) && computerArray[i] != userArray[i] {
             balls += 1
         }
     }
@@ -80,4 +87,5 @@ func isBall(computer: Array<Int>, user: Array<Int>) -> Int {
     return balls
 }
 
-compareNumbers(computer: computerNumberList, user: userNumberList)
+
+compareNumbers(in: userNumberList, with: computerNumberList)
