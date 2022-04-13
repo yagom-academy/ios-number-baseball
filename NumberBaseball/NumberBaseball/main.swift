@@ -17,8 +17,8 @@ func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
     return randomNumbers
 }
 
-func countStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int] {
-    let suggestNumber = Array<Int>(generateThreeNonOverlappingRandomNumbers())
+func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> [String: Int] {
+    let suggestNumber = [Int](generateThreeNonOverlappingRandomNumbers())
     let arrayRange = 0...2
     var strikeCount = 0
     var ballCount = 0
@@ -27,6 +27,7 @@ func countStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int
     for arrayLocation in arrayRange {
         StringSuggestNumber += String(suggestNumber[arrayLocation])
     }
+    
     StringSuggestNumber.insert(" ", at: StringSuggestNumber.index(StringSuggestNumber.startIndex, offsetBy: 1))
     StringSuggestNumber.insert(" ", at: StringSuggestNumber.index(StringSuggestNumber.startIndex, offsetBy: 3))
     
@@ -44,7 +45,7 @@ func countStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int
           남은기회 : \(tryCount)
           """)
     
-    var strikeBallCount: [String: Int] = [:]
+    var strikeBallCount = [String: Int]()
     strikeBallCount["strike"] = strikeCount
     strikeBallCount["trycount"] = tryCount
     
@@ -52,25 +53,27 @@ func countStrikeOrBall(answerNumber: Array<Int>, tryCount: Int) -> [String : Int
 }
 
 func gameStart() {
-    var answerNumber = Array<Int>()
+    let answerNumbers = [Int](generateThreeNonOverlappingRandomNumbers())
     var tryCount = 9
-    
-    answerNumber = Array<Int>(generateThreeNonOverlappingRandomNumbers())
     
     while repeatCheck {
         tryCount -= 1
-        let strikeBallCount = countStrikeOrBall(answerNumber: answerNumber, tryCount: tryCount)
+        let strikeBallCount = countStrikeOrBall(answerNumber: answerNumbers, tryCount: tryCount)
         checkGameOver(strikeTryCount: strikeBallCount)
     }
 }
 
-func checkGameOver(strikeTryCount: [String : Int]) {
-    if strikeTryCount["strike"] == 3 || strikeTryCount["trycount"] == 0 {
+func checkGameOver(strikeTryCount: [String: Int]) {
+    let gameOverStrikeCount = 3
+    let gameOverTryCount = 0
+    
+    if strikeTryCount["strike"] == gameOverStrikeCount || strikeTryCount["trycount"] == gameOverTryCount {
         repeatCheck = false
     }
-    if strikeTryCount["strike"] == 3 {
+    
+    if strikeTryCount["strike"] == gameOverStrikeCount {
         print("사용자 승리...!")
-    } else if strikeTryCount["trycount"] == 0 {
+    } else if strikeTryCount["trycount"] == gameOverTryCount {
         print("컴퓨터 승리...!")
     }
 }
