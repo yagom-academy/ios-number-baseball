@@ -3,6 +3,7 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 // 
+import Foundation
 
 var computerRandomNumbers = [Int]()
 var totalTrialNumber = 9
@@ -64,27 +65,34 @@ func startGame() {
 
 func verifyInput(checkNumbers: String) {
 
+    
     // -> 숫자 입력 외
-    // 공백일 때 *
-    // 숫자가 아닌 값을 입력한 경우
-    // 잘못 입력
-    // 공백이 없을 때
-    // 그외 기타!
-    if checkNumbers.isEmpty {
-
-    } else if checkNumbers.components(separatedBy: " ").count == 3 {
-        //정상
+    // 공백일 때 * " "
+    if Set(checkNumbers) == [" "] {
+        
     }
 
+    
+    // 공백이 없을 때
+    if checkNumbers.components(separatedBy: " ").count != 3 {
+    }
     // -> 숫자 입력
     // 숫자가 중복 되었을 때
-    // 범위를 벗어난 경우
+    if Set(checkNumbers).count != checkNumbers.count{
+        
+    }
+    
+    
+    // 숫자가 아닌 값을 입력한 경우
+    // 범위를 벗어난 경우 : 48 ~ 57
+
     // 갯수가 잘못된 경우
     if checkNumbers.count != 5 {
-        return false
     }
-
-    return true
+    
+    
+    // 잘못 입력
+    // 그외 기타!
 }
 
 func inputNumbers() {
