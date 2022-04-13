@@ -21,22 +21,23 @@ final class BaseballGame: Runable {
     
     private var randomArray: [Int] = []
 
-    private var strike : Int = 0
-    private var ball : Int = 0
+    private var strikeCount : Int = 0
+    private var ballCount : Int = 0
     
     func run() {
-        createComputerNumber()
+        create(to: &randomNumbers, for: &removedDuplicate)
         
         repeat {
-            strike = 0
-            ball = 0
+            strikeCount = 0
+            ballCount = 0
             significantFigures -= 1
             
-            let info = "임의의 수 : "
-            guard let result = info.input()
-            else {
+            let numbers: String = "임의의 수 : "
+            guard let result = numbers.input() else {
                 return
             }
+            
+            print(removedDuplicate)
             
             randomArray = Array(removedDuplicate)
             
@@ -44,35 +45,35 @@ final class BaseballGame: Runable {
                 comparison(of: result, and: randomArray, at: index)
             }
             
-            print("\(strike) 스트라이크, \(ball) 볼 ")
+            print("\(strikeCount) 스트라이크, \(ballCount) 볼 ")
             print("남은 기회 : \(significantFigures)")
             
-            if strike == 3 {
+            if strikeCount == 3 {
                 print("사용자 승리!")
                 break
-            }
-            else if significantFigures == 0 {
+            } else if significantFigures == 0 {
                 print("컴퓨터 승리!")
                 break
             }
-        } while strike != 3 || significantFigures != 0
+        } while strikeCount != 3 || significantFigures != 0
     }
 }
 
 extension BaseballGame {
-    private func comparison (of data: [Int], and answer: [Int], at position:Int) {
-        if data[position] == answer[position] {
-            strike += 1
-        }
-        else if data.contains(answer[position]) {
-            ball += 1
+    /// 컴퓨터와 사용자의 값을 비교하는 함수
+    private func comparison (of computer: [Int], and user: [Int], at position:Int) {
+        if computer[position] == user[position] {
+            strikeCount += 1
+        } else if computer.contains(user[position]) {
+            ballCount += 1
         }
     }
     
-    private func createComputerNumber() {
+    /// 랜덤 숫자 3개 생성하여 배열에 저장 함수
+    private func create(to numbers: inout [Int], for numberSet: inout Set<Int>) {
         repeat {
-            randomNumbers.append(Int.random(in: 1...10))
-            removedDuplicate = Set(randomNumbers)
-        } while removedDuplicate.count < 3
+            numbers.append(Int.random(in: 1...10))
+            numberSet = Set(numbers)
+        } while numberSet.count < 3
     }
 }
