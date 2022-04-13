@@ -17,12 +17,12 @@ for _ in 0...tryNumber {
     validateUserArray.forEach { element in
         print(element, terminator: " ")
     }
-    print("\n(strikeCount) 스트라이크, (ballCount) 볼", terminator: " ")
+    print("\n\(strikeCount) 스트라이크, \(ballCount) 볼", terminator: " ")
     if strikeCount == 3 {
         print("- 사용자 승리")
         break
     }
-    print("\n남은기회: (tryNumber)")
+    print("\n남은기회: \(tryNumber)")
 
     if tryNumber == 0 {
         print("컴퓨터 승리...!")
