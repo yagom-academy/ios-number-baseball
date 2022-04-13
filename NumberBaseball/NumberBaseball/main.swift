@@ -30,3 +30,16 @@ func printTryNumbers(whichIs numbers: [Int]) {
     print()
 }
 
+func strikeOrBall(com: [Int], user: [Int]) -> (strike: Int, ball: Int){
+    var strike: Int = 0
+    var ball: Int = 0
+
+    for index in 0...2{
+        if com[index] == user[index]{
+            strike += 1
+        } else if com.contains(user[index]){
+            ball += 1
+        }
+    }
+    return (strike, ball)
+}
