@@ -29,7 +29,8 @@
 [![xcode](https://img.shields.io/badge/Xcode-13.3-blue)]()
 
 # 순서도 
-![https://s3.ap-northeast-2.amazonaws.com/media.yagom-academy.kr/resources/usr/61ee3b3a2947bf40f08f32d2/20220413/6256abf70983dd14920a53f3.png](https://s3.ap-northeast-2.amazonaws.com/media.yagom-academy.kr/resources/usr/61ee3b3a2947bf40f08f32d2/20220413/6256abf70983dd14920a53f3.png)  
+<img width="683" alt="STEP2 flowChart" src="https://user-images.githubusercontent.com/92622931/163168557-2bb6be5f-0a46-4b31-a326-77a0e08c4622.png">  
+
 # 키워드  
 `함수 네이밍`
 `optioinal`   
@@ -38,6 +39,7 @@
 ## 그라운드 룰
 # 활동시간
 변동사항 있으면 DM 보내줄 것
+
 
 + 점심시간 12:30 ~ 13:30
 + 저녁시간 19:00 ~ 20:00
