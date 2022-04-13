@@ -58,8 +58,8 @@ func startGame() {
         let playerRandomNumbers = makeRandomNumbers()
         printRandomNumbers(playerRandomNumbers: playerRandomNumbers)
         totalTrialNumber -= 1
-        let result = checkStrikeBall(playerRandomNumbers: playerRandomNumbers)
-        printResult(strikeCount: result.0, ballCount: result.1)
+        let (strikeCount, ballCount) = checkStrikeBall(playerRandomNumbers: playerRandomNumbers)
+        printResult(strikeCount: strikeCount, ballCount: ballCount)
     }
 }
 
