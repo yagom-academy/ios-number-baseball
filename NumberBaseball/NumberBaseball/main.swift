@@ -43,3 +43,29 @@ func strikeOrBall(com: [Int], user: [Int]) -> (strike: Int, ball: Int){
     }
     return (strike, ball)
 }
+
+func playGame() {
+    let answerNumbers = makeRandomNumbers()
+    var opportunityCount = 9
+    
+    while opportunityCount != 0 {
+        opportunityCount -= 1
+        
+        let tryNumbers = makeRandomNumbers()
+        let strike = strikeOrBall(com: answerNumbers, user: tryNumbers).strike
+        let ball = strikeOrBall(com: answerNumbers, user: tryNumbers).ball
+        
+        printTryNumbers(whichIs: tryNumbers)
+        print("\(strike) 스트라이크, \(ball) 볼")
+        print("남은 기회: \(opportunityCount)")
+        print()
+        
+        if strike == 3 {
+            print("플레이어 승리...!")
+            return
+        }
+    }
+    print("컴퓨터 승리...!")
+}
+
+playGame()
