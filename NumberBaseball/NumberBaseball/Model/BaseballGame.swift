@@ -33,7 +33,7 @@ final class BaseballGame: Runable {
             significantFigures -= 1
             
             let info = "임의의 수 : "
-            guard let result = info.input()
+            guard let result = info.inputArray()
             else {
                 return
             }
@@ -74,5 +74,25 @@ extension BaseballGame {
             randomNumbers.append(Int.random(in: 1...10))
             removedDuplicate = Set(randomNumbers)
         } while removedDuplicate.count < 3
+    }
+    
+    func startGame() {
+        print("1. 게임시작\n2. 게임종료")
+        let menu = "원하는 기능을 선택해주세요. : "
+        guard let result = menu.input()
+        else {
+            return print("입력이 잘못되었습니다.")
+        }
+        
+        switch result {
+        case "1" :
+            run()
+            
+        case "2" :
+            break
+            
+        default :
+            print("입력이 잘못되었습니다.")
+        }
     }
 }
