@@ -15,24 +15,26 @@ func makeRandomNumbers() -> Array<Int> {
     return Array(randomNumbers)
 }
 
-func checkStrikeBall(numbers: Array<Int>) -> (Int, Int) {
+func checkStrikeBall(playerRandomNumbers: Array<Int>) -> (Int, Int) {
     var strike = 0
     var ball = 0
     
-    for numberIndex in (0...numbers.count - 1) {
-        if computerRandomNumbers.contains(numbers[numberIndex]) && computerRandomNumbers[numberIndex] == numbers[numberIndex] {
+    for numberIndex in (0...playerRandomNumbers.count - 1) {
+        if computerRandomNumbers.contains(playerRandomNumbers[numberIndex]) && computerRandomNumbers[numberIndex] == playerRandomNumbers[numberIndex] {
             strike += 1
-        } else if computerRandomNumbers.contains(numbers[numberIndex]) && computerRandomNumbers[numberIndex] != numbers[numberIndex] {
+        } else if computerRandomNumbers.contains(playerRandomNumbers[numberIndex]) && computerRandomNumbers[numberIndex] != playerRandomNumbers[numberIndex] {
             ball += 1
         }
     }
     return (strike, ball)
 }
 
-func printResult(result: (strike: Int, ball: Int)) {
-    print("\(result.strike) 스트라이크, \(result.ball) 볼")
-    if result.strike == 3 {
+
+func printResult(strikeCount: Int, ballCount: Int) {
+    print("\n\(strikeCount) 스트라이크, \(ballCount) 볼")
+    if strikeCount == 3 {
         print("사용자 승리!")
+        totalTrialNumber = 0
         return
     } else {
         print("남은 기회 : \(totalTrialNumber)")
@@ -42,21 +44,22 @@ func printResult(result: (strike: Int, ball: Int)) {
     }
 }
 
-func printRandomNumbers(numbers: Array<Int>) {
+// 변수명 수정
+func printRandomNumbers(playerRandomNumbers: Array<Int>) {
     print("임의의 수 : ", terminator: "")
-    for elements in numbers {
-        print(elements, terminator: " ")
+    for randomNumber in playerRandomNumbers {
+        print(randomNumber, terminator: " ")
     }
-    print()
 }
 
 func startGame() {
     computerRandomNumbers = makeRandomNumbers()
     while totalTrialNumber > 0 {
         let playerRandomNumbers = makeRandomNumbers()
-        printRandomNumbers(numbers: playerRandomNumbers)
+        printRandomNumbers(playerRandomNumbers: playerRandomNumbers)
         totalTrialNumber -= 1
-        printResult(result: checkStrikeBall(numbers: playerRandomNumbers))
+        let result = checkStrikeBall(playerRandomNumbers: playerRandomNumbers)
+        printResult(strikeCount: result.0, ballCount: result.1)
     }
 }
 
