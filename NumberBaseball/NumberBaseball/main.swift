@@ -29,13 +29,11 @@ func startGame() {
         
         chance -= 1
         print("남은 기회 : \(chance)")
-        
     }
     
     if chance == 0 {
         print("컴퓨터 승리...!")
     }
-    
 }
 
 func pickThreeRandomNumbers() -> [Int] {
@@ -47,7 +45,6 @@ func pickThreeRandomNumbers() -> [Int] {
         list = Array(Set(list))
         
         if list.count == 3 {
-            // print(list)
             break
         }
     }
@@ -71,6 +68,5 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     
     return resultStrikeAndBall
 }
-
 
 startGame()
