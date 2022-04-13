@@ -8,17 +8,13 @@ import Foundation
 
 
 let totalAnswerNumbers = 3
-
-var answerNumbers: [Int] = []
-
 var remainingOpportunity = 9
 
-func makeRandomNumbers() -> [Int] {
+func makingRandomNumbers() -> [Int] {
     let candidateNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    var result: [Int] = []
-    result = candidateNumbers.shuffled()
-    result.removeSubrange(0...result.count - totalAnswerNumbers - 1)
-    return result
+    var randomNumbers = candidateNumbers.shuffled()
+    randomNumbers.removeSubrange(randomNumbers.startIndex...randomNumbers.count - totalAnswerNumbers - 1)
+    return randomNumbers
 }
 
 func printTryNumbers(whichIs numbers: [Int]) {
@@ -30,37 +26,37 @@ func printTryNumbers(whichIs numbers: [Int]) {
     print()
 }
 
-func strikeOrBall(com: [Int], user: [Int]) -> (strike: Int, ball: Int){
-    var strike: Int = 0
-    var ball: Int = 0
+func countingStrikeAndBall(in tryNumbers: [Int], from answerNumbers: [Int]) -> (strike: Int, ball: Int) {
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
 
     for index in 0...2{
-        if com[index] == user[index]{
-            strike += 1
-        } else if com.contains(user[index]){
-            ball += 1
+        if answerNumbers[index] == tryNumbers[index]{
+            strikeCount += 1
+        } else if answerNumbers.contains(tryNumbers[index]){
+            ballCount += 1
         }
     }
-    return (strike, ball)
+    return (strikeCount, ballCount)
 }
 
 func playGame() {
-    let answerNumbers = makeRandomNumbers()
+    let answerNumbers = makingRandomNumbers()
     var opportunityCount = 9
     
     while opportunityCount != 0 {
         opportunityCount -= 1
         
-        let tryNumbers = makeRandomNumbers()
-        let strike = strikeOrBall(com: answerNumbers, user: tryNumbers).strike
-        let ball = strikeOrBall(com: answerNumbers, user: tryNumbers).ball
+        let tryNumbers = makingRandomNumbers()
+        let strikeCount = countingStrikeAndBall(in: tryNumbers, from: answerNumbers).strike
+        let ballCount = countingStrikeAndBall(in: tryNumbers, from: answerNumbers).ball
         
         printTryNumbers(whichIs: tryNumbers)
-        print("\(strike) 스트라이크, \(ball) 볼")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은 기회: \(opportunityCount)")
         print()
         
-        if strike == 3 {
+        if strikeCount == 3 {
             print("플레이어 승리...!")
             return
         }
