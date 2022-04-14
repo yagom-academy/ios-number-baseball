@@ -31,9 +31,8 @@ func checkStrikeBall(playerRandomNumbers: Array<Int>) -> (Int, Int) {
     return (strike, ball)
 }
 
-
 func printResult(strikeCount: Int, ballCount: Int) {
-    print("\n\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     if strikeCount == 3 {
         print("사용자 승리!")
         totalTrialNumber = 0
@@ -46,28 +45,14 @@ func printResult(strikeCount: Int, ballCount: Int) {
     }
 }
 
-func printRandomNumbers(playerRandomNumbers: Array<Int>) {
-    print("임의의 수 : ", terminator: "")
-    for randomNumber in playerRandomNumbers {
-        print(randomNumber, terminator: " ")
-    }
-}
-
-func startGame() {
+func startGame(playerNumbers: Array<Int>) {
     computerRandomNumbers = makeRandomNumbers()
-    while totalTrialNumber > 0 {
-        
-        // 수정
-        let playerRandomNumbers = makeRandomNumbers()
-        printRandomNumbers(playerRandomNumbers: playerRandomNumbers)
-        totalTrialNumber -= 1
-        let (strikeCount, ballCount) = checkStrikeBall(playerRandomNumbers: playerRandomNumbers)
-        printResult(strikeCount: strikeCount, ballCount: ballCount)
-    }
+    let (strikeCount, ballCount) = checkStrikeBall(playerRandomNumbers: playerNumbers)
+    printResult(strikeCount: strikeCount, ballCount: ballCount)
 }
 
 func verifyWithRegularExpression(playerInput: String) -> Bool {
-    if ((playerInput.range(of: #"^[0-9]\s[0-9]\s[0-9]$"# ,options: .regularExpression)) != nil) {
+    if ((playerInput.range(of: #"^[1-9]\s[1-9]\s[1-9]$"# ,options: .regularExpression)) != nil) {
         return true
     }
     return false
@@ -80,7 +65,9 @@ func verifyInput(playerInput: String) {
         isCorrect = verifyWithRegularExpression(playerInput: playerInput)
     }
     if isCorrect {
-        startGame()
+        let playerNumbers = playerInput.components(separatedBy: " ")
+        totalTrialNumber -= 1
+        startGame(playerNumbers: playerNumbers.compactMap { Int($0) })
     } else {
         printErrorMessage()
         inputNumbers()
@@ -88,11 +75,13 @@ func verifyInput(playerInput: String) {
 }
 
 func inputNumbers() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
-    if let inputNumbers = readLine() {
-        verifyInput(playerInput: inputNumbers)
+    while totalTrialNumber > 0 {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: "")
+        if let inputNumbers = readLine() {
+            verifyInput(playerInput: inputNumbers)
+        }
     }
 }
 
@@ -102,16 +91,15 @@ func showMenu() {
         print("1. 게임시작")
         print("2. 게임종료")
         print("원하는 기능을 선택해주세요 : " , terminator: "")
-        if let inputMenuNumber = readLine() {
-            switch inputMenuNumber {
-            case "1" :
-                inputNumbers()
-            case "2" :
-                isStart = false
-                break
-            default:
-                printErrorMessage()
-            }
+        let inputMenuNumber = readLine() ?? ""
+        switch inputMenuNumber {
+        case "1" :
+            inputNumbers()
+        case "2" :
+            isStart = false
+            break
+        default:
+            printErrorMessage()
         }
     }
 }
@@ -119,3 +107,5 @@ func showMenu() {
 func printErrorMessage() {
     print("입력이 잘못되었습니다")
 }
+
+showMenu()
