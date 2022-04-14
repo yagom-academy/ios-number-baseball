@@ -6,40 +6,41 @@
 
 import Foundation
 
-//func makeRandomThreeNumbers() -> [Int] {
-//    var randomNumbers: Set<Int> = []
-//    while randomNumbers.count < 3 {
-//        let randomNumber = Int.random(in: 1...9)
-//        randomNumbers.insert(randomNumber)
-//    }
-//    return Array(randomNumbers)
-//}
-//
-//func printMenu() {
-//    print("1. 게임시작")
-//    print("2. 게임종료")
-//    print("원하는 기능을 선택해주세요:",terminator: " ")
-//
-//}
-//
-//func choiceMenu() {
-//    let choiceMenuNumber = readLine()
-//    if let number = choiceMenuNumber {
-//        selectMenu(menuNumber: number)
-//    }
-//}
-//
-//func selectMenu(menuNumber: String) -> () {
-//    switch menuNumber {
-//    case "1":
-//        break
-//    case "2":
-//        break
-//    default: print("입력이 잘못되었습니다")
-//    }
-//}
+let computerNumbers: [String] = makeRandomThreeNumbers().map{ String( $0 ) }
+var userLife: Int = 9
 
-let computerNumbers: [String] = ["1","2","3"]
+func makeRandomThreeNumbers() -> [Int] {
+    var randomNumbers: Set<Int> = []
+    while randomNumbers.count < 3 {
+        let randomNumber = Int.random(in: 1...9)
+        randomNumbers.insert(randomNumber)
+    }
+    return Array(randomNumbers)
+}
+
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요:",terminator: " ")
+    choiceMenu()
+}
+
+func choiceMenu() {
+    let choiceMenuNumber = readLine()
+    if let number = choiceMenuNumber {
+        selectMenu(menuNumber: number)
+    }
+}
+
+func selectMenu(menuNumber: String) -> () {
+    switch menuNumber {
+    case "1":
+        gameStart()
+    case "2":
+        break
+    default: print("입력이 잘못되었습니다")
+    }
+}
 
 func inputUserNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
@@ -53,10 +54,13 @@ func inputUserNumbers() {
 
 func checkWrongNumber(userInput: [String]) {
     if mapNumbers(userInput: userInput) {
-        print(countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput))
-        print(countBall(computerNumbers: computerNumbers, userInputNumbers: userInput))
+        userLife -= 1
+        let a = countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
+        print(a)
+        print(countBall(computerNumbers: computerNumbers, userInputNumbers: userInput) - a)
+        
     } else {
-        print("입력이 잘못 되었습니다.")
+        print("입력이 잘못되었습니다.")
     }
 }
 
@@ -84,7 +88,10 @@ func countStrikes(computerNumbers: [String], userInputNumbers: [String]) -> Int 
     if computerNumbers[2] == userInputNumbers[2] {
         strikeCount += 1
     }
-    
+    if strikeCount == 3 {
+        print("유저 승리")
+        userLife = 0
+    }
     return strikeCount
     
 }
@@ -100,8 +107,15 @@ func countBall(computerNumbers: [String], userInputNumbers: [String]) -> Int {
     if computerNumbers.contains(userInputNumbers[2]) {
         commonNumbersCount += 1
     }
-    let ballCount: Int = commonNumbersCount - countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInputNumbers)
-    return ballCount
+    return commonNumbersCount
 }
 
-inputUserNumbers()
+printMenu()
+func gameStart() {
+    while userLife > 0 {
+        print(computerNumbers)
+        print(userLife)
+        inputUserNumbers()
+       
+    }
+}
