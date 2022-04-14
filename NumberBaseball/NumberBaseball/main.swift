@@ -9,12 +9,12 @@ import Foundation
 private var significantFigures: Int = 9
 
 private var randomNumbers: [Int] = []
-private var usersClarifiedNumber: Set<Int> = []
 private var computersClarifiedNumber: Set<Int> = []
 
 private var strikeCount : Int = 0
 private var ballCount : Int = 0
 
+/// 프로그램 실행 함수 
 func run() {
     if let selectMode = inputString("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ") {
         switch selectMode {
@@ -31,33 +31,48 @@ func run() {
     }
 }
 
+/// 유저 숫자 입력 함수
+///
+/// Returns : 게임을 위해 입력한 숫자 배열
 private func inputArray(_ quote: String) -> [Int]? {
     print(quote, terminator: " ")
-
-    return readLine()?.split(separator: " ").map{ Int($0) ?? 0 }
+    let numbers = readLine()?
+        .split(separator: " ")
+        .map{ Int($0) ?? 0 }
+        .filter{ $0 < 10 }
+    
+    return numbers
 }
 
+/// 게임 선택 입력 함수
+///
+/// Returns: 게임 시작(1) or 게임 종료(2)
 private func inputString(_ quote: String) -> String? {
     print(quote, terminator: " ")
     
     return readLine()?.replacingOccurrences(of: " ", with: "")
 }
 
+/// 게임 시작 함수
 private func startGame() {
     let computerNumber = Array(create(to: &randomNumbers, for: &computersClarifiedNumber))
 
     repeat {
         strikeCount = 0
         ballCount = 0
-        significantFigures -= 1
-        randomNumbers.removeAll()
-
+        
         print("숫자 3개를 띄어쓰기로 구분해서 입력해주세요.\n중복숫자는 허용하지 않습니다.")
         
-        guard let userNumber = inputArray("입력: ") else {
-            return
+        guard let userNumber = inputArray("입력: "),
+              !userNumber.contains(0),
+              userNumber.count == 3 else {
+            print("입력이 잘못되었습니다.")
+            
+            continue
         }
-                
+        
+        significantFigures -= 1
+
         for index in 0...2 {
             comparison(of: userNumber, and: computerNumber, at: index)
         }
