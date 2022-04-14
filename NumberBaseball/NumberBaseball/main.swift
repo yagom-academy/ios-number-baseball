@@ -39,25 +39,39 @@ import Foundation
 //    }
 //}
 
+let computerNumbers: [String] = []
+
 func inputUserNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
     print("중복숫자는 허용하지 않습니다")
     print("입력:",terminator: " ")
     let userinputNumbers = readLine()?.components(separatedBy: " ")
     if let userNumbers = userinputNumbers {
-        print(checkCommonNumbers(userInput: userNumbers))
+        checkWrongNumber(userInput: userNumbers)
     }
 }
-inputUserNumbers()
-func checkCommonNumbers(userInput: [String]) -> Bool {
-    let checkedNumbers: Set<String> = Set(userInput)
-    guard checkedNumbers.count == 3 else { return false }
+
+func checkWrongNumber(userInput: [String]) {
+    if mapNumbers(userInput: userInput) {
+        countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
+    } else {
+        print("입력이 잘못 되었습니다.")
+    }
+}
+
+func mapNumbers(userInput: [String]) -> Bool {
+    let result: [Int] = userInput.compactMap {
+        Int(String($0))
+    }
+    return checkCommonNumbers(userInput: result)
+}
+
+func checkCommonNumbers(userInput: [Int]) -> Bool {
+    let checkedNumbers: Set<Int> = Set(userInput)
+    guard checkedNumbers.count == 3 && checkedNumbers.contains(0) == false else { return false }
     return true
 }
 
-//func mapNumbers(input: [String]) -> [Int] {
-//    let result: [Int] = input.compactMap {
-//        Int(String($0))
-//    }
-//    return result
-//}
+func countStrikes(computerNumbers: [String], userInputNumbers: [String]) {
+    
+}
