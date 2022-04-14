@@ -24,14 +24,6 @@ func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> (Int, Int) {
     let suggestNumber = [Int](generateThreeNonOverlappingRandomNumbers())
     var strikeCount = 0
     var ballCount = 0
-    var StringSuggestNumber: String = String()
-    
-    for arrayLocation in arrayRange {
-        StringSuggestNumber += String(suggestNumber[arrayLocation])
-    }
-    
-    StringSuggestNumber.insert(" ", at: StringSuggestNumber.index(StringSuggestNumber.startIndex, offsetBy: 1))
-    StringSuggestNumber.insert(" ", at: StringSuggestNumber.index(StringSuggestNumber.startIndex, offsetBy: 3))
     
     for arrayLocation in arrayRange {
         if answerNumber[arrayLocation] == suggestNumber[arrayLocation] {
@@ -41,11 +33,13 @@ func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> (Int, Int) {
         }
     }
     
-    print("""
-          임의의 수 : \(StringSuggestNumber)
-          \(strikeCount) 스트라이크, \(ballCount) 볼
-          남은기회 : \(tryCount)
-          """)
+    print("임의의 수 : ", terminator: "")
+    for number in suggestNumber {
+        print(number,  terminator: " ")
+    }
+    print()
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("남은기회 : \(tryCount)")
     
     let strikeTryCount: (Int, Int) = (strikeCount, tryCount)
     
