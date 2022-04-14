@@ -6,66 +6,58 @@
 
 import Foundation
 
-var tryNumber = 9
-let validateComputerArray: [Int] = randomChoice()
-for _ in 0...tryNumber {
-    let validateUserArray: [Int] = randomChoice()
-    let strikeCount = strike(computerRandomArray: validateComputerArray, userRandomArray: validateUserArray)
-    let ballCount = commonElement(computerRandomArray: validateComputerArray, userRandomArray: validateUserArray) - strikeCount
+//func makeRandomThreeNumbers() -> [Int] {
+//    var randomNumbers: Set<Int> = []
+//    while randomNumbers.count < 3 {
+//        let randomNumber = Int.random(in: 1...9)
+//        randomNumbers.insert(randomNumber)
+//    }
+//    return Array(randomNumbers)
+//}
+//
+//func printMenu() {
+//    print("1. 게임시작")
+//    print("2. 게임종료")
+//    print("원하는 기능을 선택해주세요:",terminator: " ")
+//
+//}
+//
+//func choiceMenu() {
+//    let choiceMenuNumber = readLine()
+//    if let number = choiceMenuNumber {
+//        selectMenu(menuNumber: number)
+//    }
+//}
+//
+//func selectMenu(menuNumber: String) -> () {
+//    switch menuNumber {
+//    case "1":
+//        break
+//    case "2":
+//        break
+//    default: print("입력이 잘못되었습니다")
+//    }
+//}
 
-    print("임의의수 :", terminator: " ")
-    validateUserArray.forEach { element in
-        print(element, terminator: " ")
+func inputUserNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복숫자는 허용하지 않습니다")
+    print("입력:",terminator: " ")
+    let userinputNumbers = readLine()?.components(separatedBy: " ")
+    if let userNumbers = userinputNumbers {
+        print(checkCommonNumbers(userInput: userNumbers))
     }
-    print("\n\(strikeCount) 스트라이크, \(ballCount) 볼", terminator: " ")
-    if strikeCount == 3 {
-        print("- 사용자 승리")
-        break
-    }
-    print("\n남은기회: \(tryNumber)")
-
-    if tryNumber == 0 {
-        print("컴퓨터 승리...!")
-    }
-    tryNumber -= 1
+}
+inputUserNumbers()
+func checkCommonNumbers(userInput: [String]) -> Bool {
+    let checkedNumbers: Set<String> = Set(userInput)
+    guard checkedNumbers.count == 3 else { return false }
+    return true
 }
 
-func randomChoice() -> [Int] {
-    var ranArray:[Int] = []
-    var ranSet:Set<Int> = []
-    while ranSet.count < 3 {
-        let ranNum = Int.random(in: 1...9)
-        ranSet.insert(ranNum)
-    }
-    ranArray = Array<Int>(ranSet)
-
-    return ranArray
-}
-
-func commonElement(computerRandomArray: [Int], userRandomArray: [Int]) -> Int {
-    var commonElementCount = 0
-    if computerRandomArray.contains(userRandomArray[0]) {
-        commonElementCount += 1
-    }
-    if computerRandomArray.contains(userRandomArray[1]) {
-        commonElementCount += 1
-    }
-    if computerRandomArray.contains(userRandomArray[2]) {
-        commonElementCount += 1
-    }
-    return commonElementCount
-}
-
-func strike(computerRandomArray: [Int], userRandomArray: [Int]) -> Int {
-    var strikeCount = 0
-    if computerRandomArray[0] == userRandomArray[0] {
-        strikeCount += 1
-    }
-    if computerRandomArray[1] == userRandomArray[1] {
-        strikeCount += 1
-    }
-    if computerRandomArray[2] == userRandomArray[2] {
-        strikeCount += 1
-    }
-    return strikeCount
-}
+//func mapNumbers(input: [String]) -> [Int] {
+//    let result: [Int] = input.compactMap {
+//        Int(String($0))
+//    }
+//    return result
+//}
