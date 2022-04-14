@@ -7,14 +7,12 @@
 import Foundation
 
 
-var computerNumber = Set<Int>()
-var userNumber = Set<Int>()
+var computerNumber = makeRandomNumber()
+var userNumber = makeRandomNumber()
 var remainingNumber = 9
+var userNumberList = Array(userNumber)
+let computerNumberList = Array(computerNumber)
 
-
-while computerNumber.count < 3 {
-    computerNumber.insert(Int.random(in: 1...9))
-}
 
 func makeRandomNumber() -> Set<Int> {
     var numbers = Set<Int>()
@@ -25,10 +23,6 @@ func makeRandomNumber() -> Set<Int> {
     
     return numbers
 }
-userNumber = makeRandomNumber()
-
-var userNumberList = Array(userNumber)
-let computerNumberList = Array(computerNumber)
 
 
 func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) {
