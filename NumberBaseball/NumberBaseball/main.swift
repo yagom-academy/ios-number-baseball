@@ -69,17 +69,19 @@ func countingRemainingChance(remaining: inout Int){
         print("컴퓨터 승리...!")
     }
 }
+
 func startGame() {
     getRandomNumbersForComputer()
     while remainingChance != 0 {
         let extractedForUser = getRandomNumbersForUser()
         printingRandomNumbers(myArray: extractedForUser)
         
-        remainingChance -= 1
-        print("남은 기회 : \(remainingChance)")
-        if remainingChance == 0 {
-            print("컴퓨터 승리...!")
+        if isStrikeBall(extractedForUser: extractedForUser) {
+            break
         }
+
+        subtractingRemainingChance(remaining: &remainingChance)
+        countingRemainingChance(remaining: &remainingChance)
     }
 }
 
