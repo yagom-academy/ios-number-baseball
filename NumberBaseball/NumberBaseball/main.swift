@@ -7,6 +7,6 @@
 import Foundation
 
 let totalAnswerNumbers = 3
-var remainingOpportunity = 9
+let answerNumbers = selectRandomNumbers(howMany: 3)
 
-playGame()
+playGame(opportunityCount: 9)
