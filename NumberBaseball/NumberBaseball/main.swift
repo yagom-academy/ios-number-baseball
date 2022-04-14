@@ -90,7 +90,7 @@ private func startGame() {
 }
 
 /// 컴퓨터와 사용자의 값을 비교하는 함수
-private func comparison (of computer: [Int], and user: [Int], at position:Int) {
+private func comparison(of computer: [Int], and user: [Int], at position:Int) {
     if computer[position] == user[position] {
         strikeCount += 1
     } else if computer.contains(user[position]) {
