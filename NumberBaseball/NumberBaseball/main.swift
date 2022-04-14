@@ -39,7 +39,7 @@ import Foundation
 //    }
 //}
 
-let computerNumbers: [String] = []
+let computerNumbers: [String] = ["1","2","3"]
 
 func inputUserNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
@@ -53,7 +53,8 @@ func inputUserNumbers() {
 
 func checkWrongNumber(userInput: [String]) {
     if mapNumbers(userInput: userInput) {
-        countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
+        print(countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput))
+        print(countBall(computerNumbers: computerNumbers, userInputNumbers: userInput))
     } else {
         print("입력이 잘못 되었습니다.")
     }
@@ -72,6 +73,35 @@ func checkCommonNumbers(userInput: [Int]) -> Bool {
     return true
 }
 
-func countStrikes(computerNumbers: [String], userInputNumbers: [String]) {
+func countStrikes(computerNumbers: [String], userInputNumbers: [String]) -> Int {
+    var strikeCount: Int = 0
+    if computerNumbers[0] == userInputNumbers[0] {
+        strikeCount += 1
+    }
+    if computerNumbers[1] == userInputNumbers[1] {
+        strikeCount += 1
+    }
+    if computerNumbers[2] == userInputNumbers[2] {
+        strikeCount += 1
+    }
+    
+    return strikeCount
     
 }
+
+func countBall(computerNumbers: [String], userInputNumbers: [String]) -> Int {
+    var commonNumbersCount: Int = 0
+    if computerNumbers.contains(userInputNumbers[0]) {
+        commonNumbersCount += 1
+    }
+    if computerNumbers.contains(userInputNumbers[1]) {
+        commonNumbersCount += 1
+    }
+    if computerNumbers.contains(userInputNumbers[2]) {
+        commonNumbersCount += 1
+    }
+    let ballCount: Int = commonNumbersCount - countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInputNumbers)
+    return ballCount
+}
+
+inputUserNumbers()
