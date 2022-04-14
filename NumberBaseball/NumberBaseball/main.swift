@@ -108,10 +108,12 @@ func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
     
     if strikes == 3 {
         print("사용자 승리!")
+        launchMenu()
         return
     } else if remainingNumber == 0 {
         print("남은 기회: \(remainingNumber)")
         print("컴퓨터 승리...!")
+        launchMenu()
         return
     } else {
         print("남은 기회: \(remainingNumber)")
