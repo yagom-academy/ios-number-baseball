@@ -11,6 +11,25 @@ let arrayRange = 0...2
 let gameOverStrikeCount = 3
 let gameOverTryCount = 0
 
+func selectMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    let userSelectMenu = readLine()
+    
+    if(userSelectMenu == "1"){
+        gameStart()
+        selectMenu()
+    }else if(userSelectMenu == "2"){
+        print("", terminator: "")
+    }else{
+        print("입력이 잘못되었습니다")
+        selectMenu()
+    }
+}
+
+selectMenu()
+
 func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
     var randomNumbers = Set<Int>()
     
@@ -69,4 +88,4 @@ func checkGameOver(strikeTryCount: (Int, Int)) {
     }
 }
 
-gameStart()
+//gameStart()
