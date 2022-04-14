@@ -24,18 +24,19 @@ func generateRandomNumber() -> Array<Int> {
 
 func inputUserNumber() {
     
-    var userNumber: [Int]?
+    var userNumber: Array<Int>?
     inputArray = []
     
     while inputArray.count < 3 {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n", terminator: "")
-        userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
         
+        userNumber = readLine()?.split(separator: " ").map{Int($0) ?? 0}
         
-        guard let unwrappedUserNumber = userNumber?.filter({$0 > 0 && $0 < 10}) else {
+        guard let unwrappedUserNumber: Array<Int> = userNumber?.filter({$0 >= 1 && $0 <= 9}) else {
             return
         }
-        if Set(unwrappedUserNumber).count > 2 {
+        
+        if Set(unwrappedUserNumber).count >= 3 {
             inputArray = unwrappedUserNumber
         } else {
             print("입력이 잘못되었습니다")
@@ -47,19 +48,20 @@ func compareNumber() {
     while strikeCount < 3 && remainingChances > 0 {
         strikeCount = 0
         remainingChances -= 1
-        inputArray = generateRandomNumber()
-        print("임의의 수 : \(inputArray[0]) \(inputArray[1]) \(inputArray[2])")
         
+        inputUserNumber()
         checkStrike()
         checkBall()
         
-        if strikeCount == 3 {
-            print("사용자 승리...!")
-        } else if remainingChances == 0 {
-            print("컴퓨터 승리...!")
-        }
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼", separator: "\n")
         
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼", "남은 기회 : \(remainingChances)", separator: "\n")
+        if strikeCount == 3 {
+            print("사용자 승리!")
+        } else if remainingChances == 0 {
+            print("남은 기회 : \(remainingChances)", "컴퓨터 승리...!", separator: "\n")
+        } else {
+            print("남은 기회 : \(remainingChances)")
+        }
     }
 }
 
@@ -72,8 +74,8 @@ func checkStrike() {
     for number in 0...2 {
         let sameDigitNumber = (randomArray[number] - inputArray[number] == 0) ? 1 : 0
         strikeCount += sameDigitNumber
-        }
     }
+}
 
 func checkBall() {
     let intersectionOfArrays = Set(randomArray).intersection(inputArray)
@@ -81,10 +83,11 @@ func checkBall() {
 }
 
 func selectMenu() {
-    var mainMenu: String
+    var mainMenu: String = ""
     
-    repeat {
-        print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ",  separator: "\n", terminator: "")
+    while mainMenu != "2" {
+        print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
+        
         mainMenu = readLine() ?? ""
         
         switch mainMenu {
@@ -95,8 +98,7 @@ func selectMenu() {
         default :
             print("입력이 잘못되었습니다")
         }
-        
-    } while mainMenu != "2"
+    }
 }
 
 selectMenu()
