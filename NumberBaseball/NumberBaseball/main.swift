@@ -3,6 +3,7 @@
 //  Created by BaekGom,barrd.
 //  Copyright © yagom academy. All rights reserved.
 //
+import Foundation
 
 var repeatCheck = true
 let countNumber = 3
@@ -18,6 +19,7 @@ func selectMenu() {
     let userSelectMenu = readLine()
     
     if(userSelectMenu == "1"){
+        repeatCheck = true
         gameStart()
         selectMenu()
     }else if(userSelectMenu == "2"){
@@ -25,6 +27,28 @@ func selectMenu() {
     }else{
         print("입력이 잘못되었습니다")
         selectMenu()
+    }
+}
+
+func userInputNumbers() -> String {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    let userInput = readLine() ?? ""
+    
+    if confirmUserInputNumbers(userInputNumbers: userInput) {
+        return userInput
+    }else{
+        print("입력이 잘못되었습니다")
+        return userInputNumbers()
+    }
+}
+
+func confirmUserInputNumbers(userInputNumbers : String) -> Bool {
+    if userInputNumbers.isEmpty || userInputNumbers.split(separator: " ").count != 3 || userInputNumbers.filter({$0.isNumber }).count != 3 || Set(userInputNumbers).count != 4 {
+        return false
+    }else{
+        return true
     }
 }
 
@@ -37,35 +61,23 @@ func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
     return randomNumbers
 }
 
-func userInputNumbers() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
-    let userInput = readLine()
-}
-
-func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> (Int, Int) {
-    let suggestNumber = [Int](generateThreeNonOverlappingRandomNumbers())
+func countStrikeOrBall(answerNumber: [Int], tryCount: Int, userSuggestNumbers: String) -> (Int, Int) {
+    var userSuggestThreeNumbers = [Int]()
+    let userSuggestNumbersSplit = userSuggestNumbers.components(separatedBy: " ")
+    userSuggestThreeNumbers = userSuggestNumbersSplit.map{Int($0) ?? 0}
     var strikeCount = 0
     var ballCount = 0
     
     for arrayLocation in arrayRange {
-        if answerNumber[arrayLocation] == suggestNumber[arrayLocation] {
+        if answerNumber[arrayLocation] == userSuggestThreeNumbers[arrayLocation] {
             strikeCount += 1
-        } else if suggestNumber.contains(answerNumber[arrayLocation]) {
+        } else if userSuggestThreeNumbers.contains(answerNumber[arrayLocation]) {
             ballCount += 1
         }
     }
     
-    print("임의의 수 : ", terminator: "")
-    for number in suggestNumber {
-        print(number,  terminator: " ")
-    }
-    print()
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     print("남은기회 : \(tryCount)")
-    userInputNumbers()
-    
     let strikeTryCount: (Int, Int) = (strikeCount, tryCount)
     
     return strikeTryCount
@@ -76,9 +88,8 @@ func gameStart() {
     var tryCount = 9
     
     while repeatCheck {
-        userInputNumbers()
         tryCount -= 1
-        let strikeTryCount = countStrikeOrBall(answerNumber: randomNumberGeneratedByComputer, tryCount: tryCount)
+        let strikeTryCount = countStrikeOrBall(answerNumber: randomNumberGeneratedByComputer, tryCount: tryCount, userSuggestNumbers: userInputNumbers())
         checkGameOver(strikeTryCount: strikeTryCount)
     }
 }
