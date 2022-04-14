@@ -8,46 +8,43 @@ import Foundation
 func startGame() {
 
     var givenChance: Int = 9
-    let strikeCount: Int = 3
-    var threeRandomNumbers: [Int]
-    var userPickedNumbers: [Int]
+    var computerThreeNumbers: [Int]
+    var userThreeNumbers: [Int]
     var resultOfStrikeAndBall: [Int]
     var strikeScore: Int
     var ballScore: Int
-    var st: Bool = false
+    var isSuccess: Bool = false
     
-    threeRandomNumbers = pickThreeRandomNumbers()
+    computerThreeNumbers = makingThreeRandomNumbers()
     
-    while !st && givenChance > 0 {
+    while !isSuccess && givenChance > 0 {
     
-        userPickedNumbers = pickThreeRandomNumbers()
+        userThreeNumbers = makingThreeRandomNumbers()
         
-        resultOfStrikeAndBall = calculateResult(computer: threeRandomNumbers, user: userPickedNumbers)
+        resultOfStrikeAndBall = calculateResult(computer: computerThreeNumbers, user: userThreeNumbers)
         strikeScore = resultOfStrikeAndBall[0]
         ballScore = resultOfStrikeAndBall[1]
         
-        print("임의의 수 : \(userPickedNumbers[0]) \(userPickedNumbers[1]) \(userPickedNumbers[2])")
+        print("임의의 수 : \(userThreeNumbers[0]) \(userThreeNumbers[1]) \(userThreeNumbers[2])")
         print("\(strikeScore) 스트라이크, \(ballScore) 볼")
         
-        st = isStrike(strike: strikeScore, strikeCount: strikeCount)
+        isSuccess = isThreeStrike(strikeScore)
         givenChance -= 1
         print("남은 기회 : \(givenChance)")
         
     }
     
-    if st {
+    if isSuccess {
         print("사용자 승리...!")
     }
     
     if givenChance == 0 {
         print("컴퓨터 승리...!")
     }
-    
-    
 
 }
 
-func pickThreeRandomNumbers() -> [Int] {
+func makingThreeRandomNumbers() -> [Int] {
     var list: [Int] = []
     
     while true {
@@ -55,9 +52,7 @@ func pickThreeRandomNumbers() -> [Int] {
         
         list = Array(Set(list))
         
-        if list.count == 3 {
-            break
-        }
+        if list.count == 3 { break }
     }
     
     return list
@@ -67,10 +62,10 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     
     var resultStrikeAndBall: [Int] = [0, 0]
 
-    for i in 0...2 {
-        guard let foundIdx = computer.firstIndex(of: user[i]) else { continue }
+    for userIndex in 0...2 {
+        guard let computerIndex = computer.firstIndex(of: user[userIndex]) else { continue }
         
-        if foundIdx == i {
+        if computerIndex == userIndex {
             resultStrikeAndBall[0] += 1
         } else {
             resultStrikeAndBall[1] += 1
@@ -80,8 +75,8 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     return resultStrikeAndBall
 }
 
-func isStrike(strike: Int, strikeCount: Int) -> Bool {
-    if strike == strikeCount {
+func isThreeStrike(_ strike: Int) -> Bool {
+    if strike == 3 {
         return true
     } else {
         return false
