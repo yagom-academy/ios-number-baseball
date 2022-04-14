@@ -7,31 +7,31 @@ import Foundation
 
 func startGame() {
     
-    var chance: Int = 9
+    var givenChance: Int = 9
     var threeRandomNumbers: [Int]
     var userPickedNumbers: [Int]
-    var result: [Int]
+    var resultOfStrikeAndBall: [Int]
     
     threeRandomNumbers = pickThreeRandomNumbers()
     
-    while chance > 0 {
+    while givenChance > 0 {
     
         userPickedNumbers = pickThreeRandomNumbers()
         
-        result = calculateResult(computer: threeRandomNumbers, user: userPickedNumbers)
+        resultOfStrikeAndBall = calculateResult(computer: threeRandomNumbers, user: userPickedNumbers)
         print("임의의 수 : \(userPickedNumbers[0]) \(userPickedNumbers[1]) \(userPickedNumbers[2])")
-        print("\(result[0]) 스트라이크, \(result[1]) 볼")
+        print("\(resultOfStrikeAndBall[0]) 스트라이크, \(resultOfStrikeAndBall[1]) 볼")
         
-        if result[0] == 3 {
+        if resultOfStrikeAndBall[0] == 3 {
             print("사용자 승리...!")
             break
         }
         
-        chance -= 1
-        print("남은 기회 : \(chance)")
+        givenChance -= 1
+        print("남은 기회 : \(givenChance)")
     }
     
-    if chance == 0 {
+    if givenChance == 0 {
         print("컴퓨터 승리...!")
     }
 }
