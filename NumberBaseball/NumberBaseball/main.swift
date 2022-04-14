@@ -20,7 +20,7 @@ func run() {
         switch selectMode {
         case "1":
             startGame()
-
+            
         case "2":
             break
             
@@ -36,12 +36,11 @@ func run() {
 /// Returns : 게임을 위해 입력한 숫자 배열
 private func inputArray(_ quote: String) -> [Int]? {
     print(quote, terminator: " ")
-    let numbers = readLine()?
+    
+    return readLine()?
         .split(separator: " ")
         .map{ Int($0) ?? 0 }
         .filter{ $0 < 10 }
-    
-    return numbers
 }
 
 /// 게임 선택 입력 함수
@@ -56,7 +55,7 @@ private func inputString(_ quote: String) -> String? {
 /// 게임 시작 함수
 private func startGame() {
     let computerNumber = Array(create(to: &randomNumbers, for: &computersClarifiedNumber))
-
+    
     repeat {
         strikeCount = 0
         ballCount = 0
@@ -72,14 +71,14 @@ private func startGame() {
         }
         
         significantFigures -= 1
-
+        
         for index in 0...2 {
             comparison(of: userNumber, and: computerNumber, at: index)
         }
-
+        
         print("\(strikeCount) 스트라이크, \(ballCount) 볼 ")
         print("남은 기회 : \(significantFigures)")
-
+        
         if strikeCount == 3 {
             print("사용자 승리!")
             break
