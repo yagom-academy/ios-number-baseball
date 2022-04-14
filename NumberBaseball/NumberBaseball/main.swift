@@ -25,12 +25,13 @@ func makeRandomNumber() -> Set<Int> {
 }
 
 
-func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) {
-
+func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
+    
     print("임의의 수 :", userArray[0], userArray[1], userArray[2])
     
-    let strikes = countStrike(in: userArray, with: computerArray)
-    let balls = countBall(in: userArray, with: computerArray)
+    let strikesAndBalls = compareNumbers(in: userArray, with: computerArray)
+    let strikes = strikesAndBalls["strikes"] ?? 0
+    let balls = strikesAndBalls["balls"] ?? 0
     
     print("\(strikes) 스트라이크, \(balls) 볼")
     
@@ -47,9 +48,18 @@ func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) {
         print("남은 기회: \(remainingNumber)")
         userNumber = makeRandomNumber()
         userNumberList = Array(userNumber)
-        compareNumbers(in: userNumberList, with: computerNumberList)
+        startGame(with: userNumberList, and: computerNumberList)
         return
     }
+}
+
+
+func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) -> Dictionary<String, Int> {
+    
+    let strikes = countStrike(in: userArray, with: computerArray)
+    let balls = countBall(in: userArray, with: computerArray)
+    
+    return ["strikes": strikes, "balls": balls]
 }
 
 
@@ -78,4 +88,4 @@ func countBall(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int 
 }
 
 
-compareNumbers(in: userNumberList, with: computerNumberList)
+startGame(with: userNumberList, and: computerNumberList)
