@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 var extractedForComputer: Array<Int> = Array<Int>()
 var remainingChance = 9
 
