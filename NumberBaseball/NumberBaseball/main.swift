@@ -7,7 +7,7 @@
 import Foundation
 
 var extractedForComputer: Array<Int> = Array<Int>()
-var remainingChance = 9
+var remainingChance = 10
 
 func getRandomNumbersForComputer() {
     var initialComputerInput: Set<Int> = Set<Int>()
