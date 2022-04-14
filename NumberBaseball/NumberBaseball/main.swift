@@ -6,13 +6,13 @@
 
 import Foundation
 
-var initialComputerInput: Set<Int> = Set<Int>()
+
 var extractedForComputer: Array<Int> = Array<Int>()
-var verifiedUserArray: Array<Int> = Array<Int>()
 
 var remainingChance = 9
 
 func getRandomNumbersForComputer() {
+    var initialComputerInput: Set<Int> = Set<Int>()
     while initialComputerInput.count < 3 {
         let number: Int = Int.random(in: 1...9)
         initialComputerInput.insert(number)
@@ -20,13 +20,13 @@ func getRandomNumbersForComputer() {
     extractedForComputer = Array(initialComputerInput)
 }
 
-func getRandomNumbersForUser() {
+func getRandomNumbersForUser() -> Array<Int> {
     var initialUserInput: Set<Int> = Set<Int>()
     while initialUserInput.count < 3 {
         let number: Int = Int.random(in: 1...9)
         initialUserInput.insert(number)
     }
-    verifiedUserArray = Array(initialUserInput)
+    return Array(initialUserInput)
 }
 
 func decide() {
@@ -47,16 +47,14 @@ func decide() {
     }
 }
 
+func printingRandomNumbers(myArray: Array<Int>) {
+    print("임의의 수 : \(myArray[0]) \(myArray[1]) \(myArray[2])")
+}
 func startGame() {
     getRandomNumbersForComputer()
     while remainingChance != 0 {
-        getRandomNumbersForUser()
-        var result: String = "임의의 수 : "
-        for element in 0...2 {
-            result += "\(verifiedUserArray[element]) "
-        }
-        result.removeLast()
-        print(result)
+        let extractedForUser = getRandomNumbersForUser()
+        printingRandomNumbers(myArray: extractedForUser)
         
         decide()
         
