@@ -27,11 +27,7 @@ func makeRandomNumber() -> Set<Int> {
 
 func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) {
 
-    print("임의의 수 : ", terminator: " ")
-    userArray.forEach {
-        print($0, terminator: " ")
-    }
-    print("")
+    print("임의의 수 :", userArray[0], userArray[1], userArray[2])
     
     let strikes = countStrike(in: userArray, with: computerArray)
     let balls = countBall(in: userArray, with: computerArray)
