@@ -67,4 +67,23 @@ func checkBall() {
     ballCount = intersectionOfArrays.count - strikeCount
 }
 
-startGame()
+func selectMenu() {
+    var mainMenu: String
+    
+    repeat {
+        print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ",  separator: "\n", terminator: "")
+        mainMenu = readLine() ?? ""
+        
+        switch mainMenu {
+        case "1" :
+            startGame()
+        case "2" :
+            break
+        default :
+            print("입력이 잘못되었습니다")
+        }
+        
+    } while mainMenu != "2"
+}
+
+selectMenu()
