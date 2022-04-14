@@ -51,11 +51,11 @@ func inputUserNumbers() {
     print("입력:",terminator: " ")
     let userinputNumbers = readLine()?.components(separatedBy: " ")
     if let userNumbers = userinputNumbers {
-        checkWrongNumber(userInput: userNumbers)
+        printResult(userInput: userNumbers)
     }
 }
 
-func checkWrongNumber(userInput: [String]) {
+func printResult(userInput: [String]) {
     if mapNumbers(userInput: userInput) && userInput.count == 3 {
         userLife -= 1
         strikeCount = countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
