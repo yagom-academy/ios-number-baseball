@@ -10,4 +10,5 @@
 
 #### STEP2 순서도
 
-![](https://i.imgur.com/shd1Huf.png)
+![](https://i.imgur.com/Fd4pPRJ.png)
+
