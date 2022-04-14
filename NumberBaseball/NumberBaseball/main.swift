@@ -4,11 +4,33 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+func mainMenu() {
+    
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    guard let userInput = readLine() else {
+        print("\n⚠️ 컨트롤 + D 를 입력하지 마세요. 🤬 ⚠️")
+        return
+    }
+    
+    if userInput == "1" {
+        startGame()
+    } else if userInput == "2" {
+        return
+    } else {
+        print("입력이 잘못되었습니다.")
+        mainMenu()
+    }
+
+    mainMenu()
+}
+
 func startGame() {
     
     var givenChance: Int = 9
     var computerThreeNumbers: [Int]
-    var userThreeNumbers: [Int]
     var resultOfStrikeAndBall: [Int]
     var strikeScore: Int
     var ballScore: Int
@@ -18,13 +40,23 @@ func startGame() {
     
     while isSuccess == false && givenChance > 0 {
         
-        userThreeNumbers = generatedRandomNumbers()
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: "")
+        
+        guard let userThreeNumbers = readLine()?.split(separator: " ").map({ Int($0) ?? 0 }) else {
+            print("\n⚠️ 컨트롤 + D 를 입력하지 마세요. 🤬 ⚠️")
+            return
+        }
+        
+        if inputValidCheck(userThreeNumbers) == false {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
         
         resultOfStrikeAndBall = calculateResult(computer: computerThreeNumbers, user: userThreeNumbers)
         strikeScore = resultOfStrikeAndBall[0]
         ballScore = resultOfStrikeAndBall[1]
         
-        print("임의의 수 : \(userThreeNumbers[0]) \(userThreeNumbers[1]) \(userThreeNumbers[2])")
         print("\(strikeScore) 스트라이크, \(ballScore) 볼")
         
         isSuccess = checkStrike(strikeScore)
@@ -85,25 +117,17 @@ func addScore(to resultStrikeAndBall: inout [Int], computer: Array<Int>.Index, u
     }
 }
 
-func mainMenu() {
+func inputValidCheck(_ inputNumbers: [Int]) -> Bool {
     
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-    
-    let userInput = readLine() ?? "0"
-    
-    if userInput == "1" {
-        startGame()
-    } else if userInput == "2" {
-        return
-    } else {
-        print("입력이 잘못되었습니다.")
-        mainMenu()
+    guard inputNumbers.count == 3 else {
+        return false
     }
+    
+    if inputNumbers.contains(0) {
+        return false
+    }
+    
+    return true
 }
 
 mainMenu()
-
-
-
