@@ -7,20 +7,20 @@
 import Foundation
 
 var initialComputerInput: Set<Int> = Set<Int>()
-var verifiedComputerArray: Array<Int> = Array<Int>()
+var extractedForComputer: Array<Int> = Array<Int>()
 var verifiedUserArray: Array<Int> = Array<Int>()
 
 var remainingChance = 9
 
-func generateRandomNumbersForComputer() {
+func getRandomNumbersForComputer() {
     while initialComputerInput.count < 3 {
         let number: Int = Int.random(in: 1...9)
         initialComputerInput.insert(number)
     }
-    verifiedComputerArray = Array(initialComputerInput)
+    extractedForComputer = Array(initialComputerInput)
 }
 
-func generateRandomNumbersForUser() {
+func getRandomNumbersForUser() {
     var initialUserInput: Set<Int> = Set<Int>()
     while initialUserInput.count < 3 {
         let number: Int = Int.random(in: 1...9)
@@ -33,9 +33,9 @@ func decide() {
     var strikeCount = 0
     var ballCount = 0
     for element in 0...2 {
-        if verifiedComputerArray[element] == verifiedUserArray[element] {
+        if extractedForComputer[element] == verifiedUserArray[element] {
             strikeCount += 1
-        } else if verifiedUserArray.contains(verifiedComputerArray[element]) {
+        } else if verifiedUserArray.contains(extractedForComputer[element]) {
             ballCount += 1
         }
     }
@@ -48,9 +48,9 @@ func decide() {
 }
 
 func startGame() {
-    generateRandomNumbersForComputer()
+    getRandomNumbersForComputer()
     while remainingChance != 0 {
-        generateRandomNumbersForUser()
+        getRandomNumbersForUser()
         var result: String = "임의의 수 : "
         for element in 0...2 {
             result += "\(verifiedUserArray[element]) "
