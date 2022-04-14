@@ -6,7 +6,7 @@
 import Foundation
 
 func startGame() {
-    
+
     var givenChance: Int = 9
     var threeRandomNumbers: [Int]
     var userPickedNumbers: [Int]
@@ -27,10 +27,7 @@ func startGame() {
         print("임의의 수 : \(userPickedNumbers[0]) \(userPickedNumbers[1]) \(userPickedNumbers[2])")
         print("\(strikeScore) 스트라이크, \(ballScore) 볼")
         
-        if resultOfStrikeAndBall[0] == 3 {
-            print("사용자 승리...!")
-            break
-        }
+        decideWinner(within: resultOfStrikeAndBall)
         
         givenChance -= 1
         print("남은 기회 : \(givenChance)")
@@ -39,6 +36,7 @@ func startGame() {
     if givenChance == 0 {
         print("컴퓨터 승리...!")
     }
+
 }
 
 func pickThreeRandomNumbers() -> [Int] {
@@ -72,6 +70,14 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     }
     
     return resultStrikeAndBall
+}
+
+func decideWinner(within result: [Int]) {
+    
+    if result[0] == 3 {
+        print("사용자 승리...!")
+    }
+    
 }
 
 startGame()
