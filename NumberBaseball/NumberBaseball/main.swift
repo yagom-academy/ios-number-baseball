@@ -11,7 +11,6 @@ var verifiedComputerArray: Array<Int> = Array<Int>()
 var verifiedUserArray: Array<Int> = Array<Int>()
 
 var remainingChance = 9
-var strikeFlag: Bool = false
 
 func generateRandomNumbersForComputer() {
     while initialComputerInput.count < 3 {
@@ -43,7 +42,6 @@ func decide() {
     
     if strikeCount == 3 {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼 - 사용자 승리!")
-        strikeFlag = true
     } else {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     }
@@ -61,9 +59,6 @@ func startGame() {
         print(result)
         
         decide()
-        if strikeFlag {
-            break
-        }
         
         remainingChance -= 1
         print("남은 기회 : \(remainingChance)")
