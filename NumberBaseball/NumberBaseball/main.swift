@@ -55,12 +55,13 @@ func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> [String: Int] {
 }
 
 func gameStart() {
-    let answerNumbers = [Int](generateThreeNonOverlappingRandomNumbers())
+    
+    let randomNumberGeneratedByComputer = [Int](generateThreeNonOverlappingRandomNumbers())
     var tryCount = 9
     
     while repeatCheck {
         tryCount -= 1
-        let strikeBallCount = countStrikeOrBall(answerNumber: answerNumbers, tryCount: tryCount)
+        let strikeBallCount = countStrikeOrBall(answerNumber: randomNumberGeneratedByComputer, tryCount: tryCount)
         checkGameOver(strikeTryCount: strikeBallCount)
     }
 }
