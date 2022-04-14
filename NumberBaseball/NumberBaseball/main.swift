@@ -23,10 +23,23 @@ func generateRandomNumber() -> Array<Int> {
 }
 
 func inputUserNumber() {
-    let userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
     
-    if let unwrappedUserNumber: Array<Int> = userNumber {
-        inputArray = unwrappedUserNumber
+    var userNumber: [Int]?
+    inputArray = []
+    
+    while inputArray.count < 3 {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n", terminator: "")
+        userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
+        
+        
+        guard let unwrappedUserNumber = userNumber?.filter({$0 > 0 && $0 < 10}) else {
+            return
+        }
+        if Set(unwrappedUserNumber).count > 2 {
+            inputArray = unwrappedUserNumber
+        } else {
+            print("입력이 잘못되었습니다")
+        }
     }
 }
 
