@@ -64,35 +64,16 @@ func startGame() {
 }
 
 func verifyInput(checkNumbers: String) {
-
-    
-    // -> 숫자 입력 외
-    // 공백일 때 * " "
-    if Set(checkNumbers) == [" "] {
-        
+    var isCorrect = false
+    if ((checkNumbers.range(of: #"^[0-9]\s[0-9]\s[0-9]$"# ,options: .regularExpression)) != nil) {
+        isCorrect = true
     }
-
-    
-    // 공백이 없을 때
-    if checkNumbers.components(separatedBy: " ").count != 3 {
+    if isCorrect {
+        startGame()
+    } else {
+        printErrorMessage()
+        inputNumbers()
     }
-    // -> 숫자 입력
-    // 숫자가 중복 되었을 때
-    if Set(checkNumbers).count != checkNumbers.count{
-        
-    }
-    
-    
-    // 숫자가 아닌 값을 입력한 경우
-    // 범위를 벗어난 경우 : 48 ~ 57
-
-    // 갯수가 잘못된 경우
-    if checkNumbers.count != 5 {
-    }
-    
-    
-    // 잘못 입력
-    // 그외 기타!
 }
 
 func inputNumbers() {
@@ -112,9 +93,8 @@ func showMenu() {
         print("원하는 기능을 선택해주세요 : " , terminator: "")
         if let inputMenuNumber = readLine() {
             switch inputMenuNumber {
-            case "1" : break
-                // 수정
-                // inputNumbers()
+            case "1" :
+                inputNumbers()
             case "2" :
                 isStart = false
                 break
@@ -128,3 +108,4 @@ func showMenu() {
 func printErrorMessage() {
     print("입력이 잘못되었습니다")
 }
+
