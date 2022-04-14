@@ -9,3 +9,5 @@
 
 ![ios-number-baseball-flowchart](https://user-images.githubusercontent.com/96932116/163082482-cd2b4b5a-3b4b-4bce-883a-db694f9e85fa.png)
 
+## Step2 순서도
+![ios-number-baseball-flowchart](https://user-images.githubusercontent.com/99063327/163343779-a44e197b-681b-4c5d-95af-cdf5479f45db.png)
