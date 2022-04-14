@@ -8,7 +8,6 @@ import Foundation
 
 
 var extractedForComputer: Array<Int> = Array<Int>()
-
 var remainingChance = 9
 
 func getRandomNumbersForComputer() {
@@ -58,6 +57,17 @@ func checkThreeStrikes(strikeCount: Int, ballCount: Int) -> Bool {
 
 func printingRandomNumbers(myArray: Array<Int>) {
     print("임의의 수 : \(myArray[0]) \(myArray[1]) \(myArray[2])")
+}
+
+func subtractingRemainingChance(remaining: inout Int){
+    remaining -= 1
+}
+
+func countingRemainingChance(remaining: inout Int){
+    print("남은 기회 : \(remaining)")
+    if remaining == 0 {
+        print("컴퓨터 승리...!")
+    }
 }
 func startGame() {
     getRandomNumbersForComputer()
