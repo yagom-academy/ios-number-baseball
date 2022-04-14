@@ -85,4 +85,25 @@ func addScore(to resultStrikeAndBall: inout [Int], computer: Array<Int>.Index, u
     }
 }
 
-startGame()
+func mainMenu() {
+    
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    let userInput = readLine() ?? "0"
+    
+    if userInput == "1" {
+        startGame()
+    } else if userInput == "2" {
+        return
+    } else {
+        print("입력이 잘못되었습니다.")
+        mainMenu()
+    }
+}
+
+mainMenu()
+
+
+
