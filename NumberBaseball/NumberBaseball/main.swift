@@ -8,7 +8,7 @@ import Foundation
 var repeatCheck = true
 let countNumber = 3
 let randomNumberRange = 1...9
-let arrayRange = 0...2
+let arrayExtent = 0...2
 let gameOverStrikeCount = 3
 let gameOverTryCount = 0
 
@@ -18,13 +18,13 @@ func selectMenu() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
     let userSelectMenu = readLine()
     
-    if(userSelectMenu == "1"){
+    if userSelectMenu == "1" {
         repeatCheck = true
         gameStart()
         selectMenu()
-    }else if(userSelectMenu == "2"){
+    } else if userSelectMenu == "2" {
         print("", terminator: "")
-    }else{
+    } else {
         print("입력이 잘못되었습니다")
         selectMenu()
     }
@@ -36,7 +36,7 @@ func userInputNumbers() -> String {
     print("입력 : ", terminator: "")
     let userInput = readLine() ?? ""
     
-    if confirmUserInputNumbers(userInputNumbers: userInput) {
+    if confirmInputNumbers(InputNumbers: userInput) {
         return userInput
     }else{
         print("입력이 잘못되었습니다")
@@ -44,15 +44,15 @@ func userInputNumbers() -> String {
     }
 }
 
-func confirmUserInputNumbers(userInputNumbers : String) -> Bool {
-    if userInputNumbers.isEmpty || userInputNumbers.split(separator: " ").count != 3 || userInputNumbers.filter({$0.isNumber }).count != 3 || Set(userInputNumbers).count != 4 {
+func confirmInputNumbers(InputNumbers : String) -> Bool {
+    if InputNumbers.isEmpty || InputNumbers.split(separator: " ").count != 3 || InputNumbers.filter({$0.isNumber }).count != 3 || Set(InputNumbers).count != 4 {
         return false
     }else{
         return true
     }
 }
 
-func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
+func threeNonOverlappingRandomNumbers() -> Set<Int> {
     var randomNumbers = Set<Int>()
     
     while randomNumbers.count < countNumber {
@@ -61,17 +61,17 @@ func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
     return randomNumbers
 }
 
-func countStrikeOrBall(answerNumber: [Int], tryCount: Int, userSuggestNumbers: String) -> (Int, Int) {
+func countStrikeOrBall(computerNumbers: [Int], tryCount: Int, userSuggestNumbers: String) -> (Int, Int) {
     var userSuggestThreeNumbers = [Int]()
     let userSuggestNumbersSplit = userSuggestNumbers.components(separatedBy: " ")
     userSuggestThreeNumbers = userSuggestNumbersSplit.map{Int($0) ?? 0}
     var strikeCount = 0
     var ballCount = 0
     
-    for arrayLocation in arrayRange {
-        if answerNumber[arrayLocation] == userSuggestThreeNumbers[arrayLocation] {
+    for index in arrayExtent {
+        if computerNumbers[index] == userSuggestThreeNumbers[index] {
             strikeCount += 1
-        } else if userSuggestThreeNumbers.contains(answerNumber[arrayLocation]) {
+        } else if userSuggestThreeNumbers.contains(computerNumbers[index]) {
             ballCount += 1
         }
     }
@@ -84,12 +84,12 @@ func countStrikeOrBall(answerNumber: [Int], tryCount: Int, userSuggestNumbers: S
 }
 
 func gameStart() {
-    let randomNumberGeneratedByComputer = [Int](generateThreeNonOverlappingRandomNumbers())
+    let randomNumberGeneratedByComputer = [Int](threeNonOverlappingRandomNumbers())
     var tryCount = 9
     
     while repeatCheck {
         tryCount -= 1
-        let strikeTryCount = countStrikeOrBall(answerNumber: randomNumberGeneratedByComputer, tryCount: tryCount, userSuggestNumbers: userInputNumbers())
+        let strikeTryCount = countStrikeOrBall(computerNumbers: randomNumberGeneratedByComputer, tryCount: tryCount, userSuggestNumbers: userInputNumbers())
         checkGameOver(strikeTryCount: strikeTryCount)
     }
 }
