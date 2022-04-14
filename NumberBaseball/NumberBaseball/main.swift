@@ -8,9 +8,8 @@ import Foundation
 
 
 var computerNumber = makeRandomNumber()
-var userNumber = makeRandomNumber()
 var remainingNumber = 9
-var userNumberList = Array(userNumber)
+var userNumberList = Array<Int>()
 let computerNumberList = Array(computerNumber)
 
 
@@ -27,6 +26,7 @@ func launchMenu() {
     
     switch selection {
     case "1":
+        userInput()
         startGame(with: userNumberList, and: computerNumberList)
     case "2":
         return
@@ -38,6 +38,51 @@ func launchMenu() {
 }
 
 
+func userInput() {
+    userNumberList.removeAll()
+    
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다")
+    print("입력 : ", terminator: "")
+    guard let inputString = readLine() else {
+        print("입력이 잘못되었습니다")
+        userInput()
+        return
+    }
+    
+    let userData = inputString.components(separatedBy: " ")
+    if verifyUserInput(userData) {
+        for number in userData {
+            userNumberList.append(Int(number) ?? 0)
+        }
+        return
+    } else {
+        print("입력이 잘못되었습니다")
+        userInput()
+        return
+    }
+}
+
+func verifyUserInput(_ userData: [String]) -> Bool {
+    if userData.count != 3 {
+        return false
+    }
+    
+    let userDataSet = Set(userData)
+    if userDataSet.count < 3 {
+        return false
+    }
+    
+    for char in userData {
+        guard let number = Int(char),
+              number > 0,
+              number < 10 else {
+                  return false
+              }
+    }
+    
+    return true
+}
 
 func makeRandomNumber() -> Set<Int> {
     var numbers = Set<Int>()
@@ -70,13 +115,11 @@ func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
         return
     } else {
         print("남은 기회: \(remainingNumber)")
-        userNumber = makeRandomNumber()
-        userNumberList = Array(userNumber)
+        userInput()
         startGame(with: userNumberList, and: computerNumberList)
         return
     }
 }
-
 
 func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) -> Dictionary<String, Int> {
     let strikes = countStrike(in: userArray, with: computerArray)
