@@ -29,22 +29,31 @@ func getRandomNumbersForUser() -> Array<Int> {
     return Array(initialUserInput)
 }
 
-func decide() {
+func isStrikeBall(extractedForUser: Array<Int>) -> Bool {
+    var isThreeStrike = false
     var strikeCount = 0
     var ballCount = 0
-    for element in 0...2 {
-        if extractedForComputer[element] == verifiedUserArray[element] {
+    for index in 0...2 {
+        if extractedForComputer[index] == extractedForUser[index] {
             strikeCount += 1
-        } else if verifiedUserArray.contains(extractedForComputer[element]) {
+        } else if extractedForUser.contains(extractedForComputer[index]) {
             ballCount += 1
         }
     }
+    isThreeStrike = checkThreeStrikes(strikeCount: strikeCount, ballCount: ballCount)
+    return isThreeStrike
     
+}
+
+func checkThreeStrikes(strikeCount: Int, ballCount: Int) -> Bool {
+    var checkThreeStrike = false
     if strikeCount == 3 {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼 - 사용자 승리!")
+        checkThreeStrike = true
     } else {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     }
+    return checkThreeStrike
 }
 
 func printingRandomNumbers(myArray: Array<Int>) {
@@ -55,8 +64,6 @@ func startGame() {
     while remainingChance != 0 {
         let extractedForUser = getRandomNumbersForUser()
         printingRandomNumbers(myArray: extractedForUser)
-        
-        decide()
         
         remainingChance -= 1
         print("남은 기회 : \(remainingChance)")
