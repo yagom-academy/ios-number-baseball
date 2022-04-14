@@ -8,15 +8,17 @@ import Foundation
 func startGame() {
 
     var givenChance: Int = 9
+    let strikeCount: Int = 3
     var threeRandomNumbers: [Int]
     var userPickedNumbers: [Int]
     var resultOfStrikeAndBall: [Int]
     var strikeScore: Int
     var ballScore: Int
+    var st: Bool = false
     
     threeRandomNumbers = pickThreeRandomNumbers()
     
-    while givenChance > 0 {
+    while !st && givenChance > 0 {
     
         userPickedNumbers = pickThreeRandomNumbers()
         
@@ -27,15 +29,21 @@ func startGame() {
         print("임의의 수 : \(userPickedNumbers[0]) \(userPickedNumbers[1]) \(userPickedNumbers[2])")
         print("\(strikeScore) 스트라이크, \(ballScore) 볼")
         
-        decideWinner(within: resultOfStrikeAndBall)
-        
+        st = isStrike(strike: strikeScore, strikeCount: strikeCount)
         givenChance -= 1
         print("남은 기회 : \(givenChance)")
+        
+    }
+    
+    if st {
+        print("사용자 승리...!")
     }
     
     if givenChance == 0 {
         print("컴퓨터 승리...!")
     }
+    
+    
 
 }
 
@@ -72,12 +80,12 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     return resultStrikeAndBall
 }
 
-func decideWinner(within result: [Int]) {
-    
-    if result[0] == 3 {
-        print("사용자 승리...!")
+func isStrike(strike: Int, strikeCount: Int) -> Bool {
+    if strike == strikeCount {
+        return true
+    } else {
+        return false
     }
-    
 }
 
 startGame()
