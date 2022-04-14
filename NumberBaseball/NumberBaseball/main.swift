@@ -5,7 +5,7 @@
 //
 
 func startGame() {
-
+    
     var givenChance: Int = 9
     var computerThreeNumbers: [Int]
     var userThreeNumbers: [Int]
@@ -30,7 +30,6 @@ func startGame() {
         isSuccess = checkStrike(strikeScore)
         givenChance -= 1
         print("남은 기회 : \(givenChance)")
-        
     }
     
     if isSuccess {
@@ -56,10 +55,11 @@ func generatedRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> 
 }
 
 func calculateResult(computer: [Int], user: [Int]) -> [Int] {
-
+    
     var resultStrikeAndBall: [Int] = [0, 0]
     
     for userIndex in 0...2 {
+        
         guard let computerIndex = computer.firstIndex(of: user[userIndex]) else { continue }
         addScore(to: &resultStrikeAndBall, computer: computerIndex, user: userIndex)
     }
