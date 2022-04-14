@@ -41,6 +41,7 @@ func selectMenu(menuNumber: String) -> () {
     case "2":
         break
     default: print("입력이 잘못되었습니다")
+        printMenu()
     }
 }
 
@@ -55,14 +56,21 @@ func inputUserNumbers() {
 }
 
 func checkWrongNumber(userInput: [String]) {
-    if mapNumbers(userInput: userInput) {
+    if mapNumbers(userInput: userInput) && userInput.count == 3 {
         userLife -= 1
         strikeCount = countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
         ballCount = countBall(computerNumbers: computerNumbers, userInputNumbers: userInput) - strikeCount
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         decideWinner(strike: strikeCount, ball: ballCount, life: userLife)
-        print("남은기회: \(userLife)")
+        printLife()
     } else {
         print("입력이 잘못되었습니다.")
+    }
+}
+
+func printLife() {
+    if userLife > 0 {
+        print("남은기회: \(userLife)")
     }
 }
 
@@ -110,30 +118,21 @@ func countBall(computerNumbers: [String], userInputNumbers: [String]) -> Int {
 
 
 func decideWinner(strike: Int, ball: Int, life: Int) {
-    
     if strike == 3 {
         print("사용자 승리!")
         printMenu()
-        gameStart()
     }
     if userLife == 0 {
-        
         print("컴퓨터 승리...!")
         printMenu()
-        gameStart()
     }
 }
-
-
 
 printMenu()
 func gameStart() {
     computerNumbers = makeRandomThreeNumbers()
     userLife = 9
     while userLife > 0 {
-        print(computerNumbers)
-        print(userLife)
         inputUserNumbers()
-        
     }
 }
