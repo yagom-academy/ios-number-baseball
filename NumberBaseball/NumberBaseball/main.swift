@@ -14,6 +14,31 @@ var userNumberList = Array(userNumber)
 let computerNumberList = Array(computerNumber)
 
 
+func launchMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    guard let selection = readLine() else {
+        print("입력이 잘못되었습니다")
+        launchMenu()
+        return
+    }
+    
+    switch selection {
+    case "1":
+        startGame(with: userNumberList, and: computerNumberList)
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다")
+        launchMenu()
+        return
+    }
+}
+
+
+
 func makeRandomNumber() -> Set<Int> {
     var numbers = Set<Int>()
     
@@ -26,7 +51,6 @@ func makeRandomNumber() -> Set<Int> {
 
 
 func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
-    
     print("임의의 수 :", userArray[0], userArray[1], userArray[2])
     
     let strikesAndBalls = compareNumbers(in: userArray, with: computerArray)
@@ -55,7 +79,6 @@ func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
 
 
 func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) -> Dictionary<String, Int> {
-    
     let strikes = countStrike(in: userArray, with: computerArray)
     let balls = countBall(in: userArray, with: computerArray)
     
@@ -88,4 +111,5 @@ func countBall(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int 
 }
 
 
-startGame(with: userNumberList, and: computerNumberList)
+// startGame(with: userNumberList, and: computerNumberList)
+launchMenu()
