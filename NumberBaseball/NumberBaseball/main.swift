@@ -11,6 +11,8 @@ func startGame() {
     var threeRandomNumbers: [Int]
     var userPickedNumbers: [Int]
     var resultOfStrikeAndBall: [Int]
+    var strikeScore: Int
+    var ballScore: Int
     
     threeRandomNumbers = pickThreeRandomNumbers()
     
@@ -19,8 +21,11 @@ func startGame() {
         userPickedNumbers = pickThreeRandomNumbers()
         
         resultOfStrikeAndBall = calculateResult(computer: threeRandomNumbers, user: userPickedNumbers)
+        strikeScore = resultOfStrikeAndBall[0]
+        ballScore = resultOfStrikeAndBall[1]
+        
         print("임의의 수 : \(userPickedNumbers[0]) \(userPickedNumbers[1]) \(userPickedNumbers[2])")
-        print("\(resultOfStrikeAndBall[0]) 스트라이크, \(resultOfStrikeAndBall[1]) 볼")
+        print("\(strikeScore) 스트라이크, \(ballScore) 볼")
         
         if resultOfStrikeAndBall[0] == 3 {
             print("사용자 승리...!")
