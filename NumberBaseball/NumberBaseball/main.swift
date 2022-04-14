@@ -28,8 +28,6 @@ func selectMenu() {
     }
 }
 
-selectMenu()
-
 func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
     var randomNumbers = Set<Int>()
     
@@ -37,6 +35,13 @@ func generateThreeNonOverlappingRandomNumbers() -> Set<Int> {
         randomNumbers.insert(Int.random(in: randomNumberRange))
     }
     return randomNumbers
+}
+
+func userInputNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    let userInput = readLine()
 }
 
 func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> (Int, Int) {
@@ -59,6 +64,7 @@ func countStrikeOrBall(answerNumber: [Int], tryCount: Int) -> (Int, Int) {
     print()
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     print("남은기회 : \(tryCount)")
+    userInputNumbers()
     
     let strikeTryCount: (Int, Int) = (strikeCount, tryCount)
     
@@ -70,6 +76,7 @@ func gameStart() {
     var tryCount = 9
     
     while repeatCheck {
+        userInputNumbers()
         tryCount -= 1
         let strikeTryCount = countStrikeOrBall(answerNumber: randomNumberGeneratedByComputer, tryCount: tryCount)
         checkGameOver(strikeTryCount: strikeTryCount)
@@ -87,5 +94,5 @@ func checkGameOver(strikeTryCount: (Int, Int)) {
         print("컴퓨터 승리…!")
     }
 }
-
-//gameStart()
+ 
+selectMenu()
