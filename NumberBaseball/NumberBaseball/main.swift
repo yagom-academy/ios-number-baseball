@@ -3,7 +3,6 @@
 //  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
 //
-import Foundation
 
 func startGame() {
 
@@ -15,11 +14,11 @@ func startGame() {
     var ballScore: Int
     var isSuccess: Bool = false
     
-    computerThreeNumbers = makingThreeRandomNumbers()
+    // computerThreeNumbers = makingThreeRandomNumbers()
     
-    while !isSuccess && givenChance > 0 {
+    while isSuccess == false && givenChance > 0 {
     
-        userThreeNumbers = makingThreeRandomNumbers()
+        userThreeNumbers = generatedRandomNumbers()
         
         resultOfStrikeAndBall = calculateResult(computer: computerThreeNumbers, user: userThreeNumbers)
         strikeScore = resultOfStrikeAndBall[0]
@@ -28,7 +27,7 @@ func startGame() {
         print("임의의 수 : \(userThreeNumbers[0]) \(userThreeNumbers[1]) \(userThreeNumbers[2])")
         print("\(strikeScore) 스트라이크, \(ballScore) 볼")
         
-        isSuccess = isThreeStrike(strikeScore)
+        isSuccess = checkStrike(strikeScore, 3)
         givenChance -= 1
         print("남은 기회 : \(givenChance)")
         
@@ -38,21 +37,21 @@ func startGame() {
         print("사용자 승리...!")
     }
     
-    if givenChance == 0 {
+    if givenChance == .zero {
         print("컴퓨터 승리...!")
     }
 
 }
 
-func makingThreeRandomNumbers() -> [Int] {
+func generatedRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> [Int] {
     var list: [Int] = []
     
     while true {
-        list.append(Int.random(in: 1...9))
+        list.append(Int.random(in: range))
         
         list = Array(Set(list))
         
-        if list.count == 3 { break }
+        if list.count == count { break }
     }
     
     return list
@@ -75,8 +74,8 @@ func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     return resultStrikeAndBall
 }
 
-func isThreeStrike(_ strike: Int) -> Bool {
-    if strike == 3 {
+func checkStrike(_ strike: Int, strikeCount: Int) -> Bool {
+    if strike == strikeCount {
         return true
     } else {
         return false
