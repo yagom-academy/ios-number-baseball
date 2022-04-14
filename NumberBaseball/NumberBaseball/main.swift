@@ -6,16 +6,18 @@
 
 import Foundation
 
-let computerNumbers: [String] = makeRandomThreeNumbers().map{ String( $0 ) }
+var computerNumbers: [String] = makeRandomThreeNumbers()
 var userLife: Int = 9
+var strikeCount: Int = 0
+var ballCount: Int = 0
 
-func makeRandomThreeNumbers() -> [Int] {
+func makeRandomThreeNumbers() -> [String] {
     var randomNumbers: Set<Int> = []
     while randomNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
         randomNumbers.insert(randomNumber)
     }
-    return Array(randomNumbers)
+    return Array(randomNumbers).map{ String( $0 ) }
 }
 
 func printMenu() {
@@ -55,10 +57,10 @@ func inputUserNumbers() {
 func checkWrongNumber(userInput: [String]) {
     if mapNumbers(userInput: userInput) {
         userLife -= 1
-        let a = countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
-        print(a)
-        print(countBall(computerNumbers: computerNumbers, userInputNumbers: userInput) - a)
-        
+        strikeCount = countStrikes(computerNumbers: computerNumbers, userInputNumbers: userInput)
+        ballCount = countBall(computerNumbers: computerNumbers, userInputNumbers: userInput) - strikeCount
+        decideWinner(strike: strikeCount, ball: ballCount, life: userLife)
+        print("남은기회: \(userLife)")
     } else {
         print("입력이 잘못되었습니다.")
     }
@@ -88,10 +90,6 @@ func countStrikes(computerNumbers: [String], userInputNumbers: [String]) -> Int 
     if computerNumbers[2] == userInputNumbers[2] {
         strikeCount += 1
     }
-    if strikeCount == 3 {
-        print("유저 승리")
-        userLife = 0
-    }
     return strikeCount
     
 }
@@ -110,12 +108,32 @@ func countBall(computerNumbers: [String], userInputNumbers: [String]) -> Int {
     return commonNumbersCount
 }
 
+
+func decideWinner(strike: Int, ball: Int, life: Int) {
+    
+    if strike == 3 {
+        print("사용자 승리!")
+        printMenu()
+        gameStart()
+    }
+    if userLife == 0 {
+        
+        print("컴퓨터 승리...!")
+        printMenu()
+        gameStart()
+    }
+}
+
+
+
 printMenu()
 func gameStart() {
+    computerNumbers = makeRandomThreeNumbers()
+    userLife = 9
     while userLife > 0 {
         print(computerNumbers)
         print(userLife)
         inputUserNumbers()
-       
+        
     }
 }
