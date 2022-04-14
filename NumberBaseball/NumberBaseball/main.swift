@@ -15,7 +15,7 @@ func checkStrikeCount() -> Int {
     var strikeCount = 0
     
     for index in 0...2 where userInput[index] == randomNumberAnswer[index] {
-            strikeCount += 1
+        strikeCount += 1
         userInput[index] = 0
     }
     
@@ -39,24 +39,31 @@ func createRandomNumbers() -> [Int] {
     return Array(result)
 }
 
-func getUserInput() -> [Int] {
-    return [1,2,3]
+func getUserInput(){
+    while true{
+        guard let userInputNumber = readLine()?.components(separatedBy: " ") else{
+            print("입력이 잘못되었습니다\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+        }
+        
+        if !(validateUserInput(userInput: userInputNumber).isEmpty){
+            userInput = validateUserInput(userInput: userInputNumber)
+            break
+        }
+    }
 }
 
-func validateUserInput(userInput Input: [Int]) -> Bool{
+func validateUserInput(userInput Input: [String]) -> [Int]{
+    var validInput: [Int] = []
+    
     /*
      숫자를 잘못 입력하거나 범위를 벗어난 경우,
-     갯수가 잘못된 경우,
-     숫자가 아닌 값을 입력한 경우 등 잘못 입력에 대해 알려줍니다.
+     숫자가 중복된 경우 -> set에 넣고 count == 3
+     갯수가 잘못된 경우, 띄어쓰기 안했을 때도 -> count == 3
+     숫자가 아닌 값 -> Int 변환이 안되면
      이 경우 게임을 진행할 수 있는 횟수를 차감하지 않습니다.
      */
     //validation Code
-    return true
-}
-
-func validateMenuInput(selectedMenuNumber menu: Int) -> Bool{
-    var tmpResult:[Int] = []
-    return true
+    return validInput
 }
 
 func printRandomNumber(_ numbers: [Int]){
@@ -78,9 +85,7 @@ func playGame(){
         print("임의의 수 :", terminator: " ")
         
         userInput = getUserInput()
-        if validateUserInput(userInput: userInput){
-            
-        }
+        
         printRandomNumber(userInput)
         
         let strikeCount: Int = checkStrikeCount()
