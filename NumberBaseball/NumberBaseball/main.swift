@@ -41,8 +41,9 @@ func createRandomNumbers() -> [Int] {
 
 func getUserInput(){
     while true{
-        guard let userInputNumber = readLine()?.components(separatedBy: " ") else{
+        guard let userInputNumber = readLine()?.components(separatedBy: " ") else {
             print("입력이 잘못되었습니다\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+            continue
         }
         
         if !(validateUserInput(userInput: userInputNumber).isEmpty){
@@ -53,17 +54,34 @@ func getUserInput(){
 }
 
 func validateUserInput(userInput Input: [String]) -> [Int]{
-    var validInput: [Int] = []
+    var checkOverlapSet = Set<String>()
+    var stringCount: Int = 0
     
+    for Input in Input {
+        checkOverlapSet.insert(Input)
+    }
+    
+    let intTypeInput: [Int] = Input.map({
+        Int($0) ?? -1
+    })
+    
+    for intTypeInput in intTypeInput where intTypeInput >= 1 && intTypeInput <= 9 {
+        stringCount += 1
+    }
+ 
+    guard checkOverlapSet.count == 3, Input.count == 3, stringCount == 3 else {
+        print("입력이 잘못되었습니다\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+        return []
+    }
     /*
-     숫자를 잘못 입력하거나 범위를 벗어난 경우,
-     숫자가 중복된 경우 -> set에 넣고 count == 3
-     갯수가 잘못된 경우, 띄어쓰기 안했을 때도 -> count == 3
-     숫자가 아닌 값 -> Int 변환이 안되면
+     @숫자를 잘못 입력하거나 범위를 벗어난 경우,
+     @숫자가 중복된 경우 -> set에 넣고 count == 3
+     @갯수가 잘못된 경우, 띄어쓰기 안했을 때도 -> count == 3
+     @숫자가 아닌 값 -> Int 변환이 안되면
      이 경우 게임을 진행할 수 있는 횟수를 차감하지 않습니다.
      */
     //validation Code
-    return validInput
+    return intTypeInput
 }
 
 func printRandomNumber(_ numbers: [Int]){
@@ -74,7 +92,7 @@ func printRandomNumber(_ numbers: [Int]){
 
 func printWinner(_ winner: String) {
     isEnd = true
-    print("\n\(winner) 승리...!", terminator: " ")
+    print("\n\(winner) 승리...!")
 }
 
 
@@ -84,15 +102,15 @@ func playGame(){
     while !isEnd {
         print("임의의 수 :", terminator: " ")
         
-        userInput = getUserInput()
-        
+        getUserInput()
         printRandomNumber(userInput)
-        
+
         let strikeCount: Int = checkStrikeCount()
         let ballCount: Int = checkBallCount()
         
         if strikeCount == 3 {
             printWinner("유저")
+            break
         }
         
         challenge -= 1
