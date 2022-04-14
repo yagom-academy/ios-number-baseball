@@ -3,6 +3,7 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 // 
+
 import Foundation
 
 var computerRandomNumbers = [Int]()
@@ -55,6 +56,8 @@ func printRandomNumbers(playerRandomNumbers: Array<Int>) {
 func startGame() {
     computerRandomNumbers = makeRandomNumbers()
     while totalTrialNumber > 0 {
+        
+        // 수정
         let playerRandomNumbers = makeRandomNumbers()
         printRandomNumbers(playerRandomNumbers: playerRandomNumbers)
         totalTrialNumber -= 1
@@ -63,10 +66,18 @@ func startGame() {
     }
 }
 
-func verifyInput(checkNumbers: String) {
+func verifyWithRegularExpression(playerInput: String) -> Bool {
+    if ((playerInput.range(of: #"^[0-9]\s[0-9]\s[0-9]$"# ,options: .regularExpression)) != nil) {
+        return true
+    }
+    return false
+}
+
+func verifyInput(playerInput: String) {
     var isCorrect = false
-    if ((checkNumbers.range(of: #"^[0-9]\s[0-9]\s[0-9]$"# ,options: .regularExpression)) != nil) {
-        isCorrect = true
+    let playerInputWithoutWhitespace = playerInput.replacingOccurrences(of: " ", with: "")
+    if Set(playerInputWithoutWhitespace).count == playerInputWithoutWhitespace.count {
+        isCorrect = verifyWithRegularExpression(playerInput: playerInput)
     }
     if isCorrect {
         startGame()
@@ -81,7 +92,7 @@ func inputNumbers() {
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     if let inputNumbers = readLine() {
-        verifyInput(checkNumbers: inputNumbers)
+        verifyInput(playerInput: inputNumbers)
     }
 }
 
@@ -108,4 +119,3 @@ func showMenu() {
 func printErrorMessage() {
     print("입력이 잘못되었습니다")
 }
-
