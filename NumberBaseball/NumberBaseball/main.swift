@@ -45,7 +45,7 @@ func printResult(strikeCount: Int, ballCount: Int) {
     }
 }
 
-func playGame(playerNumbers: Array<Int>) {
+func processGame(playerNumbers: Array<Int>) {
     let (strikeCount, ballCount) = checkStrikeBall(playerRandomNumbers: playerNumbers)
     printResult(strikeCount: strikeCount, ballCount: ballCount)
 }
@@ -79,7 +79,7 @@ func convertPlayerInputToIntArray(playerInput: String) {
     let playerNumbers = playerInput.components(separatedBy: " ")
     let playerNumbersIntArray = convertStringArrayToIntArray(playerInput: playerNumbers)
     totalTrialNumber -= 1
-    playGame(playerNumbers: playerNumbersIntArray)
+    processGame(playerNumbers: playerNumbersIntArray)
 }
 
 func verifyInput(playerInput: String) {
@@ -92,8 +92,6 @@ func verifyInput(playerInput: String) {
 }
 
 func inputNumbers() {
-    computerRandomNumbers = makeRandomNumbers()
-    print(computerRandomNumbers)
     while totalTrialNumber > 0 {
         print("""
         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
@@ -119,6 +117,7 @@ func showGameMenu() {
         let inputMenuNumber = readLine() ?? ""
         switch inputMenuNumber {
         case "1" :
+            computerRandomNumbers = makeRandomNumbers()
             inputNumbers()
         case "2" :
             isStart = false
