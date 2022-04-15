@@ -6,16 +6,16 @@
 
 import Foundation
 
-var extractedForComputer: Array<Int> = Array<Int>()
+var extractedComputerNumbers: Array<Int> = Array<Int>()
 var remainingChance = 9
 
-func getRandomNumbersForComputer() {
+func makeComputerRandomNumbers() {
     var initialComputerInput: Set<Int> = Set<Int>()
     while initialComputerInput.count < 3 {
-        let number: Int = Int.random(in: 1...9)
-        initialComputerInput.insert(number)
+        let randomNumber: Int = Int.random(in: 1...9)
+        initialComputerInput.insert(randomNumber)
     }
-    extractedForComputer = Array(initialComputerInput)
+    extractedComputerNumbers = Array(initialComputerInput)
 }
 
 func getRandomNumbersForUser() -> Array<Int> {
@@ -32,9 +32,9 @@ func isStrikeBall(extractedForUser: Array<Int>) -> Bool {
     var strikeCount = 0
     var ballCount = 0
     for index in 0...2 {
-        if extractedForComputer[index] == extractedForUser[index] {
+        if extractedComputerNumbers[index] == extractedForUser[index] {
             strikeCount += 1
-        } else if extractedForUser.contains(extractedForComputer[index]) {
+        } else if extractedForUser.contains(extractedComputerNumbers[index]) {
             ballCount += 1
         }
     }
@@ -70,7 +70,7 @@ func countingRemainingChance(remaining: inout Int){
 }
 
 func startGame() {
-    getRandomNumbersForComputer()
+    makeComputerRandomNumbers()
     while remainingChance != 0 {
         let extractedForUser = getRandomNumbersForUser()
         printingRandomNumbers(myArray: extractedForUser)
