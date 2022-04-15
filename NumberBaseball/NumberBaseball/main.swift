@@ -45,29 +45,46 @@ func printResult(strikeCount: Int, ballCount: Int) {
     }
 }
 
-func startGame(playerNumbers: Array<Int>) {
-    computerRandomNumbers = makeRandomNumbers()
+func playGame(playerNumbers: Array<Int>) {
     let (strikeCount, ballCount) = checkStrikeBall(playerRandomNumbers: playerNumbers)
     printResult(strikeCount: strikeCount, ballCount: ballCount)
 }
 
 func verifyWithRegularExpression(playerInput: String) -> Bool {
-    if ((playerInput.range(of: #"^[1-9]\s[1-9]\s[1-9]$"# ,options: .regularExpression)) != nil) {
-        return true
+    let playerInputAfterVerification = playerInput.range(of: #"^[1-9]\s[1-9]\s[1-9]$"# ,options: .regularExpression)
+    if playerInputAfterVerification == nil {
+        return false
     }
-    return false
+    return true
 }
 
-func verifyInput(playerInput: String) {
+func checkDuplicateNumber(playerInput: String) -> Bool {
     var isCorrect = false
     let playerInputWithoutWhitespace = playerInput.replacingOccurrences(of: " ", with: "")
     if Set(playerInputWithoutWhitespace).count == playerInputWithoutWhitespace.count {
         isCorrect = verifyWithRegularExpression(playerInput: playerInput)
     }
-    if isCorrect {
-        let playerNumbers = playerInput.components(separatedBy: " ")
-        totalTrialNumber -= 1
-        startGame(playerNumbers: playerNumbers.compactMap { Int($0) })
+    return isCorrect
+}
+
+func convertStringArrayToIntArray(playerInput: Array<String>) -> Array<Int> {
+    var playerNumbersIntArray = [Int]()
+    for elements in playerInput {
+        playerNumbersIntArray.append(Int(elements) ?? 0)
+    }
+    return playerNumbersIntArray
+}
+
+func convertPlayerInputToIntArray(playerInput: String) {
+    let playerNumbers = playerInput.components(separatedBy: " ")
+    let playerNumbersIntArray = convertStringArrayToIntArray(playerInput: playerNumbers)
+    totalTrialNumber -= 1
+    playGame(playerNumbers: playerNumbersIntArray)
+}
+
+func verifyInput(playerInput: String) {
+    if checkDuplicateNumber(playerInput: playerInput) {
+        convertPlayerInputToIntArray(playerInput: playerInput)
     } else {
         printErrorMessage()
         inputNumbers()
@@ -75,22 +92,30 @@ func verifyInput(playerInput: String) {
 }
 
 func inputNumbers() {
+    computerRandomNumbers = makeRandomNumbers()
+    print(computerRandomNumbers)
     while totalTrialNumber > 0 {
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-        print("중복 숫자는 허용하지 않습니다.")
-        print("입력 : ", terminator: "")
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 : \
+        
+        """, terminator: "")
         if let inputNumbers = readLine() {
             verifyInput(playerInput: inputNumbers)
         }
     }
 }
 
-func showMenu() {
+func showGameMenu() {
     var isStart = true
     while isStart {
-        print("1. 게임시작")
-        print("2. 게임종료")
-        print("원하는 기능을 선택해주세요 : " , terminator: "")
+        print("""
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 : \
+        
+        """, terminator: "")
         let inputMenuNumber = readLine() ?? ""
         switch inputMenuNumber {
         case "1" :
@@ -108,4 +133,4 @@ func printErrorMessage() {
     print("입력이 잘못되었습니다")
 }
 
-showMenu()
+showGameMenu()
