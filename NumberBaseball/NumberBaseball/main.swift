@@ -18,29 +18,34 @@ func makeComputerRandomNumbers() {
     extractedComputerNumbers = Array(initialComputerInput)
 }
 
-func getRandomNumbersForUser() -> Array<Int> {
-    var initialUserInput: Set<Int> = Set<Int>()
-    while initialUserInput.count < 3 {
-        let number: Int = Int.random(in: 1...9)
-        initialUserInput.insert(number)
+func makeUserRandomNumbers() -> Array<Int> {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+
+    guard let userInput = readLine()?.components(separatedBy: " ") else {
+        return makeUserRandomNumbers()
     }
-    return Array(initialUserInput)
+    if checkUserInput(number: userInput) == false {
+        print("입력이 잘못되었습니다")
+        return makeUserRandomNumbers()
+    }
+    return userInput.compactMap{ Int($0) }
 }
 
-func isStrikeBall(extractedForUser: Array<Int>) -> Bool {
+func isStrikeBall(extractedUserNumbers: Array<Int>) -> Bool {
     var isThreeStrike = false
     var strikeCount = 0
     var ballCount = 0
-    for index in 0...2 {
-        if extractedComputerNumbers[index] == extractedForUser[index] {
+    for number in 0...2 {
+        if extractedComputerNumbers[number] == extractedUserNumbers[number] {
             strikeCount += 1
-        } else if extractedForUser.contains(extractedComputerNumbers[index]) {
+        } else if extractedUserNumbers.contains(extractedComputerNumbers[number]) {
             ballCount += 1
         }
     }
     isThreeStrike = checkThreeStrikes(strikeCount: strikeCount, ballCount: ballCount)
     return isThreeStrike
-    
 }
 
 func checkThreeStrikes(strikeCount: Int, ballCount: Int) -> Bool {
@@ -54,17 +59,17 @@ func checkThreeStrikes(strikeCount: Int, ballCount: Int) -> Bool {
     return checkThreeStrike
 }
 
-func printingRandomNumbers(myArray: Array<Int>) {
-    print("임의의 수 : \(myArray[0]) \(myArray[1]) \(myArray[2])")
+func printUserNumbers(selectedNumbers: Array<Int>) {
+    print("임의의 수 : \(selectedNumbers[0]) \(selectedNumbers[1]) \(selectedNumbers[2])")
 }
 
-func subtractingRemainingChance(remaining: inout Int){
-    remaining -= 1
+func subtractRemainingChance(chance: inout Int){
+    chance -= 1
 }
 
-func countingRemainingChance(remaining: inout Int){
-    print("남은 기회 : \(remaining)")
-    if remaining == 0 {
+func countRemainingChance(chance: inout Int){
+    print("남은 기회 : \(chance)")
+    if chance == 0 {
         print("컴퓨터 승리...!")
     }
 }
@@ -72,18 +77,17 @@ func countingRemainingChance(remaining: inout Int){
 func startGame() {
     makeComputerRandomNumbers()
     while remainingChance != 0 {
-        let extractedForUser = getRandomNumbersForUser()
-        printingRandomNumbers(myArray: extractedForUser)
+        let extractedUserNumbers = makeUserRandomNumbers()
+        printUserNumbers(selectedNumbers: extractedUserNumbers)
         
-        if isStrikeBall(extractedForUser: extractedForUser) {
+        if isStrikeBall(extractedUserNumbers: extractedUserNumbers) {
             break
         }
 
-        subtractingRemainingChance(remaining: &remainingChance)
-        countingRemainingChance(remaining: &remainingChance)
+        subtractRemainingChance(chance: &remainingChance)
+        countRemainingChance(chance: &remainingChance)
     }
 }
-
 
 func checkUserInput (number: [String]) -> Bool {
     var isAllPass: Bool = true
