@@ -13,6 +13,10 @@ var userNumberList = Array<Int>()
 let computerNumberList = Array(computerNumber)
 
 
+func displayErrorMessage() {
+    print("입력이 잘못되었습니다")
+}
+
 func displayMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
@@ -23,7 +27,7 @@ func launchMenu() {
     displayMenu()
     
     guard let selection = readLine() else {
-        print("입력이 잘못되었습니다")
+        displayErrorMessage()
         launchMenu()
         return
     }
@@ -35,7 +39,7 @@ func launchMenu() {
     case "2":
         return
     default:
-        print("입력이 잘못되었습니다")
+        displayErrorMessage()
         launchMenu()
         return
     }
@@ -54,7 +58,7 @@ func userInput() {
     displayInputInstruction()
     
     guard let inputString = readLine() else {
-        print("입력이 잘못되었습니다")
+        displayErrorMessage()
         userInput()
         return
     }
@@ -66,22 +70,21 @@ func userInput() {
         userNumberList = userNumbers
         return
     } else {
-        print("입력이 잘못되었습니다")
+        displayErrorMessage()
         userInput()
         return
     }
 }
 
 func verifyUserInput(_ userNumbers: Array<Int>) -> Bool {
-    if userNumbers.count != 3 && Set(userNumbers).count < 3 {
+    if userNumbers.count != 3 || Set(userNumbers).count < 3 {
         return false
     }
-
+    
     for number in userNumbers {
-        guard number > 0,
-              number < 10 else {
-                  return false
-              }
+        guard number > 0 && number < 10 else {
+            return false
+        }
     }
     
     return true
@@ -160,5 +163,3 @@ func countBall(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int 
 
 
 launchMenu()
-
-// completion handler
