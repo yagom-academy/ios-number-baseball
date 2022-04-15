@@ -6,7 +6,7 @@
 
 // MARK: - Menu
 
-func menuManager() {
+func startProgram() {
     
     printMenu()
     
@@ -36,7 +36,7 @@ func selectMenu(_ input: String) {
         print("입력이 잘못되었습니다.")
     }
     
-    menuManager()
+    startProgram()
 }
 
 //MARK: - startGame
@@ -146,7 +146,7 @@ func calculateResult(computerNumbers: [Int], userNumbers: [Int]) -> [Int] {
     
     var resultStrikeAndBall: [Int] = [0, 0]
     
-    for userIndex in 0...(userNumbers.count - 1) {
+    for userIndex in userNumbers.indices {
         
         guard let computerIndex = computerNumbers.firstIndex(of: userNumbers[userIndex]) else { continue }
         
@@ -156,7 +156,9 @@ func calculateResult(computerNumbers: [Int], userNumbers: [Int]) -> [Int] {
     return resultStrikeAndBall
 }
 
-func addScore(to resultStrikeAndBall: inout [Int], computerIndex: Int, userIndex: Int) {
+func addScore(to resultStrikeAndBall: inout [Int],
+              computerIndex: Int,
+              userIndex: Int) {
     
     if computerIndex == userIndex {
         resultStrikeAndBall[0] += 1
@@ -165,4 +167,4 @@ func addScore(to resultStrikeAndBall: inout [Int], computerIndex: Int, userIndex
     }
 }
 
-menuManager()
+startProgram()
