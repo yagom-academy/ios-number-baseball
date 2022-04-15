@@ -4,11 +4,16 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-func mainMenu() {
+func printMenu() {
     
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func selectMenu() {
+    
+    printMenu()
     
     guard let userInput = readLine() else {
         print("\n⚠️ 컨트롤 + D 를 입력하지 마세요. 🤬 ⚠️")
@@ -21,10 +26,10 @@ func mainMenu() {
         return
     } else {
         print("입력이 잘못되었습니다.")
-        mainMenu()
+        selectMenu()
     }
 
-    mainMenu()
+    selectMenu()
 }
 
 func startGame() {
@@ -61,11 +66,13 @@ func startGame() {
         
         isSuccess = checkStrike(strikeScore)
         givenChance -= 1
+        
+        if isSuccess {
+            print("사용자 승리...!")
+            return
+        }
+        
         print("남은 기회 : \(givenChance)")
-    }
-    
-    if isSuccess {
-        print("사용자 승리...!")
     }
     
     if givenChance == .zero {
@@ -130,4 +137,4 @@ func inputValidCheck(_ inputNumbers: [Int]) -> Bool {
     return true
 }
 
-mainMenu()
+selectMenu()
