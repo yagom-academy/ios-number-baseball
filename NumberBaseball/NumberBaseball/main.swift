@@ -45,7 +45,7 @@ func printResult(strikeCount: Int, ballCount: Int) {
     }
 }
 
-func processGame(playerNumbers: Array<Int>) {
+func checkAndPrintStrikeBall(playerNumbers: Array<Int>) {
     let (strikeCount, ballCount) = checkStrikeBall(playerRandomNumbers: playerNumbers)
     printResult(strikeCount: strikeCount, ballCount: ballCount)
 }
@@ -55,7 +55,7 @@ func verifyWithRegularExpression(playerInput: String) -> Bool {
     if playerInputAfterVerification == nil {
         return false
     }
-    return true
+  return true
 }
 
 func checkDuplicateNumber(playerInput: String) -> Bool {
@@ -79,7 +79,7 @@ func convertPlayerInputToIntArray(playerInput: String) {
     let playerNumbers = playerInput.components(separatedBy: " ")
     let playerNumbersIntArray = convertStringArrayToIntArray(playerInput: playerNumbers)
     totalTrialNumber -= 1
-    processGame(playerNumbers: playerNumbersIntArray)
+    checkAndPrintStrikeBall(playerNumbers: playerNumbersIntArray)
 }
 
 func verifyInput(playerInput: String) {
@@ -96,9 +96,8 @@ func inputNumbers() {
         print("""
         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
         중복 숫자는 허용하지 않습니다.
-        입력 : \
-        
-        """, terminator: "")
+        입력 :
+        """, terminator: " ")
         if let inputNumbers = readLine() {
             verifyInput(playerInput: inputNumbers)
         }
@@ -111,9 +110,8 @@ func showGameMenu() {
         print("""
         1. 게임시작
         2. 게임종료
-        원하는 기능을 선택해주세요 : \
-        
-        """, terminator: "")
+        원하는 기능을 선택해주세요 :
+        """, terminator: " ")
         let inputMenuNumber = readLine() ?? ""
         switch inputMenuNumber {
         case "1" :
