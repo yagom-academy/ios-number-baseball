@@ -159,4 +159,74 @@ for album in albums {
 
 
 ## PR 후 개선사항
+### 1. 함수 기능 분리
+```swift=
+func launchMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+
+```
+베이스볼 게임 메뉴를 시작하는 함수의 일부분이다.
+`게임 메뉴정보를 출력하는 부분`은 따로 분리해서 함수로 만들어주는 것이 좋을 것 같다는 피드백을 받고,
+```swift=
+func displayMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+```
+이렇게 displayMenu() 함수를 따로 구현해주었다.
+
+### 2. 고차함수 사용하기
+```swift=
+ let userData = inputString.components(separatedBy: " ")
+ if verifyUserInput(userData) {
+    for letter in userData {
+        userNumberList.append(Int(letter) ?? 0)
+    }
+    return
+```
+userData에 공백을 기준으로 숫자를 입력받는다.
+이때 우리는 숫자로 입력받는다고 생각하지만 컴퓨터에는 문자로 입력이 되기 때문에 이를 userNumberList에 Int형으로 변환해준 뒤 추가해준 것이다.
+말랑의 피드백에 따라, 위의 방법을 고차함수인 `compactMap`을 이용해 변환해주었다. 매우 편리했다.
+
+```swift=
+  let userData = inputString.components(separatedBy: " ")
+  let userNumbers: Array<Int> = userData.compactMap { str in Int(str) }
+```
+🔥 **map과 compactMap의 차이점**
+`map`은 기존 컨테이너 내부의 값을 변경하여 새로운 컨테이너를 생성할 수 있는 기능을 가지고있다. `compactMap`도 이와 마찬가지이다.
+이때 `compactMap`은 한가지 속성을 더 가지고 있는데, 바로 `nil을 자동으로 제거해주는 기능`이다.
+*~~아래 예시를 보자.~~*
+```swift=
+let possibleNumbers = ["1", "2", "three", "///4///", "5"]
+
+let mapped: [Int?] = possibleNumbers.map { str in Int(str) }
+// [1, 2, nil, nil, 5]
+
+let compactMapped: [Int] = possibleNumbers.compactMap { str in Int(str) }
+// [1, 2, 5]
+```
+
+### 3. guard let과 if let의 차이점
+> if let and guard let serve similar, but distinct purposes.
+
+> The "else" case of guard must exit the current scope. Generally that means it must call return or abort the program. guard is used to provide early return without requiring nesting of the rest of the function.
+> 
+> if let nests its scope, and does not require anything special of it. It can return or not.
+
+만약 **guard 뒤 따라오는 `Bool`** 값이 false라면 else의 블록 내부 코드를 실행하게 된다. 이 내부 코드에는 자신보다 **상위 코드 블록을 종료하는 코드**가 반드시 들어가게 된다.
+따라서 guard let은 코드 블록 종료시 return, break, continue, throw 등 제어문 전환 명령을 꼭 사용한다. 반면 if let은 제어문 전환 명령을 사용해도 되고 안 사용해도 된다.
+
+따라서 guard let 구문은 반드시 상위 코드 블록( for,while문,함수 등) 안에서 사용이 가능하다는 점이 if let과 다르다. 
+
+
+
+
+
+📝 참조 문서
+1. https://bbiguduk.gitbook.io/swift
+2. https://stackoverflow.com/questions/32256834/swift-guard-let-vs-if-let
+
 
