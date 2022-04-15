@@ -57,50 +57,6 @@ func countStrikeAndBall(in tryNumbers: [Int], from answerNumbers: [Int]) -> (str
 }
 
 
-func countStrike(in tryNumbers: [Int], from answerNumbers: [Int]) -> [Int] {
-    var strikeCount: Int = 0
-    
-    for index in 0..<answerNumbers.endIndex {
-        guard answerNumbers[index] != tryNumbers[index] else {
-            strikeCount += 1
-            continue
-        }
-    }
-    
-    1 5 8
-    1
-    1 0 0
-    
-    
-    
-    return strikeCount
-}
-
-
-func countBall(in tryNumbers: [Int], from answerNumbers: [Int]) -> (strike: Int, ball: Int) {
-    var ballCount: Int = 0
-    
-    for index in 0..<answerNumbers.endIndex {
-        guard answerNumbers[index] != tryNumbers[index] else {
-            strikeCount += 1
-            continue
-        }
-        guard answerNumbers.contains(tryNumbers[index]) else { continue }
-            ballCount += 1
-    }
-    return (strikeCount)
-}
-
-
-
-
-
-
-
-
-
-
-
 func printRoundResult(comparingWith numbers: [Int], score: (strike: Int, ball: Int), leftOpportunity: Int) {
     print("임의의 수 : ", terminator: "")
     for number in numbers {
