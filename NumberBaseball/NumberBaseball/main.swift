@@ -11,7 +11,21 @@ func printMenu() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
-func selectMenu() {
+func selectMenu(_ input: String) {
+    
+    switch input {
+    case "1":
+        startGame()
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+    }
+    
+    menuManager()
+}
+
+func menuManager() {
     
     printMenu()
     
@@ -20,16 +34,8 @@ func selectMenu() {
         return
     }
     
-    if userInput == "1" {
-        startGame()
-    } else if userInput == "2" {
-        return
-    } else {
-        print("입력이 잘못되었습니다.")
-        selectMenu()
-    }
-
-    selectMenu()
+    selectMenu(userInput)
+    
 }
 
 func startGame() {
@@ -137,4 +143,4 @@ func inputValidCheck(_ inputNumbers: [Int]) -> Bool {
     return true
 }
 
-selectMenu()
+menuManager()
