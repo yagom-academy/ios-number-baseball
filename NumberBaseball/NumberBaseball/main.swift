@@ -6,5 +6,7 @@
 
 import Foundation
 
-print("Hello, World!")
+let totalAnswerNumbers = 3
+let answerNumbers = selectRandomNumbers(howMany: 3)
 
+playGame(opportunityCount: 9)
