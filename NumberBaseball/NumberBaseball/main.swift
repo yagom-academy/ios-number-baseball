@@ -10,6 +10,7 @@ var challenge: Int = 9
 var isEnd: Bool = false
 var userInput: [Int] = []
 var randomNumberAnswer: [Int] = []
+let lengthOfGameAnswer: Int = 3
 
 func checkStrikeCount() -> Int {
     var strikeCount = 0
@@ -57,23 +58,26 @@ func getUserInput() {
     }
 }
 
-func validateUserInput(userInput Input: [String]) -> [Int] {
+func validateUserInput(userInput input: [String]) -> [Int] {
     var checkOverlapSet = Set<String>()
-    var stringCount: Int = 0
-    for Input in Input {
-        checkOverlapSet.insert(Input)
+    var correctInputCount: Int = 0
+    for input in input {
+        checkOverlapSet.insert(input)
     }
-    let intTypeInput: [Int] = Input.map({
-        Int($0) ?? -1
+    let checkedInput: [Int] = input.map({ (number: String) -> Int in
+        return Int(number) ?? -1
     })
-    for intTypeInput in intTypeInput where intTypeInput >= 1 && intTypeInput <= 9 {
-        stringCount += 1
+    for checkedNumber in checkedInput where (1...9).contains(checkedNumber) {
+        correctInputCount += 1
     }
-    guard checkOverlapSet.count == 3, Input.count == 3, stringCount == 3 else {
+    guard checkOverlapSet.count == lengthOfGameAnswer,
+            input.count == lengthOfGameAnswer,
+            correctInputCount == lengthOfGameAnswer
+    else {
         print("입력이 잘못되었습니다\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
         return []
     }
-    return intTypeInput
+    return checkedInput
 }
 
 func printWinner(_ winner: String) {
