@@ -60,10 +60,10 @@ func userInput() {
     }
     
     let userData = inputString.components(separatedBy: " ")
-    if verifyUserInput(userData) {
-        for letter in userData {
-            userNumberList.append(Int(letter) ?? 0)
-        }
+    let userNumbers: Array<Int> = userData.compactMap { str in Int(str) }
+    
+    if verifyUserInput(userNumbers) {
+        userNumberList = userNumbers
         return
     } else {
         print("입력이 잘못되었습니다")
@@ -72,19 +72,13 @@ func userInput() {
     }
 }
 
-func verifyUserInput(_ userData: [String]) -> Bool {
-    if userData.count != 3 {
+func verifyUserInput(_ userNumbers: Array<Int>) -> Bool {
+    if userNumbers.count != 3 && Set(userNumbers).count < 3 {
         return false
     }
-    
-    let userDataSet = Set(userData)
-    if userDataSet.count < 3 {
-        return false
-    }
-    
-    for letter in userData {
-        guard let number = Int(letter),
-              number > 0,
+
+    for number in userNumbers {
+        guard number > 0,
               number < 10 else {
                   return false
               }
