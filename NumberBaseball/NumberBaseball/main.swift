@@ -13,10 +13,14 @@ var userNumberList = Array<Int>()
 let computerNumberList = Array(computerNumber)
 
 
-func launchMenu() {
+func displayMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func launchMenu() {
+    displayMenu()
     
     guard let selection = readLine() else {
         print("입력이 잘못되었습니다")
@@ -38,12 +42,16 @@ func launchMenu() {
 }
 
 
-func userInput() {
-    userNumberList.removeAll()
-    
+func displayInputInstruction() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다")
     print("입력 : ", terminator: "")
+}
+
+func userInput() {
+    userNumberList.removeAll()
+    
+    displayInputInstruction()
     
     guard let inputString = readLine() else {
         print("입력이 잘못되었습니다")
@@ -158,3 +166,5 @@ func countBall(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int 
 
 
 launchMenu()
+
+// completion handler
