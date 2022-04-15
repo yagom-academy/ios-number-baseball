@@ -31,10 +31,8 @@ func executeNumberBaseballGame() {
         """, terminator: " ")
         
         userInput = readLine() ?? ""
-        
         performUserSelect(from: userInput)
-
-        }
+    }
 }
 
 func performUserSelect(from userInput: String) {
@@ -74,7 +72,6 @@ func compareNumber() {
 func inputUserNumber() {
     
     var userNumber: Array<Int>?
-    inputArray = []
     
     while inputArray.count < requiredNumberOfElements {
         print("""
@@ -84,16 +81,18 @@ func inputUserNumber() {
         """, terminator: " ")
         
         userNumber = readLine()?.split(separator: " ").map{Int($0) ?? 0}
-        
-        guard let unwrappedUserNumber: Array<Int> = userNumber?.filter({$0 >= minimumNumber && $0 <= maximumNumber}) else {
-            return
-        }
-        
-        if Set(unwrappedUserNumber).count >= requiredNumberOfElements {
-            inputArray = unwrappedUserNumber
-        } else {
-            print(inputError)
-        }
+        checkValidity(from: userNumber)
+    }
+}
+
+func checkValidity(from userNumber: Array<Int>?) {
+    guard let unwrappedUserNumber: Array<Int> = userNumber?.filter({$0 >= minimumNumber && $0 <= maximumNumber}) else {
+        return
+    }
+    if Set(unwrappedUserNumber).count >= requiredNumberOfElements {
+        inputArray = unwrappedUserNumber
+    } else {
+        print(inputError)
     }
 }
 
@@ -109,11 +108,12 @@ func checkStrike() {
 func checkBall() {
     let intersectionOfArrays = Set(randomArray).intersection(inputArray)
     ballCount = intersectionOfArrays.count - strikeCount
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼", separator: "\n")
+    inputArray.removeAll()
+    remainingChances -= 1
 }
 
 func printResult() {
-    remainingChances -= 1
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     
     if strikeCount == goalOfStrikeCount {
         print("사용자 승리!")
