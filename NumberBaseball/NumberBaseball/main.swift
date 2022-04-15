@@ -84,7 +84,7 @@ func startGame() {
     }
 }
 
-startGame()
+
 func checkUserInput (number: [String]) -> Bool {
     var isAllPass: Bool = true
     var isRange: Bool = true
@@ -126,3 +126,35 @@ func checkUserInputRange(letter: String) -> Bool {
     }
     return isInRange
 }
+
+func menu() -> Int {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    var selectNumber: Int = 0
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    if let choiceMenu = readLine() {
+        if choiceMenu == "1" {
+            selectNumber = 1
+        } else if choiceMenu == "2" {
+            selectNumber = 2
+        } else {
+            selectNumber = 3
+        }
+    }
+    return selectNumber
+}
+
+func startMenu() {
+    var selectNumber: Int
+    repeat {
+        selectNumber = menu()
+        if selectNumber == 1 {
+            startGame()
+            remainingChance = 9
+        } else if selectNumber == 3 {
+            print("입력이 잘못되었습니다")
+        }
+    } while selectNumber != 2
+}
+
+startMenu()
