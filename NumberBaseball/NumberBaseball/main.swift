@@ -1,13 +1,13 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
 var computerRandomNumbers = [Int]()
-var totalTrialNumber = 9
+var totalTrialNumber = 0
 
 func makeRandomNumbers() -> Array<Int> {
     var randomNumbers = Set<Int>()
@@ -87,11 +87,11 @@ func verifyInput(playerInput: String) {
         convertPlayerInputToIntArray(playerInput: playerInput)
     } else {
         printErrorMessage()
-        inputNumbers()
     }
 }
 
 func inputNumbers() {
+    totalTrialNumber = 9
     while totalTrialNumber > 0 {
         print("""
         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
