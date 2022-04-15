@@ -30,7 +30,7 @@ func menuManager() {
     printMenu()
     
     guard let userInput = readLine() else {
-        print("\n⚠️ 컨트롤 + D 를 입력하지 마세요. 🤬 ⚠️")
+        print("\n⚠️ 입력에 오류가 있습니다. 🤬 ⚠️")
         return
     }
     
@@ -38,10 +38,42 @@ func menuManager() {
     
 }
 
+func receiveInput() -> [Int] {
+    
+    guard let userThreeNumbers = readLine()?.split(separator: " ").map({ (Str: String.SubSequence) in
+        Int(Str) ?? 0
+    }) else {
+        fatalError("\n⚠️ 입력에 오류가 있습니다. 🤬 ⚠️")
+    }
+    
+    return userThreeNumbers
+}
+
+func inputValidCheck() -> [Int] {
+    
+    var inputNumbers: [Int]
+    
+    inputNumbers = receiveInput()
+    
+    while Set(inputNumbers).count != 3 || inputNumbers.contains(0) == true {
+        print("입력이 잘못되었습니다.")
+        printRequestInput()
+        inputNumbers = receiveInput()
+    }
+    
+    return inputNumbers
+}
+
+func printRequestInput() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+}
+
 func startGame() {
     
     var givenChance: Int = 9
     var computerThreeNumbers: [Int]
+    var userThreeNumbers: [Int]
     var resultOfStrikeAndBall: [Int]
     var strikeScore: Int
     var ballScore: Int
@@ -51,18 +83,11 @@ func startGame() {
     
     while isSuccess == false && givenChance > 0 {
         
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
-        print("입력 : ", terminator: "")
+        print(computerThreeNumbers)
         
-        guard let userThreeNumbers = readLine()?.split(separator: " ").map({ Int($0) ?? 0 }) else {
-            print("\n⚠️ 컨트롤 + D 를 입력하지 마세요. 🤬 ⚠️")
-            return
-        }
+        printRequestInput()
         
-        if inputValidCheck(userThreeNumbers) == false {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
+        userThreeNumbers = inputValidCheck()
         
         resultOfStrikeAndBall = calculateResult(computer: computerThreeNumbers, user: userThreeNumbers)
         strikeScore = resultOfStrikeAndBall[0]
@@ -99,19 +124,6 @@ func generatedRandomNumbers(range: ClosedRange<Int> = 1...9, count: Int = 3) -> 
     return list
 }
 
-func calculateResult(computer: [Int], user: [Int]) -> [Int] {
-    
-    var resultStrikeAndBall: [Int] = [0, 0]
-    
-    for userIndex in 0...2 {
-        
-        guard let computerIndex = computer.firstIndex(of: user[userIndex]) else { continue }
-        addScore(to: &resultStrikeAndBall, computer: computerIndex, user: userIndex)
-    }
-    
-    return resultStrikeAndBall
-}
-
 func checkStrike(_ strike: Int, _ strikeCount: Int = 3) -> Bool {
     
     if strike == strikeCount {
@@ -121,26 +133,26 @@ func checkStrike(_ strike: Int, _ strikeCount: Int = 3) -> Bool {
     }
 }
 
-func addScore(to resultStrikeAndBall: inout [Int], computer: Array<Int>.Index, user: Array<Int>.Index) {
+func calculateResult(computer: [Int], user: [Int]) -> [Int] {
     
-    if computer == user {
+    var resultStrikeAndBall: [Int] = [0, 0]
+    
+    for userIndex in 0...2 {
+        
+        guard let computerIndex = computer.firstIndex(of: user[userIndex]) else { continue }
+        addScore(to: &resultStrikeAndBall, computerIndex: computerIndex, userIndex: userIndex)
+    }
+    
+    return resultStrikeAndBall
+}
+
+func addScore(to resultStrikeAndBall: inout [Int], computerIndex: Int, userIndex: Int) {
+    
+    if computerIndex == userIndex {
         resultStrikeAndBall[0] += 1
     } else {
         resultStrikeAndBall[1] += 1
     }
-}
-
-func inputValidCheck(_ inputNumbers: [Int]) -> Bool {
-    
-    guard inputNumbers.count == 3 else {
-        return false
-    }
-    
-    if inputNumbers.contains(0) {
-        return false
-    }
-    
-    return true
 }
 
 menuManager()
