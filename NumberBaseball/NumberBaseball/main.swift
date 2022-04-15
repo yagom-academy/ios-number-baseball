@@ -38,12 +38,12 @@ func createRandomNumbers() -> [Int] {
 }
 
 func checkUserInput() -> Bool {
-    guard let userInputNumber = readLine()?.components(separatedBy: " ") else {
+    guard let userNumber = readLine()?.components(separatedBy: " ") else {
         print("입력이 잘못되었습니다\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
         return true
     }
-    if !(validateUserInput(userInput: userInputNumber).isEmpty) {
-        userInput = validateUserInput(userInput: userInputNumber)
+    if validate(of: userNumber).isEmpty == false {
+        userInput = validate(of: userNumber)
         return false
     } else {
         return true
@@ -51,14 +51,14 @@ func checkUserInput() -> Bool {
 }
 
 func getUserInput() {
-    var isUserInputValid = true
-    while isUserInputValid {
+    var isValid = true
+    while isValid {
         print("입력 :", terminator: " ")
-        isUserInputValid = checkUserInput()
+        isValid = checkUserInput()
     }
 }
 
-func validateUserInput(userInput input: [String]) -> [Int] {
+func validate(of input: [String]) -> [Int] {
     var checkOverlapSet = Set<String>()
     var correctInputCount: Int = 0
     for input in input {
@@ -97,6 +97,8 @@ func checkWinner(strikeCount: Int) {
 
 func playGame() {
     randomNumberAnswer = createRandomNumbers()
+    isEnd = false
+    challenge = 9
     while !isEnd {
         getUserInput()
         let strikeCount: Int = checkStrikeCount()
