@@ -18,7 +18,7 @@
 - @ilim
 
 ## 🗞 순서도
-![step1,2 flowchart](https://user-images.githubusercontent.com/50102522/163167155-6d6d4166-f302-46d8-a7ac-419b6d152e0e.png)
+![step1,2 flowchart](https://user-images.githubusercontent.com/50102522/163531131-21a55669-fed8-4401-a417-f35ee7d5ab8a.png)
 
 
 ## 🙈 고민한 점, 어려웠던 점
@@ -55,7 +55,7 @@ printResult(strikeCount: result.0, ballCount: result.1)
 
 ### [2차 PR에 대한 부분]
 - filter함수나 논리연산자를 이용하여 비교할까도 생각했지만, 예시에서 요구한 입력값의 형태가 명확했기에 정규식을 쓰기로 정규 표현식을 사용하여 유효성 검사를 진행함.
-- `compactMap` 메소드를 축약 형식으로 작성하여 코드를 간결하게 표현함.
+- `compactMap` 메소드를 축약 형식으로 작성하여 코드를 간결하게 표현함. -> 문자 배열에서 정수 배열로 바꿔주는 기능의 함수를 생성하여 이용하는 걸로 수정함.
 
 
 ## 🎁 프로젝트 수행하며 얻은 경험
