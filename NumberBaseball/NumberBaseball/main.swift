@@ -85,3 +85,44 @@ func startGame() {
 }
 
 startGame()
+func checkUserInput (number: [String]) -> Bool {
+    var isAllPass: Bool = true
+    var isRange: Bool = true
+    var isNil: Bool = true
+    var hasEnoughCount: Bool = true
+    var isAllInRange: Bool = true
+    for letter in number {
+        isRange = checkUserInputRange(letter: letter)
+        if isRange == false {
+            isAllInRange = false
+        }
+        
+        if Int(letter) == nil {
+            isNil = false
+        }
+    }
+    var userInput: Set<String> = Set<String>()
+    userInput = Set(number)
+    
+    if userInput.count != 3 {
+        hasEnoughCount = false
+    }
+    
+    if isRange && isNil && hasEnoughCount && isAllInRange {
+        isAllPass = true
+    } else {
+        isAllPass = false
+    }
+    return isAllPass
+}
+
+func checkUserInputRange(letter: String) -> Bool {
+    var isInRange: Bool = true
+    if let inputNumber = Int(letter) {
+       
+        if inputNumber < 1 || inputNumber > 9 {
+            isInRange = false
+        }
+    }
+    return isInRange
+}
