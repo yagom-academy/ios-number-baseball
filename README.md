@@ -1,9 +1,149 @@
-## iOS 커리어 스타터 캠프
+# 숫자게임
 
-### 숫자야구 프로젝트 저장소
+---
 
+## ⚾️ 게임 설명 
 
-### Flow chart
-![flowchartv 1](https://user-images.githubusercontent.com/39454792/162967244-f7ed526f-3d8a-4897-94d7-44b0f062dba0.png)
+### [ 숫자게임 ]
+야구의 스트라이크, 볼에서 따온 숫자 맞추기 게임.
+컴퓨터가 임의로 생성한 숫자를 맞춰보세요.
+스트라이크와 볼로 힌트를 줍니다! 😁
 
+### [ 게임 조건 ]
 
+- `스트라이크` - 맞는 숫자가 정확한 자리에 있습니다.
+- `볼` - 같은 숫자가 존재하지만 자리가 맞지 않습니다.
+- 숫자를 맞추는 도전 기회는 총 `9번`입니다.
+
+### [ 게임 방법 ]
+1. 게임 메뉴를 선택합니다.  -  `1) 게임시작 2) 게임 종료`
+2. 3가지 숫자를 입력합니다.
+3. 컴퓨터가 알려준 스트라이크와 볼의 개수로  숫자를 예상해서 입력합니다.
+4. 만약 숫자를 모두 맞혔다면 사용자의 승리로 종료됩니다.
+5. 만약 9번의 기회를 모두 소모했다면 컴퓨터의 승리로 종료됩니다.
+6. 게임이 종료되면 다시 게임 메뉴를 선택할 수 있습니다.
+
+<br/>
+
+---
+
+<br/>
+
+## 📃 순서도 
+
+<br/>
+
+![](https://i.imgur.com/8Cq59Bg.png)
+
+<br/>
+
+---
+
+<br/>
+
+## 🔍 코드 설명
+
+### 게임 진행
+`playGame()` - 게임을 진행하는 메인이 되는 함수
+
+```swift=
+func playGame() {
+    randomNumberAnswer = createRandomNumbers()
+    isEnd = false
+    challenge = 9
+    while !isEnd {
+        getUserInput()
+        let strikeCount: Int = checkStrikeCount()
+        let ballCount: Int = checkBallCount()
+        challenge -= 1
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼 \n남은 기회 : \(challenge)")
+        checkWinner(strikeCount: strikeCount)
+    }
+}
+```
+
+<br/>
+
+> 1. 메뉴에서 게임 시작을 선택하면 `playGame()` 동작
+> 2. 컴퓨터의 랜덤 숫자(`randomNumberAnswer`) 생성
+> 3. `getUserInput()` - 사용자에게 숫자를 입력받음
+> 4. `checkStrikeCount()`, `checkBallCount()` - 스트라이크와 볼 개수 확인
+> 5. `challenge -= 1` - 기회 1 소모
+> 6. 스트라이크 개수, 볼 개수, 남은 기회 출력
+> 7. `checkWinner` - 승자가 있는지 확인 후 있으면 출력 후 종료
+> 8. 다시 메뉴 선택으로 돌아감
+
+<br/>
+
+### 사용자 입력 오류처리
+```swift=
+func validate(of input: [String]) -> [Int] {
+    var checkOverlapSet = Set<String>()
+    var correctInputCount: Int = 0
+    for input in input {
+        checkOverlapSet.insert(input)
+    }
+    let checkedInput: [Int] = input.map({ (number: String) -> Int in
+        return Int(number) ?? -1
+    })
+    for checkedNumber in checkedInput where (1...9).contains(checkedNumber) {
+        correctInputCount += 1
+    }
+    guard checkOverlapSet.count == lengthOfGameAnswer,
+            input.count == lengthOfGameAnswer,
+            correctInputCount == lengthOfGameAnswer
+    else {
+        print("입력이 잘못되었습니다\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+        return []
+    }
+    return checkedInput
+}
+```
+<br/>
+
+ 
+> #### 1. 중복된 숫자가 입력된 경우
+> 입력 받은 숫자를 Set에 넣어보고 count를 확인한다.
+> #### 2. 숫자가 아닌 문자가 입력된 경우
+> `map`을 통해 `Int`로 변환해보고 변환되지 않는 문자는 `-1`로 구분한다.
+> #### 3. 숫자의 범위를 벗어났을 경우
+> Int로 변환된 숫자가 (1...9) 이내인지 확인한다.
+> #### 4. 띄어쓰기로 구분이 되어있지 않을 경우
+> 입력 받은 숫자의 count를 확인한다.
+
+<br/>
+
+### 스트라이크 개수 확인
+```swift=
+func checkStrikeCount() -> Int {
+    var strikeCount = 0
+    for index in 0...2 where userInput[index] == randomNumberAnswer[index] {
+        strikeCount += 1
+        userInput[index] = 0
+    }
+    return strikeCount
+}
+```
+사용자 입력(`userInput`)과 정답(`randomNumberAnswer`)이 같은 인덱스에서 같은 숫자를 받는지 확인
+
+‼️ 만약 숫자가 같다면 스트라이크이므로 볼을 판단할 필요가 없어 해당 자리를 `0`으로 변경한다. 
+
+<br/>
+
+### 볼 개수 확인
+```swift=
+func checkBallCount() -> Int {
+    var ballCount = 0
+    for index in 0...2 where randomNumberAnswer.contains(userInput[index]) {
+        ballCount += 1
+    }
+    return ballCount
+}
+```
+
+스트라이크인 경우는 이미 `0`이므로 정답의 숫자 중에 사용자가 입력한 숫자가 있는지 확인한다.
+<br/>
+
+---
+
+<br/><br/>
