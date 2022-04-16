@@ -40,7 +40,6 @@ private func classifyInputArray(_ quote: String) -> [Int]? {
     return readLine()?
         .split(separator: " ")
         .map{ Int($0) ?? 0 }
-        .filter{ $0 < 10 }
 }
 
 private func start() {
@@ -53,8 +52,7 @@ private func start() {
         print("숫자 3개를 띄어쓰기로 구분해서 입력해주세요.\n중복숫자는 허용하지 않습니다.")
         
         guard let userNumber = classifyInputArray("입력: "),
-              !userNumber.contains(0),
-              userNumber.count == 3 else {
+              checkValidation(of: userNumber) else {
             print("입력이 잘못되었습니다.")
             
             continue
@@ -62,21 +60,34 @@ private func start() {
         
         remainingNumber -= 1
         
-        for index in 0...2 {
+        for index in computerNumber.indices {
             comparison(of: userNumber, and: computerNumber, at: index)
         }
         
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼 ")
-        print("남은 기회 : \(remainingNumber)")
+        notifyContent()
         
-        if strikeCount == 3 {
-            print("사용자 승리!")
-            break
-        } else if remainingNumber == 0 {
-            print("컴퓨터 승리!")
-            break
-        }
     } while strikeCount != 3 || remainingNumber != 0
+}
+
+private func checkValidation(of value: [Int]) -> Bool{
+    if !value.contains(0),
+       value.count == 3,
+       value.allSatisfy({ $0 < 10 }) {
+        return true
+    } else {
+        return false
+    }
+}
+
+private func notifyContent() {
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼 ")
+    print("남은 기회 : \(remainingNumber)")
+    
+    if strikeCount == 3 {
+        print("사용자 승리!")
+    } else if remainingNumber == 0 {
+        print("컴퓨터 승리!")
+    }
 }
 
 private func comparison(of computer: [Int], and user: [Int], at index:Int) {
