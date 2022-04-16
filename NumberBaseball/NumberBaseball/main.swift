@@ -26,11 +26,7 @@ func displayMenu() {
 func launchMenu() {
     displayMenu()
     
-    guard let selection = readLine() else {
-        displayErrorMessage()
-        launchMenu()
-        return
-    }
+    let selection = readLine()
     
     switch selection {
     case "1":
