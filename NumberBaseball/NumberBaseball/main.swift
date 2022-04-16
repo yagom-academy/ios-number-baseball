@@ -13,15 +13,16 @@ var userNumberList = Array<Int>()
 let computerNumberList = Array(computerNumber)
 
 
-func displayErrorMessage() {
-    print("입력이 잘못되었습니다")
+func makeRandomNumber() -> Set<Int> {
+    var numbers = Set<Int>()
+    
+    while numbers.count < 3 {
+        numbers.insert(Int.random(in: 1...9))
+    }
+    
+    return numbers
 }
 
-func displayMenu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-}
 
 func launchMenu() {
     displayMenu()
@@ -41,12 +42,16 @@ func launchMenu() {
     }
 }
 
-
-func displayInputInstruction() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다")
-    print("입력 : ", terminator: "")
+func displayMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
+
+func displayErrorMessage() {
+    print("입력이 잘못되었습니다")
+}
+
 
 func userInput() {
     userNumberList.removeAll()
@@ -72,6 +77,12 @@ func userInput() {
     }
 }
 
+func displayInputInstruction() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다")
+    print("입력 : ", terminator: "")
+}
+
 func verifyUserInput(_ userNumbers: Array<Int>) -> Bool {
     if userNumbers.count != 3 || Set(userNumbers).count < 3 {
         return false
@@ -84,16 +95,6 @@ func verifyUserInput(_ userNumbers: Array<Int>) -> Bool {
     }
     
     return true
-}
-
-func makeRandomNumber() -> Set<Int> {
-    var numbers = Set<Int>()
-    
-    while numbers.count < 3 {
-        numbers.insert(Int.random(in: 1...9))
-    }
-    
-    return numbers
 }
 
 
@@ -124,7 +125,6 @@ func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
         return
     }
 }
-
 
 func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) -> Dictionary<String, Int> {
     let strike = countStrike(in: userArray, with: computerArray)
