@@ -10,43 +10,39 @@ var inputArray: Array<Int> = []
 var remainingChances: Int = 9
 var strikeCount: Int = 0
 var ballCount: Int = 0
+let goalOfStrikeCount: Int = 3
+let gameOverCount: Int = 0
 
+let requiredNumberOfElements: Int = 3
 
-func generateRandomNumber() -> Array<Int> {
-    var randomSet: Set<Int> = []
+let minimumNumber: Int = 1
+let maximumNumber: Int = 9
+
+let inputError: String = "입력이 잘못되었습니다"
+
+func executeNumberBaseballGame() {
+    var userInput: String = ""
     
-    while randomSet.count != 3 {
-        randomSet.insert(Int.random(in: 1...9))
+    while userInput != "2" {
+        print("""
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: " ")
+        
+        userInput = readLine() ?? ""
+        performUserSelect(from: userInput)
     }
-    
-    return Array(randomSet)
 }
 
-func inputUserNumber() {
-    let userNumber = readLine()?.split(separator: " ").map {Int($0) ?? 0}
-    
-    if let unwrappedUserNumber: Array<Int> = userNumber {
-        inputArray = unwrappedUserNumber
-    }
-}
-
-func compareNumber() {
-    while strikeCount < 3 && remainingChances > 0 {
-        strikeCount = 0
-        remainingChances -= 1
-        inputArray = generateRandomNumber()
-        print("임의의 수 : \(inputArray[0]) \(inputArray[1]) \(inputArray[2])")
-        
-        checkStrike()
-        checkBall()
-        
-        if strikeCount == 3 {
-            print("사용자 승리...!")
-        } else if remainingChances == 0 {
-            print("컴퓨터 승리...!")
-        }
-        
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼", "남은 기회 : \(remainingChances)", separator: "\n")
+func performUserSelect(from userInput: String) {
+    switch userInput {
+    case "1" :
+        startGame()
+    case "2" :
+        print("게임을 종료합니다")
+    default :
+        print(inputError)
     }
 }
 
@@ -55,16 +51,80 @@ func startGame() {
     compareNumber()
 }
 
+func generateRandomNumber() -> Array<Int> {
+    var randomSet: Set<Int> = []
+    while randomSet.count <= requiredNumberOfElements {
+        randomSet.insert(Int.random(in: minimumNumber...maximumNumber))
+    }
+    
+    return Array(randomSet)
+}
+
+func compareNumber() {
+    while strikeCount < goalOfStrikeCount && remainingChances > gameOverCount {
+        inputUserNumber()
+        checkStrike()
+        checkBall()
+        printResult()
+    }
+}
+
+func inputUserNumber() {
+    
+    var userNumber: Array<Int>?
+    
+    while inputArray.count < requiredNumberOfElements {
+        print("""
+        숫자 \(requiredNumberOfElements)개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
+        
+        userNumber = readLine()?.split(separator: " ").map{Int($0) ?? 0}
+        checkValidity(from: userNumber)
+    }
+}
+
+func checkValidity(from userNumber: Array<Int>?) {
+    guard let unwrappedUserNumber: Array<Int> = userNumber?.filter({$0 >= minimumNumber && $0 <= maximumNumber}) else {
+        return
+    }
+    if Set(unwrappedUserNumber).count >= requiredNumberOfElements {
+        inputArray = unwrappedUserNumber
+    } else {
+        print(inputError)
+    }
+}
+
 func checkStrike() {
-    for number in 0...2 {
+    strikeCount = 0
+    
+    for number in 0..<requiredNumberOfElements {
         let sameDigitNumber = (randomArray[number] - inputArray[number] == 0) ? 1 : 0
         strikeCount += sameDigitNumber
-        }
     }
+}
 
 func checkBall() {
     let intersectionOfArrays = Set(randomArray).intersection(inputArray)
     ballCount = intersectionOfArrays.count - strikeCount
+    inputArray.removeAll()
+    remainingChances -= 1
 }
 
-startGame()
+func printResult() {
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    
+    if strikeCount == goalOfStrikeCount {
+        print("사용자 승리!")
+    } else if remainingChances == gameOverCount {
+        print("""
+            남은 기회 : \(remainingChances)
+            컴퓨터 승리...!
+        """)
+    } else {
+        print("남은 기회 : \(remainingChances)")
+    }
+}
+
+executeNumberBaseballGame()
