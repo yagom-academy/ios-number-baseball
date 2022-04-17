@@ -83,6 +83,15 @@ func playGame(opportunityCount: Int) {
     playGame(opportunityCount: opportunityCount - 1)
 }
 
+func checkWinnerSeeing(strikeCount: Int, leftRound: Int) {
+    if strikeCount == totalAnswerNumbers {
+        isFinished = true
+        winner = "사용자"
+    } else if leftRound == 0 {
+        isFinished = true
+        winner = "컴퓨터"
+    }
+}
 
 func selectRandomNumbers(howMany maximum: Int) -> [Int] {
     var randomNumbers: [Int] = []
