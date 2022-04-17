@@ -15,7 +15,28 @@ func areElementsInteger(in array: [String]) -> Bool {
     return true
 }
 
+func areWhiteSpacesValid(array: [String]) -> Bool { // trim 필요함
+    for index in stride(from: 1 , to: array.endIndex, by: 2) {
+        guard isOdd(index) && isWhiteSpace(array[index]) else { return false }
+        continue
+    }
+    return true
+}
+
+func isOdd(_ number: Int) -> Bool {
+    guard number % 2 == 1 else { return false }
+    return true
+}
+
+func isWhiteSpace(_ char: String) -> Bool {
+    guard char == " " else { return false }
+    return true
+}
+
 func isValidInput(_ userInput: [String]) -> Bool {
     guard areElementsInteger(in: userInput) else { return false }
+    guard areWhiteSpacesValid(array: userInput) else { return false }
+    
+    
     return true
 }
