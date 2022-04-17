@@ -58,6 +58,13 @@ func convertToIntArray(from stringArray: [String]) -> [Int] {
 
 func playGame(opportunityCount: Int) {
     let userInput: [String] = getUserInput()
+    
+    guard isValidInput(userInput) == true else {
+        printInvalidInputMessage()
+        playGame(opportunityCount: opportunityCount)
+        return
+    }
+    
     let tryNumbers = convertToIntArray(from: userInput)
     let roundScore = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
     
