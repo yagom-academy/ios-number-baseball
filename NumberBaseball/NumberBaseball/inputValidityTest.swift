@@ -16,11 +16,13 @@ func areElementsInteger(in array: [String]) -> Bool {
 }
 
 func areWhiteSpacesValid(array: [String]) -> Bool {
-    
-    
-    for index in stride(from: 1 , to: array.endIndex, by: 2) {
+    for index in stride(from: 1, to: array.endIndex, by: 2) {
         guard isOdd(index) && isWhiteSpace(array[index]) else { return false }
         continue
+    }
+    
+    for index in 0..<array.endIndex {
+        guard array[index] == " " && array[index] == array[index + 1] else { return false }
     }
     return true
 }
