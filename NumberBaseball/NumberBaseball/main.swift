@@ -8,9 +8,8 @@ import Foundation
 
 
 var computerNumber = makeRandomNumber()
-var userNumber = makeRandomNumber()
 var remainingNumber = 9
-var userNumberList = Array(userNumber)
+var userNumberList = Array<Int>()
 let computerNumberList = Array(computerNumber)
 
 
@@ -25,67 +24,138 @@ func makeRandomNumber() -> Set<Int> {
 }
 
 
-func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
+func launchMenu() {
+    displayMenu()
     
+    let selection = readLine()
+    
+    switch selection {
+    case "1":
+        userInput()
+        startGame(with: userNumberList, and: computerNumberList)
+    case "2":
+        return
+    default:
+        displayErrorMessage()
+        launchMenu()
+        return
+    }
+}
+
+func displayMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func displayErrorMessage() {
+    print("입력이 잘못되었습니다")
+}
+
+
+func userInput() {
+    userNumberList.removeAll()
+    
+    displayInputInstruction()
+    
+    guard let inputString = readLine() else {
+        displayErrorMessage()
+        userInput()
+        return
+    }
+    
+    let userData = inputString.components(separatedBy: " ")
+    let userNumbers: Array<Int> = userData.compactMap { str in Int(str) }
+    
+    if verifyUserInput(userNumbers) {
+        userNumberList = userNumbers
+        return
+    } else {
+        displayErrorMessage()
+        userInput()
+        return
+    }
+}
+
+func displayInputInstruction() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다")
+    print("입력 : ", terminator: "")
+}
+
+func verifyUserInput(_ userNumbers: Array<Int>) -> Bool {
+    if userNumbers.count != 3 || Set(userNumbers).count < 3 {
+        return false
+    }
+    
+    for number in userNumbers {
+        guard number > 0 && number < 10 else {
+            return false
+        }
+    }
+    
+    return true
+}
+
+
+func startGame(with userArray: Array<Int>, and computerArray: Array<Int>) {
     print("임의의 수 :", userArray[0], userArray[1], userArray[2])
     
     let strikesAndBalls = compareNumbers(in: userArray, with: computerArray)
-    let strikes = strikesAndBalls["strikes"] ?? 0
-    let balls = strikesAndBalls["balls"] ?? 0
+    let strike = strikesAndBalls["strike"] ?? 0
+    let ball = strikesAndBalls["ball"] ?? 0
     
-    print("\(strikes) 스트라이크, \(balls) 볼")
+    print("\(strike) 스트라이크, \(ball) 볼")
     
     remainingNumber -= 1
     
-    if strikes == 3 {
+    if strike == 3 {
         print("사용자 승리!")
+        launchMenu()
         return
     } else if remainingNumber == 0 {
         print("남은 기회: \(remainingNumber)")
         print("컴퓨터 승리...!")
+        launchMenu()
         return
     } else {
         print("남은 기회: \(remainingNumber)")
-        userNumber = makeRandomNumber()
-        userNumberList = Array(userNumber)
+        userInput()
         startGame(with: userNumberList, and: computerNumberList)
         return
     }
 }
 
-
 func compareNumbers(in userArray: Array<Int>, with computerArray: Array<Int>) -> Dictionary<String, Int> {
+    let strike = countStrike(in: userArray, with: computerArray)
+    let ball = countBall(in: userArray, with: computerArray)
     
-    let strikes = countStrike(in: userArray, with: computerArray)
-    let balls = countBall(in: userArray, with: computerArray)
-    
-    return ["strikes": strikes, "balls": balls]
+    return ["strike": strike, "ball": ball]
 }
 
-
 func countStrike(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int {
-    var strikes = 0
+    var strike = 0
     
     for i in 0..<userArray.count {
         if userArray[i] == computerArray[i] {
-            strikes += 1
+            strike += 1
         }
     }
     
-    return strikes
+    return strike
 }
 
 func countBall(in userArray: Array<Int>, with computerArray: Array<Int>) -> Int {
-    var balls = 0
+    var ball = 0
     
     for i in 0..<userArray.count {
         if computerArray.contains(userArray[i]) && computerArray[i] != userArray[i] {
-            balls += 1
+            ball += 1
         }
     }
     
-    return balls
+    return ball
 }
 
 
-startGame(with: userNumberList, and: computerNumberList)
+launchMenu()
