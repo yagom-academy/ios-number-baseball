@@ -45,6 +45,7 @@ func startGame(opportunityCount: Int) {
     }
     return
 }
+
 func converToIntArray(from stringArray: [String]) -> [Int] {
     var intArray: [Int] = []
     
