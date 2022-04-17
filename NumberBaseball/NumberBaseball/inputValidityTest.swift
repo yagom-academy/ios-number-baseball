@@ -48,13 +48,13 @@ func isNumbersQuantity(in array: [Int], theSameAs gameNumbersQuantity: Int) -> B
 }
 
 func isValidInput(_ userInput: [String]) -> Bool {
-    guard areElementsInteger(in: userInput) else { return false }
-    guard areWhiteSpacesValid(array: userInput) else { return false }
+    guard areElementsInteger(in: userInput)
+            && areWhiteSpacesValid(array: userInput) else { return false }
     
     let numbers = convertToIntArray(from: userInput)
     
-    guard areThereDuplicatedNumbers(array: numbers) else { return false }
-    guard isNumbersQuantity(in: numbers, theSameAs: totalAnswerNumbers) else { return false }
+    guard areThereDuplicatedNumbers(array: numbers)
+            && isNumbersQuantity(in: numbers, theSameAs: totalAnswerNumbers) else { return false }
     return true
 }
 
