@@ -16,15 +16,27 @@ func areElementsInteger(in array: [String]) -> Bool {
 }
 
 func areWhiteSpacesValid(in userInputNumbers: [String]) -> Bool {
+    var spaceCount = 0
+    var numberCount = 0
+    
     for index in stride(from: 1, to: userInputNumbers.endIndex, by: 2) {
         guard isOdd(index) && isWhiteSpace(userInputNumbers[index]) else { return false }
         continue
     }
     
-    for index in 0..<userInputNumbers.endIndex {
-        guard userInputNumbers[index] == " " && userInputNumbers[index] == userInputNumbers[index + 1] else { return false }
+    for element in userInputNumbers {
+        if element == " " {
+            spaceCount += 1
+        } else {
+            numberCount += 1
+        }
     }
-    return true
+    
+    if spaceCount == numberCount - 1 {
+        return true
+    } else {
+        return false
+    }
 }
 
 func isOdd(_ number: Int) -> Bool {
