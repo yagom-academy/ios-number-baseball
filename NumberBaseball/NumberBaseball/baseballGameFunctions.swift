@@ -70,17 +70,13 @@ func playGame(opportunityCount: Int) {
     
     printRoundResult(comparingWith: tryNumbers, score: roundScore, leftOpportunity: opportunityCount)
     
-    if roundScore.strike == totalAnswerNumbers {
-        print("플레이어 승리...!")
+    if isFinished {
+        print("\(winner) 승리...!")
+        isFinished = false
         return
+    } else {
+        playGame(opportunityCount: opportunityCount - 1)
     }
-    
-    if opportunityCount == 0 {
-        print("컴퓨터 승리...!")
-        return
-    }
-    
-    playGame(opportunityCount: opportunityCount - 1)
 }
 
 func checkWinnerSeeing(strikeCount: Int, leftRound: Int) {
