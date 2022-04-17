@@ -66,9 +66,9 @@ func playGame(opportunityCount: Int) {
     }
     
     let tryNumbers = convertToIntArray(from: userInput)
-    let roundScore = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
+    let (strikeCount, ballCount) = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
     
-    printRoundResult(comparingWith: tryNumbers, score: roundScore, leftOpportunity: opportunityCount)
+    printRoundResult(comparingWith: tryNumbers, score: (strikeCount, ballCount), leftOpportunity: opportunityCount)
     
     if isFinished {
         print("\(winner) 승리...!")
