@@ -7,6 +7,18 @@
 
 import Foundation
 
+func getUserInput() -> [String] {
+    print("입력 : ", terminator: "")
+    guard let playerInput = readLine() else { return [""] }
+    return playerInput.map { String($0) }
+}
+
+func printInvalidInputMessage() {
+    print("입력이 잘못되었습니다.")
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 사용하지 않습니다.")
+}
+
 func printMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
