@@ -69,6 +69,7 @@ func playGame(leftRound: Int) {
     let (strikeCount, ballCount) = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
     
     printRoundResult(comparingWith: tryNumbers, score: (strikeCount, ballCount), leftRound: leftRound)
+    checkWinnerSeeing(strikeCount: strikeCount, leftRound: leftRound)
     
     if isFinished {
         print("\(winner) 승리...!")
