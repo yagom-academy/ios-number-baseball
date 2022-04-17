@@ -45,9 +45,19 @@ func startGame(opportunityCount: Int) {
     }
     return
 }
+func converToIntArray(from stringArray: [String]) -> [Int] {
+    var intArray: [Int] = []
+    
+    for element in stringArray {
+        guard let number = Int(element) else { continue }
+        intArray.append(number)
+    }
+    return intArray
+}
 
 func playGame(opportunityCount: Int) {
-    let tryNumbers = selectRandomNumbers(howMany: 3)
+    let userInput: [String] = getUserInput()
+    let tryNumbers = converToIntArray(from: userInput)
     let roundScore = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
     
     printRoundResult(comparingWith: tryNumbers, score: roundScore, leftOpportunity: opportunityCount)
