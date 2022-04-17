@@ -11,4 +11,4 @@ let answerNumbers = selectRandomNumbers(howMany: 3)
 var isFinished = false
 var winner: String
 
-startGame(opportunityCount: 9)
+startGame(leftRound: 9)

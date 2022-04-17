@@ -30,18 +30,18 @@ func getUserChoiceOnMenu() -> String {
     return userChoice
 }
 
-func startGame(opportunityCount: Int) {
+func startGame(leftRound: Int) {
     printMenu()
     
     switch getUserChoiceOnMenu() {
     case "1":
-        playGame(opportunityCount: opportunityCount - 1)
-        startGame(opportunityCount: opportunityCount)
+        playGame(leftRound: leftRound - 1)
+        startGame(leftRound: leftRound)
     case "2":
         return
     default:
         print("입력이 잘못되었습니다.")
-        startGame(opportunityCount: opportunityCount)
+        startGame(leftRound: leftRound)
     }
     return
 }
@@ -56,26 +56,26 @@ func convertToIntArray(from stringArray: [String]) -> [Int] {
     return intArray
 }
 
-func playGame(opportunityCount: Int) {
+func playGame(leftRound: Int) {
     let userInput: [String] = getUserInput()
     
     guard isValidInput(userInput) == true else {
         printInvalidInputMessage()
-        playGame(opportunityCount: opportunityCount)
+        playGame(leftRound: leftRound)
         return
     }
     
     let tryNumbers = convertToIntArray(from: userInput)
     let (strikeCount, ballCount) = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
     
-    printRoundResult(comparingWith: tryNumbers, score: (strikeCount, ballCount), leftOpportunity: opportunityCount)
+    printRoundResult(comparingWith: tryNumbers, score: (strikeCount, ballCount), leftRound: leftRound)
     
     if isFinished {
         print("\(winner) 승리...!")
         isFinished = false
         return
     } else {
-        playGame(opportunityCount: opportunityCount - 1)
+        playGame(leftRound: leftRound - 1)
     }
 }
 
@@ -119,12 +119,12 @@ func countStrikeAndBall(in tryNumbers: [Int], from answerNumbers: [Int]) -> (str
 }
 
 
-func printRoundResult(comparingWith numbers: [Int], score: (strike: Int, ball: Int), leftOpportunity: Int) {
+func printRoundResult(comparingWith numbers: [Int], score: (strike: Int, ball: Int), leftRound: Int) {
     print("임의의 수 : ", terminator: "")
     for number in numbers {
         print(number, terminator: " ")
     }
 
     print("\n\(score.strike) 스트라이크, \(score.ball) 볼")
-    print("남은 기회: \(leftOpportunity)")
+    print("남은 기회: \(leftRound)")
 }
