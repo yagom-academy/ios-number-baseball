@@ -18,6 +18,22 @@ func getUserChoiceOnMenu() -> String {
     return userChoice
 }
 
+func startGame(opportunityCount: Int) {
+    printMenu()
+    
+    switch getUserChoiceOnMenu() {
+    case "1":
+        playGame(opportunityCount: opportunityCount - 1)
+        startGame(opportunityCount: opportunityCount)
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+        startGame(opportunityCount: opportunityCount)
+    }
+    return
+}
+
 func playGame(opportunityCount: Int) {
     let tryNumbers = selectRandomNumbers(howMany: 3)
     let roundScore = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
