@@ -15,14 +15,14 @@ func areElementsInteger(in array: [String]) -> Bool {
     return true
 }
 
-func areWhiteSpacesValid(array: [String]) -> Bool {
-    for index in stride(from: 1, to: array.endIndex, by: 2) {
-        guard isOdd(index) && isWhiteSpace(array[index]) else { return false }
+func areWhiteSpacesValid(in userInputNumbers: [String]) -> Bool {
+    for index in stride(from: 1, to: userInputNumbers.endIndex, by: 2) {
+        guard isOdd(index) && isWhiteSpace(userInputNumbers[index]) else { return false }
         continue
     }
     
-    for index in 0..<array.endIndex {
-        guard array[index] == " " && array[index] == array[index + 1] else { return false }
+    for index in 0..<userInputNumbers.endIndex {
+        guard userInputNumbers[index] == " " && userInputNumbers[index] == userInputNumbers[index + 1] else { return false }
     }
     return true
 }
@@ -37,23 +37,23 @@ func isWhiteSpace(_ char: String) -> Bool {
     return true
 }
 
-func areThereDuplicatedNumbers(array: [Int]) -> Bool {
+func areThereDuplicatedNumbers(in array: [Int]) -> Bool {
     guard array.count == Set(array).count else { return false }
     return true
 }
 
-func isNumbersQuantity(in array: [Int], theSameAs gameNumbersQuantity: Int) -> Bool {
-    guard array.count == gameNumbersQuantity else { return false }
+func isNumbersQuantity(in userInputNumbers: [Int], theSameAs gameNumbersQuantity: Int) -> Bool {
+    guard userInputNumbers.count == gameNumbersQuantity else { return false }
     return true
 }
 
 func isValidInput(_ userInput: [String]) -> Bool {
     guard areElementsInteger(in: userInput) else { return false }
-    guard areWhiteSpacesValid(array: userInput) else { return false }
+    guard areWhiteSpacesValid(in: userInput) else { return false }
     
     let numbers = convertToIntArray(from: userInput)
     
-    guard areThereDuplicatedNumbers(array: numbers) else { return false }
+    guard areThereDuplicatedNumbers(in: numbers) else { return false }
     guard isNumbersQuantity(in: numbers, theSameAs: totalAnswerNumbers) else { return false }
     return true
 }
