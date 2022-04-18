@@ -18,19 +18,24 @@ func makeComputerRandomNumbers() {
     extractedComputerNumbers = Array(initialComputerInput)
 }
 
-func makeUserRandomNumbers() -> Array<Int> {
+func printInputMessage() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
+}
 
-    guard let userInput = readLine()?.components(separatedBy: " ") else {
-        return makeUserRandomNumbers()
+func makeUserRandomNumbers() -> Array<Int> {
+    printInputMessage()
+    var postUserInput : Array<String> = []
+    
+    if let userInput = readLine()?.components(separatedBy: " ") {
+        postUserInput = userInput
     }
-    if checkUserInput(number: userInput) == false {
+    if checkUserInput(userInputNumbers: postUserInput) == false {
         print("입력이 잘못되었습니다")
         return makeUserRandomNumbers()
     }
-    return userInput.compactMap{ Int($0) }
+    return postUserInput.compactMap{ Int($0) }
 }
 
 func isStrikeBall(extractedUserNumbers: Array<Int>) -> Bool {
@@ -38,14 +43,18 @@ func isStrikeBall(extractedUserNumbers: Array<Int>) -> Bool {
     var strikeCount = 0
     var ballCount = 0
     for number in 0...2 {
-        if extractedComputerNumbers[number] == extractedUserNumbers[number] {
-            strikeCount += 1
-        } else if extractedUserNumbers.contains(extractedComputerNumbers[number]) {
-            ballCount += 1
-        }
+        addStrikeBallCount(extractedUserNumbers: extractedUserNumbers, strikeCount: &strikeCount, ballCount: &ballCount, counter: number)
     }
     isThreeStrike = checkThreeStrikes(strikeCount: strikeCount, ballCount: ballCount)
     return isThreeStrike
+}
+
+func addStrikeBallCount(extractedUserNumbers: Array<Int>, strikeCount: inout Int, ballCount: inout Int, counter: Int) {
+    if extractedComputerNumbers[counter] == extractedUserNumbers[counter] {
+        strikeCount += 1
+    } else if extractedUserNumbers.contains(extractedComputerNumbers[counter]) {
+        ballCount += 1
+    }
 }
 
 func checkThreeStrikes(strikeCount: Int, ballCount: Int) -> Bool {
@@ -63,7 +72,7 @@ func printUserNumbers(selectedNumbers: Array<Int>) {
     print("임의의 수 : \(selectedNumbers[0]) \(selectedNumbers[1]) \(selectedNumbers[2])")
 }
 
-func subtractRemainingChance(chance: inout Int){
+func subtractRemaining(chance: inout Int){
     chance -= 1
 }
 
@@ -84,19 +93,30 @@ func startGame() {
             break
         }
 
-        subtractRemainingChance(chance: &remainingChance)
+        subtractRemaining(chance: &remainingChance)
         countRemainingChance(chance: &remainingChance)
     }
 }
 
-func checkUserInput (number: [String]) -> Bool {
-    var isAllPass: Bool = true
+func checkRange(range: Bool) -> Bool {
+    var isVerifiedRange: Bool = true
+    if range == false {
+        isVerifiedRange = false
+    }
+    return isVerifiedRange
+}
+
+func checkUserInput (userInputNumbers: [String]) -> Bool {
+    var userInput: Set<String> = Set<String>()
+    userInput = Set(userInputNumbers)
+    var isQualifiedPass: Bool = true
     var isRange: Bool = true
     var isNil: Bool = true
     var hasEnoughCount: Bool = true
     var isAllInRange: Bool = true
-    for letter in number {
-        isRange = checkUserInputRange(letter: letter)
+    
+    for letter in userInputNumbers {
+        isRange = checkUserInputRange(letterToBeChecked: letter)
         if isRange == false {
             isAllInRange = false
         }
@@ -105,49 +125,69 @@ func checkUserInput (number: [String]) -> Bool {
             isNil = false
         }
     }
-    var userInput: Set<String> = Set<String>()
-    userInput = Set(number)
-    
-    if userInput.count != 3 {
-        hasEnoughCount = false
-    }
-    
-    if isRange && isNil && hasEnoughCount && isAllInRange {
-        isAllPass = true
-    } else {
-        isAllPass = false
-    }
-    return isAllPass
+    hasEnoughCount = checkEnoughCount(userCount: userInput.count)
+    isQualifiedPass = checkFourConditions(isRange: isRange, isNil: isNil, hasEnoughCount: hasEnoughCount, isAllInRange: isAllInRange)
+    return isQualifiedPass
 }
 
-func checkUserInputRange(letter: String) -> Bool {
+func checkEnoughCount(userCount: Int) -> Bool {
+    var isEnoughCount = true
+    if userCount != 3 {
+        isEnoughCount = false
+    }
+    return isEnoughCount
+}
+
+func checkFourConditions(isRange: Bool, isNil: Bool, hasEnoughCount: Bool, isAllInRange: Bool) -> Bool {
+    var isQualifiedCondition = false
+    if isRange && isNil && hasEnoughCount && isAllInRange {
+        isQualifiedCondition = true
+    }
+    return isQualifiedCondition
+}
+
+func checkUserInputRange(letterToBeChecked: String) -> Bool {
     var isInRange: Bool = true
-    if let inputNumber = Int(letter) {
-       
-        if inputNumber < 1 || inputNumber > 9 {
-            isInRange = false
-        }
+    if let inputNumber = Int(letterToBeChecked) {
+        isInRange = checkInputNumber(inputNumber: inputNumber)
     }
     return isInRange
 }
 
-func menu() -> Int {
+func checkInputNumber(inputNumber: Int) -> Bool {
+    var isInRange: Bool = true
+    if inputNumber < 1 || inputNumber > 9 {
+        isInRange = false
+    }
+    return isInRange
+}
+
+func printMenuMessage() {
     print("1. 게임시작")
     print("2. 게임종료")
-    var selectNumber: Int = 0
     print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func menu() -> Int {
+    printMenuMessage()
+    var selectNumber: Int = 0
     if let choiceMenu = readLine() {
-        if choiceMenu == "1" {
-            selectNumber = 1
-        } else if choiceMenu == "2" {
-            selectNumber = 2
-        } else {
-            selectNumber = 3
-        }
+        selectNumber = retrieveSelectNumber(choiceMenu: choiceMenu)
     }
     return selectNumber
 }
 
+func retrieveSelectNumber(choiceMenu: String) -> Int {
+    var userChoice: Int
+    if choiceMenu == "1" {
+        userChoice = 1
+    } else if choiceMenu == "2" {
+        userChoice = 2
+    } else {
+        userChoice = 3
+    }
+    return userChoice
+}
 func startMenu() {
     var selectNumber: Int
     repeat {
