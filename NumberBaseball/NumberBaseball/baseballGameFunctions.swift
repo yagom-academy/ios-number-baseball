@@ -7,25 +7,88 @@
 
 import Foundation
 
-func playGame(opportunityCount: Int) {
-    let tryNumbers = selectRandomNumbers(howMany: 3)
-    let roundScore = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
-    
-    printRoundResult(comparingWith: tryNumbers, score: roundScore, leftOpportunity: opportunityCount)
-    
-    if roundScore.strike == totalAnswerNumbers {
-        print("플레이어 승리...!")
-        return
-    }
-    
-    if opportunityCount == 0 {
-        print("컴퓨터 승리...!")
-        return
-    }
-    
-    playGame(opportunityCount: opportunityCount - 1)
+func getUserInput() -> [String] {
+    print("입력 : ", terminator: "")
+    guard let playerInput = readLine() else { return [""] }
+    return playerInput.map { String($0) }
 }
 
+func printInvalidInputMessage() {
+    print("입력이 잘못되었습니다.")
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 사용하지 않습니다.")
+}
+
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func getUserChoiceOnMenu() -> String {
+    guard let userChoice = readLine() else { return "" }
+    return userChoice
+}
+
+func startGame(leftRound: Int) {
+    printMenu()
+    
+    switch getUserChoiceOnMenu() {
+    case "1":
+        playGame(leftRound: leftRound - 1)
+        startGame(leftRound: leftRound)
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+        startGame(leftRound: leftRound)
+    }
+    return
+}
+
+func convertToIntArray(from stringArray: [String]) -> [Int] {
+    var intArray: [Int] = []
+    
+    for element in stringArray {
+        guard let number = Int(element) else { continue }
+        intArray.append(number)
+    }
+    return intArray
+}
+
+func playGame(leftRound: Int) {
+    let userInput: [String] = getUserInput()
+    
+    guard isValidInput(userInput) == true else {
+        printInvalidInputMessage()
+        playGame(leftRound: leftRound)
+        return
+    }
+    
+    let tryNumbers = convertToIntArray(from: userInput)
+    let (strikeCount, ballCount) = countStrikeAndBall(in: tryNumbers, from: answerNumbers)
+    
+    printRoundResult(comparingWith: tryNumbers, score: (strikeCount, ballCount), leftRound: leftRound)
+    checkWinnerSeeing(strikeCount: strikeCount, leftRound: leftRound)
+    
+    if isFinished {
+        print("\(winner) 승리...!")
+        isFinished = false
+        return
+    } else {
+        playGame(leftRound: leftRound - 1)
+    }
+}
+
+func checkWinnerSeeing(strikeCount: Int, leftRound: Int) {
+    if strikeCount == totalAnswerNumbers {
+        isFinished = true
+        winner = "사용자"
+    } else if leftRound == 0 {
+        isFinished = true
+        winner = "컴퓨터"
+    }
+}
 
 func selectRandomNumbers(howMany maximum: Int) -> [Int] {
     var randomNumbers: [Int] = []
@@ -57,12 +120,12 @@ func countStrikeAndBall(in tryNumbers: [Int], from answerNumbers: [Int]) -> (str
 }
 
 
-func printRoundResult(comparingWith numbers: [Int], score: (strike: Int, ball: Int), leftOpportunity: Int) {
+func printRoundResult(comparingWith numbers: [Int], score: (strike: Int, ball: Int), leftRound: Int) {
     print("임의의 수 : ", terminator: "")
     for number in numbers {
         print(number, terminator: " ")
     }
 
     print("\n\(score.strike) 스트라이크, \(score.ball) 볼")
-    print("남은 기회: \(leftOpportunity)")
+    print("남은 기회: \(leftRound)")
 }

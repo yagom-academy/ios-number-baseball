@@ -8,5 +8,7 @@ import Foundation
 
 let totalAnswerNumbers = 3
 let answerNumbers = selectRandomNumbers(howMany: 3)
+var isFinished = false
+var winner: String
 
-playGame(opportunityCount: 9)
+startGame(leftRound: 9)
