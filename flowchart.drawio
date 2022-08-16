@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-08-16T02:36:44.051Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="CNGKDWvaD_sFatIkPeVX" version="20.2.4" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-16T02:38:59.310Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15" etag="LSSt33JOGf0xe0XcxhT6" version="20.2.4" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1349" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="755" dy="715" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -82,15 +82,30 @@
             <mxPoint x="410.0000000000001" y="490" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="WwlP-GzkREwg8EOPG-1p-0" value="게임메뉴의&amp;nbsp; 숫자 유효성 검증하는 코드블럭과&lt;br&gt;사용자가 입력하는 3개의 숫자의 유효성 검증하는 코드블럭을 구현한다." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="WwlP-GzkREwg8EOPG-1p-0" value="게임메뉴의&amp;nbsp; 숫자 유효성 검증하는 코드블럭과&lt;br&gt;사용자가 입력하는 3개의 숫자의 유효성 검증하는 코드블럭을 구현한다." style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="225" y="580" width="350" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="WwlP-GzkREwg8EOPG-1p-1" value="" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=block;endFill=0;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;entryX=0.493;entryY=0.019;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WwlP-GzkREwg8EOPG-1p-0">
+        <mxCell id="WwlP-GzkREwg8EOPG-1p-1" value="" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=block;endFill=0;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;entryX=0.493;entryY=0.019;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WwlP-GzkREwg8EOPG-1p-0" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="400.0149999999999" y="650.76" as="targetPoint" />
             <Array as="points" />
             <mxPoint x="410.0000000000001" y="560" as="sourcePoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="QyauoAg89PjydCbn0JqG-0" value="사용자가 입력한 숫자 배열과 임의의 숫자 배열을 비교하는&lt;br&gt;게임을 진행하도록 코드를 작성한다." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="222.5" y="650" width="355" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="QyauoAg89PjydCbn0JqG-2" value="" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=block;endFill=0;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;entryX=0.493;entryY=0.009;entryDx=0;entryDy=0;exitX=0.491;exitY=1.003;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="397.5150000000001" y="710.25" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="397.5" y="689.89" />
+            </Array>
+            <mxPoint x="396.80500000000006" y="690.01" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QyauoAg89PjydCbn0JqG-3" value="끝" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="337.5" y="710" width="120" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
