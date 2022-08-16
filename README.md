@@ -3,4 +3,4 @@
 ### 숫자야구 프로젝트 저장소
 
 ## Project Flowchart
-<img src="FlowChart.png"> 
+<img src="FlowChart.png" width="700"> 
