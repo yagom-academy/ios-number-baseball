@@ -8,6 +8,7 @@ import Foundation
 
 var computerRandomNumberArray: Set<Int> = []
 var numberOfAttempts = 9
+var otherComputerRandomNumberArray: Set<Int> = []
 
 func presentRandomNumber() -> Set<Int> {
     var randomNumArray: Set<Int> = []
@@ -17,4 +18,13 @@ func presentRandomNumber() -> Set<Int> {
     return randomNumArray
 }
 
+func putNumberInArray() {
+    computerRandomNumberArray = presentRandomNumber()
+    otherComputerRandomNumberArray = presentRandomNumber()
+}
 
+func matchNumberArray(_ computerArray: Set<Int>, _ otherComputerArray: Set<Int>) {
+    
+}
+
+putNumberInArray()
