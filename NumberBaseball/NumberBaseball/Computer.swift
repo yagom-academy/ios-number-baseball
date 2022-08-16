@@ -38,9 +38,25 @@ func validationNumber(to index: Int, inputNumber: Int) {
     }
 }
 
+func printGameResult() {
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    if strikeCount == 3 {
+        print("사용자 승리!")
+    }
+}
+
+func printTryResultCount() {
+    tryCount -= 1
+    
+    if tryCount != 0 {
+        print("남은 기회 : \(tryCount)")
+    }
+}
+
 // 게임시작 함수
 func gameStart() {
 	answer = createNumber()
+    debugPrint(answer)
 	while tryCount > 0 {
 		strikeCount = 0
 		ballCount = 0
@@ -53,16 +69,8 @@ func gameStart() {
 		print("")
 		
         compareNumbers(userNumbers: trial)
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-		if strikeCount == 3 {
-			print("사용자 승리!")
-			break
-		}
-		tryCount -= 1
-		
-		if tryCount != 0 {
-			print("남은 기회 : \(tryCount)")
-		}
+        printGameResult()
+		printTryResultCount()
 	}
 	print("컴퓨터 승리...!")
 }
