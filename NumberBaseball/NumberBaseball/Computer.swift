@@ -9,7 +9,8 @@ import Foundation
 
 private var answer: [Int] = []
 private var tryCount: Int = 9
-
+private var strikeCount: Int = 0
+private var ballCount: Int = 0
 
 func createNumber() -> [Int] {
 	var number: Set<Int> = []
@@ -22,6 +23,19 @@ func createNumber() -> [Int] {
 }
 
 // 비교하는 함수, 결과를 반환하는 함수
+func compareNumbers(userNumbers: [Int]) {
+    userNumbers.enumerated().forEach { index, value in
+        validationNumber(to: index, inputNumber: value)
+    }
+}
+
+func validationNumber(to index: Int, inputNumber: Int) {
+    if answer.contains(inputNumber), answer[index] == inputNumber {
+        strikeCount += 1
+    } else if answer.contains(inputNumber) {
+        ballCount += 1
+    }
+}
 
 // 게임시작 함수
 func gameStart() {
@@ -33,5 +47,7 @@ func gameStart() {
 		trial.forEach {
 			print($0)
 		}
+        compareNumbers(userNumbers: trial)
+        print("검사결과: \(ballCount), \(strikeCount)")
 	}
 }
