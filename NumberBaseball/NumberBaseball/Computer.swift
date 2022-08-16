@@ -30,7 +30,8 @@ func compareNumbers(userNumbers: [Int]) {
 }
 
 func validationNumber(to index: Int, inputNumber: Int) {
-    if answer.contains(inputNumber), answer[index] == inputNumber {
+    if answer.contains(inputNumber),
+	   answer[index] == inputNumber {
         strikeCount += 1
     } else if answer.contains(inputNumber) {
         ballCount += 1
@@ -40,14 +41,28 @@ func validationNumber(to index: Int, inputNumber: Int) {
 // 게임시작 함수
 func gameStart() {
 	answer = createNumber()
-	
 	while tryCount > 0 {
+		strikeCount = 0
+		ballCount = 0
+		
 		let trial = createNumber()
 		print("임의의 수 ", terminator: ": ")
 		trial.forEach {
-			print($0)
+			print($0, terminator: " ")
 		}
+		print("")
+		
         compareNumbers(userNumbers: trial)
-        print("검사결과: \(ballCount), \(strikeCount)")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+		if strikeCount == 3 {
+			print("사용자 승리!")
+			break
+		}
+		tryCount -= 1
+		
+		if tryCount != 0 {
+			print("남은 기회 : \(tryCount)")
+		}
 	}
+	print("컴퓨터 승리...!")
 }
