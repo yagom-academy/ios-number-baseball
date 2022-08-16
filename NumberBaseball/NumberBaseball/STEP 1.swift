@@ -7,8 +7,7 @@
 
 import Foundation
 
-var baseballRandomNumbers: Array<Int> = []
-
+var baseballRandomNumbers: Array<Int> = makeThreeRandomNumbers()
 var remainCount: Int = 9
 
 func makeThreeRandomNumbers() -> Array<Int> {
@@ -18,4 +17,18 @@ func makeThreeRandomNumbers() -> Array<Int> {
         baseballGameNumbers.append(randomNumbers[number])
     }
     return baseballGameNumbers
+}
+
+func compareNumbers(myNumbers: Array<Int>) {
+    var strike: Int = 0
+    var ball: Int = 0
+    
+    for number in 0...2 {
+        if baseballRandomNumbers[number] == myNumbers[number] {
+            strike += 1
+        } else if baseballRandomNumbers.contains(myNumbers[number]) {
+            ball += 1
+        }
+    }
+    print("\(strike) 스트라이크, \(ball) 볼")
 }
