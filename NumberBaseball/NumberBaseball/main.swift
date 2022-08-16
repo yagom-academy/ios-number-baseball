@@ -6,5 +6,15 @@
 
 import Foundation
 
-print("Hello, World!")
+var computerRandomNumberArray: Set<Int> = []
+var numberOfAttempts = 9
+
+func presentRandomNumber() -> Set<Int> {
+    var randomNumArray: Set<Int> = []
+    while randomNumArray.count < 3 {
+        randomNumArray.insert(Int.random(in: 1...9))
+    }
+    return randomNumArray
+}
+
 
