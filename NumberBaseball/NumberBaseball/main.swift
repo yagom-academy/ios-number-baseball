@@ -6,16 +6,13 @@
 
 import Foundation
 
-var answer = [Int]()
-var remainCount = 9
-
 func generateAnswer() -> [Int] {
     var array = Array(1...9)
     array.shuffle()
     return array[...2].map(){Int($0)}
 }
 
-func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> [Int] {
+func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
     
@@ -26,10 +23,37 @@ func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> [Int] 
             ballCount += 1
         }
     }
-    return [strikeCount, ballCount]
+    return (strikeCount, ballCount)
 }
 
+func playBall() {
+    let answer = generateAnswer()
+    var remainCount = 9
+    var userNumbers = [Int]()
+    
+    while remainCount > 0 {
+        var guidance = ""
+        userNumbers = generateAnswer()
+        let numbersToString = userNumbers.map({String($0)}).joined(separator: " ")
+        guidance += "임의의 수 : \(numbersToString)\n"
 
+        let (strikeCount, ballCount) = decideBallCount(comparing: answer, with: userNumbers)
+        guidance += "\(strikeCount) 스트라이크, \(ballCount) 볼\n"
+        
+        if strikeCount == 3 {
+            guidance += "사용자 승리!"
+            print(guidance)
+            break;
+        }
+        
+        remainCount -= 1
+        if remainCount == 0 {
+            guidance += "컴퓨터 승리...!"
+        } else {
+            guidance += "남은 기회 : \(remainCount)"
+        }
+        print(guidance)
+    }
+}
 
-add: error에 Inputvalueerror 추가
-
+playBall()
