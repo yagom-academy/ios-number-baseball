@@ -6,23 +6,25 @@
 
 import Foundation
 
-var computerRandomNumberArray: Set<Int> = []
+var computerRandomNumberArray: [Int] = []
 var numberOfAttempts = 9
-var otherComputerRandomNumberArray: Set<Int> = []
+var otherComputerRandomNumberArray: [Int] = []
 var strike: Int = 0
 var ball: Int = 0
 
-func presentRandomNumber() -> Set<Int> {
-    var randomNumArray: Set<Int> = []
+func presentRandomNumber() -> [Int] {
+    var randomNumArray: [Int] = []
     while randomNumArray.count < 3 {
-        randomNumArray.insert(Int.random(in: 1...9))
+        let number = Int.random(in: 1...9)
+        if randomNumArray.contains(number) == false {
+            randomNumArray.append(number)
+        }
     }
     return randomNumArray
 }
 
 func putNumberInArray() {
     computerRandomNumberArray = presentRandomNumber()
-    otherComputerRandomNumberArray = presentRandomNumber()
     print(computerRandomNumberArray)
     print(otherComputerRandomNumberArray)
 }
@@ -35,7 +37,7 @@ func matchIndex(_ x: Int, _ y: Int) -> Bool {
     }
 }
 
-func matchNumberArray(_ computerArray: Set<Int>, _ otherComputerArray: Set<Int>) -> Int {
+func matchNumberArray(_ computerArray: [Int], _ otherComputerArray: [Int]) -> (Int, Int) {
     for i in 0...2 {
         if matchIndex(Int(computerArray[i]), Int(otherComputerArray[i])) == true {
             strike += 1
