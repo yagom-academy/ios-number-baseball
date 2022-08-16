@@ -3,4 +3,4 @@
 ### 숫자야구 프로젝트 저장소
 
 #### - 프로젝트 순서도
-![image](https://user-images.githubusercontent.com/19286161/184842423-78a9cad6-7253-462a-845c-2d95392a402c.png)
+![image](https://user-images.githubusercontent.com/19286161/184847427-179cccd4-ac39-4d19-9624-f62682c52060.png)
