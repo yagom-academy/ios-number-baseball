@@ -26,7 +26,11 @@ func presentRandomNumber() -> [Int] {
 func putNumberInArray() {
     computerRandomNumberArray = presentRandomNumber()
     print(computerRandomNumberArray)
-    print(otherComputerRandomNumberArray)
+}
+
+func putTestNumberInArray() {
+    otherComputerRandomNumberArray = presentRandomNumber()
+    //print(otherComputerRandomNumberArray)
 }
 
 func matchIndex(_ x: Int, _ y: Int) -> Bool {
@@ -45,8 +49,26 @@ func matchNumberArray(_ computerArray: [Int], _ otherComputerArray: [Int]) -> (I
             ball += 1
         }
     }
-    return ball
+    return (strike, ball)
 }
 
-putNumberInArray()
-print(matchNumberArray(computerRandomNumberArray, otherComputerRandomNumberArray))
+func resetStrikeAndBall() {
+    strike = 0
+    ball = 0
+}
+
+func playNumberBaseball() {
+    putNumberInArray()
+    
+    for _ in 1...numberOfAttempts {
+        putTestNumberInArray()
+        let (outputStrike,outputBall) = matchNumberArray(computerRandomNumberArray, otherComputerRandomNumberArray)
+        let messeage = otherComputerRandomNumberArray.map { String($0) }.joined(separator: " ")
+        print("임의의 수 : \(messeage)")
+        print("\(outputStrike) 스트라이크, \(outputBall) 볼")
+        resetStrikeAndBall()
+    }
+    
+}
+
+playNumberBaseball()
