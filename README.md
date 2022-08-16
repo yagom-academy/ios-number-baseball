@@ -12,7 +12,7 @@
 
 | playBall | generateAnswer | enterUserNumbers |
 | -- | -- | -- |
-| ![제목 없는 다이어그램-playBall drawio](https://user-images.githubusercontent.com/82566116/184852086-283bc3e5-0aac-471f-a915-ebca0cb03fa0.png) | ![제목 없는 다이어그램-generateAnswer drawio](https://user-images.githubusercontent.com/82566116/184852209-c5285dda-74dc-4839-a68e-5d7da3461fa3.png) | ![제목 없는 다이어그램-enterUserNumbers drawio](https://user-images.githubusercontent.com/82566116/184852230-c1d4cc04-379f-4af1-8da1-1244c64b9f47.png) |
+| ![제목 없는 다이어그램-playBall drawio-2](https://user-images.githubusercontent.com/82566116/184856520-a89cc006-a5b0-481b-812c-b362a42fb5f2.png) | ![제목 없는 다이어그램-generateAnswer drawio](https://user-images.githubusercontent.com/82566116/184852209-c5285dda-74dc-4839-a68e-5d7da3461fa3.png) | ![제목 없는 다이어그램-enterUserNumbers drawio](https://user-images.githubusercontent.com/82566116/184852230-c1d4cc04-379f-4af1-8da1-1244c64b9f47.png) |
 
 | validateNumbers | refereeDecision |
 | -- | -- |
