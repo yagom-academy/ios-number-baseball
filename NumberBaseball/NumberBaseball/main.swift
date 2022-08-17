@@ -12,8 +12,6 @@ var tryNumber: Int = 9
 var ballCount : Int = 0
 var strikeCount : Int = 0
 
-computerNumbers = generateThreeRandomNumbers()
-
 func generateThreeRandomNumbers() -> [Int] {
     var numbers: Set<Int> = []
     
@@ -71,6 +69,8 @@ func startBaseBallGame() {
         print("\n")
     }
 }
+
+computerNumbers = generateThreeRandomNumbers()
 
 while(tryNumber > 0) {
     startBaseBallGame()
