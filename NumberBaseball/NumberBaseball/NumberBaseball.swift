@@ -13,13 +13,13 @@ var remainCount: Int = 9
 func makeThreeRandomNumbers() -> [Int] {
     let randomNumbers: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
     var baseballGameNumbers: [Int] = []
-    for index in 1...3 {
+    for index in randomNumbers {
         baseballGameNumbers.append(randomNumbers[index])
     }
     return baseballGameNumbers
 }
 
-func compare(my numbers: [Int]) -> Bool {
+func compare(my numbers: [Int]) -> (Int, Int) {
     var strike: Int = 0
     var ball: Int = 0
     for index in 0...2 {
@@ -30,12 +30,7 @@ func compare(my numbers: [Int]) -> Bool {
         }
     }
     remainCount -= 1
-    checkResult(strike: strike, ball: ball)
-    if strike == 3 || remainCount == 0 {
-        return false
-    } else {
-        return true
-    }
+    return (strike, ball)
 }
 
 func checkResult(strike: Int, ball: Int) {
@@ -56,6 +51,10 @@ func startGame() {
         let myNumbers: [Int] = makeThreeRandomNumbers()
         let myNumbersString: String = myNumbers.map{String($0)}.joined(separator: ", ")
         print("임의의 수 : \(myNumbersString)")
-        isLoop = compare(my: myNumbers)
+        let gameScore: (strike: Int, ball: Int) = compare(my: myNumbers)
+        checkResult(strike: gameScore.strike, ball: gameScore.ball)
+        if gameScore.strike == 3 || remainCount == 0 {
+            isLoop = false
+        }
     }
 }
