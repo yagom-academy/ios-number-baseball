@@ -48,7 +48,7 @@ func checkResult(strike: Int, ball: Int) {
 func startGame() {
     var isLoop = true
     while isLoop {
-        let myNumbers: [Int] = makeThreeRandomNumbers()
+        let myNumbers: [Int] = inputNumbers()
         let myNumbersString: String = myNumbers.map{String($0)}.joined(separator: ", ")
         print("임의의 수 : \(myNumbersString)")
         let gameScore: (strike: Int, ball: Int) = compare(my: myNumbers)
@@ -59,14 +59,12 @@ func startGame() {
     }
 }
 
-//게임 숫자를 입력받는 함수
-
 func selectMenu() {
     print("""
             1. 게임시작
             2. 게임종료
             원하는 기능을 선택해주세요 :
-            """, terminator: "")
+            """, terminator: " ")
     guard let selectedMenu = readLine() else {
         print("입력이 잘못되었습니다")
         selectMenu()
@@ -81,4 +79,35 @@ func selectMenu() {
         selectMenu()
         return
     }
+}
+
+//게임 숫자를 입력받는 함수
+
+func inputNumbers() -> [Int] {
+    var myNumbers: [Int] = []
+    print("""
+          숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+          중복 숫자는 허용하지 않습니다.
+          입력 :
+          """, terminator: " ")
+    if let input = readLine()?.components(separatedBy: " ") {
+        guard input.count == 3 else {
+            print("입력이 잘못되었습니다")
+            return inputNumbers()
+        }
+        guard let firstNumber = Int(input[0]) else {
+            print("입력이 잘못되었습니다")
+            return inputNumbers()
+        }
+        guard let secondNumber = Int(input[1]) else {
+            print("입력이 잘못되었습니다")
+            return inputNumbers()
+        }
+        guard let thirdNumber = Int(input[2]) else {
+            print("입력이 잘못되었습니다")
+            return inputNumbers()
+        }
+        myNumbers += [firstNumber, secondNumber, thirdNumber]
+    }
+    return myNumbers
 }
