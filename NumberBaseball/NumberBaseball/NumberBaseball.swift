@@ -13,7 +13,7 @@ var remainCount: Int = 9
 func makeThreeRandomNumbers() -> [Int] {
     let randomNumbers: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
     var baseballGameNumbers: [Int] = []
-    for index in randomNumbers {
+    for index in 1...3 {
         baseballGameNumbers.append(randomNumbers[index])
     }
     return baseballGameNumbers
