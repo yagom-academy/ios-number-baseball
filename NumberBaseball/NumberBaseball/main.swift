@@ -7,6 +7,7 @@
 import Foundation
 
 var computerNumbers: [Int] = [Int]()
+let userNumbers: [Int] = [3, 4, 5]
 var trialNumber: Int = 9
 
 func createThreeRandomInt() -> [Int] {
@@ -16,4 +17,25 @@ func createThreeRandomInt() -> [Int] {
     }
     
     return Array(result)
+}
+
+func compareResult() -> [Int] {
+    var ball: Int = 0
+    var strike: Int = 0
+    computerNumbers = createThreeRandomInt()
+    
+    for userNumber in userNumbers {
+        if computerNumbers.contains(userNumber) {
+            ball += 1
+        }
+    }
+    
+    for indexs in 0...2 {
+        if userNumbers[indexs] == computerNumbers[indexs] {
+            strike += 1
+        }
+    }
+    
+    ball -= strike
+    return [strike, ball]
 }
