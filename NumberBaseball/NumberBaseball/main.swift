@@ -24,8 +24,8 @@ func foundBall() -> Int {
     var ballCount: Int = 0
     let pairNumbers = zip(userNumbers, computerNumbers)
     
-    for pairNumber in pairNumbers {
-        if computerNumbers.contains(pairNumber.0) && pairNumber.0 != pairNumber.1 {
+    for (userNumber, computerNumber) in pairNumbers {
+        if computerNumbers.contains(userNumber) && userNumber != computerNumber {
             ballCount += 1
         }
     }
@@ -36,12 +36,19 @@ func foundStrike() -> Int {
     var strikeCount : Int = 0
     let pairNumbers = zip(userNumbers, computerNumbers)
 
-    for pairNumber in pairNumbers {
-        if pairNumber.0 == pairNumber.1 {
+    for (userNumber, computerNumber) in pairNumbers {
+        if userNumber == computerNumber {
             strikeCount += 1
         }
     }
     return strikeCount
+}
+
+func decideUserVictory() {
+    if foundStrike() == 3 {
+        print("사용자 승리!")
+        return
+    }
 }
 
 func startBaseBallGame() {
@@ -52,17 +59,11 @@ func startBaseBallGame() {
     print(foundStrike() ," 스트라이크,", foundBall(), " 볼")
     
     if tryNumber == 0 {
-        if foundStrike() == 3 {
-            print("사용자 승리!")
-            return
-        }
+        decideUserVictory()
         print("컴퓨터 승리...!")
         return
     } else {
-        if foundStrike() == 3 {
-            print("사용자 승리!")
-            return
-        }
+        decideUserVictory()
         print("남은 기회 : \(tryNumber)")
         print("\n")
     }
