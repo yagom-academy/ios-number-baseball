@@ -18,7 +18,7 @@ func makeThreeRandomNumbers() -> [Int] {
     return baseballGameNumbers
 }
 
-func compareNumbers(myNumbers: [Int]) {
+func compareNumbers(myNumbers: [Int]) -> Bool {
     var strike: Int = 0
     var ball: Int = 0
     for number in 0...2 {
@@ -30,6 +30,11 @@ func compareNumbers(myNumbers: [Int]) {
     }
     remainCount -= 1
     printResult(strike: strike, ball: ball)
+    if strike == 3 || remainCount == 0 {
+        return false
+    } else {
+        return true
+    }
 }
 
 func printResult(strike: Int, ball: Int) {
@@ -38,7 +43,6 @@ func printResult(strike: Int, ball: Int) {
           남은 기회: \(remainCount)
           """)
     if strike == 3 {
-        remainCount = 0
         print("사용자 승리!")
     } else if remainCount == 0 {
         print("컴퓨터 승리...!")
@@ -49,10 +53,7 @@ func startGame() {
     var isLoop = true
     while isLoop {
         let myNumbers: [Int] = makeThreeRandomNumbers()
-        print("임의의 수 : \(myNumbers.description.trimmingCharacters(in: ["[", "]"]))")
-        compareNumbers(myNumbers: myNumbers)
-        if remainCount == 0 {
-            isLoop = false
-        }
+        print("임의의 수 : \(myNumbers.map{String($0)}.joined(separator: ", "))")
+        isLoop = compareNumbers(myNumbers: myNumbers)
     }
 }
