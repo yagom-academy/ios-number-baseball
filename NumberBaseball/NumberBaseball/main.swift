@@ -26,4 +26,20 @@ func getUserBall() {
     let userNumberList = readLine()?.split(separator: " ").map({ number in
         return Int(number)
     })
+    
 }
+
+func result() {
+    let user = getUserBall()
+    var strike = 0
+    var ball = 0
+    for (idx, com) in computer.enumerated() {
+        if com == user[idx] {
+            strike += 1
+        } else {
+            ball += 1
+        }
+    }
+}
+
+result()
