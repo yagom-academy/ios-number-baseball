@@ -8,18 +8,22 @@ import Foundation
 
 var computer: [Int] = []
 var remaining = 9
-var numbers = Array(1...9)
+var remainingNumbers = Array(1...9)
 
 func generateNumber() {
-    for _ in 0...2 {
-        let number = arc4random_uniform(UInt32(numbers.count))
-        computer.append(numbers[Int(number)])
-        numbers.remove(at: Int(number))
+    while computer.count < 3 {
+        let number = Int(arc4random_uniform(UInt32(remainingNumbers.count)))
+        var selectedNumber = remainingNumbers[number]
+        if selectedNumber != 0 {
+            computer.append(selectedNumber)
+        }
+        remainingNumbers[number] = 0
     }
     print(computer)
 }
 
-for _ in 0...4 {
-    generateNumber()
-    computer = []
+func getUserBall() {
+    let userNumberList = readLine()?.split(separator: " ").map({ number in
+        return Int(number)
+    })
 }
