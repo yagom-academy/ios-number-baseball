@@ -4,26 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-import Foundation
-
-var randomNumber = Set<Int>()
-var modeSelect = ""
-
-while randomNumber.count < 3 {
-    randomNumber.insert(Int.random(in: 1...9))
-}
-print(randomNumber)
-
-
 gameStart()
 
-
-func insert() {
-    print("임의의 수 : ", terminator: "")
-    let userNumber = readLine()!.split(separator: " ").map{Int($0)!}
+func compareStikeBall(randomNumber: Array<Int>, userNumber: Array<Int>)-> Bool {
     var strike = 0
     var ball = 0
-
+    
     userNumber.forEach {
         if randomNumber.contains($0) { ball += 1 }
     }
@@ -31,28 +17,34 @@ func insert() {
         $0.0 == $0.1 ? true : nil
     }.count
     ball -= strike
-
+    
     print("\(strike) 스트라이크, \(ball) 볼")
+    return strike == 3 ? true : false
 }
 
 func gameStart() {
-    gameSelect()
-    while true {
-        if modeSelect == "1" {
-            for round in (0...8).reversed() {
-                insert()
-                if round == 0 {
-                    print("컴퓨터 승리...!")
-                }
-                print("남은 기회 : \(round)")
-            }
+    let randomNumber = createRandomNumber()
+    for round in (0...8).reversed() {
+        let userNumber = createUserNumber()
+        if compareStikeBall(randomNumber: randomNumber, userNumber: userNumber) {
+            print("사용자 승리")
         }
+        print("남은 기회 : \(round)")
     }
+    print("컴퓨터 승리...!")
 }
 
-func gameSelect() {
-    print("1. 게임시작"); print("2. 게임종료"); print("원하는 기능을 선택해주세요 : ", terminator: "")
-    let userSelect = readLine()!
+func createRandomNumber()-> Array<Int> {
+    var randomNumber = Set<Int>()
+    
+    while randomNumber.count < 3 {
+        randomNumber.insert(Int.random(in: 1...9))
+    }
+    return Array(randomNumber)
+}
 
-    modeSelect = userSelect
+func createUserNumber()-> Array<Int> {
+    let userNumber = createRandomNumber()
+    print("임의의 수 : \(userNumber[0]) \(userNumber[1]) \(userNumber[2])")
+    return userNumber
 }
