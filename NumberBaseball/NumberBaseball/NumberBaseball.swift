@@ -58,3 +58,27 @@ func startGame() {
         }
     }
 }
+
+//게임 숫자를 입력받는 함수
+
+func selectMenu() {
+    print("""
+            1. 게임시작
+            2. 게임종료
+            원하는 기능을 선택해주세요 :
+            """, terminator: "")
+    guard let selectedMenu = readLine() else {
+        print("입력이 잘못되었습니다")
+        selectMenu()
+        return
+    }
+    if selectedMenu == "1" {
+        startGame()
+    } else if selectedMenu == "2" {
+        return
+    } else {
+        print("입력이 잘못되었습니다")
+        selectMenu()
+        return
+    }
+}
