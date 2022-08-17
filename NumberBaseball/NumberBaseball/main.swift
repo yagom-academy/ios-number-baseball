@@ -9,8 +9,6 @@ import Foundation
 var computerNumbers: [Int] = []
 var userNumbers: [Int] = []
 var tryNumber: Int = 9
-var ballCount : Int = 0
-var strikeCount : Int = 0
 
 func generateThreeRandomNumbers() -> [Int] {
     var numbers: Set<Int> = []
@@ -23,6 +21,7 @@ func generateThreeRandomNumbers() -> [Int] {
 }
 
 func foundBall() -> Int {
+    var ballCount: Int = 0
     let pairNumbers = zip(userNumbers, computerNumbers)
     
     for pairNumber in pairNumbers {
@@ -34,6 +33,7 @@ func foundBall() -> Int {
 }
 
 func foundStrike() -> Int {
+    var strikeCount : Int = 0
     let pairNumbers = zip(userNumbers, computerNumbers)
 
     for pairNumber in pairNumbers {
@@ -45,8 +45,6 @@ func foundStrike() -> Int {
 }
 
 func startBaseBallGame() {
-    ballCount = 0
-    strikeCount = 0
     tryNumber -= 1
     userNumbers = generateThreeRandomNumbers()
     
