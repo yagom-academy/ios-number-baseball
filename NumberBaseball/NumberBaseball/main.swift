@@ -31,15 +31,53 @@ computerNumbers = generateThreeRandomNumbers()
 userNumbers = generateThreeRandomNumbers()
 
 func foundStrike() {
-    var pairNumbers = zip(userNumbers, computerNumbers)
+//    var pairNumbers = zip(userNumbers, computerNumbers)
+//    var originNumber1: Int
+//    var originNumber2: Int
+//    var originNumber3: Int
+//
+//    for pairNumber in pairNumbers {
+//        originNumber1 = pairNumber.1
+//
+//        if pairNumber.0 == pairNumber.1 {
+//            strikeCount += 1
+//        }
+//        print(pairNumber.0)
+//        print(pairNumber.1)
+//    }
+    if computerNumbers[0] == userNumbers[0] {
+        strikeCount += 1
+    }
+    if computerNumbers[0] == userNumbers[1] {
+        ballCount += 1
+    }
+    if computerNumbers[0] == userNumbers[2] {
+        ballCount += 1
+    }
     
-    for pairNumber in pairNumbers {
-        if pairNumber.0 == pairNumber.1 {
-            strikeCount += 1
-        }
-        print(pairNumber.0)
-        print(pairNumber.1)
+    if computerNumbers[1] == userNumbers[0] {
+        ballCount += 1
+    }
+    if computerNumbers[1] == userNumbers[1] {
+        strikeCount += 1
+    }
+    if computerNumbers[1] == userNumbers[2] {
+        ballCount += 1
+    }
+    
+    if computerNumbers[2] == userNumbers[0] {
+        ballCount += 1
+    }
+    if computerNumbers[2] == userNumbers[1] {
+        ballCount += 1
+    }
+    if computerNumbers[2] == userNumbers[2] {
+        strikeCount += 1
     }
 }
 
 foundStrike()
+print(computerNumbers)
+print(userNumbers)
+print(ballCount)
+print(strikeCount)
