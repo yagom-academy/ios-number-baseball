@@ -9,7 +9,7 @@ func creatRandomNumber() -> [Int] {
     var count: Int = 0
     
     while count < 3 {
-        var temp: Int = Int.random(in: 1...9)
+        let temp: Int = Int.random(in: 1...9)
         
         if !randNumber.contains(temp) {
             randNumber.append(temp)
@@ -34,7 +34,15 @@ func compareThreeNumber(a: [Int], b: [Int]) -> Bool {
     }
 }
 
-func numberBaseBall() {
+func startNumberBaseBall() {
+    let randomNumber: [Int] = creatRandomNumber()
+    var count: Int = 9
+    
+    while count == 0 {
+        print("임의의 수 : \(randomNumber[0]) \(randomNumber[1]) \(randomNumber[2])")
+        let tempNumber: [Int] = creatRandomNumber()
+        compareThreeNumber(a: randomNumber, b: tempNumber)
+    }
     
 }
 
