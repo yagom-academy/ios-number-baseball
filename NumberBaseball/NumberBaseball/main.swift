@@ -13,15 +13,15 @@ func makeRandomGameNumber() -> Array<Int> {
     return Array(randomGameNumbers)
 }
 
-func compareNumber() {
-    let userGameNumbers = makeRandomGameNumber()
+func compareNumber(userGameNumber: Array<Int>) {
+//    let userGameNumbers = makeRandomGameNumber()
     var strikeCount = 0
     var ballCount = 0
     for i in 0...2 {
-        if gameNumber[i] == userGameNumbers[i] { // 자리수가 같고, 숫자도 같으면 스트라이크카운트 + 1
+        if gameNumber[i] == userGameNumber[i] { // 자리수가 같고, 숫자도 같으면 스트라이크카운트 + 1
             strikeCount += 1
         }
-        if gameNumber[i] != userGameNumbers[i] && gameNumber.contains(userGameNumbers[i]) {
+        if gameNumber[i] != userGameNumber[i] && gameNumber.contains(userGameNumber[i]) {
             ballCount += 1
         }  // 자리수와 숫자가 같지않고, 숫자를 포함하면 볼카운트 + 1
     }
@@ -35,18 +35,19 @@ func compareNumber() {
 //게임시작 함수
 //이번 스텝에서는 사용자 입력없이 임의의 수를 생성하여 게임을 진행하도록 구현합니다.
 
-func playNumberBaseballGame (round : Int) {
-    var trialRoundsCount : Int = 9
-    var remainedTrialRounds : Int = trialRoundsCount - round
+func playNumberBaseballGame () {
+    let trialRoundsCount : Int = 9
     for _ in 1...9 {
-        var UserGameNumber : Array<Int> = makeRandomGameNumber()
-//        print("임의의 수 : \(userGameNumber[0]) \(userGameNumber[1]) \(userGameNumber[2])")
-        compareNumber()
+        var userGameNumber : Array<Int> = makeRandomGameNumber()
+        print(gameNumber)
+        print("임의의 수 : \(userGameNumber[0]) \(userGameNumber[1]) \(userGameNumber[2])")
+        compareNumber(userGameNumber: userGameNumber)
+        let trialRoundsCount = trialRoundsCount - 1
     }
-    if remainedTrialRounds == 0 {
+    if trialRoundsCount == 0 {
         print("남아있는 기회가 없습니다.")
         return
     }
 }
 
-playNumberBaseballGame(round: 3)
+playNumberBaseballGame()
