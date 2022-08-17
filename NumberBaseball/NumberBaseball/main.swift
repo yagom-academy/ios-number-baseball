@@ -30,14 +30,14 @@ func showResult() {
         tryCount -= 1
 
         (strike, ball) = judge(myNumbers)
-        print("임의의 수 :(myNumbers.reduce("") { "(String($0)) (String($1))" })")
-        print("(strike) 스트라이크, (ball) 볼")
+        print("임의의 수 :\(myNumbers.reduce("") { "\(String($0)) \(String($1))" })" )
+        print("\(strike) 스트라이크, \(ball) 볼")
 
         if strike == 3 {
             print("사용자 승리!")
             return
         } else {
-            tryCount != 0 ? print("남은 기회 : (tryCount)") : print("컴퓨터 승리...!")
+            tryCount != 0 ? print("남은 기회 : \(tryCount)") : print("컴퓨터 승리...!")
         }
     }
 }
