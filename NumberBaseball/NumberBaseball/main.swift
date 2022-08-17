@@ -19,19 +19,26 @@ func creatRandomNumber() -> [Int] {
     return randNumber
 }
 
-func compareThreeNumber(a: [Int], b: [Int]) -> Bool {
+func checkBall(a: [Int], b: [Int]) -> Int {
     var count: Int = 0
     
-    for element in a {
-        if b.contains(element) {
+    for element in b {
+        if a.contains(element) {
             count += 1
         }
     }
-    if count == 3 {
-        return true
-    } else {
-        return false
+    return count
+}
+
+func checkStrike(a: [Int], b: [Int]) -> Int {
+    var count: Int = 0
+    
+    for (index, value) in a.enumerated() {
+        if a[index] == b[index] {
+            count += 1
+        }
     }
+    return count
 }
 
 func startNumberBaseBall() {
@@ -41,7 +48,13 @@ func startNumberBaseBall() {
     while count == 0 {
         print("임의의 수 : \(randomNumber[0]) \(randomNumber[1]) \(randomNumber[2])")
         let tempNumber: [Int] = creatRandomNumber()
-        compareThreeNumber(a: randomNumber, b: tempNumber)
+        let ballCount: Int = checkBall(a: randomNumber, b: tempNumber)
+        let strikeCount: Int = checkStrike(a: randomNumber, b: tempNumber)
+        if strikeCount == 3 {
+            print("사용자 승리!")
+            break
+        }
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     }
     
 }
