@@ -6,7 +6,4 @@
 
 import Foundation
 
-//selectMenu()
-startGame()
-//print(inputNumbers())
-//inputNumbers()
+selectMenu()

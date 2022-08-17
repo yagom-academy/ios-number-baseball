@@ -49,22 +49,21 @@ func startGame() {
     var isLoop = true
     while isLoop {
         let myNumbers: [Int] = inputNumbers()
-        let myNumbersString: String = myNumbers.map{String($0)}.joined(separator: ", ")
-        print("임의의 수 : \(myNumbersString)")
         let gameScore: (strike: Int, ball: Int) = compare(my: myNumbers)
         checkResult(strike: gameScore.strike, ball: gameScore.ball)
         if gameScore.strike == 3 || remainCount == 0 {
             isLoop = false
         }
     }
+    selectMenu()
 }
 
 func selectMenu() {
     print("""
-            1. 게임시작
-            2. 게임종료
-            원하는 기능을 선택해주세요 :
-            """, terminator: " ")
+          1. 게임시작
+          2. 게임종료
+          원하는 기능을 선택해주세요 :
+          """, terminator: " ")
     guard let selectedMenu = readLine() else {
         print("입력이 잘못되었습니다")
         selectMenu()
