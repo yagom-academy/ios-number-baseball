@@ -6,9 +6,6 @@
 
 import Foundation
 
-var computerNumbers: [Int] = [Int]()
-var trialNumber: Int = 9
-
 playGame()
 
 func createThreeRandomInt() -> [Int] {
@@ -20,7 +17,7 @@ func createThreeRandomInt() -> [Int] {
     return Array(result)
 }
 
-func compareResult(computerNumbers: [Int], userNumbers: [Int]) -> [Int] {
+func determineStrikesBallsInTwoNumbers(_ computerNumbers: [Int], _ userNumbers: [Int]) -> (strike: Int, ball: Int) {
     var ball: Int = 0
     var strike: Int = 0
     
@@ -30,27 +27,29 @@ func compareResult(computerNumbers: [Int], userNumbers: [Int]) -> [Int] {
         }
     }
     
-    for indexs in 0...2 {
-        if userNumbers[indexs] == computerNumbers[indexs] {
+    for index in 0...2 {
+        if userNumbers[index] == computerNumbers[index] {
             strike += 1
         }
     }
     
     ball -= strike
-    return [strike, ball]
+    return (strike: strike, ball: ball)
 }
 
 func playGame() {
-    computerNumbers = createThreeRandomInt()
+    var trialNumber: Int = 9
+    let computerNumbers = createThreeRandomInt()
     
     while true {
-        let userNumbers: [Int] = createThreeRandomInt()
         trialNumber -= 1
+        let userNumbers: [Int] = createThreeRandomInt()
         print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
-        let result: [Int] = compareResult(computerNumbers: computerNumbers,
-                                          userNumbers: userNumbers)
-        print("\(result[0]) 스트라이크, \(result[1]) 볼")
-        if result[0] == 3 {
+        let result = determineStrikesBallsInTwoNumbers(computerNumbers,
+                                                       userNumbers)
+        print("\(result.strike) 스트라이크, \(result.ball) 볼")
+        
+        if result.strike == 3 {
             print("사용자 승리")
             break
         } else if trialNumber == 0 {
@@ -59,6 +58,5 @@ func playGame() {
         } else {
             print("남은 기회 : \(trialNumber)")
         }
-        
     }
 }
