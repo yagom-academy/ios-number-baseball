@@ -1,5 +1,5 @@
 //
-//  STEP 1.swift
+//  NumberBaseball.swift
 //  NumberBaseball
 //
 //  Created by Gundy, mene on 2022/08/16.
@@ -9,27 +9,28 @@ import Foundation
 
 var baseballRandomNumbers: [Int] = makeThreeRandomNumbers()
 var remainCount: Int = 9
+
 func makeThreeRandomNumbers() -> [Int] {
-    let randomNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
+    let randomNumbers: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
     var baseballGameNumbers: [Int] = []
-    for number in 0...2 {
-        baseballGameNumbers.append(randomNumbers[number])
+    for index in 1...3 {
+        baseballGameNumbers.append(randomNumbers[index])
     }
     return baseballGameNumbers
 }
 
-func compareNumbers(myNumbers: [Int]) -> Bool {
+func compare(my numbers: [Int]) -> Bool {
     var strike: Int = 0
     var ball: Int = 0
-    for number in 0...2 {
-        if baseballRandomNumbers[number] == myNumbers[number] {
+    for index in 0...2 {
+        if baseballRandomNumbers[index] == numbers[index] {
             strike += 1
-        } else if baseballRandomNumbers.contains(myNumbers[number]) {
+        } else if baseballRandomNumbers.contains(numbers[index]) {
             ball += 1
         }
     }
     remainCount -= 1
-    printResult(strike: strike, ball: ball)
+    checkResult(strike: strike, ball: ball)
     if strike == 3 || remainCount == 0 {
         return false
     } else {
@@ -37,7 +38,7 @@ func compareNumbers(myNumbers: [Int]) -> Bool {
     }
 }
 
-func printResult(strike: Int, ball: Int) {
+func checkResult(strike: Int, ball: Int) {
     print("""
           \(strike) 스트라이크, \(ball) 볼
           남은 기회: \(remainCount)
@@ -53,7 +54,8 @@ func startGame() {
     var isLoop = true
     while isLoop {
         let myNumbers: [Int] = makeThreeRandomNumbers()
-        print("임의의 수 : \(myNumbers.map{String($0)}.joined(separator: ", "))")
-        isLoop = compareNumbers(myNumbers: myNumbers)
+        let myNumbersString: String = myNumbers.map{String($0)}.joined(separator: ", ")
+        print("임의의 수 : \(myNumbersString)")
+        isLoop = compare(my: myNumbers)
     }
 }
