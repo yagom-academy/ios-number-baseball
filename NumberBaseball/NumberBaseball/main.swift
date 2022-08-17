@@ -6,4 +6,5 @@
 
 import Foundation
 
-gameStart()
+let computer = Computer()
+computer.startGame()

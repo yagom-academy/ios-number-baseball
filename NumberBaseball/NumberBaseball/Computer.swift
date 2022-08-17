@@ -1,76 +1,68 @@
 //
-//  Computer.swift
-//  NumberBaseball
-//
-//  Created by 이경민 on 2022/08/16.
+//  NumberBaseball - Computer.swift
+//  Created by SummerCat, 미니.
+//  Copyright © yagom academy. All rights reserved.
 //
 
 import Foundation
 
-private var answer: [Int] = []
-private var tryCount: Int = 9
-private var strikeCount: Int = 0
-private var ballCount: Int = 0
-
-func createNumber() -> [Int] {
-	var number: Set<Int> = []
-	
-	while number.count < 3 {
-		number.insert(Int.random(in: 1...9))
+struct GameService {
+	private var answer: [Int] = []
+	private var tryCount: Int = 9
+	private var strikeCount: Int = 0
+	private var ballCount: Int = 0
+	private var isPlayerWin: Bool {
+		return strikeCount == 3
 	}
-	
-	return Array(number)
-}
 
-// 비교하는 함수, 결과를 반환하는 함수
-func compareNumbers(userNumbers: [Int]) {
-    userNumbers.enumerated().forEach { index, value in
-        validationNumber(to: index, inputNumber: value)
-    }
-}
-
-func validationNumber(to index: Int, inputNumber: Int) {
-    if answer.contains(inputNumber),
-	   answer[index] == inputNumber {
-        strikeCount += 1
-    } else if answer.contains(inputNumber) {
-        ballCount += 1
-    }
-}
-
-func printGameResult() {
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    if strikeCount == 3 {
-        print("사용자 승리!")
-    }
-}
-
-func printTryResultCount() {
-    tryCount -= 1
-    
-    if tryCount != 0 {
-        print("남은 기회 : \(tryCount)")
-    }
-}
-
-// 게임시작 함수
-func gameStart() {
-	answer = createNumber()
-    debugPrint(answer)
-	while tryCount > 0 {
-		strikeCount = 0
-		ballCount = 0
+	private func createRandomNumbers() -> [Int] {
+		var numbers: Set<Int> = []
 		
-		let trial = createNumber()
-		print("임의의 수 ", terminator: ": ")
-		trial.forEach {
-			print($0, terminator: " ")
+		while numbers.count < 3 {
+			numbers.insert(Int.random(in: 1...9))
 		}
-		print("")
 		
-        compareNumbers(userNumbers: trial)
-        printGameResult()
-		printTryResultCount()
+		return Array(numbers)
 	}
-	print("컴퓨터 승리...!")
+
+	private mutating func decideBallStrike(playerNumbers: [Int]) {
+		playerNumbers.enumerated().forEach { index, playerNumber in
+			if answer.contains(playerNumber), answer[index] == playerNumber {
+				strikeCount += 1
+			} else if answer.contains(playerNumber) {
+				ballCount += 1
+			}
+		}
+	}
+
+	mutating func startGame() {
+		answer = createRandomNumbers()
+		while tryCount > 0 {
+			strikeCount = 0
+			ballCount = 0
+			
+			let trial = createRandomNumbers()
+			print("임의의 수 : " + trial.description)
+			
+			decideBallStrike(playerNumbers: trial)
+			
+			print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+			if isPlayerWin {
+				print("사용자 승리!")
+				break
+			}
+			tryCount -= 1
+			
+			if tryCount != 0 {
+				print("남은 기회 : \(tryCount)")
+			}
+		}
+		print("컴퓨터 승리...!")
+	}
+}
+
+private extension Array where Element == Int {
+	func generateDescription() -> String {
+		return self.map { String($0) }.joined(separator: " ")
+	}
 }
