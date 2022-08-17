@@ -20,43 +20,47 @@ func creatRandomNumber() -> [Int] {
 }
 
 func checkBall(a: [Int], b: [Int]) -> Int {
-    var count: Int = 0
+    var ballCount: Int = 0
     
-    for element in b {
-        if a.contains(element) {
-            count += 1
+    for (index, value)  in b.enumerated() {
+        if a.contains(value) && b[index] != a[index] {
+            ballCount += 1
         }
     }
-    return count
+    return ballCount
 }
 
 func checkStrike(a: [Int], b: [Int]) -> Int {
-    var count: Int = 0
+    var strikeCount: Int = 0
     
     for (index, value) in a.enumerated() {
         if a[index] == b[index] {
-            count += 1
+            strikeCount += 1
         }
     }
-    return count
+    return strikeCount
 }
 
 func startNumberBaseBall() {
     let randomNumber: [Int] = creatRandomNumber()
-    var count: Int = 9
+    var lifeCount: Int = 9
     
-    while count == 0 {
-        print("임의의 수 : \(randomNumber[0]) \(randomNumber[1]) \(randomNumber[2])")
+    while lifeCount != 0 {
         let tempNumber: [Int] = creatRandomNumber()
-        let ballCount: Int = checkBall(a: randomNumber, b: tempNumber)
+        print("임의의 수 : \(tempNumber[0]) \(tempNumber[1]) \(tempNumber[2])")
         let strikeCount: Int = checkStrike(a: randomNumber, b: tempNumber)
         if strikeCount == 3 {
             print("사용자 승리!")
             break
         }
+        
+        let ballCount: Int = checkBall(a: randomNumber, b: tempNumber)
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        lifeCount -= 1
     }
-    
+    if lifeCount == 0 {
+        print("컴퓨터 승리...!")
+    }
 }
 
-
+startNumberBaseBall()
