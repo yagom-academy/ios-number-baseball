@@ -2,5 +2,5 @@
 
 ### 숫자야구 프로젝트 저장소
 
-1. 제목: 숫자 야구
-2. 팀원: inho, rhovin
+[STEP 0] 숫자야구 순서도
+![숫자야구 순서도 drawio](https://user-images.githubusercontent.com/71054048/185028867-3a5b0213-2851-4d2d-9f3c-ffc157dcd088.png)
