@@ -7,8 +7,9 @@
 import Foundation
 
 var computerNumbers: [Int] = [Int]()
-let userNumbers: [Int] = [3, 4, 5]
 var trialNumber: Int = 9
+
+playGame()
 
 func createThreeRandomInt() -> [Int] {
     var result: Set<Int> = Set<Int>()
@@ -19,10 +20,9 @@ func createThreeRandomInt() -> [Int] {
     return Array(result)
 }
 
-func compareResult() -> [Int] {
+func compareResult(computerNumbers: [Int], userNumbers: [Int]) -> [Int] {
     var ball: Int = 0
     var strike: Int = 0
-    computerNumbers = createThreeRandomInt()
     
     for userNumber in userNumbers {
         if computerNumbers.contains(userNumber) {
@@ -38,4 +38,27 @@ func compareResult() -> [Int] {
     
     ball -= strike
     return [strike, ball]
+}
+
+func playGame() {
+    computerNumbers = createThreeRandomInt()
+    
+    while true {
+        let userNumbers: [Int] = createThreeRandomInt()
+        trialNumber -= 1
+        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
+        let result: [Int] = compareResult(computerNumbers: computerNumbers,
+                                          userNumbers: userNumbers)
+        print("\(result[0]) 스트라이크, \(result[1]) 볼")
+        if result[0] == 3 {
+            print("사용자 승리")
+            break
+        } else if trialNumber == 0 {
+            print("컴퓨터 승리")
+            break
+        } else {
+            print("남은 기회 : \(trialNumber)")
+        }
+        
+    }
 }
