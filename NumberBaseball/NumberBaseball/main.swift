@@ -9,7 +9,7 @@ import Foundation
 func generateAnswer() -> [Int] {
     var array = Array(1...9)
     array.shuffle()
-    return array[...2].map(){Int($0)}
+    return Array(array[...2])
 }
 
 func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, Int) {
