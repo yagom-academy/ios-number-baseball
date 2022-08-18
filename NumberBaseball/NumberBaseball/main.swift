@@ -1,9 +1,9 @@
 import Foundation
 
-let randomNumbers = Array((1...9).shuffled()[..<3])
-
-func generateNumbers() -> [Int] {
-    return Array((1...9).shuffled()[..<3])
+func generateThreeRandomNumbers() -> [Int] {
+    let shuffledNumbers = (1...9).shuffled()
+    let threeNumbers = Array(shuffledNumbers.prefix(3))
+    return threeNumbers
 }
 
 func judge(_ myNumbers: [Int]) -> (Int, Int) {
