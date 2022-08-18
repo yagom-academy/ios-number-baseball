@@ -1,16 +1,18 @@
 
 import Foundation
 
-let threeComputerRandomNumbers: Array<Int> = [4, 5, 6]
-var threeUserRandomNumbers: Set<Int> = []
+var threeComputerRandomNumbers: Array<Int> = []
+var threeUserRandomNumbers: Array<Int> = []
 var remainingRound: Int = 9
 
-func generateRandomThreeNumbers() {
-    while threeUserRandomNumbers.count < 3 {
+func generateComputerRandomThreeNumbers() {
+    while threeComputerRandomNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
-        threeUserRandomNumbers.insert(randomNumber)
+        if threeComputerRandomNumbers.contains(randomNumber) == false {
+            threeComputerRandomNumbers.append(randomNumber)
+        }
     }
-    print("임의의 수 :", threeUserRandomNumbers.map {(number: Int) -> String in
+    print("임의의 수 :", threeComputerRandomNumbers.map {(number: Int) -> String in
         return String(number)}.joined(separator: " "))
 }
 
@@ -26,8 +28,8 @@ func countStrikeAndBall() -> Int {
         }
     }
     print("""
-          (strikeCount) 스트라이크, (ballCount) 볼
-          남은 기회 : (remainingRound)
+          \(strikeCount) 스트라이크, \(ballCount) 볼
+          남은 기회 : \(remainingRound)
           """)
     return strikeCount
 }
@@ -36,7 +38,7 @@ func playNumberBaseBall() {
     while remainingRound > 0 {
         remainingRound -= 1
         threeUserRandomNumbers.removeAll()
-        generateRandomThreeNumbers()
+        generateComputerRandomThreeNumbers()
         let strike = countStrikeAndBall()
 
         if strike == 3 {
@@ -70,3 +72,32 @@ func selectMenu() {
         selectMenu()
     }
 }
+
+enum userNumbersError: Error {
+    case noInput
+    case outOfRange
+    case wrongNumbersCount
+    case wrongFormat
+    case others
+}
+
+func receiveThreeUserRandomNumber() throws {
+    print("입력 : ", terminator: "")
+    let inputNumber = readLine()
+    let inputIsEmpty: Bool = inputNumber == ""
+
+    guard inputIsEmpty == false else { throw userNumbersError.noInput }
+
+    guard let inputNumber = inputNumber else {
+        throw userNumbersError.others
+    }
+    let inputNumberArray: Array<String> = inputNumber.components(separatedBy: " ")
+
+    for number in inputNumberArray {
+        guard let number = Int(number) else { throw userNumbersError.wrongFormat }
+        guard number >= 1, number <= 9 else { throw userNumbersError.outOfRange }
+        threeUserRandomNumbers.append(number)
+    }
+    guard threeUserRandomNumbers.count == 3 else { throw userNumbersError.wrongNumbersCount}
+}
+
