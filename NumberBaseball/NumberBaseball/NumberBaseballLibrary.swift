@@ -2,6 +2,7 @@
 
 class NumberBaseballLibrary {
     private var computerRandomNumberArray: [Int] = []
+    private var userThreeNumberArray: [Int] = []
     private var numberOfAttempts = 9
     private var otherComputerRandomNumberArray: [Int] = []
     private var strike: Int = 0
@@ -96,6 +97,13 @@ class NumberBaseballLibrary {
 }
 
 extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
+    func userMenu() {
+        var flag = true
+        while flag {
+            flag = displayUserMenu()
+        }
+    }
+    
     func displayUserMenu() -> Bool {
         print("1. 게임시작")
         print("2. 게임종료")
@@ -103,6 +111,7 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         let userSelectNumber = inputUserMenuSelect()
         switch userSelectNumber {
         case 1:
+            inputUserThreeNumber()
             playNumberBaseball()
             return true
         case 2:
@@ -113,6 +122,7 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
     }
     
     func inputUserMenuSelect() -> Int {
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
         guard let inputMenuNumber = readLine() else { return 0 }
         let inputMenuNumberToInt = Int(inputMenuNumber)
         switch inputMenuNumberToInt {
@@ -125,10 +135,16 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         }
     }
     
-    func userMenu() {
-        var flag = true
-        while flag {
-            flag = displayUserMenu()
-        }
+    func inputUserThreeNumber() -> [Int] {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: "")
+        
+        let errorArray: [Int] = [0]
+        guard let inputThreeNumber = readLine() else { return errorArray }
+        
+        userThreeNumberArray = inputThreeNumber.split(separator: " ").compactMap { Int($0) }
+        
+        return userThreeNumberArray
     }
 }
