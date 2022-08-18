@@ -113,10 +113,19 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
     }
     
     func inputUserMenuSelect() -> Int {
-        
+        guard let inputMenuNumber = readLine() else { return 0 }
+        let inputMenuNumberToInt = Int(inputMenuNumber)
+        switch inputMenuNumberToInt {
+        case 1:
+            return 1
+        case 2:
+            return 2
+        default:
+            return 0
+        }
     }
     
-    func UserMenu() {
+    func userMenu() {
         var flag = true
         while flag {
             flag = displayUserMenu()

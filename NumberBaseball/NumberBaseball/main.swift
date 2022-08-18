@@ -2,4 +2,4 @@
 
 let numberBaseball:NumberBaseballLibraryProtocol = NumberBaseballLibrary()
 
-numberBaseball.playNumberBaseball()
+numberBaseball.userMenu()
