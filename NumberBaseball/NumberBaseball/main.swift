@@ -36,7 +36,6 @@ func gameStart() {
     }
     print("컴퓨터 승리...!")
 }
-
 func getRandomNumber() -> Array<Int> {
     var randomNumber = Set<Int>()
 
@@ -45,6 +44,7 @@ func getRandomNumber() -> Array<Int> {
     }
     return Array(randomNumber)
 }
+
 
 // 3개를 반환하도록 유효성검사
 func createUserNumber() -> Array<Int> {
