@@ -34,18 +34,19 @@ func compare(with numbers: [Int]) -> (Int, Int) {
 }
 
 func checkResult(strike: Int, ball: Int) {
-    print("""
-          \(strike) 스트라이크, \(ball) 볼
-          남은 기회: \(remainCount)
-          """)
+    print("\(strike) 스트라이크, \(ball) 볼")
     if strike == 3 {
         print("사용자 승리!")
     } else if remainCount == 0 {
+        print("남은 기회: \(remainCount)")
         print("컴퓨터 승리...!")
+    } else {
+        print("남은 기회: \(remainCount)")
     }
 }
 
 func startGame() {
+    remainCount = 9
     while true {
         let myNumbers: [Int] = inputNumbers()
         let gameScore: (strike: Int, ball: Int) = compare(with: myNumbers)
