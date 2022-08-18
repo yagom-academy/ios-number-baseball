@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE105EFD28ADED4A0018FF77 /* NumberBaseballLibraryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE105EFC28ADED4A0018FF77 /* NumberBaseballLibraryProtocol.swift */; };
+		AE1AD30C28AC7716005816C5 /* NumberBaseballLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1AD30B28AC7715005816C5 /* NumberBaseballLibrary.swift */; };
 		C7A29CFC2551372B00CAC77A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A29CFB2551372B00CAC77A /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AE105EFC28ADED4A0018FF77 /* NumberBaseballLibraryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberBaseballLibraryProtocol.swift; sourceTree = "<group>"; };
+		AE1AD30B28AC7715005816C5 /* NumberBaseballLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberBaseballLibrary.swift; sourceTree = "<group>"; };
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				C7A29CFB2551372B00CAC77A /* main.swift */,
+				AE1AD30B28AC7715005816C5 /* NumberBaseballLibrary.swift */,
+				AE105EFC28ADED4A0018FF77 /* NumberBaseballLibraryProtocol.swift */,
 			);
 			path = NumberBaseball;
 			sourceTree = "<group>";
@@ -89,7 +95,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					C7A29CF72551372B00CAC77A = {
 						CreatedOnToolsVersion = 12.1;
@@ -119,6 +125,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1AD30C28AC7716005816C5 /* NumberBaseballLibrary.swift in Sources */,
+				AE105EFD28ADED4A0018FF77 /* NumberBaseballLibraryProtocol.swift in Sources */,
 				C7A29CFC2551372B00CAC77A /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +252,7 @@
 		C7A29D002551372B00CAC77A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -253,6 +262,7 @@
 		C7A29D012551372B00CAC77A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

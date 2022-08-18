@@ -1,10 +1,5 @@
-//
-//  NumberBaseball - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
+//  Created by zhilly and som on 2022/08/17.
 
-import Foundation
+let numberBaseball:NumberBaseballLibraryProtocol = NumberBaseballLibrary()
 
-print("Hello, World!")
-
+numberBaseball.playNumberBaseball()
