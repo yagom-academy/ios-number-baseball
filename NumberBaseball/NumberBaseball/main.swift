@@ -46,30 +46,28 @@ func getRandomNumber() -> Array<Int> {
     return Array(randomNumber)
 }
 
-// 3개를 반환하도록 유효성검사
 func getUserNumber() -> Array<Int> {
-    var userNumber = Array<Int>()
     while true {
-        print("숫자 3개를 띄어쓰기로 구분해주세요.\n중복숫자는 허용하지 않습니다")
+        print("숫자 3개를 띄어쓰기로 구분해주세요.\n중복숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
         let userInput = readLine()
 
-        userNumber = checkNumber(userInput: userInput) ?? {continue}
-        break
+        if let userNumber = checkNumber(userInput: userInput) {
+            return userNumber
+        }
+        print("입력이 잘못되었습니다.")
     }
-    return userNumber
 }
-
-
+//test case 1 2. -> bug, 중복허용 X 추가
 func checkNumber(userInput: String?) -> Array<Int>? {
     guard let userInput = userInput else { return nil }
-    
+
     let userInputArr = userInput.split(separator: " ")
     if userInputArr.count != 3 { return nil }
-    
+
     let userNumber = userInputArr.compactMap{ Int($0) }
     if userNumber.count != 3 { return nil }
-    
+
     return userNumber
 }
 
@@ -90,4 +88,3 @@ func selectMenu() {
 }
 
 selectMenu()
-
