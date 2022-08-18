@@ -7,7 +7,7 @@ class NumberBaseballLibrary {
     var strike: Int = 0
     var ball: Int = 0
 
-    private func presentRandomNumber() -> [Int] {
+    private func generateRandomNumber() -> [Int] {
         var randomNumArray: [Int] = []
         while randomNumArray.count < 3 {
             let number = Int.random(in: 1...9)
@@ -19,11 +19,11 @@ class NumberBaseballLibrary {
     }
 
     private func putNumberInArray() {
-        computerRandomNumberArray = presentRandomNumber()
+        computerRandomNumberArray = generateRandomNumber()
     }
 
     private func putTestNumberInArray() {
-        otherComputerRandomNumberArray = presentRandomNumber()
+        otherComputerRandomNumberArray = generateRandomNumber()
     }
 
     private func matchIndex(_ x: Int, _ y: Int) -> Bool {
