@@ -1,11 +1,5 @@
 //  Created by zhilly and som on 2022/08/17.
 
-import Foundation
-
-protocol NumberBaseballLibraryProtocol {
-    func playNumberBaseball()
-}
-
 class NumberBaseballLibrary {
     var computerRandomNumberArray: [Int] = []
     var numberOfAttempts = 9
