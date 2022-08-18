@@ -58,7 +58,7 @@ func getUserNumber() -> Array<Int> {
         print("입력이 잘못되었습니다.")
     }
 }
-//test case 1 2. -> bug, 중복허용 X 추가
+
 func checkNumber(userInput: String?) -> Array<Int>? {
     guard let userInput = userInput else { return nil }
 
@@ -66,7 +66,7 @@ func checkNumber(userInput: String?) -> Array<Int>? {
     if userInputArr.count != 3 { return nil }
 
     let userNumber = userInputArr.compactMap{ Int($0) }
-    if userNumber.count != 3 { return nil }
+    if Set(userNumber).count != 3 { return nil }
 
     return userNumber
 }
