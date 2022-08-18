@@ -6,6 +6,11 @@ private var isPlayerWin: Bool {
 	return strikeCount == 3
 }
 
+// MARK: 1. 메뉴 구현
+// MARK: 2. 메뉴 입력 받기 & 오류 처리
+// MARK: 3. 사용자 숫자 입력 받기 & 오류 처리
+// MARK: 4. 사용자/컴퓨터 승리 시 메뉴 선택으로 이동
+
 private func generateRandomNumbers() -> [Int] {
 	var numbers: Set<Int> = []
 	
