@@ -56,6 +56,7 @@ func readMenuNumber() -> Int? {
     if let selectedMenu = Int(readLine() ?? "") {
         return selectedMenu
     } else {
+        print("입력이 잘못되었습니다.")
         return nil
     }
 }
@@ -65,6 +66,7 @@ func readUserNumbers() -> [Int]? {
     if let choicedNumber = readLine() {
         return choicedNumber.components(separatedBy: " ").compactMap { Int($0) }
     } else {
+        print("입력이 잘못되었습니다.")
         return nil
     }
 }
