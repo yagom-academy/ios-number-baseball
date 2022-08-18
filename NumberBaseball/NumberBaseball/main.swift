@@ -6,8 +6,6 @@
 
 import Foundation
 
-playGame()
-
 func createThreeRandomNumbers() -> [Int] {
     var result: Set<Int> = Set<Int>()
     
@@ -51,23 +49,6 @@ func isWin(strike: Int, trialNumber: Int) -> Bool {
     }
 }
 
-func playGame() {
-    var trialNumber: Int = 9
-    let computerNumbers = createThreeRandomNumbers()
-    
-    while trialNumber > 0 {
-        trialNumber -= 1
-        let userNumbers: [Int] = createThreeRandomNumbers()
-        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
-        let result = determineStrikesBallsInTwoNumbers(computerNumbers, userNumbers)
-        print("\(result.strike) 스트라이크, \(result.ball) 볼")
-        
-        if isWin(strike: result.strike, trialNumber: trialNumber) {
-            break
-        }
-    }
-}
-
 func readMenuNumber() -> Int {
     print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
     if let selectedMenu = Int(readLine() ?? "") {
@@ -101,5 +82,37 @@ func isCorrectUserNumber(_ inputedNumber: [Int]) -> Bool {
     } else {
         print("입력이 잘못되었습니다.")
         return false
+    }
+}
+
+func playGame() {
+    var trialNumber: Int = 9
+    let computerNumbers = createThreeRandomNumbers()
+    
+    while trialNumber > 0 {
+        trialNumber -= 1
+        let userNumbers: [Int] = createThreeRandomNumbers()
+        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
+        let result = determineStrikesBallsInTwoNumbers(computerNumbers, userNumbers)
+        print("\(result.strike) 스트라이크, \(result.ball) 볼")
+        
+        if isWin(strike: result.strike, trialNumber: trialNumber) {
+            break
+        }
+    }
+}
+
+func executeBaseballGame() {
+    while true {
+        let menuNumber: Int = readMenuNumber()
+        guard isCorrectMenuNumber(menuNumber) else {
+            continue
+        }
+        
+        if menuNumber == 1 {
+            playGame()
+        } else if menuNumber == 2 {
+            break
+        }
     }
 }
