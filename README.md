@@ -32,4 +32,4 @@
 <!--[![xcode](https://img.shields.io/badge/Xcode-13.3-blue)]()-->
 
 # 순서도 
-<img width="683" alt="STEP2 flowChart" src="https://user-images.githubusercontent.com/92622931/163168557-2bb6be5f-0a46-4b31-a326-77a0e08c4622.png">  
+<img width="683" alt="STEP2 flowChart" src="https://github.com/lj-7-77/ios-number-baseball/blob/main/flowchart.svg">  
