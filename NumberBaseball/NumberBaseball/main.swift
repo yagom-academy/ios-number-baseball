@@ -2,7 +2,9 @@
 //  NumberBaseball - main.swift
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
+var answer = [Int]()
+var remainCount = 9
 
 func fetchRandomNumbers() -> [Int] {
     var numberSet = Set<Int>()
@@ -15,7 +17,9 @@ func fetchRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func decideStrikeCountAndBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, Int) {
+answer = fetchRandomNumbers()
+
+func decideStrikeCountAndBallCount(about userNumbers: [Int]) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
     
@@ -30,8 +34,6 @@ func decideStrikeCountAndBallCount(comparing answer: [Int], with userNumbers: [I
 }
 
 func playBall() {
-    let answer = fetchRandomNumbers()
-    var remainCount = 9
     var userNumbers = [Int]()
     
     while remainCount > 0 {
@@ -40,7 +42,7 @@ func playBall() {
         let numbersToString = userNumbers.map({String($0)}).joined(separator: " ")
         guidance += "임의의 수 : \(numbersToString)\n"
 
-        let (strikeCount, ballCount) = decideBallCount(comparing: answer, with: userNumbers)
+        let (strikeCount, ballCount) = decideStrikeCountAndBallCount(about: userNumbers)
         guidance += "\(strikeCount) 스트라이크, \(ballCount) 볼\n"
         
         if strikeCount == 3 {
