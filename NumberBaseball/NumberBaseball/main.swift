@@ -76,3 +76,11 @@ func readMenu() -> Int {
         return 0
     }
 }
+
+func inputUserNumber() -> [Int] {
+    if let choicedNumber = readLine() {
+        return choicedNumber.components(separatedBy: " ").compactMap { Int($0) }
+    } else {
+        return [0]
+    }
+}
