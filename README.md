@@ -2,5 +2,5 @@
 
 ### 숫자야구 프로젝트 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+#### - 프로젝트 순서도
+![image](https://user-images.githubusercontent.com/19286161/185259290-4d432a0c-8a3a-444b-aa29-d9bf06bc9973.png)
