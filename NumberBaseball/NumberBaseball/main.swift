@@ -3,6 +3,7 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
+
 var answer = [Int]()
 var remainCount = 9
 
