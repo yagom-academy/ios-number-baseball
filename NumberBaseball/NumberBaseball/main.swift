@@ -51,21 +51,21 @@ func isWin(strike: Int, trialNumber: Int) -> Bool {
     }
 }
 
-func readMenuNumber() -> Int {
+func readMenuNumber() -> Int? {
     print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
     if let selectedMenu = Int(readLine() ?? "") {
         return selectedMenu
     } else {
-        return 0
+        return nil
     }
 }
 
-func readUserNumber() -> [Int] {
+func readUserNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
     if let choicedNumber = readLine() {
         return choicedNumber.components(separatedBy: " ").compactMap { Int($0) }
     } else {
-        return [0]
+        return nil
     }
 }
 
@@ -78,8 +78,8 @@ func isCorrectMenuNumber(_ menuNumber: Int) -> Bool {
     }
 }
 
-func isCorrectUserNumber(_ inputedNumber: [Int]) -> Bool {
-    if Set(inputedNumber).filter({ $0 >= 1 && $0 <= 9 }).count == 3 {
+func isCorrectUserNumber(_ inputedNumbers: [Int]) -> Bool {
+    if Set(inputedNumbers).filter({ $0 >= 1 && $0 <= 9 }).count == 3 {
         return true
     } else {
         print("입력이 잘못되었습니다.")
@@ -91,7 +91,9 @@ func playGame() {
     var trialNumber: Int = 9
     let computerNumbers = createThreeRandomNumbers()
     while trialNumber > 0 {
-        let userNumbers: [Int] = readUserNumber()
+        guard let userNumbers = readUserNumbers() else {
+            continue
+        }
         guard isCorrectUserNumber(userNumbers) else {
             continue
         }
@@ -108,7 +110,9 @@ func playGame() {
 
 func executeBaseballGame() {
     while true {
-        let menuNumber: Int = readMenuNumber()
+        guard let menuNumber = readMenuNumber() else {
+            continue
+        }
         guard isCorrectMenuNumber(menuNumber) else {
             continue
         }
