@@ -37,7 +37,6 @@ func startNumberGame() {
     var userNumbers = [Int]()
     
     while remainCount > 0 {
-        var guidance = ""
         userNumbers = fetchRandomNumbers()
         
         printInformation(of: userNumbers)
@@ -46,16 +45,16 @@ func startNumberGame() {
         printDecision(about: strikeCount, and: ballCount)
         
         if isStrikeOut(strikeCount) {
+            print("사용자 승리!")
             break
         }
         
         remainCount -= 1
-        if remainCount == 0 {
-            guidance += "컴퓨터 승리...!"
+        if isGameOver() {
+            print("컴퓨터 승리...!")
         } else {
-            guidance += "남은 기회 : \(remainCount)"
+            print("남은 기회 : \(remainCount)")
         }
-        print(guidance)
     }
 }
 
@@ -68,16 +67,24 @@ func printInformation(of userNumbers: [Int]) {
 }
 
 func printDecision(about strikeCount: Int, and ballCount: Int) {
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼\n")
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
 func isStrikeOut(_ strikeCount: Int) -> Bool {
     if strikeCount == 3 {
-        print("사용자 승리!")
+        return true
+    } else {
+        return false
+    }
+    
+}
+
+func isGameOver() -> Bool {
+    if remainCount == 0 {
         return true
     } else {
         return false
     }
 }
-
+ 
 startNumberGame()
