@@ -6,13 +6,13 @@ func generateThreeRandomNumbers() -> [Int] {
     return threeNumbers
 }
 
-func judge(_ myNumbers: [Int]) -> (Int, Int) {
+func judgeStrikeOrBall(with myNumbers: [Int]) -> (Int, Int) {
     var (strike, ball) = (0, 0)
 
-    for (number, myNumber) in zip(randomNumbers, myNumbers) {
+    for (number, myNumber) in zip(targetNumbers, myNumbers) {
         if number == myNumber {
             strike += 1
-        } else if randomNumbers.contains(myNumber) {
+        } else if targetNumbers.contains(myNumber) {
             ball += 1
         }
     }
