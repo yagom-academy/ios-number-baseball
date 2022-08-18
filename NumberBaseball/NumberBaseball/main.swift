@@ -69,12 +69,13 @@ let computerNumbers = generateNumber()
 func showInterface() {
     print("1. 게임시작")
     print("2. 게임종료")
-    print("원하는 기능을 선택해 주세요 : ")
-    if let input = readLine(), input.count == 1, (Int(input) != nil) && Int(input) == 1 {
+    print("원하는 기능을 선택해 주세요 : ", terminator: "")
+    guard let input = readLine() else { return }
+    if input.count == 1 && input == "1" {
         print("선택 : \(input)")
         gameStart()
-    } else if Int(input) == 2 {
-        
+    } else if input.count == 1 && input == "2" {
+        return
     } else {
         print("입력이 잘못되었습니다.")
         showInterface()
