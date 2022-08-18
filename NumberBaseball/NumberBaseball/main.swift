@@ -4,6 +4,25 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+func selectMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    guard let inputMenu = readLine() else {
+        return
+    }
+    switch inputMenu {
+    case "1":
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        startNumberBaseBall()
+    case "2":
+        print("게임종료")
+    default :
+        print("입력이 잘못되었습니다.")
+    }
+}
+
 func creatRandomNumber() -> [Int] {
     var randomNumbers: [Int] = []
     var count: Int = 0
