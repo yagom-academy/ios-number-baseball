@@ -5,9 +5,14 @@
 // 
 
 func fetchRandomNumbers() -> [Int] {
-    var array = Array(1...9)
-    array.shuffle()
-    return Array(array[...2])
+    var numberSet = Set<Int>()
+    while numberSet.count < 3 {
+        let randomNumber = Int.random(in: 1...9)
+        numberSet.insert(randomNumber)
+    }
+    
+    let randomNumbers = Array(numberSet)
+    return randomNumbers
 }
 
 func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, Int) {
@@ -25,13 +30,13 @@ func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, 
 }
 
 func playBall() {
-    let answer = generateAnswer()
+    let answer = fetchRandomNumbers()
     var remainCount = 9
     var userNumbers = [Int]()
     
     while remainCount > 0 {
         var guidance = ""
-        userNumbers = generateAnswer()
+        userNumbers = fetchRandomNumbers()
         let numbersToString = userNumbers.map({String($0)}).joined(separator: " ")
         guidance += "임의의 수 : \(numbersToString)\n"
 
