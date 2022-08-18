@@ -87,24 +87,16 @@ func inputNumbers() -> [Int] {
           중복 숫자는 허용하지 않습니다.
           입력 :
           """, terminator: " ")
-    if let input = readLine()?.components(separatedBy: " ") {
-        guard input.count == 3 else {
+    if let userInputNumbers = readLine()?.components(separatedBy: " ") {
+        guard userInputNumbers.count == 3 else {
             print("입력이 잘못되었습니다")
             return inputNumbers()
         }
-        guard let firstNumber = Int(input[0]) else {
+        guard let firstNumber = Int(userInputNumbers[0]), let secondNumber = Int(userInputNumbers[1]), let thirdNumber = Int(userInputNumbers[2]) else {
             print("입력이 잘못되었습니다")
             return inputNumbers()
         }
-        guard let secondNumber = Int(input[1]) else {
-            print("입력이 잘못되었습니다")
-            return inputNumbers()
-        }
-        guard let thirdNumber = Int(input[2]) else {
-            print("입력이 잘못되었습니다")
-            return inputNumbers()
-        }
-        if checkUserInput(firstNumber: firstNumber, secondNumber: secondNumber, thirdNumber: thirdNumber) == false {
+        if checkDuplication(firstNumber, secondNumber, thirdNumber) == false || checkNumberRange(firstNumber, secondNumber, thirdNumber) == false {
             return inputNumbers()
         }
         myNumbers += [firstNumber, secondNumber, thirdNumber]
@@ -112,11 +104,15 @@ func inputNumbers() -> [Int] {
     return myNumbers
 }
 
-func checkUserInput(firstNumber: Int, secondNumber: Int, thirdNumber: Int) -> Bool {
+func checkDuplication(_ firstNumber: Int, _ secondNumber: Int, _ thirdNumber: Int) -> Bool {
     if firstNumber == secondNumber || firstNumber == thirdNumber || secondNumber == thirdNumber {
         print("중복된 숫자를 입력하였습니다")
         return false
     }
+    return true
+}
+
+func checkNumberRange(_ firstNumber: Int, _ secondNumber: Int, _ thirdNumber: Int) -> Bool {
     if firstNumber < 1 || secondNumber < 1 || thirdNumber < 1 {
         print("입력이 잘못되었습니다")
         return false
@@ -126,3 +122,4 @@ func checkUserInput(firstNumber: Int, secondNumber: Int, thirdNumber: Int) -> Bo
     }
     return true
 }
+
