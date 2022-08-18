@@ -4,11 +4,11 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-func inputMenu() -> String {
-    guard let menu = readLine() else {
+func inputData() -> String {
+    guard let data = readLine() else {
         return ""
     }
-    return menu
+    return data
 }
 
 func printMenu() {
