@@ -6,9 +6,6 @@
 
 import Foundation
 
-var computerNumbers: [Int] = []
-var userNumbers: [Int] = []
-
 func generateNumbers() -> [Int] {
     var numbers: Set<Int> = []
     while numbers.count < 3 {
@@ -32,8 +29,10 @@ func checkStrikeAndBall(computer computerNumbers: [Int], user userNumbers: [Int]
 }
 
 func playGame() {
-    computerNumbers = generateNumbers()
+    var computerNumbers: [Int] = []
+    var userNumbers: [Int] = []
     var gameCounter: Int = 9
+    computerNumbers = generateNumbers()
     while gameCounter > 0 {
         userNumbers = generateNumbers()
         let gameResult = checkStrikeAndBall(computer: computerNumbers, user: userNumbers)
