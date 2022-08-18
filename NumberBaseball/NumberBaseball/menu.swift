@@ -12,3 +12,10 @@ func printMenu() {
             """
     print(menu, terminator: " ")
 }
+
+func inputMenu() -> String {
+    printMenu()
+    let menu = inputData()
+    
+    return menu
+}
