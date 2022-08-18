@@ -6,9 +6,9 @@ private var isPlayerWin: Bool {
 	return strikeCount == 3
 }
 
-// MARK: 1. 메뉴 구현
-// MARK: 2. 메뉴 입력 받기 & 오류 처리
 // MARK: 3. 사용자 숫자 입력 받기 & 오류 처리
+    // TODO: 사용자 입력과 답을 비교 0
+    // TODO: 오류 처리 *
 // MARK: 4. 사용자/컴퓨터 승리 시 메뉴 선택으로 이동
 
 private func generateRandomNumbers() -> [Int] {
@@ -34,16 +34,40 @@ private func checkBallStrikeAt(index: Int, playerNumber: Int) {
     }
 }
 
+private func getPlayerNumbers() -> [Int]? {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력", terminator: " : ")
+    let playerInput = readLine()
+    let playerNumbers = validatePlayerNumbers(playerNumbers: playerInput)
+    
+    return playerNumbers
+}
+
+// 검증만 할지? 아니면 [Int] 반환까지 할지?
+private func validatePlayerNumbers(playerNumbers: String?) -> [Int]? {
+    if let playerNumbers = playerNumbers {
+        let validPlayerNumbers = playerNumbers.split(separator: " ").compactMap { Int($0) }
+        return validPlayerNumbers.isEmpty ? nil : validPlayerNumbers
+    } else {
+        return nil
+    }
+}
+
 private func playRound() {
 	strikeCount = 0
 	ballCount = 0
 	
-	let playerAnswer = generateRandomNumbers()
-	print("임의의 수 : " + playerAnswer.generateDescription())
+    if let playerAnswer = getPlayerNumbers() {
+        print("임의의 수 : " + playerAnswer.generateDescription())
+        
+        checkRoundResultOf(playerAnswer: playerAnswer)
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        tryCount -= 1
+    } else {
+        print("오류")
+    }
 	
-	checkRoundResultOf(playerAnswer: playerAnswer)
-	print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-	tryCount -= 1
 }
 
 private func printTryCountResult() {
