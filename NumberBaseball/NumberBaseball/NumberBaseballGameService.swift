@@ -57,8 +57,6 @@ private func getPlayerNumbers() -> [Int]? {
     return checkedPlayerNumbers
 }
 
-
-
 private func playRound() {
 	strikeCount = 0
 	ballCount = 0
