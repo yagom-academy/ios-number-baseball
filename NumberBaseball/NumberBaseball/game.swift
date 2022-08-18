@@ -10,6 +10,10 @@ func startNumberGame() {
     
     while remainCount > 0 {
         userNumbers = inputUserNumbers()
+        if isInvalid(self: userNumbers) {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
         
         printInformation(of: userNumbers)
 
@@ -52,6 +56,22 @@ func convertToUserNumbers(self: String) -> [Int] {
             return Int(element) ?? -1
         }
     return userNumbers
+}
+
+func isInvalid(self: [Int]) -> Bool {
+    if self.contains(-1) {
+        return true
+    }
+    
+    let filteredData = self.filter( { number in
+        return 0 < number && number < 10
+    })
+    
+    if filteredData.count != 3 {
+        return true
+    }
+     
+    return false
 }
 
 func printInformation(of userNumbers: [Int]) {
