@@ -77,7 +77,6 @@ func isStrikeOut(_ strikeCount: Int) -> Bool {
     } else {
         return false
     }
-    
 }
 
 func isGameOver() -> Bool {
@@ -87,5 +86,32 @@ func isGameOver() -> Bool {
         return false
     }
 }
+
+func printMenu() {
+    let menu = """
+            1. 게임시작
+            2. 게임 종료
+            원하는 기능을 선택해주세요 :
+            """
+    print(menu, terminator: " ")
+}
+
+func numberGame() {
+    var menu = ""
+    while menu != "2" {
+        printMenu()
+        menu = inputData()
+        
+        switch menu {
+        case "1":
+            startNumberGame()
+        case "2":
+            print("\n프로그램 종료")
+            break
+        default:
+            print("입력이 잘못되었습니다.")
+        }
+    }
+}
  
-startNumberGame()
+numberGame()
