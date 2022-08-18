@@ -1,4 +1,5 @@
-import Foundation
+let targetNumbers: [Int] = generateThreeRandomNumbers()
+showResult()
 
 func generateThreeRandomNumbers() -> [Int] {
     let shuffledNumbers = (1...9).shuffled()
@@ -48,6 +49,3 @@ func showResult() {
         tryCount != 0 ? print("남은 기회 : \(tryCount)") : print("컴퓨터 승리...!")
     }
 }
-
-let targetNumbers: [Int] = generateThreeRandomNumbers()
-showResult()
