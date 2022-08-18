@@ -1,11 +1,11 @@
 //  Created by zhilly and som on 2022/08/17.
 
 class NumberBaseballLibrary {
-    var computerRandomNumberArray: [Int] = []
-    var numberOfAttempts = 9
-    var otherComputerRandomNumberArray: [Int] = []
-    var strike: Int = 0
-    var ball: Int = 0
+    private var computerRandomNumberArray: [Int] = []
+    private var numberOfAttempts = 9
+    private var otherComputerRandomNumberArray: [Int] = []
+    private var strike: Int = 0
+    private var ball: Int = 0
 
     private func generateRandomNumber() -> [Int] {
         var randomNumArray: [Int] = []
