@@ -21,20 +21,16 @@ func generateNumber() -> [Int] {
     return randomNumbers
 }
 
-func getUserBall(userNumbers: [Int]) {
-//    let userNumberList = readLine()?.split(separator: " ").map({ number in
-//        return Int(number)
-//    })
+func printUserNumbers(userNumbers: [Int]) {
     print("임의의 수 : ", terminator: "")
     for num in userNumbers {
         print(num, terminator: " ")
     }
+    print(" ")
 }
 
-func compareNumbers() -> (Int, Int) {
-    let userNumbers = generateNumber()
-    print(userNumbers)
-    getUserBall(userNumbers: userNumbers)
+func compareNumbers(userNumbers: [Int]) -> (Int, Int) {
+    printUserNumbers(userNumbers: userNumbers)
     var strike = 0
     var ball = 0
     for index in 0...2 {
@@ -46,26 +42,26 @@ func compareNumbers() -> (Int, Int) {
     }
     return (strike, ball)
 }
-var remaining = 9
-let computerNumbers = generateNumber()
-print(computerNumbers)
 
 func gameStart() {
     var run = true
     while run {
-        let userNumbers = generateNumber()
-        let (strike, ball) = compareNumbers()
-        print("\(strike) 스트라이크, \(ball) 볼")
         remaining -= 1
+        let userNumbers = generateNumber()
+        let (strike, ball) = compareNumbers(userNumbers: userNumbers)
+        print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(remaining)")
-        if remaining == 0 {
-            print("컴퓨터 승리...!")
-            run = false
-        } else if strike == 3 {
+        if strike == 3 {
             print("사용자 승리...!")
+            run = false
+        } else if remaining == 0 {
+            print("컴퓨터 승리...!")
             run = false
         }
     }
 }
+
+var remaining = 9
+let computerNumbers = generateNumber()
 
 gameStart()
