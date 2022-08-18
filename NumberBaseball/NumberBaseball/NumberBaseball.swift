@@ -106,14 +106,25 @@ func inputNumbers() -> [Int] {
             print("입력이 잘못되었습니다")
             return inputNumbers()
         }
-        if firstNumber < 1 || secondNumber < 1 || thirdNumber < 1 {
-            print("입력이 잘못되었습니다")
-            return inputNumbers()
-        }else if firstNumber > 9 || secondNumber > 9 || thirdNumber > 9 {
-            print("입력이 잘못되었습니다")
+        if checkUserInput(firstNumber: firstNumber, secondNumber: secondNumber, thirdNumber: thirdNumber) == false {
             return inputNumbers()
         }
         myNumbers += [firstNumber, secondNumber, thirdNumber]
     }
     return myNumbers
+}
+
+func checkUserInput(firstNumber: Int, secondNumber: Int, thirdNumber: Int) -> Bool {
+    if firstNumber == secondNumber || firstNumber == thirdNumber || secondNumber == thirdNumber {
+        print("중복된 숫자를 입력하였습니다")
+        return false
+    }
+    if firstNumber < 1 || secondNumber < 1 || thirdNumber < 1 {
+        print("입력이 잘못되었습니다")
+        return false
+    } else if firstNumber > 9 || secondNumber > 9 || thirdNumber > 9 {
+        print("입력이 잘못되었습니다")
+        return false
+    }
+    return true
 }
