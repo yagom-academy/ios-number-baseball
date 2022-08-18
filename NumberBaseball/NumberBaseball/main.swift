@@ -31,30 +31,41 @@ func getUserBall(userNumbers: [Int]) {
     }
 }
 
-func compareNumbers() -> Int {
-    remaining -= 1
+func compareNumbers() -> (Int, Int) {
     let userNumbers = generateNumber()
+    print(userNumbers)
     getUserBall(userNumbers: userNumbers)
-    
     var strike = 0
     var ball = 0
-    for (idx, computerNum) in computerNumbers.enumerated() {
-        if computerNum == userNumbers[idx] {
+    for index in 0...2 {
+        if computerNumbers[index] == userNumbers[index] {
             strike += 1
-        } else {
+        } else if userNumbers.contains(computerNumbers[index]) {
             ball += 1
         }
     }
-    print(" ")
-    print("\(strike) 스트라이크, \(ball) 볼")
-    print("남은 기회: \(remaining)")
-    
-    return remaining
+    return (strike, ball)
 }
 var remaining = 9
 let computerNumbers = generateNumber()
+print(computerNumbers)
 
-while remaining > 0 {
-    remaining = compareNumbers()
+func gameStart() {
+    var run = true
+    while run {
+        let userNumbers = generateNumber()
+        let (strike, ball) = compareNumbers()
+        print("\(strike) 스트라이크, \(ball) 볼")
+        remaining -= 1
+        print("남은 기회 : \(remaining)")
+        if remaining == 0 {
+            print("컴퓨터 승리...!")
+            run = false
+        } else if strike == 3 {
+            print("사용자 승리...!")
+            run = false
+        }
+    }
 }
 
+gameStart()
