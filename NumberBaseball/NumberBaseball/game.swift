@@ -29,6 +29,11 @@ func startNumberGame() {
     }
 }
 
+func inputUserNumbers() -> String {
+    let userNumbers = inputData()
+    return userNumbers
+}
+
 func printInformation(of userNumbers: [Int]) {
     let numbers = userNumbers.map(){ (number: Int) -> String in
         return String(number)
