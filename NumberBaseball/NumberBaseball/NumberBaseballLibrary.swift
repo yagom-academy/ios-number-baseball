@@ -81,7 +81,7 @@ class NumberBaseballLibrary {
         putNumberInArray()
         
         while numberOfAttempts > 0 {
-            userThreeNumberArray = inputUserThreeNumber()
+            inputUserThreeNumber()
             displayGameStatement()
             isThreeStrike()
             confirmNumberOfAttempts()
@@ -111,7 +111,8 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         case 2:
             return false
         default:
-            return false
+            print("입력이 잘못 되었습니다.")
+            return true
         }
     }
     
@@ -129,16 +130,50 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         }
     }
     
-    func inputUserThreeNumber() -> [Int] {
+    func inputUserThreeNumber() {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
         
-        let errorArray: [Int] = [0]
-        guard let inputThreeNumber = readLine() else { return errorArray }
         
-        userThreeNumberArray = inputThreeNumber.split(separator: " ").compactMap { Int($0) }
         
-        return userThreeNumberArray
+        guard let inputThreeNumber = readLine() else { return inputUserThreeNumber() }
+        
+        var numberToStringArray: [String] = []
+        
+        numberToStringArray = inputThreeNumber.split(separator: " ").compactMap { String($0) }
+        
+        if checkUserInputNumber(numberToStringArray) == true {
+            userThreeNumberArray = inputThreeNumber.split(separator: " ").compactMap { Int($0) }
+        } else {
+            return inputUserThreeNumber()
+        }
+        
+        
+    }
+    
+    func checkUserInputNumber(_ inputArray: [String]) -> Bool {
+        var tempArray: [Int] = []
+        
+        for number in inputArray {
+            if let numberToString = Int(number) {
+                tempArray.append(numberToString)
+            } else {
+                return false
+            }
+        }
+        
+        if inputArray.count != 3 {
+            return false
+        }
+        
+        let arrayMaxData = tempArray.max() ?? 10
+        let arrayMinData = tempArray.min() ?? 0
+        
+        if arrayMaxData > 9 || arrayMinData < 1 {
+            return false
+        }
+        
+        return true
     }
 }
