@@ -27,21 +27,22 @@ func selectMenu() -> Bool {
     }
 }
 
-func readUserInput() -> [String] {
+func readUserInput() -> [Int]? {
     print("입력 : ", terminator: "")
     guard let userInput = readLine() else {
-        return []
+        return nil
     }
-    let userInputNumber: [String] = userInput.components(separatedBy: " ")
+    let userInputNumber: [Int] = userInput.components(separatedBy: " ").compactMap{Int($0)}
+    
     
     guard userInputNumber.count == 3 else {
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-        return []
+        print("숫자 3개를7 띄어쓰기로 구분하여 입력해주세요.")
+        return nil
     }
     
     if Set(userInputNumber).count != 3 {
         print("중복 숫자는 허용하지 않습니다.")
-        return []
+        return nil
     }
     return userInputNumber
 }
@@ -88,9 +89,14 @@ func startNumberBaseBall() {
     var lifeCount: Int = 9
     
     while lifeCount != 0 {
-        let userInputNumber: [Int] = creatRandomNumber()
+        lifeCount -= 1
+        guard let userInputNumber = readUserInput() else {
+            print("남은기회 : \(lifeCount)")
+            continue
+        }
         print("임의의 수 : \(userInputNumber[0]) \(userInputNumber[1]) \(userInputNumber[2])")
         let strikeCount: Int = checkStrike(comparing: randomNumber, with: userInputNumber)
+        
         if strikeCount == 3 {
             print("사용자 승리!")
             break
@@ -98,7 +104,6 @@ func startNumberBaseBall() {
         
         let ballCount: Int = checkBall(comparing: randomNumber, with: userInputNumber)
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        lifeCount -= 1
         print("남은기회 : \(lifeCount)")
     }
     if lifeCount == 0 {
@@ -115,4 +120,4 @@ func main() {
 }
 
 
-startNumberBaseBall()
+main()
