@@ -6,7 +6,7 @@ private var isPlayerWin: Bool {
 	return strikeCount == 3
 }
 
-private func createRandomNumbers() -> [Int] {
+private func generateRandomNumbers() -> [Int] {
 	var numbers: Set<Int> = []
 	
 	while numbers.count < 3 {
@@ -16,30 +16,39 @@ private func createRandomNumbers() -> [Int] {
 	return Array(numbers)
 }
 
-private func decideBallStrike(playerNumbers: [Int]) {
-	playerNumbers.enumerated().forEach { index, playerNumber in
-		if computerAnswer.contains(playerNumber), computerAnswer[index] == playerNumber {
-			strikeCount += 1
-		} else if computerAnswer.contains(playerNumber) {
-			ballCount += 1
-		}
+private func checkRoundResultOf(playerAnswer: [Int]) {
+	playerAnswer.enumerated().forEach { index, playerNumber in
+		checkBallAt(index: index, number: playerNumber)
 	}
 }
 
-private func playGameOneTime() {
+private func checkBallAt(index: Int, number: Int) {
+	if computerAnswer.contains(number) {
+		ballCount += 1
+		checkStrikeAt(index: index, number: number)
+	}
+}
+
+private func checkStrikeAt(index: Int, number: Int) {
+	if computerAnswer[index] == number {
+		ballCount -= 1
+		strikeCount += 1
+	}
+}
+
+private func playRound() {
 	strikeCount = 0
 	ballCount = 0
 	
-	let playerAnswer = createRandomNumbers()
+	let playerAnswer = generateRandomNumbers()
 	print("임의의 수 : " + playerAnswer.generateDescription())
 	
-	decideBallStrike(playerNumbers: playerAnswer)
+	checkRoundResultOf(playerAnswer: playerAnswer)
 	print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+	tryCount -= 1
 }
 
-private func decreaseAndPrintResult() {
-	tryCount -= 1
-	
+private func printTryCountResult() {
 	if tryCount != 0 && !isPlayerWin {
 		print("남은 기회 : \(tryCount)")
 	}
@@ -47,11 +56,11 @@ private func decreaseAndPrintResult() {
 
 func startGame() {
 	tryCount = 9
-	computerAnswer = createRandomNumbers()
-    
+	computerAnswer = generateRandomNumbers()
+	debugPrint("Computer Answer : \(computerAnswer)")
 	while tryCount > 0 && !isPlayerWin {
-		playGameOneTime()
-		decreaseAndPrintResult()
+		playRound()
+		printTryCountResult()
 	}
 	
 	print(isPlayerWin ? "사용자 승리":"컴퓨터 승리...!")
