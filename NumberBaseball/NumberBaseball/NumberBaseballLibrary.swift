@@ -96,5 +96,30 @@ class NumberBaseballLibrary {
 }
 
 extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
-
+    func displayUserMenu() -> Bool {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        
+        let userSelectNumber = inputUserMenuSelect()
+        switch userSelectNumber {
+        case 1:
+            playNumberBaseball()
+            return true
+        case 2:
+            return false
+        default:
+            return false
+        }
+    }
+    
+    func inputUserMenuSelect() -> Int {
+        
+    }
+    
+    func UserMenu() {
+        var flag = true
+        while flag {
+            flag = displayUserMenu()
+        }
+    }
 }
