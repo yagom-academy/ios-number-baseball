@@ -68,7 +68,7 @@ func playGame() {
     }
 }
 
-func readMenu() -> Int {
+func readMenuNumber() -> Int {
     print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
     if let selectedMenu = Int(readLine() ?? "") {
         return selectedMenu
@@ -77,10 +77,19 @@ func readMenu() -> Int {
     }
 }
 
-func inputUserNumber() -> [Int] {
+func readUserNumber() -> [Int] {
     if let choicedNumber = readLine() {
         return choicedNumber.components(separatedBy: " ").compactMap { Int($0) }
     } else {
         return [0]
+    }
+}
+
+func isCorrectMenuNumber(_ menuNumber: Int) -> Bool {
+    if menuNumber == 1, menuNumber == 2 {
+        return true
+    } else {
+        print("입력이 잘못되었습니다.")
+        return false
     }
 }
