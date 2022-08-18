@@ -36,6 +36,7 @@ func gameStart() {
     }
     print("컴퓨터 승리...!")
 }
+
 func getRandomNumber() -> Array<Int> {
     var randomNumber = Set<Int>()
 
@@ -45,41 +46,40 @@ func getRandomNumber() -> Array<Int> {
     return Array(randomNumber)
 }
 
-
 // 3개를 반환하도록 유효성검사
-func createUserNumber() -> Array<Int> {
+func getUserNumber() -> Array<Int> {
     print("숫자 3개를 띄어쓰기로 구분해주세요.\n중복숫자는 허용하지 않습니다")
     print("입력 : ", terminator: "")
-    var userNumbers = [Int]()
-
-    if let userNumber = readLine()?.split(separator: " ") {
-        if userNumber.count == 3 {
-            if let userNumber1 = Int(userNumber[0]) {
-                if userNumber1 > 0 && userNumber1 < 10 {
-                    userNumbers.append(userNumber1)
-                }
-            }
-            if let userNumber2 = Int(userNumber[1]) {
-                if userNumber2 > 0 && userNumber2 < 10 {
-                    userNumbers.append(userNumber2)
-                }
-            }
-            if let userNumber3 = Int(userNumber[2]) {
-                if userNumber3 > 0 && userNumber3 < 10 {
-                    userNumbers.append(userNumber3)
-                }
-            }
-        }
-    }
-    if Set(userNumbers).count != 3 {
-        userNumbers.removeAll()
-    }
-    if userNumbers.count != 3 {
-        print("입력이 잘못되었습니다.")
-    }
-
-    return userNumbers
+    let userInput = readLine()?.split(separator: " ")
+    
+    return userInput
 }
+
+//if let userNumber = readLine()?.split(separator: " ") {
+//    if userNumber.count == 3 {
+//        if let userNumber1 = Int(userNumber[0]) {
+//            if userNumber1 > 0 && userNumber1 < 10 {
+//                userNumbers.append(userNumber1)
+//            }
+//        }
+//        if let userNumber2 = Int(userNumber[1]) {
+//            if userNumber2 > 0 && userNumber2 < 10 {
+//                userNumbers.append(userNumber2)
+//            }
+//        }
+//        if let userNumber3 = Int(userNumber[2]) {
+//            if userNumber3 > 0 && userNumber3 < 10 {
+//                userNumbers.append(userNumber3)
+//            }
+//        }
+//    }
+//}
+//if Set(userNumbers).count != 3 {
+//userNumbers.removeAll()
+//}
+//if userNumbers.count != 3 {
+//print("입력이 잘못되었습니다.")
+//}
 
 func selectMenu() {
     while true {
