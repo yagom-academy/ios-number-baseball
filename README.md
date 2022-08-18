@@ -7,5 +7,6 @@
 220817 Step2 1차 작성 완료
 
 ### 워크플로 구조도
-> ![flow_chart_야구게임](https://user-images.githubusercontent.com/57447946/185416034-19e1acde-10fe-4398-87f5-6432242f5fd6.png)
+> ![flow_chart_야구게임_1 drawio](https://user-images.githubusercontent.com/57447946/185417507-0491b63d-20f8-4ba2-a5a9-86d25d6c2e4b.png)
+
 
