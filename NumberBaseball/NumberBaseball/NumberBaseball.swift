@@ -106,6 +106,13 @@ func inputNumbers() -> [Int] {
             print("입력이 잘못되었습니다")
             return inputNumbers()
         }
+        if firstNumber < 1 || secondNumber < 1 || thirdNumber < 1 {
+            print("입력이 잘못되었습니다")
+            return inputNumbers()
+        }else if firstNumber > 9 || secondNumber > 9 || thirdNumber > 9 {
+            print("입력이 잘못되었습니다")
+            return inputNumbers()
+        }
         myNumbers += [firstNumber, secondNumber, thirdNumber]
     }
     return myNumbers
