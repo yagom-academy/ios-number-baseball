@@ -15,7 +15,7 @@ func fetchRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func decideBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, Int) {
+func decideStrikeCountAndBallCount(comparing answer: [Int], with userNumbers: [Int]) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
     
