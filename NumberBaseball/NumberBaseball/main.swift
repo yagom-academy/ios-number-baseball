@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-func generateAnswer() -> [Int] {
+func fetchRandomNumbers() -> [Int] {
     var array = Array(1...9)
     array.shuffle()
     return Array(array[...2])
