@@ -61,14 +61,11 @@ func createUserNumber() -> Array<Int> {
                     userNumbers.append(userNumber1)
                 }
             }
-            
             if let userNumber2 = Int(userNumber[1]) {
                 if userNumber2 > 0 && userNumber2 < 10 {
                     userNumbers.append(userNumber2)
                 }
             }
-            
-            
             if let userNumber3 = Int(userNumber[2]) {
                 if userNumber3 > 0 && userNumber3 < 10 {
                     userNumbers.append(userNumber3)
@@ -91,14 +88,13 @@ func selectMenu() {
         print("1. 게임시작"); print("2. 게임종료")
         print("원하는 기능을 선택해주세요 : ", terminator: "")
         
-        if let menuNumber = readLine() {
-            if menuNumber == "1" {
-                gameStart()
-            } else if menuNumber == "2" {
-                break
-            } else {
-                print("입력이 잘못되었습니다.")
-            }
+        let menuNumber = readLine()
+        if menuNumber == "1" {
+            gameStart()
+        } else if menuNumber == "2" {
+            return
+        } else {
+            print("입력이 잘못되었습니다.")
         }
     }
 }
