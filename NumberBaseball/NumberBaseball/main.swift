@@ -9,9 +9,11 @@ func selectMenu() -> Bool {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
     guard let inputMenu = readLine() else {
         return false
     }
+    
     switch inputMenu {
     case "1":
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
@@ -29,14 +31,14 @@ func selectMenu() -> Bool {
 
 func readUserInput() -> [Int]? {
     print("입력 : ", terminator: "")
+    
     guard let userInput = readLine() else {
         return nil
     }
     let userInputNumber: [Int] = userInput.components(separatedBy: " ").compactMap{Int($0)}
     
-    
     guard userInputNumber.count == 3 else {
-        print("숫자 3개를7 띄어쓰기로 구분하여 입력해주세요.")
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         return nil
     }
     
@@ -90,6 +92,7 @@ func startNumberBaseBall() {
     
     while lifeCount != 0 {
         lifeCount -= 1
+        
         guard let userInputNumber = readUserInput() else {
             print("남은기회 : \(lifeCount)")
             continue
@@ -106,6 +109,7 @@ func startNumberBaseBall() {
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은기회 : \(lifeCount)")
     }
+    
     if lifeCount == 0 {
         print("컴퓨터 승리...!")
     }
