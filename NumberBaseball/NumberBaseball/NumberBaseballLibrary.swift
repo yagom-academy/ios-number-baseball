@@ -47,6 +47,39 @@ class NumberBaseballLibrary {
         strike = 0
         ball = 0
     }
+    
+    private func isThreeStrike() {
+        if strike == 3 {
+            return
+        } else {
+            resetStrikeAndBall()
+            numberOfAttempts -= 1
+        }
+    }
+    
+    private func confirmNumberOfAttempts() {
+        if numberOfAttempts != 0 {
+            print("남은 기회 : \(numberOfAttempts)")
+        }
+    }
+    
+    private func judgeWinCondition() {
+        if numberOfAttempts > 0 {
+            print("임의의 수 승리!")
+        } else {
+            print("컴퓨터 승리...!")
+        }
+    }
+    
+    private func displayGameStatement() {
+        let (outputStrike,outputBall) = matchNumberArray(
+            computerRandomNumberArray,
+            otherComputerRandomNumberArray
+        )
+        let messeage = otherComputerRandomNumberArray.map { String($0) }.joined(separator: " ")
+        print("임의의 수 : \(messeage)")
+        print("\(outputStrike) 스트라이크, \(outputBall) 볼")
+    }
 }
 
 extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
@@ -55,27 +88,11 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         
         while numberOfAttempts > 0 {
             putTestNumberInArray()
-            let (outputStrike,outputBall) = matchNumberArray(computerRandomNumberArray, otherComputerRandomNumberArray)
-            let messeage = otherComputerRandomNumberArray.map { String($0) }.joined(separator: " ")
-            print("임의의 수 : \(messeage)")
-            print("\(outputStrike) 스트라이크, \(outputBall) 볼")
-            
-            if strike == 3 {
-                break
-            } else {
-                resetStrikeAndBall()
-                numberOfAttempts -= 1
-            }
-            
-            if numberOfAttempts != 0 {
-                print("남은 기회 : \(numberOfAttempts)")
-            }
+            displayGameStatement()
+            isThreeStrike()
+            confirmNumberOfAttempts()
         }
         
-        if numberOfAttempts > 0 {
-            print("임의의 수 승리!")
-        } else {
-            print("컴퓨터 승리...!")
-        }
+        judgeWinCondition()
     }
 }
