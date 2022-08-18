@@ -1,7 +1,8 @@
 ## iOS 커리어 스타터 캠프
 
 ### 숫자야구 프로젝트 저장소
-
+### 순서도
+![flowChart](previews/flowChart.jpg)
 ### STEP 0
 #### 고민했던 점
 1. 공(숫자) 하나하나의 볼, 스트라이크를 판정하는 과정을 순서도에 모두 표현할 것인가?
@@ -42,5 +43,5 @@
 2. **Array Extension을 활용하여 프린트 구문을 간소화 한 것**에 대해 어떻게 생각하시는지 궁금합니다.
 3. **Array Extension 내에서 함수를 사용하는 것이 아니라 변수를 사용하여 표현하는 것**에 대한 리뷰어님의 의견이 궁금합니다.
 
-![](https://i.imgur.com/LZog4dt.png)
+![Extension Code](https://i.imgur.com/LZog4dt.png)
 
