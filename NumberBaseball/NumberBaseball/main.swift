@@ -65,21 +65,26 @@ func checkNumber(_ userInput: String?) -> Array<Int>? {
     let userInputArr = userInput.split(separator: " ")
     if userInputArr.count != 3 { return nil }
 
-    let userNumber = userInputArr.compactMap{ Int($0) }
+    let userNumber = userInputArr.compactMap{ Int($0) }.filter { $0 > 0 && $0 < 10 }
     if Set(userNumber).count != 3 { return nil }
 
     return userNumber
 }
 
 func selectMenu() {
+    enum menu: String {
+        case start = "1"
+        case stop = "2"
+    }
+
     while true {
         print("1. 게임시작\n2. 게임종료")
         print("원하는 기능을 선택해주세요 : ", terminator: "")
 
         let menuNumber = readLine()
-        if menuNumber == "1" {
+        if menuNumber == menu.start.rawValue {
             gameStart()
-        } else if menuNumber == "2" {
+        } else if menuNumber == menu.stop.rawValue {
             return
         } else {
             print("입력이 잘못되었습니다.")
