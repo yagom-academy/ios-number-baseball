@@ -33,7 +33,7 @@ func decideStrikeCountAndBallCount(about userNumbers: [Int]) -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
-func playBall() {
+func startNumberGame() {
     var userNumbers = [Int]()
     
     while remainCount > 0 {
@@ -48,7 +48,7 @@ func playBall() {
         if strikeCount == 3 {
             guidance += "사용자 승리!"
             print(guidance)
-            break;
+            break
         }
         
         remainCount -= 1
@@ -61,4 +61,4 @@ func playBall() {
     }
 }
 
-playBall()
+startNumberGame()
