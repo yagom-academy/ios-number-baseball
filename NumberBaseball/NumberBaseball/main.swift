@@ -2,7 +2,6 @@
 import Foundation
 
 var trialRoundsCount : Int = 9
-// var remainedTrialRounds : Int = trialRoundsCount - 1
 var gameNumber : Array<Int> = makeRandomGameNumber()
 
 func makeRandomGameNumber() -> Array<Int> {
@@ -32,22 +31,24 @@ func compareNumber(userGameNumber: Array<Int>) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
-//게임시작 함수
-//이번 스텝에서는 사용자 입력없이 임의의 수를 생성하여 게임을 진행하도록 구현합니다.
+// 게임실행함수에서 비교하는 함수를 호출했을 때, 스트라이크 개수가 3개면 게임을 멈춰야하는데 임의의수가 계속 생성된다.
 
 func playNumberBaseballGame () {
-    let trialRoundsCount : Int = 9
+ 
     for _ in 1...9 {
-        var userGameNumber : Array<Int> = makeRandomGameNumber()
-        print(gameNumber)
+        let userGameNumber : Array<Int> = makeRandomGameNumber()
+        
         print("임의의 수 : \(userGameNumber[0]) \(userGameNumber[1]) \(userGameNumber[2])")
         compareNumber(userGameNumber: userGameNumber)
-        let trialRoundsCount = trialRoundsCount - 1
+        trialRoundsCount -= 1
+        
+        if trialRoundsCount == 0 {
+            print("컴퓨터승리...!")
+        }else{
+            print("남은기회 : \(trialRoundsCount) 회")
+        }
     }
-    if trialRoundsCount == 0 {
-        print("남아있는 기회가 없습니다.")
-        return
-    }
+    
 }
 
 playNumberBaseballGame()
