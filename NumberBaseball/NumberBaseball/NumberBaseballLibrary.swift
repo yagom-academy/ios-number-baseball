@@ -80,10 +80,8 @@ class NumberBaseballLibrary {
         print("임의의 수 : \(messeage)")
         print("\(outputStrike) 스트라이크, \(outputBall) 볼")
     }
-}
-
-extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
-    func playNumberBaseball() {
+    
+    private func playNumberBaseball() {
         putNumberInArray()
         
         while numberOfAttempts > 0 {
@@ -95,4 +93,8 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         
         judgeWinCondition()
     }
+}
+
+extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
+
 }
