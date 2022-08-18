@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
 func generateAnswer() -> [Int] {
     var array = Array(1...9)
     array.shuffle()
