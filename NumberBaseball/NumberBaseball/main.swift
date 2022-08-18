@@ -23,7 +23,7 @@ func checkBall(comparing: [Int], with: [Int]) -> Int {
     var ballCount: Int = 0
     
     for (index, value)  in with.enumerated() {
-        if comparing.contains(value) && with[index] != comparing[index] {
+        if (comparing.contains(value)) && (with[index] != comparing[index]) {
             ballCount += 1
         }
     }
