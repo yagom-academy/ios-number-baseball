@@ -30,8 +30,18 @@ func startNumberGame() {
 }
 
 func inputUserNumbers() -> String {
+    printInputUserNumbersNotice()
     let userNumbers = inputData()
     return userNumbers
+}
+
+func printInputUserNumbersNotice() {
+    let inputUserNumbersNotice = """
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """
+    print(inputUserNumbersNotice, terminator: " ")
 }
 
 func printInformation(of userNumbers: [Int]) {
