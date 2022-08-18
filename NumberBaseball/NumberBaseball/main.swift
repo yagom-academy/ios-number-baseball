@@ -3,6 +3,7 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 // 
+import Foundation
 
 func selectMenu() {
     print("1. 게임시작")
@@ -21,6 +22,25 @@ func selectMenu() {
     default :
         print("입력이 잘못되었습니다.")
     }
+}
+
+func readUserInput() -> [String] {
+    print("입력 : ", terminator: "")
+    guard let userInput = readLine() else {
+        return []
+    }
+    let userInputNumber: [String] = userInput.components(separatedBy: " ")
+    
+    guard userInputNumber.count == 3 else {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        return []
+    }
+    
+    if Set(userInputNumber).count != 3 {
+        print("중복 숫자는 허용하지 않습니다.")
+        return []
+    }
+    return userInputNumber
 }
 
 func creatRandomNumber() -> [Int] {
