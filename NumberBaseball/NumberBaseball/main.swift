@@ -10,8 +10,9 @@ private func printMenu() {
     print("2. 게임종료")
 }
 
-private func playerInput() -> Int {
-    let input = readLine().map { Int($0)! }
+private func getPlayerInput() -> Int {
+    print("원하는 기능을 선택해주세요", terminator: " : ")
+	let input = readLine().map { Int($0) ?? 2 }
     
     return input ?? 2
 }
@@ -24,9 +25,21 @@ private func validateInput(_ playerInput: Int) -> Bool? {
     }
 }
 
+private func getPlayerNumbers() -> String? {
+	print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+	print("중복 숫자는 허용하지 않습니다.")
+	print("입력", terminator: " : ")
+	let playerNumbers = readLine()
+	return playerNumbers
+}
+
+private func validatePlayerNumbers(playerNumbers: String) {
+	
+}
+
 while true {
     printMenu()
-    let playerInput = playerInput()
+    let playerInput = getPlayerInput()
     guard let isCorrectInput = validateInput(playerInput) else {
         print("입력이 잘못되었습니다.")
         break
