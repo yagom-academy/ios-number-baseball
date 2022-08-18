@@ -18,22 +18,17 @@ private func generateRandomNumbers() -> [Int] {
 
 private func checkRoundResultOf(playerAnswer: [Int]) {
 	playerAnswer.enumerated().forEach { index, playerNumber in
-		checkBallAt(index: index, number: playerNumber)
+        checkBallStrikeAt(index: index, playerNumber: playerNumber)
 	}
 }
 
-private func checkBallAt(index: Int, number: Int) {
-	if computerAnswer.contains(number) {
-		ballCount += 1
-		checkStrikeAt(index: index, number: number)
-	}
-}
-
-private func checkStrikeAt(index: Int, number: Int) {
-	if computerAnswer[index] == number {
-		ballCount -= 1
-		strikeCount += 1
-	}
+private func checkBallStrikeAt(index: Int, playerNumber: Int) {
+    let isBall = computerAnswer.contains(playerNumber)
+    if isBall, computerAnswer[index] == playerNumber {
+        strikeCount += 1
+    } else if isBall {
+        ballCount += 1
+    }
 }
 
 private func playRound() {
