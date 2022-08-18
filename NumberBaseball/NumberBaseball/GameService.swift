@@ -1,5 +1,4 @@
-import Foundation
-private var answer: [Int] = []
+private var computerAnswer: [Int] = []
 private var tryCount: Int = 0
 private var strikeCount: Int = 0
 private var ballCount: Int = 0
@@ -19,9 +18,9 @@ private func createRandomNumbers() -> [Int] {
 
 private func decideBallStrike(playerNumbers: [Int]) {
 	playerNumbers.enumerated().forEach { index, playerNumber in
-		if answer.contains(playerNumber), answer[index] == playerNumber {
+		if computerAnswer.contains(playerNumber), computerAnswer[index] == playerNumber {
 			strikeCount += 1
-		} else if answer.contains(playerNumber) {
+		} else if computerAnswer.contains(playerNumber) {
 			ballCount += 1
 		}
 	}
@@ -31,10 +30,10 @@ private func playGameOneTime() {
 	strikeCount = 0
 	ballCount = 0
 	
-	let trial = createRandomNumbers()
-	print("임의의 수 : " + trial.generateDescription())
+	let playerAnswer = createRandomNumbers()
+	print("임의의 수 : " + playerAnswer.generateDescription())
 	
-	decideBallStrike(playerNumbers: trial)
+	decideBallStrike(playerNumbers: playerAnswer)
 	print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
@@ -48,7 +47,8 @@ private func decreaseAndPrintResult() {
 
 func startGame() {
 	tryCount = 9
-	answer = createRandomNumbers()
+	computerAnswer = createRandomNumbers()
+    
 	while tryCount > 0 && !isPlayerWin {
 		playGameOneTime()
 		decreaseAndPrintResult()
