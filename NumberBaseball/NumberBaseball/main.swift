@@ -6,6 +6,8 @@
 
 import Foundation
 
+executeBaseballGame()
+
 func createThreeRandomNumbers() -> [Int] {
     var result: Set<Int> = Set<Int>()
     
@@ -68,7 +70,7 @@ func readUserNumber() -> [Int] {
 }
 
 func isCorrectMenuNumber(_ menuNumber: Int) -> Bool {
-    if menuNumber == 1, menuNumber == 2 {
+    if menuNumber == 1 || menuNumber == 2 {
         return true
     } else {
         print("입력이 잘못되었습니다.")
@@ -88,10 +90,12 @@ func isCorrectUserNumber(_ inputedNumber: [Int]) -> Bool {
 func playGame() {
     var trialNumber: Int = 9
     let computerNumbers = createThreeRandomNumbers()
-    
     while trialNumber > 0 {
+        let userNumbers: [Int] = readUserNumber()
+        guard isCorrectUserNumber(userNumbers) else {
+            continue
+        }
         trialNumber -= 1
-        let userNumbers: [Int] = createThreeRandomNumbers()
         print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
         let result = determineStrikesBallsInTwoNumbers(computerNumbers, userNumbers)
         print("\(result.strike) 스트라이크, \(result.ball) 볼")
