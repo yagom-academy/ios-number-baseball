@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C7A29CFC2551372B00CAC77A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A29CFB2551372B00CAC77A /* main.swift */; };
 		D3C5FEDF28AE7CC8006FD37D /* userInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C5FEDE28AE7CC8006FD37D /* userInput.swift */; };
+		D3C5FEE728AE960E006FD37D /* menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C5FEE628AE960E006FD37D /* menu.swift */; };
+		D3C5FEE928AE9620006FD37D /* game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C5FEE828AE9620006FD37D /* game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,8 @@
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D3C5FEDE28AE7CC8006FD37D /* userInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInput.swift; sourceTree = "<group>"; };
+		D3C5FEE628AE960E006FD37D /* menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menu.swift; sourceTree = "<group>"; };
+		D3C5FEE828AE9620006FD37D /* game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 			children = (
 				C7A29CFB2551372B00CAC77A /* main.swift */,
 				D3C5FEDE28AE7CC8006FD37D /* userInput.swift */,
+				D3C5FEE628AE960E006FD37D /* menu.swift */,
+				D3C5FEE828AE9620006FD37D /* game.swift */,
 			);
 			path = NumberBaseball;
 			sourceTree = "<group>";
@@ -124,6 +130,8 @@
 			files = (
 				C7A29CFC2551372B00CAC77A /* main.swift in Sources */,
 				D3C5FEDF28AE7CC8006FD37D /* userInput.swift in Sources */,
+				D3C5FEE728AE960E006FD37D /* menu.swift in Sources */,
+				D3C5FEE928AE9620006FD37D /* game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
