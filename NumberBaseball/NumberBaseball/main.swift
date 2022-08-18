@@ -26,7 +26,7 @@ func gameStart() {
     let randomNumber = getRandomNumber()
 
     for round in (0...8).reversed() {
-        let userNumber = createUserNumber()
+        let userNumber = getUserNumber()
 
         if compareStikeBall(randomNumber: randomNumber, userNumber: userNumber) {
             print("사용자 승리")
@@ -48,38 +48,30 @@ func getRandomNumber() -> Array<Int> {
 
 // 3개를 반환하도록 유효성검사
 func getUserNumber() -> Array<Int> {
-    print("숫자 3개를 띄어쓰기로 구분해주세요.\n중복숫자는 허용하지 않습니다")
-    print("입력 : ", terminator: "")
-    let userInput = readLine()?.split(separator: " ")
-    
-    return userInput
+    var userNumber = Array<Int>()
+    while true {
+        print("숫자 3개를 띄어쓰기로 구분해주세요.\n중복숫자는 허용하지 않습니다")
+        print("입력 : ", terminator: "")
+        let userInput = readLine()
+
+        userNumber = checkNumber(userInput: userInput) ?? {continue}
+        break
+    }
+    return userNumber
 }
 
-//if let userNumber = readLine()?.split(separator: " ") {
-//    if userNumber.count == 3 {
-//        if let userNumber1 = Int(userNumber[0]) {
-//            if userNumber1 > 0 && userNumber1 < 10 {
-//                userNumbers.append(userNumber1)
-//            }
-//        }
-//        if let userNumber2 = Int(userNumber[1]) {
-//            if userNumber2 > 0 && userNumber2 < 10 {
-//                userNumbers.append(userNumber2)
-//            }
-//        }
-//        if let userNumber3 = Int(userNumber[2]) {
-//            if userNumber3 > 0 && userNumber3 < 10 {
-//                userNumbers.append(userNumber3)
-//            }
-//        }
-//    }
-//}
-//if Set(userNumbers).count != 3 {
-//userNumbers.removeAll()
-//}
-//if userNumbers.count != 3 {
-//print("입력이 잘못되었습니다.")
-//}
+
+func checkNumber(userInput: String?) -> Array<Int>? {
+    guard let userInput = userInput else { return nil }
+    
+    let userInputArr = userInput.split(separator: " ")
+    if userInputArr.count != 3 { return nil }
+    
+    let userNumber = userInputArr.compactMap{ Int($0) }
+    if userNumber.count != 3 { return nil }
+    
+    return userNumber
+}
 
 func selectMenu() {
     while true {
@@ -98,3 +90,4 @@ func selectMenu() {
 }
 
 selectMenu()
+
