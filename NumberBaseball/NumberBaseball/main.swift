@@ -18,23 +18,20 @@ func fetchRandomNumbers() -> [Int] {
 func numberGame() {
     var menu = ""
     while menu != "2" {
-        printMenu()
-        menu = inputData()
+        menu = inputMenu()
         
         switch menu {
         case "1":
-            startNumberGame()
+            startGame()
         case "2":
             print("\n프로그램 종료")
-            break
         default:
             print("입력이 잘못되었습니다.")
         }
     }
 }
 
-var answer = [Int]()
+let answer = fetchRandomNumbers()
 var remainCount = 9
-answer = fetchRandomNumbers()
 
 numberGame()

@@ -5,7 +5,7 @@
 //
 import Foundation
 
-func startNumberGame() {
+func startGame() {
     var userNumbers = [Int]()
     
     while remainCount > 0 {
@@ -35,19 +35,19 @@ func startNumberGame() {
 }
 
 func inputUserNumbers() -> [Int] {
-    printInputUserNumbersNotice()
+    printUserNumbersGuideline()
     let data = inputData()
     let userNumbers = convertToUserNumbers(self: data)
     return userNumbers
 }
 
-func printInputUserNumbersNotice() {
-    let inputUserNumbersNotice = """
+func printUserNumbersGuideline() {
+    let guideline = """
         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
         중복 숫자는 허용하지 않습니다.
         입력 :
         """
-    print(inputUserNumbersNotice, terminator: " ")
+    print(guideline, terminator: " ")
 }
 
 func convertToUserNumbers(self: String) -> [Int] {
@@ -63,8 +63,8 @@ func isInvalid(self: [Int]) -> Bool {
         return true
     }
     
-    let filteredData = self.filter( { number in
-        return 0 < number && number < 10
+    let filteredData = self.filter( { (element: Int) -> Bool in
+        return 0 < element && element < 10 && !self.contains(element)
     })
     
     if filteredData.count != 3 {
