@@ -73,7 +73,7 @@ func checkNumber(_ userInput: String?) -> Array<Int>? {
 
 func selectMenu() {
     while true {
-        print("1. 게임시작"); print("2. 게임종료")
+        print("1. 게임시작\n2. 게임종료")
         print("원하는 기능을 선택해주세요 : ", terminator: "")
 
         let menuNumber = readLine()
