@@ -51,7 +51,7 @@ func decideUserVictory() {
     }
 }
 
-func startBaseBallGame() {
+func tryBaseBallGame() {
     tryNumber -= 1
     userNumbers = generateThreeRandomNumbers()
     
@@ -69,8 +69,10 @@ func startBaseBallGame() {
     }
 }
 
-computerNumbers = generateThreeRandomNumbers()
-
 while(tryNumber > 0) {
-    startBaseBallGame()
+    if tryNumber == 9 {
+        computerNumbers = generateThreeRandomNumbers()
+    }
+    print(computerNumbers)
+    tryBaseBallGame()
 }
