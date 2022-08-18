@@ -30,11 +30,13 @@ func checkStrikeAndBall(computer computerNumbers: [Int], user userNumbers: [Int]
 
 func playGame() {
     var computerNumbers: [Int] = []
-    var userNumbers: [Int] = []
     var gameCounter: Int = 9
     computerNumbers = generateNumbers()
     while gameCounter > 0 {
-        userNumbers = generateNumbers()
+        guard let userNumbers = reciveNumbers() else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
         let gameResult = checkStrikeAndBall(computer: computerNumbers, user: userNumbers)
         gameCounter -= 1
         print("임의의 수 : \(userNumbers.map{ String($0) }.joined(separator: " "))")
@@ -52,4 +54,28 @@ func playGame() {
     }
 }
 
-playGame()
+func gameMenuSelect() {
+    var isGameStart: Bool = true
+    while isGameStart {
+        print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
+        guard let inputedMenuValue = readLine() else { return }
+        switch Int(inputedMenuValue) {
+        case 1:
+            playGame()
+        case 2:
+            isGameStart = false
+        default:
+            print("입력이 잘못되었습니다")
+        }
+    }
+}
+
+func reciveNumbers() -> [Int]? {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n" , terminator: "")
+    guard let recivedValue = readLine(), !recivedValue.isEmpty else { return nil }
+    let recivedNumbers = Set(recivedValue.components(separatedBy: " ")).compactMap({ Int($0) })
+    guard recivedNumbers.count == 3, recivedNumbers.filter({ $0 < 10 }).count == 3 else { return nil }
+    return recivedValue.components(separatedBy: " ").compactMap({ Int($0) })
+}
+
+gameMenuSelect()
