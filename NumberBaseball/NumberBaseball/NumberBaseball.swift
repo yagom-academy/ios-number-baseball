@@ -19,7 +19,7 @@ func makeThreeRandomNumbers() -> [Int] {
     return baseballGameNumbers
 }
 
-func compare(my numbers: [Int]) -> (Int, Int) {
+func compare(with numbers: [Int]) -> (Int, Int) {
     var strike: Int = 0
     var ball: Int = 0
     for index in 0...2 {
@@ -46,13 +46,12 @@ func checkResult(strike: Int, ball: Int) {
 }
 
 func startGame() {
-    var isLoop = true
-    while isLoop {
+    while true {
         let myNumbers: [Int] = inputNumbers()
-        let gameScore: (strike: Int, ball: Int) = compare(my: myNumbers)
+        let gameScore: (strike: Int, ball: Int) = compare(with: myNumbers)
         checkResult(strike: gameScore.strike, ball: gameScore.ball)
         if gameScore.strike == 3 || remainCount == 0 {
-            isLoop = false
+            break
         }
     }
     selectMenu()
@@ -69,18 +68,17 @@ func selectMenu() {
         selectMenu()
         return
     }
-    if selectedMenu == "1" {
+    switch selectedMenu {
+    case "1":
         startGame()
-    } else if selectedMenu == "2" {
+    case "2":
         return
-    } else {
+    default:
         print("입력이 잘못되었습니다")
         selectMenu()
         return
     }
 }
-
-//게임 숫자를 입력받는 함수
 
 func inputNumbers() -> [Int] {
     var myNumbers: [Int] = []
