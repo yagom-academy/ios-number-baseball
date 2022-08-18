@@ -10,10 +10,8 @@ class NumberBaseballLibrary {
     private func generateRandomNumber() -> [Int] {
         var randomNumArray: [Int] = []
         while randomNumArray.count < 3 {
-            let number = Int.random(in: 1...9)
-            if randomNumArray.contains(number) == false {
-                randomNumArray.append(number)
-            }
+            randomNumArray.append(Int.random(in: 1...9))
+            randomNumArray = Array(Set(randomNumArray))
         }
         return randomNumArray
     }
