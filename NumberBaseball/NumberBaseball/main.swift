@@ -80,7 +80,7 @@ func isCorrectMenuNumber(_ menuNumber: Int) -> Bool {
     }
 }
 
-func isCorrectUserNumber(_ inputedNumbers: [Int]) -> Bool {
+func isCorrectUserNumbers(_ inputedNumbers: [Int]) -> Bool {
     if Set(inputedNumbers).filter({ $0 >= 1 && $0 <= 9 }).count == 3 {
         return true
     } else {
@@ -96,7 +96,7 @@ func playGame() {
         guard let userNumbers = readUserNumbers() else {
             continue
         }
-        guard isCorrectUserNumber(userNumbers) else {
+        guard isCorrectUserNumbers(userNumbers) else {
             continue
         }
         trialNumber -= 1
