@@ -3,12 +3,13 @@
 //  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
 //
+import Foundation
 
 func startNumberGame() {
     var userNumbers = [Int]()
     
     while remainCount > 0 {
-        userNumbers = fetchRandomNumbers()
+        userNumbers = inputUserNumbers()
         
         printInformation(of: userNumbers)
 
@@ -29,9 +30,10 @@ func startNumberGame() {
     }
 }
 
-func inputUserNumbers() -> String {
+func inputUserNumbers() -> [Int] {
     printInputUserNumbersNotice()
-    let userNumbers = inputData()
+    let data = inputData()
+    let userNumbers = convertToUserNumbers(self: data)
     return userNumbers
 }
 
@@ -42,6 +44,14 @@ func printInputUserNumbersNotice() {
         입력 :
         """
     print(inputUserNumbersNotice, terminator: " ")
+}
+
+func convertToUserNumbers(self: String) -> [Int] {
+    let userNumbers = self.components(separatedBy: " ")
+        .map(){ (element: String) -> Int in
+            return Int(element) ?? -1
+        }
+    return userNumbers
 }
 
 func printInformation(of userNumbers: [Int]) {
