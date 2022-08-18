@@ -45,9 +45,7 @@ func startNumberGame() {
         let (strikeCount, ballCount) = decideStrikeCountAndBallCount(about: userNumbers)
         printDecision(about: strikeCount, and: ballCount)
         
-        if strikeCount == 3 {
-            guidance += "사용자 승리!"
-            print(guidance)
+        if isStrikeOut(strikeCount) {
             break
         }
         
@@ -71,6 +69,15 @@ func printInformation(of userNumbers: [Int]) {
 
 func printDecision(about strikeCount: Int, and ballCount: Int) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼\n")
+}
+
+func isStrikeOut(_ strikeCount: Int) -> Bool {
+    if strikeCount == 3 {
+        print("사용자 승리!")
+        return true
+    } else {
+        return false
+    }
 }
 
 startNumberGame()
