@@ -17,9 +17,7 @@ private func generateRandomNumbers() -> [Int] {
 }
 
 private func checkRoundResultOf(playerAnswer: [Int]) {
-	playerAnswer.enumerated().forEach { index, playerNumber in
-        checkBallStrikeAt(index: index, playerNumber: playerNumber)
-	}
+	playerAnswer.enumerated().forEach(checkBallStrikeAt)
 }
 
 private func checkBallStrikeAt(index: Int, playerNumber: Int) {
