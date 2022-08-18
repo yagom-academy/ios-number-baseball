@@ -25,11 +25,7 @@ class NumberBaseballLibrary {
     }
 
     private func matchIndex(_ x: Int, _ y: Int) -> Bool {
-        if x == y {
-            return true
-        } else {
-            return false
-        }
+        return ( x == y )
     }
 
     private func matchNumberArray(_ computerArray: [Int], _ otherComputerArray: [Int]) -> (Int, Int) {
