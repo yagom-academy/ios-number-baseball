@@ -78,6 +78,7 @@ func readMenuNumber() -> Int {
 }
 
 func readUserNumber() -> [Int] {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
     if let choicedNumber = readLine() {
         return choicedNumber.components(separatedBy: " ").compactMap { Int($0) }
     } else {
@@ -87,6 +88,15 @@ func readUserNumber() -> [Int] {
 
 func isCorrectMenuNumber(_ menuNumber: Int) -> Bool {
     if menuNumber == 1, menuNumber == 2 {
+        return true
+    } else {
+        print("입력이 잘못되었습니다.")
+        return false
+    }
+}
+
+func isCorrectUserNumber(_ inputedNumber: [Int]) -> Bool {
+    if Set(inputedNumber).filter({ $0 >= 1 && $0 <= 9 }).count == 3 {
         return true
     } else {
         print("입력이 잘못되었습니다.")
