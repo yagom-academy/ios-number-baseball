@@ -22,7 +22,7 @@ class NumberBaseballLibrary {
     }
 
     private func matchIndex(_ x: Int, _ y: Int) -> Bool {
-        return ( x == y )
+        return x == y
     }
 
     private func matchNumberArray(
@@ -97,17 +97,8 @@ class NumberBaseballLibrary {
         numberOfAttempts = 9
         resetStrikeAndBall()
     }
-}
-
-extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
-    func userMenu() {
-        var flag = true
-        while flag {
-            flag = displayUserMenu()
-        }
-    }
     
-    func displayUserMenu() -> Bool {
+    private func displayUserMenu() -> Bool {
         print("1. 게임시작")
         print("2. 게임종료")
         
@@ -124,7 +115,7 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         }
     }
     
-    func inputUserMenuSelect() -> Int {
+    private func inputUserMenuSelect() -> Int {
         print("원하는 기능을 선택해주세요 : ", terminator: "")
         guard let inputMenuNumber = readLine() else { return 0 }
         let inputMenuNumberToInt = Int(inputMenuNumber)
@@ -138,13 +129,13 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         }
     }
     
-    func inputUserThreeNumber() {
+    private func inputUserThreeNumber() {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
         
-        guard let inputThreeNumber = readLine(),inputThreeNumber.isEmpty == false else {
-            print("입력이 잘못되었습니다.1")
+        guard let inputThreeNumber = readLine(), inputThreeNumber.isEmpty == false else {
+            print("입력이 잘못되었습니다.")
             return inputUserThreeNumber()
         }
         
@@ -155,12 +146,12 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         if checkUserInputNumber(numberToStringArray) == true {
             userThreeNumberArray = inputThreeNumber.split(separator: " ").compactMap { Int($0) }
         } else {
-            print("입력이 잘못되었습니다.2")
+            print("입력이 잘못되었습니다.")
             return inputUserThreeNumber()
         }
     }
     
-    func checkUserInputNumber(_ inputArray: [String]) -> Bool {
+    private func checkUserInputNumber(_ inputArray: [String]) -> Bool {
         var tempArray: [Int] = []
         
         for number in inputArray {
@@ -183,5 +174,14 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         }
         
         return true
+    }
+}
+
+extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
+    func startUserMenu() {
+        var flag = true
+        while flag {
+            flag = displayUserMenu()
+        }
     }
 }
