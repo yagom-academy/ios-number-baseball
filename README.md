@@ -1,6 +1,6 @@
 # 숫자야구 프로젝트 저장소
 > 프로젝트 기간 2022/08/16 ~ 2022/08/19  
-> 팀원: @jonghancha @lj-7-77 / 리뷰어: @bar-d
+> 팀원: @애종 @LJ / 리뷰어: @바드
 
 # 목차
 - [프로젝트 소개](#프로젝트-소개)
@@ -32,4 +32,4 @@
 <!--[![xcode](https://img.shields.io/badge/Xcode-13.3-blue)]()-->
 
 # 순서도 
-<img width="683" alt="STEP2 flowChart" src="https://user-images.githubusercontent.com/92622931/163168557-2bb6be5f-0a46-4b31-a326-77a0e08c4622.png">  
+<img width="683" alt="STEP2 flowChart" src="https://github.com/lj-7-77/ios-number-baseball/blob/main/flowchart.svg">  
