@@ -6,5 +6,6 @@
 
 220817 Step2 1차 작성 완료
 
-워크플로 구조도
-> ![work flow](https://user-images.githubusercontent.com/57447946/184871932-c4166fa5-4aac-418d-9b14-0eba5f499cbd.png)
+### 워크플로 구조도
+> ![flow_chart_야구게임](https://user-images.githubusercontent.com/57447946/185416034-19e1acde-10fe-4398-87f5-6432242f5fd6.png)
+
