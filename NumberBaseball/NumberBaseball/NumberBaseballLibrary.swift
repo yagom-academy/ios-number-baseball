@@ -28,7 +28,11 @@ class NumberBaseballLibrary {
         return ( x == y )
     }
 
-    private func matchNumberArray(_ computerArray: [Int], _ otherComputerArray: [Int]) -> (Int, Int) {
+    private func matchNumberArray(
+        _ computerArray: [Int],
+        _ otherComputerArray: [Int]
+    ) -> (Int, Int)
+    {
         for i in 0...2 {
             if matchIndex(Int(computerArray[i]), Int(otherComputerArray[i])) == true {
                 strike += 1
