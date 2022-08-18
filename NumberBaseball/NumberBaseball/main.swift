@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-func compareStikeBall(randomNumber: Array<Int>, userNumber: Array<Int>) -> Bool {
+func compareStikeBall(_ randomNumber: Array<Int>, _ userNumber: Array<Int>) -> Bool {
     var strike = 0
     var ball = 0
 
@@ -28,7 +28,7 @@ func gameStart() {
     for round in (0...8).reversed() {
         let userNumber = getUserNumber()
 
-        if compareStikeBall(randomNumber: randomNumber, userNumber: userNumber) {
+        if compareStikeBall(randomNumber, userNumber) {
             print("사용자 승리")
             return
         }
@@ -50,16 +50,16 @@ func getUserNumber() -> Array<Int> {
     while true {
         print("숫자 3개를 띄어쓰기로 구분해주세요.\n중복숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
-        let userInput = readLine()
+        let input = readLine()
 
-        if let userNumber = checkNumber(userInput: userInput) {
+        if let userNumber = checkNumber(input) {
             return userNumber
         }
         print("입력이 잘못되었습니다.")
     }
 }
 
-func checkNumber(userInput: String?) -> Array<Int>? {
+func checkNumber(_ userInput: String?) -> Array<Int>? {
     guard let userInput = userInput else { return nil }
 
     let userInputArr = userInput.split(separator: " ")
