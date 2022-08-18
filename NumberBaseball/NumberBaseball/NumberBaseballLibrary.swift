@@ -78,6 +78,7 @@ class NumberBaseballLibrary {
     }
     
     private func playNumberBaseball() {
+        resetNewGame()
         putNumberInArray()
         
         while numberOfAttempts > 0 {
@@ -88,6 +89,13 @@ class NumberBaseballLibrary {
         }
         
         judgeWinCondition()
+    }
+    
+    private func resetNewGame() {
+        computerRandomNumberArray.removeAll()
+        userThreeNumberArray.removeAll()
+        numberOfAttempts = 9
+        resetStrikeAndBall()
     }
 }
 
@@ -135,9 +143,10 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
         
-        
-        
-        guard let inputThreeNumber = readLine() else { return inputUserThreeNumber() }
+        guard let inputThreeNumber = readLine(),inputThreeNumber.isEmpty == false else {
+            print("입력이 잘못되었습니다.1")
+            return inputUserThreeNumber()
+        }
         
         var numberToStringArray: [String] = []
         
@@ -146,10 +155,9 @@ extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
         if checkUserInputNumber(numberToStringArray) == true {
             userThreeNumberArray = inputThreeNumber.split(separator: " ").compactMap { Int($0) }
         } else {
+            print("입력이 잘못되었습니다.2")
             return inputUserThreeNumber()
         }
-        
-        
     }
     
     func checkUserInputNumber(_ inputArray: [String]) -> Bool {
