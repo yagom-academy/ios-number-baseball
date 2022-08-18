@@ -56,5 +56,5 @@ func startGame() {
 		printTryCountResult()
 	}
 	
-	print(isPlayerWin ? "사용자 승리":"컴퓨터 승리...!")
+	print(isPlayerWin ? "사용자 승리" : "컴퓨터 승리...!")
 }
