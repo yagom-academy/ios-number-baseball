@@ -1,5 +1,6 @@
 private func receivePlayerInput() -> Int? {
 	print("원하는 기능을 선택해주세요", terminator: " : ")
+    
 	guard let input = readLine() else {
 		return nil
 	}
@@ -9,9 +10,12 @@ private func receivePlayerInput() -> Int? {
 
 private func identify(playerInput: Int?) -> Bool? {
 	switch playerInput {
-	case 1: return true
-	case 2: return nil
-	default: return false
+	case 1:
+        return true
+	case 2:
+        return nil
+	default:
+        return false
 	}
 }
 
