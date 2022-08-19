@@ -35,9 +35,13 @@ func startGame() {
 }
 
 func inputUserNumbers() -> [Int] {
+    let data: String
+    let userNumbers: [Int]
+    
     printUserNumbersGuideline()
-    let data = inputData()
-    let userNumbers = convertToUserNumbers(self: data)
+    data = inputData()
+    userNumbers = convertToUserNumbers(self: data)
+    
     return userNumbers
 }
 
