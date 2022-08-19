@@ -6,6 +6,8 @@
 
 import Foundation
 
+var remaining = 9
+let computerNumbers = generateNumber()
 
 func generateNumber() -> [Int] {
     var remainingNumbers = Array(1...9)
@@ -22,14 +24,10 @@ func generateNumber() -> [Int] {
 }
 
 func printUserNumbers(userNumbers: [Int]) {
-    print("임의의 수 : ", terminator: "")
-    for num in userNumbers {
-        print(num, terminator: " ")
-    }
-    print(" ")
+    print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[1])")
 }
 
-func compareNumbers(userNumbers: [Int]) -> (Int, Int) {
+func compareWithComputerNumbers(from userNumbers: [Int]) -> (Int, Int) {
     printUserNumbers(userNumbers: userNumbers)
     var strike = 0
     var ball = 0
@@ -48,7 +46,7 @@ func gameStart() {
     while run {
         remaining -= 1
         let userNumbers = generateNumber()
-        let (strike, ball) = compareNumbers(userNumbers: userNumbers)
+        let (strike, ball) = compareWithComputerNumbers(from: userNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(remaining)")
         if strike == 3 {
@@ -60,9 +58,6 @@ func gameStart() {
         }
     }
 }
-
-var remaining = 9
-let computerNumbers = generateNumber()
 
 //gameStart()
 
