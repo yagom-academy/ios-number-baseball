@@ -29,31 +29,59 @@ private func checkBallStrikeAt(index: Int, playerNumber: Int) {
     }
 }
 
-private func convert(_ playerInput: String?) -> [Int]? {
+private func convert(_ playerInput: String?) -> [Int] {
 	guard let playerInput = playerInput else {
-		return nil
+		return []
 	}
-	
 	return playerInput.split(separator: " ").compactMap { Int($0) }
 }
 
-private func checkSizeOf(numbers: [Int]?) -> [Int]? {
-	let uniqueNumbers = Set(numbers ?? [])
-	
+// 3. 중복된 숫자가 있는 경우 -> false
+private func isUnique(_ playerInput: [Int]) -> Bool {
+	let uniqueNumbers = Set(playerInput)
 	guard uniqueNumbers.count == 3 else {
-		return nil
+		return false
 	}
-	return numbers
+	
+	return true
+}
+
+// 2. 1~9에 포함되지 않는 경우 -> false
+private func isContainNine(_ playerInput: [Int]) -> Bool {
+	let filteredValues = playerInput.filter { $0 > 0 && $0 < 10 }
+	guard filteredValues.count == 3 else {
+		return false
+	}
+	
+	return true
+}
+
+// 1. 3개 이상의 값이 들어왔을 경우 -> false
+private func isThree(_ playerInput: [Int]) -> Bool {
+	guard playerInput.count == 3 else {
+		return false
+	}
+	
+	return true
+}
+
+private func checkValidty(_ playerInput: [Int]) -> Bool {
+	let isUnique = isUnique(playerInput)
+	let isContainNine = isContainNine(playerInput)
+	let isThree = isThree(playerInput)
+	return isUnique && isContainNine && isThree
 }
 
 private func receivePlayerNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
+	
     let playerInput = readLine()
+	
     let convertedPlayerNumbers = convert(playerInput)
-    let checkedPlayerNumbers = checkSizeOf(numbers: convertedPlayerNumbers)
-    return checkedPlayerNumbers
+
+	return checkValidty(convertedPlayerNumbers) ? convertedPlayerNumbers : nil
 }
 
 private func printTryCountResult() {
