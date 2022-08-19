@@ -6,7 +6,18 @@
 
 import Foundation
 
-executeBaseballGame()
+choiceMenu()
+
+enum Namespace {
+    case trial
+    
+    var number: Int {
+        switch self {
+        case .trial:
+            return 9
+        }
+    }
+}
 
 func createThreeRandomNumbers() -> [Int] {
     var result: Set<Int> = Set<Int>()
@@ -35,6 +46,7 @@ func determineStrikesBallsInTwoNumbers(_ computerNumbers: [Int], _ userNumbers: 
     }
     
     ball -= strike
+    print("\(strike) 스트라이크, \(ball) 볼")
     return (strike: strike, ball: ball)
 }
 
@@ -89,8 +101,8 @@ func isCorrectUserNumbers(_ inputedNumbers: [Int]) -> Bool {
     }
 }
 
-func playGame() {
-    var trialNumber: Int = 9
+func playNumberBaseballGame() {
+    var trialNumber = Namespace.trial.number
     let computerNumbers = createThreeRandomNumbers()
     while trialNumber > 0 {
         guard let userNumbers = receiveUserNumbers(), isCorrectUserNumbers(userNumbers) else {
@@ -98,7 +110,6 @@ func playGame() {
         }
         trialNumber -= 1
         let result = determineStrikesBallsInTwoNumbers(computerNumbers, userNumbers)
-        print("\(result.strike) 스트라이크, \(result.ball) 볼")
         
         if isWin(strike: result.strike, trialNumber: trialNumber) {
             break
@@ -106,14 +117,14 @@ func playGame() {
     }
 }
 
-func executeBaseballGame() {
+func choiceMenu() {
     while true {
         guard let menuNumber = receiveMenuNumber(), isCorrectMenuNumber(menuNumber) else {
             continue
         }
         
         if menuNumber == 1 {
-            playGame()
+            playNumberBaseballGame()
         } else if menuNumber == 2 {
             break
         }
