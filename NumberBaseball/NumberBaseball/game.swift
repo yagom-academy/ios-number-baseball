@@ -34,6 +34,17 @@ func startGame() {
     }
 }
 
+func fetchRandomNumbers() -> [Int] {
+    var numberSet = Set<Int>()
+    while numberSet.count < 3 {
+        let randomNumber = Int.random(in: 1...9)
+        numberSet.insert(randomNumber)
+    }
+    
+    let randomNumbers = Array(numberSet)
+    return randomNumbers
+}
+
 func inputUserNumbers() -> [Int] {
     let data: String
     let userNumbers: [Int]
