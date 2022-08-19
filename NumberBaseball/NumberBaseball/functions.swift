@@ -20,7 +20,7 @@ func compareWithComputerNumbers(from userNumbers: [Int]) -> (Int, Int) {
     return (strike, ball)
 }
 
-func generateNumber() -> [Int] {
+func generateRandomNumbers() -> [Int] {
     var remainingNumbers = Array(1...9)
     var randomNumbers: [Int] = []
     while randomNumbers.count < 3 {

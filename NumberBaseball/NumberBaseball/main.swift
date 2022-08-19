@@ -7,7 +7,7 @@
 import Foundation
 
 var chance = 9
-let computerNumbers = generateNumber()
+let computerNumbers = generateRandomNumbers()
 
 func showInterface() {
     print("1. 게임시작")
@@ -29,7 +29,7 @@ func startGame() {
     var run = true
     while run {
         chance -= 1
-        let userNumbers = generateNumber()
+        let userNumbers = generateRandomNumbers()
         printUserNumbers(userNumbers: userNumbers)
         let (strike, ball) = compareWithComputerNumbers(from: userNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
