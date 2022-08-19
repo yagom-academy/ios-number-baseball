@@ -26,9 +26,9 @@ func showInterface() {
 }
 
 func startGame() {
-    while chance > 0 {
-        chance -= 1
+    while chance != 0 {
         let userNumbers = getUserNumbers()
+        chance -= 1
         let (strike, ball) = compareWithComputerNumbers(from: userNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(chance)")
