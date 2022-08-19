@@ -102,20 +102,13 @@ class NumberBaseballLibrary {
         }
     }
     
-    private func inputUserMenuSelect() -> Int {
+    private func inputUserMenuSelect() -> Int? {
         print("원하는 기능을 선택해주세요 : ", terminator: "")
         
         guard let inputMenuNumber = readLine() else { return 0 }
         let inputMenuNumberToInt = Int(inputMenuNumber)
         
-        switch inputMenuNumberToInt {
-        case 1:
-            return 1
-        case 2:
-            return 2
-        default:
-            return 0
-        }
+        return inputMenuNumberToInt
     }
     
     private func inputUserThreeNumber() {
