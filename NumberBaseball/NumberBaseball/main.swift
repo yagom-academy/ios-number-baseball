@@ -7,34 +7,26 @@
 import Foundation
 
 var computerNumberArray: Array<Int> = []
-var randomNumberArray: Array<Int> = []
 var tryCount: Int = 9
-var strikeCount: Int = 0
-var ballCount: Int = 0
 
-
-startGame()
 
 func startGame() {
     computerNumberArray = createRandomNumbers()
     while tryCount > 0 {
-        strikeCount = 0
-        ballCount = 0
-        randomNumberArray = createRandomNumbers()
+        let randomNumberArray = createRandomNumbers()
         
-        printRandomNumberArray()
-        checkStrikeAndBall()
+        printRandomNumberArray(randomNumberArray)
+        let strikeAndBall = checkStrikeAndBall(with: randomNumberArray)
         
-        print("\n\(strikeCount) 스트라이크, \(ballCount) 볼")
-        
+        print("\n\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
         
         tryCount -= 1
-        judgeVictory(by: strikeCount)
-        printRemainTryCount()
+        judgeVictory(by: strikeAndBall[0])
+        printRemainTryCount(strikeCount: strikeAndBall[0])
     }
 }
 
-func createRandomNumbers() -> [Int] {
+func createRandomNumbers() -> Array<Int> {
     var numbersSet: Set<Int> = []
     
     while numbersSet.count < 3 {
@@ -51,17 +43,18 @@ func judgeVictory(by strikeCount: Int){
     }
 }
 
-func printRemainTryCount() {
+func printRemainTryCount(strikeCount: Int) {
     if strikeCount != 3 && tryCount > 0 { //남은기회 출력조건
         print("남은 기회 : \(tryCount) \n")
     }
 }
 
 
-
-
-func checkStrikeAndBall() {
-    for (index,number) in randomNumberArray.enumerated() {
+func checkStrikeAndBall(with numbers: Array<Int>) -> Array<Int> {
+    var strikeCount = 0
+    var ballCount = 0
+    
+    for (index,number) in numbers.enumerated() {
         guard computerNumberArray.contains(number) else { continue }
         if computerNumberArray[index] == number {
             strikeCount += 1
@@ -69,13 +62,14 @@ func checkStrikeAndBall() {
             ballCount += 1
         }
     }
+    return [strikeCount, ballCount]
 }
 
-func printRandomNumberArray() {
+func printRandomNumberArray(_ numbers: Array<Int>) {
+    print("임의의 수 : ", terminator: "")
     for index in 0...2 {
-        print("임의의 수 : \(randomNumberArray[index])", terminator: " ")
+        print("\(numbers[index])", terminator: " ")
     }
 }
 
-
-
+startGame()
