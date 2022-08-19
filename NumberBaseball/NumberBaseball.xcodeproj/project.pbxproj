@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18D96E1528ADD8B200B1E4D2 /* NumberBaseballGameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D96E1428ADD8B200B1E4D2 /* NumberBaseballGameService.swift */; };
-		18D96E1828ADD8CB00B1E4D2 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D96E1728ADD8CB00B1E4D2 /* Array.swift */; };
+		690BE18E28AF945300E44432 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690BE18D28AF945300E44432 /* ArrayExtension.swift */; };
 		C7A29CFC2551372B00CAC77A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A29CFB2551372B00CAC77A /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		18D96E1428ADD8B200B1E4D2 /* NumberBaseballGameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberBaseballGameService.swift; sourceTree = "<group>"; };
-		18D96E1728ADD8CB00B1E4D2 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		690BE18D28AF945300E44432 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,12 +42,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18D96E1628ADD8C400B1E4D2 /* Extensions */ = {
+		690BE18C28AF944900E44432 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				18D96E1728ADD8CB00B1E4D2 /* Array.swift */,
+				690BE18D28AF945300E44432 /* ArrayExtension.swift */,
 			);
-			path = Extensions;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C7A29CEF2551372B00CAC77A = {
@@ -69,7 +69,7 @@
 		C7A29CFA2551372B00CAC77A /* NumberBaseball */ = {
 			isa = PBXGroup;
 			children = (
-				18D96E1628ADD8C400B1E4D2 /* Extensions */,
+				690BE18C28AF944900E44432 /* Extension */,
 				C7A29CFB2551372B00CAC77A /* main.swift */,
 				18D96E1428ADD8B200B1E4D2 /* NumberBaseballGameService.swift */,
 			);
@@ -133,7 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18D96E1828ADD8CB00B1E4D2 /* Array.swift in Sources */,
+				690BE18E28AF945300E44432 /* ArrayExtension.swift in Sources */,
 				C7A29CFC2551372B00CAC77A /* main.swift in Sources */,
 				18D96E1528ADD8B200B1E4D2 /* NumberBaseballGameService.swift in Sources */,
 			);
