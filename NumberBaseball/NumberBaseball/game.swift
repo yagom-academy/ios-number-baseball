@@ -17,7 +17,7 @@ func startGame() {
         
         printInformation(of: userNumbers)
 
-        let (strikeCount, ballCount) = decideStrikeCountAndBallCount(about: userNumbers)
+        let (strikeCount, ballCount) = countStrikeAndBall(in: userNumbers)
         printDecision(about: strikeCount, and: ballCount)
         
         if isStrikeOut(strikeCount) {
