@@ -14,7 +14,7 @@ func generateNumbers() -> [Int] {
     return Array(numbers)
 }
 
-func checkStrikeAndBall(computer computerNumbers: [Int], user userNumbers: [Int]) -> [Int] {
+func checkStrikeAndBall(between computerNumbers: [Int], and userNumbers: [Int]) -> [Int] {
     var strikeCounter: Int = 0
     var ballCounter: Int = 0
     computerNumbers.enumerated().forEach{ (index, computerNumber) in
@@ -35,7 +35,7 @@ func playGame() {
     computerNumbers = generateNumbers()
     while gameCounter > 0 {
         userNumbers = generateNumbers()
-        let gameResult = checkStrikeAndBall(computer: computerNumbers, user: userNumbers)
+        let gameResult = checkStrikeAndBall(between: computerNumbers, and: userNumbers)
         gameCounter -= 1
         print("임의의 수 : \(userNumbers.map{ String($0) }.joined(separator: " "))")
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
