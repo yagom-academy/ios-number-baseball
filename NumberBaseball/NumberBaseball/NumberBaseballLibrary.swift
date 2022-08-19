@@ -4,7 +4,7 @@ class NumberBaseballLibrary {
     private var computerRandomNumberArray: [Int] = []
     private var userThreeNumberArray: [Int] = []
     private var numberOfAttempts = 9
-
+    
     private func generateRandomNumber() -> [Int] {
         var randomNumArray: [Int] = []
         while randomNumArray.count < 3 {
@@ -13,16 +13,16 @@ class NumberBaseballLibrary {
         }
         return randomNumArray
     }
-
+    
     private func putNumberInArray() {
         computerRandomNumberArray = generateRandomNumber()
         print(computerRandomNumberArray)
     }
-
+    
     private func matchIndex(_ x: Int, _ y: Int) -> Bool {
         return x == y
     }
-
+    
     private func matchNumberArray(
         _ computerArray: [Int],
         _ userThreeNumberArray: [Int]
@@ -40,7 +40,7 @@ class NumberBaseballLibrary {
         }
         return (strike, ball)
     }
-
+    
     private func isThreeStrike( strikeCount : Int ) {
         if strikeCount == 3 {
             numberOfAttempts = -1
@@ -137,37 +137,41 @@ class NumberBaseballLibrary {
         
         numberToStringArray = inputThreeNumber.split(separator: " ").compactMap { String($0) }
         
-        if checkUserInputNumber(numberToStringArray) == true {
-            userThreeNumberArray = inputThreeNumber.split(separator: " ").compactMap { Int($0) }
+        if let numberArray = checkUserInputNumber(numberToStringArray) {
+            userThreeNumberArray = numberArray
         } else {
             print("입력이 잘못되었습니다.")
             return inputUserThreeNumber()
         }
     }
     
-    private func checkUserInputNumber(_ inputArray: [String]) -> Bool {
+    private func checkUserInputNumber(_ inputArray: [String]) -> [Int]? {
         var tempArray: [Int] = []
         
         for number in inputArray {
             if let numberToString = Int(number) {
                 tempArray.append(numberToString)
             } else {
-                return false
+                return nil
             }
         }
         
         if inputArray.count != 3 {
-            return false
+            return nil
         }
         
         let arrayMaxData = tempArray.max() ?? 10
         let arrayMinData = tempArray.min() ?? 0
         
         if arrayMaxData > 9 || arrayMinData < 1 {
-            return false
+            return nil
         }
         
-        return true
+        if inputArray.count != Set(inputArray).count {
+            return nil
+        }
+        
+        return tempArray
     }
 }
 
