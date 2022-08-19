@@ -7,6 +7,8 @@ import Foundation
 
 func startGame() {
     var userNumbers = [Int]()
+    answer = fetchRandomNumbers()
+    remainCount = 9
     
     while remainCount > 0 {
         userNumbers = inputUserNumbers()

@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let answer = fetchRandomNumbers()
-var remainCount = 9
+var answer: [Int]
+var remainCount: Int
 
 startNumberBaseball()
