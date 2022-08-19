@@ -1,47 +1,128 @@
-## iOS 커리어 스타터 캠프
+# iOS 커리어 스타터 캠프
 
-### 숫자야구 프로젝트 저장소
-### 순서도
-![flowChart](previews/flowChart.jpg)
-### STEP 0
-#### 고민했던 점
-1. 공(숫자) 하나하나의 볼, 스트라이크를 판정하는 과정을 순서도에 모두 표현할 것인가?
--- 각각의 숫자에 대해 볼/스트라이크 여부를 판정하는 과정을 표현하기 위해서는 1. 숫자 일치 여부, 2. 위치(순서) 일치 여부의 2가지 판정의 과정을 표현해야 하는데, 이렇게 표현할 시 너무 길어져서 보기 불편하다고 생각해 간소화해서 작성하였습니다.
+# 숫자야구게임
 
-2. 사용자 입력(사용자가 입력한 세 개의 숫자) 유효성 검사 프로세스 내에서 발생하는 오류(중복, 띄어쓰기, 숫자개수, 문자입력 등)를 각각 개별적으로 표현할 것인가?
--- 오류의 유형은 다양하지만, 오류 발생 시의 결과(사용자의 입력을 받는 부분으로 돌아감)는 동일하기 때문에 전체적인 로직은 동일하다고 생각해 하나로 묶어서 작성하였습니다.
+## 프로젝트 소개
+1~9 사이의 중복되지 않는 숫자 3개를 컴퓨터가 생성하고, 사용자는 9번 이내에 컴퓨터가 생성한 숫자를 맞춰야 합니다. <br>
+컴퓨터가 생성한 숫자와 사용자가 입력한 숫자의 순서(위치)와 숫자가 모두 일치할 경우 스트라이크, 숫자는 일치하지만 순서(위치)가 일치하지 않을 경우 볼로 판정합니다.
 
-3. 메뉴 선택 결과 검사 시 오류에 대한 판정과 선택된 메뉴에 대한 판정을 분리할 것인가?
--- 사용자의 입력이 메뉴에 존재하는지에 대한 판정과, 입력된 메뉴가 존재할 경우 어떤 메뉴인지 추가적으로 판정하는 과정을 모두 순서도에 표현하는 것이 좋을지 고민했습니다.
+## 팀원
+| SummerCat | 미니 |
+| -------- | -------- |
+| <img width="160px" src="https://i.imgur.com/TVKv7PD.png">| <img width="180px" src="https://i.imgur.com/ikEGO8k.jpg">|
+
+## 순서도
+![flowChart](https://i.imgur.com/javkghX.png)
 
 
-### STEP 1
-#### 고민했던 점
-1. 컴퓨터가 `게임 시작 시 생성한 임의의 수`를 의미하는 `var answer` 네이밍
--- "정답"이 있는 게임이라고 생각해서 `answer`라고 작명하였는데, 추후에 플레이어의 입력을 받게 될 경우 플레이어가 입력한 답과 비교할 때 네이밍이 헷갈릴 수도 있다는 의견이 있었습니다.
--- 더 나은 대안을 찾지 못해 `answer`라고 작성하였는데, 리뷰어님의 의견이 궁금합니다.
+## 실행 화면(기능 설명)
+### 1. Console Menu
 
-2. `var isPlayerWin`
--- 기존에 작성하였던 게임 결과를 판단하고 출력하는 함수인 `func printGameResult`를 이용해 3 Strike시 `while` 문을 탈출할 수 있도록 `Bool`값을 반환하도록 할지 고민했습니다.
--- 하지만 해당 함수에서 `Bool`값을 반환한 후 while문에서 이 반환값을 사용할 경우, 함수를 별도로 분리한 의의가 퇴색되는 면이 있다고 생각하여 `var isPlayerWin`이라는 새로운 연산 프로퍼티를 사용하기로 했습니다.
--- `Bool`의 값이기 때문에 단순히 `is`를 붙여서 `플레이어가 이겼는가?`라는 의미의 변수 네이밍을 사용하였습니다.
+메뉴에 없는 값을 입력 시, 메뉴를 다시 출력하고 사용자 입력을 다시 받습니다.<br>
+`2. 게임종료` 선택 시, 프로그램을 종료합니다.
 
-3. `func decideBallStrike`
--- 볼/스트라이크 여부를 판정하는 함수 `func validationNumber`와 각 숫자를 비교하는 함수 `func compareNumbers`의 역할을 통합해서 하나의 함수로 변경하였습니다. 그 이유는 기존에 있던 `func validationNumer`의 매개변수로 존재했던 index값이 `func compareNumbers`에서 가공을 하지 않는 값이기 때문에 통합을 통해서 불필요한 매개변수를 없애고자 하였습니다.
--- 함수 네이밍 시 `결정하다.`라는 의미의 단어를 사용하였으며, ball과 strike를 모두 판정하기 때문에 변수명에 모두 포함되도록 구분하였습니다.
+![consoleMenu](https://i.imgur.com/xmOPw7R.png)
 
-4. `func generateDescription`
--- 각 회차마다 선택된 임의의 수 3개를 출력할 때, `[Int]`를 그대로 출력할 경우 `[1, 2, 3]`과 같이 출력되기 때문에 `1 2 3`과 같이 출력할 수 있도록 `[Int]`를 변환해주는 메서드를 작성하였습니다.
--- `toString()`이라는 이름을 지양하고자, Array의 값을 표현해주는 결과물을 생성한다는 의미에서 `generateDescription`으로 이름지었습니다.
+--- 
 
-5. 판정 결과 출력(볼/스트라이크 개수), 남은 기회 출력을 별도의 함수로 작성할 것인가 / `startGame()` 함수 내에 포함하여 작성할 것인가?
--- 처음에는 판정 결과 출력 함수를 별도로 작성하고, 해당 함수 내에서 플레이어 승리 여부를 판단하도록 작성했습니다.
--- 하지만 `var isPlayerWin`을 통해 플레이어 승리 여부를 판단하도록 구조를 변경하면서, 판정 결과 출력 함수에서는 플레이어 승리 여부는 판단하지 않고 결과 출력만 담당하게 되어 **출력만을 위한 함수를 작성하는 것이 타당한가?** 에 대해 이야기를 나눈 결과 현재와 같이 출력하는 함수는 별도로 작성하지 않기로 했습니다.
+### 2. 사용자의 숫자 입력 오류 처리
+사용자의 입력값에서 각 숫자 사이에 공백이 없는 경우, 입력값이 없는 경우, 입력값이 숫자가 아닌 경우 등 다양한 오류를 처리합니다.<br>
+오류를 처리한 후에는 다시 입력을 받을 수 있도록 입력창을 출력합니다.
 
-#### 궁금한 점
-1. **출력만을 위한 함수를 별도로 작성하는 것**에 대한 리뷰어님의 의견이 궁금합니다. (함수 내에 print이외의 기능이 없거나, `tryCount -= 1`과 같은 단순한 연산 하나 정도만 더 들어가는 경우)
-2. **Array Extension을 활용하여 프린트 구문을 간소화 한 것**에 대해 어떻게 생각하시는지 궁금합니다.
-3. **Array Extension 내에서 함수를 사용하는 것이 아니라 변수를 사용하여 표현하는 것**에 대한 리뷰어님의 의견이 궁금합니다.
+![gameMenu](https://i.imgur.com/Rhji4Ga.png)
 
-![Extension Code](https://i.imgur.com/LZog4dt.png)
+---
+
+### 3. 정상적인 게임 실행 화면
+사용자가 입력한 숫자와 컴퓨터가 생성한 숫자를 비교하여 볼/스트라이크 판정 결과를 출력합니다. <br>
+3 스트라이크가 아닐 경우, 남은 기회를 출력하고 다시 사용자 입력을 받습니다. <br>
+3 스트라이크일 경우, `사용자 승리`를 출력하고, 게임 초기 메뉴를 출력합니다.
+
+![playingGame](https://i.imgur.com/bTspSpi.png)
+
+---
+
+## 트러블 슈팅
+1. 사용자 입력 검증 시 입력 처리와 오류 검증을 동시에 처리하는 부분
+    - 사용자 입력을 받을 경우, 문자열의 형식으로 입력을 받게 됩니다. 하지만, 게임 내에서 숫자를 비교하기 위해서는 해당 입력값을 `[Int]` 형식으로 변환해야 합니다. 사용자 입력에 오류가 있을 수 있기 때문에, `[Int]`로 변환된 값을 검증해서 오류 처리를 해야 했습니다.
+    - 이 과정에서 Optional Binding에 의해서 의도와 다르게 동작하는 경우들이 발생하였습니다. 예를 들어, 사용자가 아무것도 입력하지 않았을 경우 생성된`nil`값이 옵셔널 바인딩을 거치면 빈 배열 `[]`로 변환되어, 오류로 인식하지 못하는 문제가 발생하였습니다.
+    - 이를 해결하기 위해서 동일한 함수에서 변형과 검증을 하는 것이 아니라 2개의 함수로 역할을 구분하여 사용하여 해결하였습니다.
+        
+        ``` swift
+        // BEFORE
+        private func validatePlayerNumbers(playerNumbers: String?) -> [Int]? {
+            if let playerNumbers = playerNumbers {
+                let validPlayerNumbers = playerNumbers.split(separator: " ").compactMap { Int($0) }
+                    
+                return validPlayerNumbers.isEmpty ? nil : validPlayerNumbers
+            } else {
+                return nil
+            }
+        }
+        ```
+
+        ``` swift
+        // AFTER
+        private func convert(_ playerInput: String?) -> [Int]? {
+	        guard let playerInput = playerInput else {
+	            return nil
+            }
+	        return playerInput.split(separator: " ").compactMap { Int($0) }
+        }
+
+        private func checkSizeOf(numbers: [Int]?) -> [Int]? {
+	        let uniqueNumbers = Set(numbers ?? [])
+	
+	        guard uniqueNumbers.count == 3 else {
+		        return nil
+	        }
+            return numbers
+        }
+        ```
+2. 전체적인 코드의 가독성을 높이고, 각 함수의 역할을 명확하게 하기 위해서는 함수를 어느 단위까지 분리해야 할지에 대한 고민
+    - 결과를 출력하는 기능, 매개변수로 들어온 값에 대해 Bool 판정하는 기능 등은 별도의 함수로 작성하기에는 함수의 역할이 지나치게 작다고 생각해 최초에는 해당 기능들을 분리하지 않고 작성했으나,
+    - 이후 기능이 추가됨에 따라 함수의 볼륨이 커지면서, 가독성 향상과 함수의 역할을 명확하게 하기 위해 작은 기능도 별도의 함수로 분리하는 것이 더 타당하다고 생각하게 되었습니다.
+    
+3. 스트라이크/볼 카운트가 라운드 시작시에만 초기화되고, 게임 시작 시 초기화되지 않아 사용자 승리 후 다시 게임을 진행할 수 없었던 문제
+
+    ``` swift
+    private func clearCount() {
+	    strikeCount = 0
+	    ballCount = 0
+    }
+
+    private func playRound() {
+	    clearCount()
+        if let playerAnswer = receivePlayerNumbers() {
+            checkRoundResultOf(playerAnswer: playerAnswer)
+		
+            print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+            tryCount -= 1
+		    printTryCountResult()
+        } else {
+            print("입력이 잘못되었습니다")
+	    }
+    }
+
+    func startGame() {
+	    tryCount = 9
+	    computerAnswer = generateRandomNumbers()
+	    clearCount()
+	
+	    while tryCount > 0 && !isPlayerWin {
+		    playRound()
+	    }
+	
+	    print(isPlayerWin ? "사용자 승리" : "컴퓨터 승리...!")
+    }
+    ```
+    - 다른 위치에서 여러번 같은 코드를 작성하는 것은 좋은 코드가 아니라고 생각하여서 카운트 변수들을 초기화 하는 함수를 별도로 작성하였습니다.
+    - 각 라운드를 시작할 때마다 초기화 함수를 호출하여 카운트 변수를 초기화 할 수 있도록 하였습니다.
+    - 게임을 종료시 초기화 하지 않았고, 게임을 시작하기 직전에 초기화 함수를 활용하여서 이전 게임의 기록을 지우도록 하였습니다.
+
+
+## 참고 링크
+- [Swift API Design Guideline](https://www.swift.org/documentation/api-design-guidelines/)
+- [Swift Language Guide - Optional, nil, Optional Binding](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
+- [Swift Language Guide - Collection Types](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
 
