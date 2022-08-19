@@ -14,7 +14,7 @@ func generateNumbers() -> [Int] {
     return Array(numbers)
 }
 
-func checkStrikeAndBall(computer computerNumbers: [Int], user userNumbers: [Int]) -> [Int] {
+func compare(between computerNumbers: [Int], and userNumbers: [Int]) -> [Int] {
     var strikeCounter: Int = 0
     var ballCounter: Int = 0
     computerNumbers.enumerated().forEach{ (index, computerNumber) in
@@ -37,7 +37,7 @@ func playGame() {
             print("입력이 잘못되었습니다")
             continue
         }
-        let gameResult = checkStrikeAndBall(computer: computerNumbers, user: userNumbers)
+        let gameResult = compare(between: computerNumbers, and: userNumbers)
         gameCounter -= 1
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
         if gameResult[0] == 3 {
