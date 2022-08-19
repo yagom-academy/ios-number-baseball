@@ -1,11 +1,50 @@
 import Foundation
 
-var computerRandomThreeNumbers: Array<Int> = [1, 2, 3]
+var computerRandomThreeNumbers: Array<Int> = []
 var userRandomThreeNumbers: Array<Int> = []
 var remainingRound: Int = 9
+var strikeCount = 0
+var ballCount = 0
+
+func openGameMenu() {
+    print("""
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: " ")
+    
+    let menuNumber = readLine()
+    
+    switch menuNumber {
+    case "1":
+        startGame()
+    case "2":
+        return
+    default:
+        print("입력이 잘못되었습니다.")
+        openGameMenu()
+    }
+}
+
+func startGame() {
+    resetRemainingRound()
+    resetComputerRandomThreeNumbers()
+    
+    while remainingRound >= 1 && strikeCount != 3 {
+        remainingRound -= 1
+        errorHandleAboutGeneratedThreeUserNumbers()
+        countStrikeAndBall()
+        checkWinner()
+    }
+}
 
 func resetRemainingRound() {
     remainingRound = 9
+}
+
+func resetComputerRandomThreeNumbers() {
+    computerRandomThreeNumbers.removeAll()
+    generateComputerRandomThreeNumbers()
 }
 
 func generateComputerRandomThreeNumbers() {
@@ -17,29 +56,6 @@ func generateComputerRandomThreeNumbers() {
     }
 }
 
-func resetComputerRandomThreeNumbers() {
-    computerRandomThreeNumbers.removeAll()
-    generateComputerRandomThreeNumbers()
-}
-
-func countStrikeAndBall() -> Int {
-    var strikeCount = 0
-    var ballCount = 0
-
-    for (index, number) in userRandomThreeNumbers.enumerated() {
-        if number == computerRandomThreeNumbers[index] {
-            strikeCount += 1
-        } else if computerRandomThreeNumbers.contains(number) {
-            ballCount += 1
-        }
-    }
-    print("""
-          \(strikeCount) 스트라이크, \(ballCount) 볼
-          남은 기회 : \(remainingRound)
-          """)
-    return strikeCount
-}
-
 func generateUserRandomThreeNumbers() throws {
     userRandomThreeNumbers.removeAll()
     print("""
@@ -47,15 +63,15 @@ func generateUserRandomThreeNumbers() throws {
         중복 숫자는 허용하지 않습니다.
         입력 :
         """, terminator: " ")
-
+    
     let inputNumber = readLine()
-
+    
     guard let inputNumber = inputNumber else {
         throw userNumbersError.noInput
     }
     
     let inputNumberArray: Array<String> = inputNumber.components(separatedBy: " ")
-
+    
     for number in inputNumberArray {
         guard let number = Int(number) else {
             throw userNumbersError.wrongFormat
@@ -67,39 +83,6 @@ func generateUserRandomThreeNumbers() throws {
     }
     guard userRandomThreeNumbers.count == 3 else {
         throw userNumbersError.wrongNumbersCount
-    }
-}
-
-func checkWinner() {
-    let strike = countStrikeAndBall()
-
-    if strike == 3 {
-        print("사용자 승리!")
-        remainingRound = -1
-        openGameMenu()
-    } else if remainingRound == 0 {
-        print("컴퓨터 승리...!")
-        openGameMenu()
-    }
-}
-
-func openGameMenu() {
-    print("""
-        1. 게임시작
-        2. 게임종료
-        원하는 기능을 선택해주세요 :
-        """, terminator: " ")
-
-    let menuNumber = readLine()
-
-    switch menuNumber {
-    case "1":
-        startGame()
-    case "2":
-        return
-    default:
-        print("입력이 잘못되었습니다.")
-        openGameMenu()
     }
 }
 
@@ -124,13 +107,30 @@ func errorHandleAboutGeneratedThreeUserNumbers() {
     } catch {}
 }
 
-func startGame() {
-    //resetComputerRandomNumbers()
-    resetRemainingRound()
+func countStrikeAndBall() {
+    strikeCount = 0
+    ballCount = 0
     
-    while remainingRound >= 0 {
-        errorHandleAboutGeneratedThreeUserNumbers()
-        checkWinner()
-        remainingRound -= 1
+    for (index, number) in userRandomThreeNumbers.enumerated() {
+        if number == computerRandomThreeNumbers[index] {
+            strikeCount += 1
+        } else if computerRandomThreeNumbers.contains(number) {
+            ballCount += 1
+        }
+    }
+    print("""
+          \(strikeCount) 스트라이크, \(ballCount) 볼
+          남은 기회 : \(remainingRound)
+          """)
+}
+
+func checkWinner() {
+    if strikeCount == 3 {
+        print("사용자 승리!")
+        remainingRound = 0
+        openGameMenu()
+    } else if remainingRound == 0 {
+        print("컴퓨터 승리...!")
+        openGameMenu()
     }
 }

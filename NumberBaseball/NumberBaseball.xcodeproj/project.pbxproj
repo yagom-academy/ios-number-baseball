@@ -62,8 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				C7A29CFB2551372B00CAC77A /* main.swift */,
-				4125DB5C28AD064400922BD6 /* NumberBaseBall.swift */,
 				4142A41828AFB94100C677DF /* UserNumberError.swift */,
+				4125DB5C28AD064400922BD6 /* NumberBaseBall.swift */,
 			);
 			path = NumberBaseball;
 			sourceTree = "<group>";
