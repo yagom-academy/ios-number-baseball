@@ -7,6 +7,7 @@ class NumberBaseballLibrary {
     
     private func generateRandomNumber() -> [Int] {
         var randomNumArray: [Int] = []
+        
         while randomNumArray.count < 3 {
             randomNumArray.append(Int.random(in: 1...9))
             randomNumArray = Array(Set(randomNumArray))
@@ -16,32 +17,23 @@ class NumberBaseballLibrary {
     
     private func putNumberInArray() {
         computerRandomNumberArray = generateRandomNumber()
-        print(computerRandomNumberArray)
     }
     
-    private func matchIndex(_ x: Int, _ y: Int) -> Bool {
-        return x == y
-    }
-    
-    private func matchNumberArray(
-        _ computerArray: [Int],
-        _ userThreeNumberArray: [Int]
-    ) -> (Int, Int)
-    {
+    private func matchNumberArray(computerArray: [Int], userArray: [Int] ) -> (Int, Int) {
         var strike = 0
         var ball = 0
         
         for i in 0...2 {
-            if computerArray[i] == userThreeNumberArray[i] {
+            if computerArray[i] == userArray[i] {
                 strike += 1
-            } else if computerArray.contains(userThreeNumberArray[i]) {
+            } else if computerArray.contains(userArray[i]) {
                 ball += 1
             }
         }
         return (strike, ball)
     }
     
-    private func isThreeStrike( strikeCount : Int ) {
+    private func setThreeStrike( strikeCount : Int ) {
         if strikeCount == 3 {
             numberOfAttempts = -1
             return
@@ -66,8 +58,8 @@ class NumberBaseballLibrary {
     
     private func displayGameStatement() -> Int {
         let (outputStrike,outputBall) = matchNumberArray(
-            computerRandomNumberArray,
-            userThreeNumberArray
+            computerArray: computerRandomNumberArray,
+            userArray: userThreeNumberArray
         )
         print("\(outputStrike) 스트라이크, \(outputBall) 볼")
         return outputStrike
@@ -79,7 +71,7 @@ class NumberBaseballLibrary {
         
         while numberOfAttempts > 0 {
             inputUserThreeNumber()
-            isThreeStrike(strikeCount: displayGameStatement())
+            setThreeStrike(strikeCount: displayGameStatement())
             confirmNumberOfAttempts()
         }
         
@@ -97,6 +89,7 @@ class NumberBaseballLibrary {
         print("2. 게임종료")
         
         let userSelectNumber = inputUserMenuSelect()
+        
         switch userSelectNumber {
         case 1:
             playNumberBaseball()
@@ -111,8 +104,10 @@ class NumberBaseballLibrary {
     
     private func inputUserMenuSelect() -> Int {
         print("원하는 기능을 선택해주세요 : ", terminator: "")
+        
         guard let inputMenuNumber = readLine() else { return 0 }
         let inputMenuNumberToInt = Int(inputMenuNumber)
+        
         switch inputMenuNumberToInt {
         case 1:
             return 1
@@ -178,6 +173,7 @@ class NumberBaseballLibrary {
 extension NumberBaseballLibrary: NumberBaseballLibraryProtocol {
     func startUserMenu() {
         var flag = true
+        
         while flag {
             flag = displayUserMenu()
         }
