@@ -63,8 +63,12 @@ func isInvalid(self: [Int]) -> Bool {
         return true
     }
     
-    let filteredData = self.filter( { (element: Int) -> Bool in
-        return 0 < element && element < 10 && !self.contains(element)
+    if self.count != 3 {
+        return true
+    }
+    
+    let filteredData = Set(self).filter( { (element: Int) -> Bool in
+        return 0 < element && element < 10
     })
     
     if filteredData.count != 3 {
