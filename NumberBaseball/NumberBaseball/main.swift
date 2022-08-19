@@ -15,7 +15,7 @@ func fetchRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func numberGame() {
+func startNumberBaseball() {
     var menu = ""
     while menu != "2" {
         menu = inputMenu()
@@ -34,4 +34,4 @@ func numberGame() {
 let answer = fetchRandomNumbers()
 var remainCount = 9
 
-numberGame()
+startNumberBaseball()
