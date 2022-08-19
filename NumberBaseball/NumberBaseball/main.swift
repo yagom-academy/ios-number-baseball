@@ -6,7 +6,7 @@
 
 import Foundation
 
-var remaining = 9
+var chance = 9
 let computerNumbers = generateNumber()
 
 func generateNumber() -> [Int] {
@@ -44,15 +44,15 @@ func compareWithComputerNumbers(from userNumbers: [Int]) -> (Int, Int) {
 func gameStart() {
     var run = true
     while run {
-        remaining -= 1
+        chance -= 1
         let userNumbers = generateNumber()
         let (strike, ball) = compareWithComputerNumbers(from: userNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(remaining)")
+        print("남은 기회 : \(chance)")
         if strike == 3 {
             print("사용자 승리...!")
             run = false
-        } else if remaining == 0 {
+        } else if chance == 0 {
             print("컴퓨터 승리...!")
             run = false
         }
