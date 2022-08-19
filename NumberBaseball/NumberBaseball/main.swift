@@ -14,7 +14,7 @@ func generateNumber() -> [Int] {
     var randomNumbers: [Int] = []
     while randomNumbers.count < 3 {
         let number = Int(arc4random_uniform(UInt32(remainingNumbers.count)))
-        var selectedNumber = remainingNumbers[number]
+        let selectedNumber = remainingNumbers[number]
         if selectedNumber != 0 {
             randomNumbers.append(selectedNumber)
         }
