@@ -4,6 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+import Foundation
+
 var computerNumberArray: Array<Int> = []
 var tryCount: Int = 9
 
@@ -11,11 +13,10 @@ var tryCount: Int = 9
 func playGame() {
     computerNumberArray = createRandomNumbers()
     while tryCount > 0 {
-        let randomNumberArray = createRandomNumbers()   //
-        printRandomNumbers(randomNumberArray)
+        printInputCondition()
+        
         
         let strikeAndBall = checkStrikeAndBall(with: randomNumberArray)
-        
         print("\n\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
         
         tryCount -= 1
@@ -30,6 +31,7 @@ func createRandomNumbers() -> Array<Int> {
     while numbersSet.count < 3 {
         numbersSet.insert(Int.random(in: 1...9))
     }
+    
     return Array(numbersSet)
 }
 
@@ -64,11 +66,24 @@ func checkStrikeAndBall(with numbers: Array<Int>) -> Array<Int> {
     return [strikeCount, ballCount]
 }
 
-func printRandomNumbers(_ numbers: Array<Int>) {
-    print("임의의 수 : ", terminator: "")
-    for index in 0...2 {
-        print("\(numbers[index])", terminator: " ")
+func printInputCondition() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+}
+
+func getInputNumbers() {
+    guard let input = readLine()?.components(separatedBy: " "),
+          input[0] != "",
+          Set(input).count == 3 else {
+        // 숫자를 잘못 입력했거나 갯수가 잘못된 경우
     }
+
+    let convertToNumbers = input.map { Int($0) }.compactMap { $0 }
+    guard convertToNumbers.count == 3,
+          convertToNumbers.filter { 1...9 ~= $0 }.count == 3 else {
+        // 범위에 맞지 않거나 숫자가 아닌 경우
+    }
+    
+    return 1() && 2()
 }
 
 func showMenu() {
@@ -83,7 +98,7 @@ func selectMenu() -> String {
         return input
     }
     
-    return "3"
+    return " "
 }
 
 func startGame() {
@@ -93,6 +108,7 @@ func startGame() {
         switch selectedMenu {
             case "1":
                 playGame()
+                tryCount = 9
             case "2":
                 break
             default:
