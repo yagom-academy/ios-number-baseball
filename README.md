@@ -69,7 +69,13 @@ README DAY에 README를 완벽하게 완성하는 것이 아니기 때문에 포
 </details>
 
 ## 실행화면
-
+<div class="table-wrapper" markdown="block">
+   
+| 메뉴 에러 | 사용자 입력 에러 | 게임 진행 | 게임 종료 |
+|:--:|:--:|:--:|:--:|
+| <img src="https://user-images.githubusercontent.com/82566116/185580718-25b9e454-4f72-42c8-abe5-f6fdda68b5ba.gif" width="200" height="500"> | <img src="https://user-images.githubusercontent.com/82566116/185583917-21cbd894-a278-4cea-ae40-8ee78409839c.gif" width="200" height="500"> | <img src="https://user-images.githubusercontent.com/82566116/185584109-773f4db3-20ca-41c1-9e6e-a79df00e9d51.gif" width="200" height="500"> | <img src="https://user-images.githubusercontent.com/82566116/185580784-64b82c4a-5cba-4bbc-af4c-f5a6370a4937.gif" width="200" height="300"> |
+   
+</div>
 
 ## 트러블 슈팅
 -  inputUserNumbers() -> [Int]
