@@ -12,6 +12,7 @@ class NumberBaseballLibrary {
             randomNumArray.append(Int.random(in: 1...9))
             randomNumArray = Array(Set(randomNumArray))
         }
+        
         return randomNumArray
     }
     
@@ -19,7 +20,7 @@ class NumberBaseballLibrary {
         computerRandomNumberArray = generateRandomNumber()
     }
     
-    private func matchNumberArray(computerArray: [Int], userArray: [Int] ) -> (Int, Int) {
+    private func matchNumberArray(computerArray: [Int], userArray: [Int]) -> (Int, Int) {
         var strike = 0
         var ball = 0
         
@@ -30,10 +31,11 @@ class NumberBaseballLibrary {
                 ball += 1
             }
         }
+        
         return (strike, ball)
     }
     
-    private func setThreeStrike( strikeCount : Int ) {
+    private func setThreeStrike(strikeCount : Int) {
         if strikeCount == 3 {
             numberOfAttempts = -1
             return
@@ -62,6 +64,7 @@ class NumberBaseballLibrary {
             userArray: userThreeNumberArray
         )
         print("\(outputStrike) 스트라이크, \(outputBall) 볼")
+        
         return outputStrike
     }
     
