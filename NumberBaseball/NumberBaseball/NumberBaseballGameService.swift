@@ -29,49 +29,31 @@ private func checkBallStrikeAt(index: Int, playerNumber: Int) {
     }
 }
 
-private func validatePlayerNumbers(playerNumbers: String?) -> [Int]? {
-	if let playerNumbers = playerNumbers {
-		let validPlayerNumbers = playerNumbers.split(separator: " ").compactMap { Int($0) }
-		return validPlayerNumbers.isEmpty ? nil : validPlayerNumbers
-	} else {
+private func convert(_ playerInput: String?) -> [Int]? {
+	guard let playerInput = playerInput else {
 		return nil
 	}
+	
+	return playerInput.split(separator: " ").compactMap { Int($0) }
 }
 
-private func checkPlayerNumberCount(playerNumbers: [Int]?) -> [Int]? {
-	let set = Set(playerNumbers ?? [])
-	if set.count == 3 {
-		return playerNumbers
-	} else {
+private func checkSizeOf(numbers: [Int]?) -> [Int]? {
+	let uniqueNumbers = Set(numbers ?? [])
+	
+	guard uniqueNumbers.count == 3 else {
 		return nil
 	}
+	return numbers
 }
 
-private func getPlayerNumbers() -> [Int]? {
+private func receivePlayerNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
     let playerInput = readLine()
-    let playerNumbers = validatePlayerNumbers(playerNumbers: playerInput)
-    let checkedPlayerNumbers = checkPlayerNumberCount(playerNumbers: playerNumbers)
+    let convertedPlayerNumbers = convert(playerInput)
+    let checkedPlayerNumbers = checkSizeOf(numbers: convertedPlayerNumbers)
     return checkedPlayerNumbers
-}
-
-private func playRound() {
-	strikeCount = 0
-	ballCount = 0
-	
-    if let playerAnswer = getPlayerNumbers() {
-        print("임의의 수 : " + playerAnswer.generateDescription())
-        checkRoundResultOf(playerAnswer: playerAnswer)
-		
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        tryCount -= 1
-		printTryCountResult()
-    } else {
-        print("입력이 잘못되었습니다")
-    }
-	
 }
 
 private func printTryCountResult() {
@@ -80,10 +62,29 @@ private func printTryCountResult() {
 	}
 }
 
+private func clearCount() {
+	strikeCount = 0
+	ballCount = 0
+}
+
+private func playRound() {
+	clearCount()
+    if let playerAnswer = receivePlayerNumbers() {
+        checkRoundResultOf(playerAnswer: playerAnswer)
+		
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        tryCount -= 1
+		printTryCountResult()
+    } else {
+        print("입력이 잘못되었습니다")
+	}
+}
+
 func startGame() {
 	tryCount = 9
 	computerAnswer = generateRandomNumbers()
-	debugPrint("Computer Answer : \(computerAnswer)")
+	clearCount()
+	
 	while tryCount > 0 && !isPlayerWin {
 		playRound()
 	}

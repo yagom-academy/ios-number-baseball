@@ -15,15 +15,13 @@ private func identify(playerInput: Int?) -> Bool? {
 	}
 }
 
-consoleLoop: while true {
+while true {
     print("1. 게임시작")
     print("2. 게임종료")
     
-    switch identify(playerInput: receivePlayerInput()) {
-	case .some(let isStartGame):
-        isStartGame ? startGame() : print("입력이 잘못되었습니다")
-	case .none:
-		break consoleLoop
+	if let identifiedInput = identify(playerInput: receivePlayerInput()) {
+		identifiedInput ? startGame() : print("입력이 잘못되었습니다")
+	} else {
+		break
 	}
 }
-
