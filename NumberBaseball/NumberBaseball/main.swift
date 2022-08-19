@@ -9,6 +9,7 @@ import Foundation
 var computerNumbers: [Int] = []
 var userNumbers: [Int] = []
 var tryNumber: Int = 9
+var exitSelectMenu: Bool = false
 
 func generateThreeRandomNumbers() -> [Int] {
     var numbers: Set<Int> = []
@@ -55,6 +56,7 @@ func startBaseBallGame() {
     while(tryNumber > 0) {
         tryNumber -= 1
         userNumbers = generateThreeRandomNumbers()
+//        getUserInput()
         
         if tryNumber == 8 {
             computerNumbers = generateThreeRandomNumbers()
@@ -76,34 +78,65 @@ func startBaseBallGame() {
     }
 }
 
-//func getUserInput() -> [Int] {
-//    var a: [Int] = []
-//    var userInput = readLine()?.split(separator: " ")
-//    if userInput?.count != 3 {
-//        print("숫자 3개를 띄어쓰기로 구분하여 주세요")
-//        print("중복 숫자는 허용하지 않습니다.")
-//    } else {
-//        a = userInput.map{$0}
-//    }
-//    return a
-//}
-
-//startBaseBallGame()
-
-while true {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해 주세요",terminator: "")
-    let menuInput = readLine()!
-    let menu = menuInput.map{ String($0) }.filter{$0 != " "}.joined()
-    if menu == "1" {
-        startBaseBallGame()
-    } else if menu == "2" {
-        break
-    } else {
-        print("입력이 잘못되었습니다.")
-        continue
-    }
+func printError() {
+    print("입력이 잘못되었습니다.")
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복 숫자는 허용하지 않습니다.")
 }
 
+func getUserInput(){
+    guard let userInput = readLine()?.split(separator: " ") else {
+        printError()
+        return
+    }
+
+    if userInput.count != 3 {
+        printError()
+    }
+    
+    guard let userInputnum = Int(userInput.joined()) else {
+        printError()
+        return
+    }
+    
+    if userInputnum < 100 || userInputnum > 999 {
+        printError()
+        return
+    }
+    
+    guard let firstNumber = Int(userInput[0]),
+          let secondNumber = Int(userInput[1]),
+          let thirdNumber = Int(userInput[2]) else { return }
+    
+    if firstNumber == secondNumber || secondNumber == thirdNumber || firstNumber == thirdNumber {
+        printError()
+        return
+    }
+
+}
+
+func selectMunu() {
+    while exitSelectMenu == false {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해 주세요",terminator: " ")
+        
+        guard let menuInput = readLine() else {
+            print("원하시는 메뉴를 입력해주세요.")
+            continue
+        }
+        
+        let menu = menuInput.map{ String($0) }.filter{$0 != " "}.joined()
+        
+        if menu == "1" {
+            startBaseBallGame()
+        } else if menu == "2" {
+            print("게임을 종료합니다.")
+            exitSelectMenu = true
+        } else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+    }
+}
 
