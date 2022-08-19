@@ -57,13 +57,17 @@ func printUserNumbersGuideline() {
 func convertToUserNumbers(self: String) -> [Int] {
     let userNumbers = self.components(separatedBy: " ")
         .map(){ (element: String) -> Int in
-            return Int(element) ?? -1
+            if let certainNumber = Int(element) {
+                return certainNumber
+            } else {
+                return 0
+            }
         }
     return userNumbers
 }
 
 func isValid(self: [Int]) -> Bool {
-    if self.contains(-1) || self.count != 3 {
+    if self.contains(0) || self.count != 3 {
         return false
     }
     
