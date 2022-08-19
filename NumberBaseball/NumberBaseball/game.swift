@@ -14,6 +14,7 @@ func startGame() {
             print("입력이 잘못되었습니다.")
             continue
         }
+        remainCount -= 1
         
         printInformation(of: userNumbers)
 
@@ -25,7 +26,6 @@ func startGame() {
             break
         }
         
-        remainCount -= 1
         if isGameOver() {
             print("컴퓨터 승리...!")
         } else {
