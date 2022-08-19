@@ -1,46 +1,3 @@
-func generateThreeRandomNumbers() -> [Int] {
-    let shuffledNumbers = (1...9).shuffled()
-    let threeNumbers = Array(shuffledNumbers.prefix(3))
-    return threeNumbers
-}
-
-func countStrikeOrBall(with myNumbers: [Int]) -> (Int, Int) {
-    var (strike, ball) = (0, 0)
-
-    for (number, myNumber) in zip(targetNumbers, myNumbers) {
-        if number == myNumber {
-            strike += 1
-        } else if targetNumbers.contains(myNumber) {
-            ball += 1
-        }
-    }
-
-    print("\(strike) 스트라이크, \(ball) 볼")
-    return (strike, ball)
-}
-
-func isThreeStrike(in userNumber : [Int]) -> Bool {
-    let strike: Int = countStrikeOrBall(with: userNumber).0
-    
-    if strike == 3 {
-        return true
-    }
-    
-    return false
-}
-
-func manageNumberBaseballGame() {
-    for leftTryCount in (0..<9).reversed() {
-        let userNumbers: [Int] = getThreeGameNumbers()
-        if isThreeStrike(in: userNumbers) {
-            print("사용자 승리!")
-            break
-        }
-        
-        print(leftTryCount != 0 ? "남은 기회: \(leftTryCount)" : "컴퓨터 승리...!")
-    }
-}
-
 func runNumberBaseballGame() {
     while true {
         print("""
@@ -58,6 +15,18 @@ func runNumberBaseballGame() {
                 print("입력이 잘못되었습니다.")
             }
         }
+    }
+}
+
+func manageNumberBaseballGame() {
+    for leftTryCount in (0..<9).reversed() {
+        let userNumbers: [Int] = getThreeGameNumbers()
+        if isThreeStrike(in: userNumbers) {
+            print("사용자 승리!")
+            break
+        }
+        
+        print(leftTryCount != 0 ? "남은 기회: \(leftTryCount)" : "컴퓨터 승리...!")
     }
 }
 
@@ -102,4 +71,35 @@ func checkValid(_ userInput: [String]) -> [Int] {
     }
     
     return validNumbers
+}
+
+func isThreeStrike(in userNumber : [Int]) -> Bool {
+    let strike: Int = countStrikeOrBall(with: userNumber).0
+    
+    if strike == 3 {
+        return true
+    }
+    
+    return false
+}
+
+func countStrikeOrBall(with myNumbers: [Int]) -> (Int, Int) {
+    var (strike, ball) = (0, 0)
+
+    for (number, myNumber) in zip(targetNumbers, myNumbers) {
+        if number == myNumber {
+            strike += 1
+        } else if targetNumbers.contains(myNumber) {
+            ball += 1
+        }
+    }
+
+    print("\(strike) 스트라이크, \(ball) 볼")
+    return (strike, ball)
+}
+
+func generateThreeRandomNumbers() -> [Int] {
+    let shuffledNumbers = (1...9).shuffled()
+    let threeNumbers = Array(shuffledNumbers.prefix(3))
+    return threeNumbers
 }
