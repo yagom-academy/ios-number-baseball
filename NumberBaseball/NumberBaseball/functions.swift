@@ -33,3 +33,24 @@ func generateNumber() -> [Int] {
     }
     return randomNumbers
 }
+
+func validateUserNumbers(numbers: String) -> [Int?]{
+    var userNumbersSet: Set<Int> = []
+    let userNumbers = numbers.split(separator: " ").map({Int($0)})
+    for userNumber in userNumbers {
+        guard let userNumber = userNumber, userNumber > 0, userNumber < 10 else { return [] }
+        userNumbersSet.insert(userNumber)
+
+    }
+    if userNumbersSet.count == 3 {
+        return userNumbers
+    } else {
+        return []
+    }
+}
+
+func getUserNumbers() {
+    print("입력 : ", terminator: "")
+    guard let input = readLine() else { return }
+    validateUserNumbers(numbers: input)
+}
