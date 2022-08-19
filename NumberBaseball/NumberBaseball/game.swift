@@ -63,11 +63,7 @@ func convertToUserNumbers(self: String) -> [Int] {
 }
 
 func isValid(self: [Int]) -> Bool {
-    if self.contains(-1) {
-        return false
-    }
-    
-    if self.count != 3 {
+    if self.contains(-1) || self.count != 3 {
         return false
     }
     
