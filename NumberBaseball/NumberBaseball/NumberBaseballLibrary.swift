@@ -4,8 +4,6 @@ class NumberBaseballLibrary {
     private var computerRandomNumberArray: [Int] = []
     private var userThreeNumberArray: [Int] = []
     private var numberOfAttempts = 9
-    private var strike: Int = 0
-    private var ball: Int = 0
 
     private func generateRandomNumber() -> [Int] {
         var randomNumArray: [Int] = []
@@ -30,8 +28,11 @@ class NumberBaseballLibrary {
         _ userThreeNumberArray: [Int]
     ) -> (Int, Int)
     {
+        var strike = 0
+        var ball = 0
+        
         for i in 0...2 {
-            if matchIndex(Int(computerArray[i]), Int(userThreeNumberArray[i])) == true {
+            if computerArray[i] == userThreeNumberArray[i] {
                 strike += 1
             } else if computerArray.contains(userThreeNumberArray[i]) {
                 ball += 1
@@ -40,17 +41,11 @@ class NumberBaseballLibrary {
         return (strike, ball)
     }
 
-    private func resetStrikeAndBall() {
-        strike = 0
-        ball = 0
-    }
-    
-    private func isThreeStrike() {
-        if strike == 3 {
+    private func isThreeStrike( strikeCount : Int ) {
+        if strikeCount == 3 {
             numberOfAttempts = -1
             return
         } else {
-            resetStrikeAndBall()
             numberOfAttempts -= 1
         }
     }
@@ -69,12 +64,13 @@ class NumberBaseballLibrary {
         }
     }
     
-    private func displayGameStatement() {
+    private func displayGameStatement() -> Int {
         let (outputStrike,outputBall) = matchNumberArray(
             computerRandomNumberArray,
             userThreeNumberArray
         )
         print("\(outputStrike) 스트라이크, \(outputBall) 볼")
+        return outputStrike
     }
     
     private func playNumberBaseball() {
@@ -83,8 +79,7 @@ class NumberBaseballLibrary {
         
         while numberOfAttempts > 0 {
             inputUserThreeNumber()
-            displayGameStatement()
-            isThreeStrike()
+            isThreeStrike(strikeCount: displayGameStatement())
             confirmNumberOfAttempts()
         }
         
@@ -95,7 +90,6 @@ class NumberBaseballLibrary {
         computerRandomNumberArray.removeAll()
         userThreeNumberArray.removeAll()
         numberOfAttempts = 9
-        resetStrikeAndBall()
     }
     
     private func displayUserMenu() -> Bool {
