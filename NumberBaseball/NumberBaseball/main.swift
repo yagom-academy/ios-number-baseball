@@ -10,11 +10,14 @@ private func fetchPlayerInput() -> Int? {
 }
 
 private func identifyPlayerInput(_ playerInput: Int) {
-	if playerInput == 1 {
-		startGame()
-	} else if playerInput > 2 || playerInput < 1 {
-		errorAction()
-	}
+    switch playerInput {
+    case 1:
+        startGame()
+    case 2:
+        return
+    default:
+        errorAction()
+    }
 }
 
 private func errorAction() {
