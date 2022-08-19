@@ -41,13 +41,18 @@ README DAY에 README를 완벽하게 완성하는 것이 아니기 때문에 포
 - [제이푸시]()
 
 ## 타임라인
+<details>
+   <summary>커밋 이력 이미지</summary>
+
 <img width="546" alt="스크린샷 2022-08-19 17 16 06" src="https://user-images.githubusercontent.com/82566116/185575539-f16b1d6c-86c1-456c-91c4-a4e17727f2bb.png">
 <img width="548" alt="스크린샷 2022-08-19 17 16 16" src="https://user-images.githubusercontent.com/82566116/185575570-d313ba59-80cc-42a9-ba7f-e822a899cfe0.png">
 <img width="559" alt="스크린샷 2022-08-19 17 16 28" src="https://user-images.githubusercontent.com/82566116/185575614-37735251-83d1-43c7-9c64-eb99eda6ca79.png">
 <img width="552" alt="스크린샷 2022-08-19 17 16 39" src="https://user-images.githubusercontent.com/82566116/185575652-b164ee53-0482-42db-980e-05d17f1ea96b.png">
-
+   </details>
+   
 ## 프로젝트 구조
-- 전체 순서도
+<details>
+    <summary>전체 순서도</summary>
 
 | main | selectMenu |
 | -- | -- |
@@ -60,6 +65,8 @@ README DAY에 README를 완벽하게 완성하는 것이 아니기 때문에 포
 | validateNumbers | refereeDecision |
 | -- | -- |
 | ![제목 없는 다이어그램-validateNumbers drawio](https://user-images.githubusercontent.com/82566116/184852514-3a98f260-5a33-4a19-9b79-7a68eb5843a5.png) | ![제목 없는 다이어그램-refereeDecision drawio](https://user-images.githubusercontent.com/82566116/184852720-fa5472e3-db07-4f6d-826c-c4602da2cc4f.png)
+
+</details>
 
 ## 실행화면
 
@@ -78,7 +85,8 @@ README DAY에 README를 완벽하게 완성하는 것이 아니기 때문에 포
     - 자세하게 작성해도 괜찮고, 전체적인 흐름만 파악할 정도로 작성해도 괜찮음.
     - 이 프로젝트를 보는 다른 사람(미래의 나 등)이 잘 이해할 수 있도록 그리는 것이 중요.
     - 코드에 정답이 없듯이 순서도를 그리는 방법에도 정답은 없음.
-    
+
+
 ## 참고 링크
 - [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)
 - [Git Convention](https://udacity.github.io/git-styleguide/)
