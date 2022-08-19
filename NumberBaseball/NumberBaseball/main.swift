@@ -51,7 +51,7 @@ func isWin(strike: Int, trialNumber: Int) -> Bool {
     }
 }
 
-func readMenuNumber() -> Int? {
+func receiveMenuNumber() -> Int? {
     print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
     if let selectedMenu = Int(readLine() ?? "") {
         return selectedMenu
@@ -61,7 +61,7 @@ func readMenuNumber() -> Int? {
     }
 }
 
-func readUserNumbers() -> [Int]? {
+func receiveUserNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
     if let choicedNumber = readLine() {
         return choicedNumber.components(separatedBy: " ").compactMap { Int($0) }
@@ -93,11 +93,10 @@ func playGame() {
     var trialNumber: Int = 9
     let computerNumbers = createThreeRandomNumbers()
     while trialNumber > 0 {
-        guard let userNumbers = readUserNumbers(), isCorrectUserNumbers(userNumbers) else {
+        guard let userNumbers = receiveUserNumbers(), isCorrectUserNumbers(userNumbers) else {
             continue
         }
         trialNumber -= 1
-        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
         let result = determineStrikesBallsInTwoNumbers(computerNumbers, userNumbers)
         print("\(result.strike) 스트라이크, \(result.ball) 볼")
         
@@ -109,7 +108,7 @@ func playGame() {
 
 func executeBaseballGame() {
     while true {
-        guard let menuNumber = readMenuNumber(), isCorrectMenuNumber(menuNumber) else {
+        guard let menuNumber = receiveMenuNumber(), isCorrectMenuNumber(menuNumber) else {
             continue
         }
         
