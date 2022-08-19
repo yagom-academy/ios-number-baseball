@@ -49,3 +49,39 @@ func showResult() {
         tryCount != 0 ? print("남은 기회 : \(tryCount)") : print("컴퓨터 승리...!")
     }
 }
+
+func showManual() {
+    while true {
+        print("""
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: " ")
+        
+        if let input = readLine(), let menuInput = Int(input) {
+            switch menuInput {
+            case 1:
+                print("1")
+            case 2:
+                return
+            default:
+                print("입력이 잘못되었습니다.")
+            }
+        }
+    }
+}
+
+//showManual()
+func getThreeGameNumbers() {
+    while true {
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
+        
+        if let input = readLine(), let threeNumbers = Int(input) {
+            
+        }
+    }
+}
