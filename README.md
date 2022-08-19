@@ -15,8 +15,8 @@
 ---
 - 2022.08.16
 	- 공식문서 공부 및 순서도 작성
-    - [Swift Language Guide - Optionals, nil, Optional Binding](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
-    - [Swift Language Guide - Collection Types](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
+		- [Swift Language Guide - Optionals, nil, Optional Binding](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
+    		- [Swift Language Guide - Collection Types](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
         
  - 2022.08.17
  	- 임의의 수를 생성하는 함수 구현
