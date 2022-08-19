@@ -39,7 +39,6 @@ func playGame() {
         }
         let gameResult = checkStrikeAndBall(computer: computerNumbers, user: userNumbers)
         gameCounter -= 1
-        print("임의의 수 : \(userNumbers.map{ String($0) }.joined(separator: " "))")
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
         if gameResult[0] == 3 {
             print("유저 승리...!")
@@ -70,12 +69,24 @@ func gameMenuSelect() {
     }
 }
 
+func removeDuplicate(_ array: [Int]) -> [Int] {
+    var removedArray = [Int]()
+    for item in array {
+        if removedArray.contains(item) == false {
+            removedArray.append(item)
+        }
+    }
+    return removedArray
+}
+
 func reciveNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n" , terminator: "")
-    guard let recivedValue = readLine(), !recivedValue.isEmpty else { return nil }
-    let recivedNumbers = Set(recivedValue.components(separatedBy: " ")).compactMap({ Int($0) })
-    guard recivedNumbers.count == 3, recivedNumbers.filter({ $0 < 10 }).count == 3 else { return nil }
-    return recivedValue.components(separatedBy: " ").compactMap({ Int($0) })
+    guard let recivedValue = readLine() else { return nil }
+    let separatedNumbers = recivedValue.components(separatedBy: " ").compactMap{ Int($0) }
+    guard separatedNumbers.count == 3 else { return nil }
+    let oneDigitNumbers = removeDuplicate(separatedNumbers).filter{ $0 < 10 }
+    guard oneDigitNumbers.count == 3 else { return nil }
+    return oneDigitNumbers
 }
 
 gameMenuSelect()
