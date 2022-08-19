@@ -34,23 +34,32 @@ func generateNumber() -> [Int] {
     return randomNumbers
 }
 
-func validateUserNumbers(numbers: String) -> [Int?]{
-    var userNumbersSet: Set<Int> = []
-    let userNumbers = numbers.split(separator: " ").map({Int($0)})
+func validateUserNumbers(userNumbers: [Int]) {
     for userNumber in userNumbers {
-        guard let userNumber = userNumber, userNumber > 0, userNumber < 10 else { return [] }
-        userNumbersSet.insert(userNumber)
-
+        guard (1...9).contains(userNumber) else {
+            print("""
+            숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+            중복 숫자는 허용하지 않습니다.
+            """)
+            getUserNumbers()
+            return
+        }
     }
-    if userNumbersSet.count == 3 {
-        return userNumbers
+    if Set(userNumbers).count == 3 {
+        return
     } else {
-        return []
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        """)
+        getUserNumbers()
     }
 }
 
-func getUserNumbers() {
+func getUserNumbers() -> [Int] {
     print("입력 : ", terminator: "")
-    guard let input = readLine() else { return }
-    validateUserNumbers(numbers: input)
+    guard let input = readLine() else { return [] }
+    let userNumbers = input.split(separator: " ").compactMap({ Int($0)})
+    validateUserNumbers(userNumbers: userNumbers)
+    return userNumbers
 }

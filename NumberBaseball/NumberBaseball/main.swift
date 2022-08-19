@@ -29,7 +29,7 @@ func startGame() {
     var run = true
     while run {
         chance -= 1
-        let userNumbers = generateNumber()
+        let userNumbers = getUserNumbers()
         printUserNumbers(userNumbers: userNumbers)
         let (strike, ball) = compareWithComputerNumbers(from: userNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
@@ -45,7 +45,7 @@ func startGame() {
 }
 
 func printUserNumbers(userNumbers: [Int]) {
-    print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[1])")
+    print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
 }
 
 showInterface()
