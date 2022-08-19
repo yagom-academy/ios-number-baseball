@@ -86,7 +86,7 @@ func printInformation(of userNumbers: [Int]) {
     print(information)
 }
 
-func decideStrikeCountAndBallCount(about userNumbers: [Int]) -> (Int, Int) {
+func countStrikeAndBall(in userNumbers: [Int]) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
     
