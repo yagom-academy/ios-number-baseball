@@ -66,10 +66,10 @@ README DAY에 README를 완벽하게 완성하는 것이 아니기 때문에 포
 
 ## 트러블 슈팅
 -  inputUserNumbers() -> [Int]
-  - array의 값 슬라이싱을 통해 반환하려다 보니 arraySlice형이 반환되어서 arraySlice형으로 반환할 지 Int형 array로 변환 후 반환할지 고민
-    - Array 생성자로 덮어주어 Int형 배열로 반환하기로 해결
+   - array의 값 슬라이싱을 통해 반환하려다 보니 arraySlice형이 반환되어서 arraySlice형으로 반환할 지 Int형 array로 변환 후 반환할지 고민
+     - Array 생성자로 덮어주어 Int형 배열로 반환하기로 해결
 
-- playBall()
+- gameStart()
   - Int형 배열을 양식과 같이 출력하기 위한 방법에 대한 고민
     - String으로 매핑해준 후 구분자를 공백으로 사용하여서 하나의 문자열로 합쳐 주는 함수를 기능분리 해서 해결
 
