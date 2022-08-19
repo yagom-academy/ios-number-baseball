@@ -31,7 +31,7 @@
 |태리|감자|
 
 ### 4. 프로젝트 순서도
-![image](https://user-images.githubusercontent.com/19286161/185259290-4d432a0c-8a3a-444b-aa29-d9bf06bc9973.png)
+![image](https://user-images.githubusercontent.com/19286161/185542140-6ad444b0-451e-4036-9457-a3651c9f4377.png)
 
 ### 5. 기능설명
 메뉴선택
