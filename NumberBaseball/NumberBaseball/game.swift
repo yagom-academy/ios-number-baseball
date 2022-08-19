@@ -18,7 +18,7 @@ func startGame() {
         printInformation(of: userNumbers)
 
         let (strikeCount, ballCount) = countStrikeAndBall(in: userNumbers)
-        printDecision(about: strikeCount, and: ballCount)
+        printResultOf(strikeCount, ballCount)
         
         if isStrikeOut(strikeCount) {
             print("사용자 승리!")
@@ -100,7 +100,7 @@ func countStrikeAndBall(in userNumbers: [Int]) -> (Int, Int) {
     return (strikeCount, ballCount)
 }
 
-func printDecision(about strikeCount: Int, and ballCount: Int) {
+func printResultOf(_ strikeCount: Int, _ ballCount: Int) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
