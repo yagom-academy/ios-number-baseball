@@ -16,7 +16,7 @@
 - 2022.08.16
 	- 공식문서 공부 및 순서도 작성
 		- [Swift Language Guide - Optionals, nil, Optional Binding](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
-    		- [Swift Language Guide - Collection Types](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
+    	- [Swift Language Guide - Collection Types](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
         
  - 2022.08.17
  	- 임의의 수를 생성하는 함수 구현
@@ -41,8 +41,33 @@
 
 ### 📱 실행 화면(기능 설명)
 ---
-6-1. 화면 스크린샷 or gif
-6-2. 해당 화면에 대한 설명
+#### 게임 시작
+
+- 메뉴 선택 후 게임을 실행하는 기능입니다.
+<img src="https://velog.velcdn.com/images/ostone/post/27ec8263-40dc-4752-900d-7a061d2f9fc5/image.png" width="500px">
+
+#### 게임 종료와 메뉴 유효성 체크
+
+- 메뉴 선택화면에서 메뉴 입력에 대한 유효성을 체크하는 기능입니다.
+- 유효하지 않은 값이 입력 되었을 때 메뉴 선택을 반복하고, 종료 선택 시 종료합니다.
+<img src="https://velog.velcdn.com/images/ostone/post/993bf1ab-a599-426e-8f23-114205fd9069/image.png" width="500px">
+
+#### 사용자 입력 값 유효성 체크
+
+- 사용자 입력 값에 대한 유효성 체크를하는 기능입니다.
+- 1~9 사이의 유효한 양수 값이 3개를 입력하였는지 체크합니다.
+<img src="https://velog.velcdn.com/images/ostone/post/5f19b0ef-d4ac-4ba2-8dfd-a895fb18d10d/image.png" width="500px">
+
+#### 유저 승리
+
+- 9번 이하의 시도로 컴퓨터의 숫자 3개를 맞추면 승리를 출력하는 기능입니다.
+<img src="https://velog.velcdn.com/images/ostone/post/d2201758-850a-4cdb-8bce-fcb51b8e43f1/image.png" width="500px">
+
+#### 컴퓨터 승리
+
+- 남은 기회가 0이 되면 컴퓨터가 승리하는 기능입니다.
+<img src="https://velog.velcdn.com/images/ostone/post/9b22916d-2291-472f-8134-48666ee1338c/image.png" width="500px">
+
 ### 🚀 트러블 슈팅
 ---
 ### 📍 Step 1
