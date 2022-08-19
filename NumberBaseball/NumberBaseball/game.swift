@@ -10,7 +10,7 @@ func startGame() {
     
     while remainCount > 0 {
         userNumbers = inputUserNumbers()
-        if isInvalid(self: userNumbers) {
+        if isValid(self: userNumbers) == false {
             print("입력이 잘못되었습니다.")
             continue
         }
@@ -58,13 +58,13 @@ func convertToUserNumbers(self: String) -> [Int] {
     return userNumbers
 }
 
-func isInvalid(self: [Int]) -> Bool {
+func isValid(self: [Int]) -> Bool {
     if self.contains(-1) {
-        return true
+        return false
     }
     
     if self.count != 3 {
-        return true
+        return false
     }
     
     let filteredData = Set(self).filter( { (element: Int) -> Bool in
@@ -72,10 +72,10 @@ func isInvalid(self: [Int]) -> Bool {
     })
     
     if filteredData.count != 3 {
-        return true
+        return false
     }
      
-    return false
+    return true
 }
 
 func printInformation(of userNumbers: [Int]) {
