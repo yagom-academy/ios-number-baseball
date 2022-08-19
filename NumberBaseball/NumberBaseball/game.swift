@@ -67,7 +67,7 @@ func convertToUserNumbers(self: String) -> [Int] {
 }
 
 func isValid(self: [Int]) -> Bool {
-    if self.contains(0) || self.count != 3 {
+    if self.count != 3 {
         return false
     }
     
@@ -94,10 +94,10 @@ func countStrikeAndBall(in userNumbers: [Int]) -> (Int, Int) {
     var strikeCount = 0
     var ballCount = 0
     
-    for index in 0...2 {
-        if userNumbers[index] == answer[index] {
+    for counter in 0...2 {
+        if userNumbers[counter] == answer[counter] {
             strikeCount += 1
-        } else if answer.contains(userNumbers[index]) {
+        } else if answer.contains(userNumbers[counter]) {
             ballCount += 1
         }
     }
