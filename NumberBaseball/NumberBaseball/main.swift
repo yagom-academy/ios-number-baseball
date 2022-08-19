@@ -26,8 +26,7 @@ func showInterface() {
 }
 
 func startGame() {
-    var run = true
-    while run {
+    while chance > 0 {
         chance -= 1
         let userNumbers = generateRandomNumbers()
         printUserNumbers(userNumbers: userNumbers)
@@ -36,10 +35,10 @@ func startGame() {
         print("남은 기회 : \(chance)")
         if strike == 3 {
             print("사용자 승리...!")
-            run = false
+            break
         } else if chance == 0 {
             print("컴퓨터 승리...!")
-            run = false
+            break
         }
     }
 }
