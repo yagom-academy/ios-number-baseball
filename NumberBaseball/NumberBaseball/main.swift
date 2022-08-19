@@ -93,10 +93,7 @@ func playGame() {
     var trialNumber: Int = 9
     let computerNumbers = createThreeRandomNumbers()
     while trialNumber > 0 {
-        guard let userNumbers = readUserNumbers() else {
-            continue
-        }
-        guard isCorrectUserNumbers(userNumbers) else {
+        guard let userNumbers = readUserNumbers(), isCorrectUserNumbers(userNumbers) else {
             continue
         }
         trialNumber -= 1
@@ -112,10 +109,7 @@ func playGame() {
 
 func executeBaseballGame() {
     while true {
-        guard let menuNumber = readMenuNumber() else {
-            continue
-        }
-        guard isCorrectMenuNumber(menuNumber) else {
+        guard let menuNumber = readMenuNumber(), isCorrectMenuNumber(menuNumber) else {
             continue
         }
         
