@@ -1,5 +1,5 @@
 let targetNumbers: [Int] = generateThreeRandomNumbers()
-showManual()
+runNumberBaseballGame()
 
 func generateThreeRandomNumbers() -> [Int] {
     let shuffledNumbers = (1...9).shuffled()
@@ -18,39 +18,33 @@ func countStrikeOrBall(with myNumbers: [Int]) -> (Int, Int) {
         }
     }
 
+    print("\(strike) 스트라이크, \(ball) 볼")
     return (strike, ball)
 }
 
-func isThreeStrike() -> Bool {
-    let myNumbers: [Int] = getThreeGameNumbers()
-    let convertedMyNumber: String = myNumbers.reduce("") { String($0) + " " + String($1) }
-    let (strike, ball) = countStrikeOrBall(with: myNumbers)
-    
-    print("임의의 수 :\(convertedMyNumber)" )
-    print("\(strike) 스트라이크, \(ball) 볼")
+func isThreeStrike(in userNumber : [Int]) -> Bool {
+    let strike: Int = countStrikeOrBall(with: userNumber).0
     
     if strike == 3 {
         return true
     }
+    
     return false
 }
 
-func showResult() {
-    var tryCount = 9
-
-    while tryCount >= 1 {
-        if isThreeStrike() {
+func manageNumberBaseballGame() {
+    for leftTryCount in (0..<9).reversed() {
+        let userNumbers: [Int] = getThreeGameNumbers()
+        if isThreeStrike(in: userNumbers) {
             print("사용자 승리!")
             break
         }
         
-        tryCount -= 1
-        
-        tryCount != 0 ? print("남은 기회 : \(tryCount)") : print("컴퓨터 승리...!")
+        print(leftTryCount != 0 ? "남은 기회: \(leftTryCount)" : "컴퓨터 승리...!")
     }
 }
 
-func showManual() {
+func runNumberBaseballGame() {
     while true {
         print("""
                1. 게임시작
@@ -60,7 +54,7 @@ func showManual() {
         if let input = readLine(), let menuInput = Int(input) {
             switch menuInput {
             case 1:
-                showResult()
+                manageNumberBaseballGame()
             case 2:
                 return
             default:
@@ -83,25 +77,33 @@ func getThreeGameNumbers() -> [Int] {
             continue
         }
         
-        if userInput.count != 3 {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
+        threeNumbers = checkValid(userInput)
         
-        for number in userInput {
-            if number.count == 1, let convertedNumber = Int(number) {
-                threeNumbers.append(convertedNumber)
-            } else {
-                print("입력이 잘못되었습니다.")
-                break
-            }
-        }
-        
-        if threeNumbers.count == 3 {
+        if !threeNumbers.isEmpty {
             break
         }
         
-        threeNumbers.removeAll()
+        print("입력이 잘못됐습니다.")
     }
+    
     return threeNumbers
 }
+
+func checkValid(_ userInput: [String]) -> [Int] {
+    var validNumbers = [Int]()
+    
+    if userInput.count != 3 {
+        return []
+    }
+    
+    for number in userInput {
+        if number.count == 1, let convertedNumber = Int(number), convertedNumber != 0 {
+            validNumbers.append(convertedNumber)
+        } else {
+            return []
+        }
+    }
+    
+    return validNumbers
+}
+
