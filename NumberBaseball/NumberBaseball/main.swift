@@ -4,6 +4,9 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+let answer = fetchRandomNumbers()
+var remainCount = 9
+
 func fetchRandomNumbers() -> [Int] {
     var numberSet = Set<Int>()
     while numberSet.count < 3 {
@@ -30,8 +33,5 @@ func startNumberBaseball() {
         }
     }
 }
-
-let answer = fetchRandomNumbers()
-var remainCount = 9
 
 startNumberBaseball()
