@@ -146,10 +146,10 @@ STEP-2
 
 # **9. 참고 링크**
 
-- [API Design Guidlines]([https://swift.org/documentation/api-design-guidelines/](https://swift.org/documentation/api-design-guidelines/))
-- [Swift Style Guide]([https://google.github.io/swift/](https://google.github.io/swift/))
-- [draw.io]([https://app.diagrams.net/](https://app.diagrams.net/))
-- [The Basics]([https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html))
-- [Error Handing]([https://docs.swift.org/swift-book/LanguageGuide/ErrorHandling.html](https://docs.swift.org/swift-book/LanguageGuide/ErrorHandling.html))
-- [NAVER Engineering - 영어 변수명을 잘 지어보자]([https://tv.naver.com/v/4980432/list/267189](https://tv.naver.com/v/4980432/list/267189))
-- [GitBook]([https://www.gitbook.com/](https://www.gitbook.com/))
+- [API Design Guidlines](https://swift.org/documentation/api-design-guidelines/)
+- [Swift Style Guide](https://google.github.io/swift/)
+- [draw.io](https://app.diagrams.net/)
+- [The Basics](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
+- [Error Handing](https://docs.swift.org/swift-book/LanguageGuide/ErrorHandling.html)
+- [NAVER Engineering - 영어 변수명을 잘 지어보자](https://tv.naver.com/v/4980432/list/267189)
+- [GitBook](https://www.gitbook.com/)
