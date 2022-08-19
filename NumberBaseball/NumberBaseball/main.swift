@@ -41,7 +41,7 @@ func compareWithComputerNumbers(from userNumbers: [Int]) -> (Int, Int) {
     return (strike, ball)
 }
 
-func gameStart() {
+func startGame() {
     var run = true
     while run {
         chance -= 1
@@ -68,7 +68,7 @@ func showInterface() {
     guard let input = readLine() else { return }
     if input.count == 1 && input == "1" {
         print("선택 : \(input)")
-        gameStart()
+        startGame()
     } else if input.count == 1 && input == "2" {
         return
     } else {
