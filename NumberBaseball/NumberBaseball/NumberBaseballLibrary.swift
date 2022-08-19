@@ -58,14 +58,19 @@ class NumberBaseballLibrary {
         }
     }
     
-    private func displayGameStatement() -> Int {
+    private func setStrikeAndBall() -> (Int,Int){
         let (outputStrike,outputBall) = matchNumberArray(
             computerArray: computerRandomNumberArray,
             userArray: userThreeNumberArray
         )
-        print("\(outputStrike) 스트라이크, \(outputBall) 볼")
         
-        return outputStrike
+        return (outputStrike,outputBall)
+    }
+    
+    private func displayGameStatement(strikeAndBall: (Int,Int)) -> Int {
+        print("\(strikeAndBall.0) 스트라이크, \(strikeAndBall.1) 볼")
+        
+        return strikeAndBall.0
     }
     
     private func playNumberBaseball() {
@@ -74,7 +79,7 @@ class NumberBaseballLibrary {
         
         while numberOfAttempts > 0 {
             inputUserThreeNumber()
-            setThreeStrike(strikeCount: displayGameStatement())
+            setThreeStrike(strikeCount: displayGameStatement(strikeAndBall: setStrikeAndBall()))
             confirmNumberOfAttempts()
         }
         
