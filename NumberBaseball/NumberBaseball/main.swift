@@ -1,16 +1,38 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by 애종,LJ.
 //  Copyright © yagom academy. All rights reserved.
 //
 
 import Foundation
 
-var comNumArray: Array<Int> = []
-var tempNumArray: Array<Int> = []
+var computerNumberArray: Array<Int> = []
+var randomNumberArray: Array<Int> = []
 var tryCount: Int = 9
 var strikeCount: Int = 0
 var ballCount: Int = 0
+
+
+startGame()
+
+func startGame() {
+    computerNumberArray = createRandomNumbers()
+    while tryCount > 0 {
+        strikeCount = 0
+        ballCount = 0
+        randomNumberArray = createRandomNumbers()
+        
+        printRandomNumberArray()
+        checkStrikeAndBall()
+        
+        print("\n\(strikeCount) 스트라이크, \(ballCount) 볼")
+        
+        
+        tryCount -= 1
+        judgeVictory(by: strikeCount)
+        printRemainTryCount()
+    }
+}
 
 func createRandomNumbers() -> [Int] {
     var numbersSet: Set<Int> = []
@@ -21,10 +43,27 @@ func createRandomNumbers() -> [Int] {
     return Array(numbersSet)
 }
 
-func checkBallStrike() {
-    for (index,number) in tempNumArray.enumerated() {
-        guard comNumArray.contains(number) else { continue }
-        if comNumArray[index] == number {
+func judgeVictory(by strikeCount: Int){
+    if strikeCount == 3 {
+        print("사용자 승리...!")
+    } else if tryCount == 0 {
+        print("컴퓨터 승리...!")
+    }
+}
+
+func printRemainTryCount() {
+    if strikeCount != 3 && tryCount > 0 { //남은기회 출력조건
+        print("남은 기회 : \(tryCount) \n")
+    }
+}
+
+
+
+
+func checkStrikeAndBall() {
+    for (index,number) in randomNumberArray.enumerated() {
+        guard computerNumberArray.contains(number) else { continue }
+        if computerNumberArray[index] == number {
             strikeCount += 1
         } else {
             ballCount += 1
@@ -32,33 +71,11 @@ func checkBallStrike() {
     }
 }
 
-func startGame() {
-    comNumArray = createRandomNumbers()
-    while tryCount > 0 {
-        strikeCount = 0
-        ballCount = 0
-        tempNumArray = createRandomNumbers()
-        
-        print("임의의 수 : \(tempNumArray)")
-        
-        checkBallStrike()
-        
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-        
-        if strikeCount == 3 {
-            print("사용자 승리...!")
-            break
-        }
-        tryCount -= 1
-        
-        print("남은 기회 : \(tryCount) \n")
-    }
-
-    if strikeCount != 3 {
-        print("컴퓨터 승리...!")
+func printRandomNumberArray() {
+    for index in 0...2 {
+        print("임의의 수 : \(randomNumberArray[index])", terminator: " ")
     }
 }
 
-startGame()
 
 
