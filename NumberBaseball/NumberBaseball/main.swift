@@ -45,17 +45,15 @@ func foundStrike() -> Int {
     return strikeCount
 }
 
-func decideUserVictory() {
+func decideUserVictory() -> Bool{
     if foundStrike() == 3 {
-        print("사용자 승리!")
-        return
+        return true
     }
+    return false
 }
 
 func startBaseBallGame() {
     while(tryNumber > 0) {
-        tryNumber -= 1
-        
         let tryUserInput = getUserInput()
         
         for number in tryUserInput {
@@ -64,24 +62,39 @@ func startBaseBallGame() {
             }
         }
         
+        if filterUserInput(input: tryUserInput) == false {
+            userNumbers.removeAll()
+            continue
+        }
+        
+        tryNumber -= 1
+        
         if tryNumber == 8 {
             computerNumbers = generateThreeRandomNumbers()
         }
         
         print(computerNumbers)
-        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         print(foundStrike() ," 스트라이크,", foundBall(), " 볼")
-        userNumbers.removeAll()
         
         if tryNumber == 0 {
-            decideUserVictory()
-            print("컴퓨터 승리...!")
-            return
+            if decideUserVictory() == true {
+                print("사용자 승리!")
+                userNumbers.removeAll()
+                break
+            } else {
+                print("컴퓨터 승리...!")
+                userNumbers.removeAll()
+                break
+            }
         } else {
-            decideUserVictory()
+            if decideUserVictory() == true {
+                print("사용자 승리!")
+                userNumbers.removeAll()
+                break
+            }
             print("남은 기회 : \(tryNumber)")
-            print("\n")
         }
+        userNumbers.removeAll()
     }
 }
 
@@ -91,21 +104,22 @@ func printError() {
     print("중복 숫자는 허용하지 않습니다.")
 }
 
-func filterUserInput( input: [String] ) {
+func filterUserInput( input: [String] ) -> Bool {
     if Set(input).count != 3 {
         printError()
-        return
+        return false
     }
     
     guard let userInputnum = Int(input.joined()) else {
         printError()
-        return
+        return false
     }
     
     if userInputnum < 100 || userInputnum > 999 {
         printError()
-        return
+        return false
     }
+    return true
 }
 
 func getUserInput() -> [String] {
@@ -114,12 +128,12 @@ func getUserInput() -> [String] {
         printError()
         return []
     }
-    filterUserInput(input: userInput)
     return userInput
 }
 
 func selectMunu() {
     while exitSelectMenu == false {
+        tryNumber = 9
         print("1. 게임시작")
         print("2. 게임종료")
         print("원하는 기능을 선택해 주세요",terminator: " ")
@@ -142,4 +156,5 @@ func selectMunu() {
         }
     }
 }
+
 selectMunu()
