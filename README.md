@@ -54,7 +54,6 @@ func selectMenu() -> Bool {
         startNumberBaseBall()
         return false
     case "2":
-        print("게임종료")
         return true
     default :
         print("입력이 잘못되었습니다.")
@@ -67,34 +66,28 @@ func selectMenu() -> Bool {
 > 3. 사용자가 2 입력시 게임종료하기 위해 함수 종료
 > 4. 1, 2를 제외한 문자 입력시 오입력 알림 문구 출력
 
-사용자 숫자 입력 및 유효성 검사
+사용자 입력 숫자 유효성 검사
 
-`readUserIput()` - 사용자에게 3개의 숫자를 입력받아 유효성을 검사후 3개의 정수 배열을 반환하는 함수
+`checkUserInput()` - 사용자에게 입력받은 숫자의 유효성을 검사후 3개의 정수 배열을 반환하는 함수
 ```swift
-func readUserInput() -> [Int]? {
-    print("입력 : ", terminator: "")
+func checkUserInput(_ userInput: String) -> [Int]? {
+    let userInputNumber: [Int] = userInput.components(separatedBy: " ")
+        .compactMap { Int($0) }
+        .filter { $0 > 0 && $0 < 10}
     
-    guard let userInput = readLine() else {
-        return nil
-    }
-    let userInputNumber: [Int] = userInput.components(separatedBy: " ").compactMap{Int($0)}
-    
-    guard userInputNumber.count == 3 else {
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    if userInputNumber.count != 3 {
         return nil
     }
     
     if Set(userInputNumber).count != 3 {
-        print("중복 숫자는 허용하지 않습니다.")
         return nil
     }
     return userInputNumber
 }
 ```
-> 1. 사용자 입력처리
-> 2. 구분자 " "기준으로 쪼개어 정수형 배열로 생성
-> 3. 3개 정수 배열이 아닌경우 오입력 알림 문구 출력
-> 4. 중복 숫자 존재시 알림 문구 출력
+> 1. 구분자 " "기준으로 쪼개어 정수형 배열로 생성
+> 2. 3개 정수 배열이 아닌경우 오입력 알림 문구 출력
+> 3. 중복 숫자 존재시 알림 문구 출력
 
 스트라이크 개수 확인
 
@@ -139,23 +132,22 @@ func startNumberBaseBall() {
     var lifeCount: Int = 9
     
     while lifeCount != 0 {
-        lifeCount -= 1
-        
-        guard let userInputNumber = readUserInput() else {
-            print("남은기회 : \(lifeCount)")
+        guard let userInput = readUserInput(), let userInputNumber = checkUserInput(userInput) else {
+            print("입력이 잘못되었습니다.")
+            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+            print("중복 숫자는 허용하지 않습니다.")
             continue
         }
-        print("정답 : \(randomNumber[0]) \(randomNumber[1]) \(randomNumber[2])")
-        print("임의의 수 : \(userInputNumber[0]) \(userInputNumber[1]) \(userInputNumber[2])")
+        
+        lifeCount -= 1
         let strikeCount: Int = checkStrike(comparing: randomNumber, with: userInputNumber)
+        let ballCount: Int = checkBall(comparing: randomNumber, with: userInputNumber)
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
         if strikeCount == 3 {
             print("사용자 승리!")
             break
         }
-        
-        let ballCount: Int = countBall(comparing: randomNumber, with: userInputNumber)
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은기회 : \(lifeCount)")
     }
     
@@ -165,7 +157,7 @@ func startNumberBaseBall() {
 }
 ```
 >1. `createRandNumber()`를 호출하여 임의의 중복없는 3개의 숫자 생성
->2. `readUserInput()`을 호출하여 사용자에게 3개의 숫자 입력처리
+>2. `checkUserInput()`을 호출하여 사용자에게 입력받은 숫자 3개 유효성 검사
 >3. `checkStrike()`를 호출하여 strike 개수 확인
 >4. `checkBall()`를 호출하여 ball 개수 확인
 >5. 3 strike시 사용자 승리 문구 출력 후 종료, 이외의 경우에는 다음턴 진행
