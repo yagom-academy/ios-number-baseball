@@ -21,7 +21,6 @@ func selectMenu() -> Bool {
         startNumberBaseBall()
         return false
     case "2":
-        print("게임종료")
         return true
     default :
         print("입력이 잘못되었습니다.")
@@ -31,7 +30,7 @@ func selectMenu() -> Bool {
 
 func checkUserInput(_ userInput: String) -> [Int]? {
     let userInputNumber: [Int] = userInput.components(separatedBy: " ")
-        .compactMap{Int($0)}
+        .compactMap { Int($0) }
         .filter { $0 > 0 && $0 < 10}
     
     if userInputNumber.count != 3 {
@@ -104,14 +103,13 @@ func startNumberBaseBall() {
         
         lifeCount -= 1
         let strikeCount: Int = checkStrike(comparing: randomNumber, with: userInputNumber)
+        let ballCount: Int = checkBall(comparing: randomNumber, with: userInputNumber)
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
         if strikeCount == 3 {
             print("사용자 승리!")
             break
         }
-        
-        let ballCount: Int = checkBall(comparing: randomNumber, with: userInputNumber)
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         print("남은기회 : \(lifeCount)")
     }
     
