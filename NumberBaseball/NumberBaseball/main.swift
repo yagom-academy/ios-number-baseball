@@ -52,9 +52,62 @@ func decideUserVictory() -> Bool{
     return false
 }
 
+enum error:Error {
+    case countError(message: String)
+    case numberError(message: String)
+    case rangeError(message: String)
+}
+
+func filterUserInput( input: [String] ) throws {
+    let errorSentence: String = """
+    입력이 잘못되었습니다.
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    """
+    
+    if Set(input).count != 3 {
+        throw error.countError(message: errorSentence)
+    }
+    
+    guard let userInputnum = Int(input.joined()) else {
+        throw error.numberError(message: errorSentence)
+    }
+    
+    if userInputnum < 100 || userInputnum > 999 {
+        throw error.rangeError(message: errorSentence)
+    }
+}
+
+func executionFilter(input: [String] ) -> Bool {
+    do {
+        try filterUserInput(input: input)
+    } catch error.countError(let message){
+        print(message)
+        return false
+    } catch error.numberError(let message) {
+        print(message)
+        return false
+    } catch error.rangeError(let message) {
+        print(message)
+        return false
+    } catch {
+        print("someError")
+        return false
+    }
+    return true
+}
+
+func getUserInput() -> [String] {
+    print("입력 : ",terminator: "")
+    guard let userInput = readLine()?.components(separatedBy: " ") else {
+        return []
+    }
+    return userInput
+}
+
 func startBaseBallGame() {
     while(tryNumber > 0) {
-        let tryUserInput = getUserInput()
+        let tryUserInput =  getUserInput()
         
         for number in tryUserInput {
             if let number = Int(number) {
@@ -62,18 +115,17 @@ func startBaseBallGame() {
             }
         }
         
-        if filterUserInput(input: tryUserInput) == false {
+        if executionFilter(input: tryUserInput) == false {
             userNumbers.removeAll()
             continue
         }
-        
+
         tryNumber -= 1
         
         if tryNumber == 8 {
             computerNumbers = generateThreeRandomNumbers()
         }
         
-        print(computerNumbers)
         print(foundStrike() ," 스트라이크,", foundBall(), " 볼")
         
         if tryNumber == 0 {
@@ -98,40 +150,7 @@ func startBaseBallGame() {
     }
 }
 
-func printError() {
-    print("입력이 잘못되었습니다.")
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
-    print("중복 숫자는 허용하지 않습니다.")
-}
-
-func filterUserInput( input: [String] ) -> Bool {
-    if Set(input).count != 3 {
-        printError()
-        return false
-    }
-    
-    guard let userInputnum = Int(input.joined()) else {
-        printError()
-        return false
-    }
-    
-    if userInputnum < 100 || userInputnum > 999 {
-        printError()
-        return false
-    }
-    return true
-}
-
-func getUserInput() -> [String] {
-    print("입력 : ",terminator: "")
-    guard let userInput = readLine()?.components(separatedBy: " ") else {
-        printError()
-        return []
-    }
-    return userInput
-}
-
-func selectMunu() {
+func selectMenu() {
     while exitSelectMenu == false {
         tryNumber = 9
         print("1. 게임시작")
@@ -157,4 +176,4 @@ func selectMunu() {
     }
 }
 
-selectMunu()
+selectMenu()
