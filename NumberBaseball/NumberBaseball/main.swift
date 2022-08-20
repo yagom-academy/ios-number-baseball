@@ -9,42 +9,18 @@ import Foundation
 var computerNumberArray: Array<Int> = []
 var tryCount: Int = 9
 
-
-func playGame() {
-    computerNumberArray = createRandomNumbers()
-    while tryCount > 0 {
-        printInputCondition()
-        
-        
-        let strikeAndBall = checkStrikeAndBall(with: randomNumberArray)
-        print("\n\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
-        
-        tryCount -= 1
-        judgeVictory(by: strikeAndBall[0])
-        printRemainTryCount(strikeCount: strikeAndBall[0])
-    }
-}
-
-func createRandomNumbers() -> Array<Int> {
-    var numbersSet: Set<Int> = []
-    
-    while numbersSet.count < 3 {
-        numbersSet.insert(Int.random(in: 1...9))
-    }
-    
-    return Array(numbersSet)
-}
-
-func judgeVictory(by strikeCount: Int){
+func judgeVictory(by strikeCount: Int) -> String {
     if strikeCount == 3 {
         print("사용자 승리...!")
+        return "win"
     } else if tryCount == 0 {
         print("컴퓨터 승리...!")
     }
+    return "lose"
 }
 
 func printRemainTryCount(strikeCount: Int) {
-    if strikeCount != 3 && tryCount > 0 {
+    if strikeCount != 3 && tryCount >= 0 {
         print("남은 기회 : \(tryCount) \n")
     }
 }
@@ -52,7 +28,7 @@ func printRemainTryCount(strikeCount: Int) {
 func checkStrikeAndBall(with numbers: Array<Int>) -> Array<Int> {
     var strikeCount = 0
     var ballCount = 0
-    
+
     for (index,number) in numbers.enumerated() {
         guard computerNumberArray.contains(number) else { continue }
         
@@ -66,24 +42,52 @@ func checkStrikeAndBall(with numbers: Array<Int>) -> Array<Int> {
     return [strikeCount, ballCount]
 }
 
-func printInputCondition() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+func checkError(with input: Array<String>) -> Bool {
+    let convertToNumbers: Array<Int> = input.map { Int($0) }.compactMap { $0 }
+    guard input[0] != "", Set(input).count == 3,
+          convertToNumbers.count == 3,
+          convertToNumbers.filter { 1...9 ~= $0 }.count == 3 else { return false }
+    
+    return true
 }
 
-func getInputNumbers() {
-    guard let input = readLine()?.components(separatedBy: " "),
-          input[0] != "",
-          Set(input).count == 3 else {
-        // 숫자를 잘못 입력했거나 갯수가 잘못된 경우
-    }
-
-    let convertToNumbers = input.map { Int($0) }.compactMap { $0 }
-    guard convertToNumbers.count == 3,
-          convertToNumbers.filter { 1...9 ~= $0 }.count == 3 else {
-        // 범위에 맞지 않거나 숫자가 아닌 경우
+func getInputNumbers() -> Array<String> {
+    if let input: Array<String> = readLine()?.components(separatedBy: " ") {
+        return input
     }
     
-    return 1() && 2()
+    return ["nil input"]
+}
+
+func printInputCondition() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+}
+
+func createRandomNumbers() -> Array<Int> {
+    var numbersSet: Set<Int> = []
+    while numbersSet.count < 3 {
+        numbersSet.insert(Int.random(in: 1...9))
+    }
+    
+    return Array(numbersSet)
+}
+
+func playGame() {
+    computerNumberArray = createRandomNumbers()
+    while tryCount > 0 {
+        printInputCondition()
+        
+        let inputNumbers: Array<String> = getInputNumbers()
+        guard checkError(with: inputNumbers) else { continue }
+        
+        let intNumbers = inputNumbers.map { Int($0) }.compactMap{ $0 }
+        let strikeAndBall = checkStrikeAndBall(with: intNumbers)
+        print("\n\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
+        
+        tryCount -= 1
+        if judgeVictory(by: strikeAndBall[0]) == "win" { return }
+        printRemainTryCount(strikeCount: strikeAndBall[0])
+    }
 }
 
 func showMenu() {
@@ -116,6 +120,5 @@ func startGame() {
         }
     } while selectedMenu != "2"
 }
-
 
 startGame()
