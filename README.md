@@ -12,10 +12,10 @@
 [![xcode](https://img.shields.io/badge/Xcode-13.0-blue)]()
 
 ## 팀원
-[Kyo](#https://github.com/KyoPak)
-[Mangdi](#https://github.com/MangDi-L)
+[Kyo](https://github.com/KyoPak)
+[Mangdi](https://github.com/MangDi-L)
 ## 타임라인
-[Commit History](#https://github.com/KyoPak/ios-number-baseball/commits/step-1)
+[Commit History](https://github.com/KyoPak/ios-number-baseball/commits/step-1)
 
 
 
