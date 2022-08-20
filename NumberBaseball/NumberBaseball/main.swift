@@ -55,8 +55,14 @@ func decideUserVictory() {
 func startBaseBallGame() {
     while(tryNumber > 0) {
         tryNumber -= 1
-        userNumbers = generateThreeRandomNumbers()
-//        getUserInput()
+        
+        let tryUserInput = getUserInput()
+        
+        for number in tryUserInput {
+            if let number = Int(number) {
+                userNumbers.append(number)
+            }
+        }
         
         if tryNumber == 8 {
             computerNumbers = generateThreeRandomNumbers()
@@ -65,6 +71,7 @@ func startBaseBallGame() {
         print(computerNumbers)
         print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
         print(foundStrike() ," 스트라이크,", foundBall(), " 볼")
+        userNumbers.removeAll()
         
         if tryNumber == 0 {
             decideUserVictory()
@@ -84,17 +91,13 @@ func printError() {
     print("중복 숫자는 허용하지 않습니다.")
 }
 
-func getUserInput(){
-    guard let userInput = readLine()?.split(separator: " ") else {
+func filterUserInput( input: [String] ) {
+    if Set(input).count != 3 {
         printError()
         return
     }
-
-    if userInput.count != 3 {
-        printError()
-    }
     
-    guard let userInputnum = Int(userInput.joined()) else {
+    guard let userInputnum = Int(input.joined()) else {
         printError()
         return
     }
@@ -103,16 +106,16 @@ func getUserInput(){
         printError()
         return
     }
-    
-    guard let firstNumber = Int(userInput[0]),
-          let secondNumber = Int(userInput[1]),
-          let thirdNumber = Int(userInput[2]) else { return }
-    
-    if firstNumber == secondNumber || secondNumber == thirdNumber || firstNumber == thirdNumber {
-        printError()
-        return
-    }
+}
 
+func getUserInput() -> [String] {
+    print("입력 : ",terminator: "")
+    guard let userInput = readLine()?.components(separatedBy: " ") else {
+        printError()
+        return []
+    }
+    filterUserInput(input: userInput)
+    return userInput
 }
 
 func selectMunu() {
@@ -139,4 +142,4 @@ func selectMunu() {
         }
     }
 }
-
+selectMunu()
