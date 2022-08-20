@@ -3,7 +3,6 @@
 //  Created by 애종,LJ.
 //  Copyright © yagom academy. All rights reserved.
 //
-
 import Foundation
 
 var computerNumberArray: Array<Int> = []
@@ -16,6 +15,7 @@ func judgeVictory(by strikeCount: Int) -> String {
     } else if tryCount == 0 {
         print("컴퓨터 승리...!")
     }
+    
     return "lose"
 }
 
