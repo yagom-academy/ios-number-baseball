@@ -8,8 +8,8 @@ import Foundation
 
 var computerNumbers: [Int] = []
 var userNumbers: [Int] = []
-var tryNumber: Int = 9
-let inputCount: Int = 3
+var tryNumber = 9
+let inputCount = 3
 
 func generateThreeRandomNumbers() -> [Int] {
     var numbers: Set<Int> = []
@@ -22,7 +22,7 @@ func generateThreeRandomNumbers() -> [Int] {
 }
 
 func foundBall() -> Int {
-    var ballCount: Int = 0
+    var ballCount = 0
     let pairNumbers = zip(userNumbers, computerNumbers)
     
     for (userNumber, computerNumber) in pairNumbers {
@@ -34,7 +34,7 @@ func foundBall() -> Int {
 }
 
 func foundStrike() -> Int {
-    var strikeCount : Int = 0
+    var strikeCount = 0
     let pairNumbers = zip(userNumbers, computerNumbers)
 
     for (userNumber, computerNumber) in pairNumbers {
@@ -75,7 +75,7 @@ func filter(userInput: [String]) throws {
 func executeFilter(input: [String]) -> Bool {
     do {
         try filter(userInput: input)
-    } catch InputError.countError(let message){
+    } catch InputError.countError(let message) {
         print(message)
         return false
     } catch InputError.numberError(let message) {
@@ -92,7 +92,7 @@ func executeFilter(input: [String]) -> Bool {
 }
 
 func bringUserInput() -> [String] {
-    print("입력 : ",terminator: "")
+    print("입력 : ", terminator: "")
     
     guard let userInput = readLine()?.components(separatedBy: " ") else {
         return []
@@ -101,7 +101,7 @@ func bringUserInput() -> [String] {
 }
 
 func checkUserVictory() -> Bool {
-    let victoryCount: Int = 3
+    let victoryCount = 3
 
     if tryNumber == 0 && foundStrike() == victoryCount {
         return true
@@ -118,26 +118,24 @@ func startBaseBallGame() {
         userNumbers.removeAll()
         
         let tryUserInput = bringUserInput()
-        var strikeCount: Int = 0
-        var ballCount: Int = 0
         
         if executeFilter(input: tryUserInput) == false {
             userNumbers.removeAll()
             continue
         } else {
-            userNumbers = tryUserInput.compactMap{Int($0)}
+            userNumbers = tryUserInput.compactMap { Int($0) }
         }
         
         tryNumber -= 1
-        print(computerNumbers)
-        strikeCount = foundStrike()
-        ballCount = foundBall()
+        let strikeCount = foundStrike()
+        let ballCount = foundBall()
+        
         print(strikeCount ," 스트라이크,", ballCount, " 볼")
         
         if checkUserVictory() {
             print("사용자 승리!")
             break
-        } else if tryNumber == 0{
+        } else if tryNumber == 0 {
             print("컴퓨터 승리...!")
             break
         }
@@ -146,9 +144,9 @@ func startBaseBallGame() {
 }
 
 func selectMenu() {
-    let gameStart: String = "1"
-    let gameExit: String = "2"
-    var exitSelectMenu: Bool = false
+    let gameStart = "1"
+    let gameExit = "2"
+    var exitSelectMenu = false
     
     while exitSelectMenu == false {
         tryNumber = 9
