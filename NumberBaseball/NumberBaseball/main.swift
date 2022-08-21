@@ -111,7 +111,7 @@ func checkStrikeAndBall(with numbers: Array<Int>) -> Array<Int> {
 }
 
 func printRemainTryCount(strikeCount: Int) {
-    if strikeCount != 3 && tryCount >= 0 {
+    if strikeCount != 3 && tryCount > 0 {
         print("남은 기회 : \(tryCount)")
     }
 }
