@@ -32,20 +32,20 @@ func checkDuplication(in numbers: [Int]) -> Bool {
     return Set(numbers).count == 3 ? true : false
 }
 
-func playGame() {
+func runNumberBaseball() {
     while true {
         print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
         guard let inputedMenuValue = readLine(), let selectedMenu = Int(inputedMenuValue), 1...2 ~= selectedMenu else { print("입력이 잘못되었습니다."); continue }
-        if selectedMenu == 1 { break }
-        return
+        guard selectedMenu == 1 else { return }
+        startGame()
     }
+}
+
+func startGame() {
     let computerNumbers: [Int] = generateNumbers()
     var remainingChance: Int = 9
     while remainingChance > 0 {
-        guard let userNumbers = getUserNumbers() else {
-            print("입력이 잘못되었습니다")
-            continue
-        }
+        guard let userNumbers = getUserNumbers() else { print("입력이 잘못되었습니다"); continue }
         let gameResult = compare(between: computerNumbers, and: userNumbers)
         remainingChance -= 1
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
@@ -68,4 +68,4 @@ func getUserNumbers() -> [Int]? {
     return userNumbers
 }
 
-playGame()
+runNumberBaseball()
