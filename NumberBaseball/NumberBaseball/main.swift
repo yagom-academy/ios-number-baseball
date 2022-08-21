@@ -51,9 +51,8 @@ func playGame() {
         print("\(strikeAndBall[0]) 스트라이크, \(strikeAndBall[1]) 볼")
         
         tryCount -= 1
-        if judgeVictory(by: strikeAndBall[0]) == "win" { return }
+        judgeVictory(by: strikeAndBall[0])
         printRemainTryCount(strikeCount: strikeAndBall[0])
-        
     }
 }
 
@@ -78,17 +77,17 @@ func getInputNumbers() -> String? {
 }
 
 func checkError(with input: String?) -> Array<Int>? {
-    guard let input = input else { //검증1 잘못입력한 경우, 아무것도 입력 안했을경우
+    guard let input = input else {
         return nil
     }
-    let inputArray: Array<String> = input.components(separatedBy: " ") //string타입 input값을 배열로 반환
-    let convertToNumbers: Array<Int> = inputArray.map { Int($0) }.compactMap { $0 } //string배열을 int배열로 변환, 숫자가 아닌 문자는 nil로 리턴된 후 compactMap에 의해 제거됨
+    let inputArray: Array<String> = input.components(separatedBy: " ")
+    let convertToNumbers: Array<Int> = inputArray.map { Int($0) }.compactMap { $0 }
     let convertToSetNumbers = Set(convertToNumbers)
-    guard convertToSetNumbers.count == 3, //검증2 입력숫자 갯수가 잘못될 경우(중복 제거 후 갯수가 3개가 아니면 false)
+    guard convertToSetNumbers.count == 3,
           convertToSetNumbers.filter({ 1...9 ~= $0 }).count == 3 else {
         print("입력이 잘못되었습니다.")
         return nil
-    } //검증3 숫자를 잘못입력하거나 범위를 벗어난 경우
+    }
     
     return convertToNumbers
 }
@@ -113,18 +112,17 @@ func checkStrikeAndBall(with numbers: Array<Int>) -> Array<Int> {
 func printRemainTryCount(strikeCount: Int) {
     if strikeCount != 3 && tryCount > 0 {
         print("남은 기회 : \(tryCount)")
+    } else {
+        tryCount = 0
     }
 }
 
-func judgeVictory(by strikeCount: Int) -> String {
+func judgeVictory(by strikeCount: Int) {
     if strikeCount == 3 {
         print("사용자 승리...!")
-        return "win"
     } else if tryCount == 0 {
         print("컴퓨터 승리...!")
     }
-    
-    return "lose"
 }
 
 startGame()
