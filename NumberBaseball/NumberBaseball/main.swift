@@ -10,11 +10,12 @@ var computerNumbers: [Int] = []
 var userNumbers: [Int] = []
 var tryNumber: Int = 9
 var exitSelectMenu: Bool = false
+let inputCount: Int = 3
 
 func generateThreeRandomNumbers() -> [Int] {
     var numbers: Set<Int> = []
     
-    while numbers.count < 3 {
+    while numbers.count < inputCount {
         let num = Int.random(in: 1...9)
         numbers.update(with: num)
     }
@@ -45,49 +46,52 @@ func foundStrike() -> Int {
     return strikeCount
 }
 
-func decideUserVictory() -> Bool{
-    if foundStrike() == 3 {
+func decideUserVictory() -> Bool {
+    let victoryCount: Int = 3
+    
+    if foundStrike() == victoryCount {
         return true
     }
     return false
 }
 
-enum error:Error {
+enum InputError: Error {
     case countError(message: String)
     case numberError(message: String)
     case rangeError(message: String)
 }
 
-func filterUserInput( input: [String] ) throws {
+func filter(userInput: [String]) throws {
     let errorSentence: String = """
     입력이 잘못되었습니다.
     숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
     중복 숫자는 허용하지 않습니다.
     """
     
-    if Set(input).count != 3 {
-        throw error.countError(message: errorSentence)
+    if Set(userInput).count != inputCount {
+        throw InputError.countError(message: errorSentence)
     }
     
-    guard let userInputnum = Int(input.joined()) else {
-        throw error.numberError(message: errorSentence)
-    }
-    
-    if userInputnum < 100 || userInputnum > 999 {
-        throw error.rangeError(message: errorSentence)
+    for number in userInput {
+        guard let individualNumber = Int(number) else {
+            throw InputError.countError(message: errorSentence)
+        }
+        if individualNumber > 9 || individualNumber < 1 {
+            throw InputError.rangeError(message: errorSentence)
+        }
     }
 }
 
-func executionFilter(input: [String] ) -> Bool {
+func executeFilter(input: [String]) -> Bool {
     do {
-        try filterUserInput(input: input)
-    } catch error.countError(let message){
+        try filter(userInput: input)
+    } catch InputError.countError(let message){
         print(message)
         return false
-    } catch error.numberError(let message) {
+    } catch InputError.numberError(let message) {
         print(message)
         return false
-    } catch error.rangeError(let message) {
+    } catch InputError.rangeError(let message) {
         print(message)
         return false
     } catch {
@@ -115,7 +119,7 @@ func startBaseBallGame() {
             }
         }
         
-        if executionFilter(input: tryUserInput) == false {
+        if executeFilter(input: tryUserInput) == false {
             userNumbers.removeAll()
             continue
         }
