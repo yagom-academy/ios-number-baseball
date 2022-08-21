@@ -39,7 +39,7 @@ func getThreeGameNumbers() -> [Int] {
     while true {
         printNumberInputRule()
         let userInput: [String] = getStringInput()
-        guard let threeNumbers = convertToIntArray(userInput: userInput) else {
+        guard let threeNumbers = convertToThreeNumbers(userInput) else {
             printWrongInputMessage()
             continue
         }
@@ -66,7 +66,7 @@ func getStringInput() -> [String] {
     return convertedInput ?? []
 }
 
-func convertToIntArray(userInput: [String]) -> [Int]? {
+func convertToThreeNumbers(_ userInput: [String]) -> [Int]? {
     var convertedArray = [Int]()
     
     if isValid(userInput) {
