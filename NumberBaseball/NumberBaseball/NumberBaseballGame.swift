@@ -1,9 +1,5 @@
 func runNumberBaseballGame() {
-    print("""
-          1. 게임시작
-          2. 게임종료
-          원하는 기능을 선택해주세요 :
-          """, terminator: " ")
+    printMenuList()
     
     guard let menuNumber = readLine() else { return }
     
@@ -17,6 +13,14 @@ func runNumberBaseballGame() {
         print("입력이 잘못되었습니다.")
         runNumberBaseballGame()
     }
+}
+
+func printMenuList() {
+    print("""
+          1. 게임시작
+          2. 게임종료
+          원하는 기능을 선택해주세요 :
+          """, terminator: " ")
 }
 
 func manageNumberBaseballGame() {
@@ -35,11 +39,7 @@ func getThreeGameNumbers() -> [Int] {
     var threeNumbers = [Int]()
     
     while true {
-        print("""
-               숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
-               중복 숫자는 허용하지 않습니다.
-               입력 :
-               """, terminator: " ")
+        printNumberInputRule()
         guard let userInput = readLine()?.split(separator: " ").map({ String($0) }) else {
             continue
         }
@@ -54,6 +54,14 @@ func getThreeGameNumbers() -> [Int] {
     }
     
     return threeNumbers
+}
+
+func printNumberInputRule() {
+    print("""
+           숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+           중복 숫자는 허용하지 않습니다.
+           입력 :
+           """, terminator: " ")
 }
 
 func checkValid(_ userInput: [String]) -> [Int] {
