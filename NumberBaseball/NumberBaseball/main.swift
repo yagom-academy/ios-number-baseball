@@ -9,7 +9,6 @@ import Foundation
 var computerNumbers: [Int] = []
 var userNumbers: [Int] = []
 var tryNumber: Int = 9
-var exitSelectMenu: Bool = false
 let inputCount: Int = 3
 
 func generateThreeRandomNumbers() -> [Int] {
@@ -46,14 +45,14 @@ func foundStrike() -> Int {
     return strikeCount
 }
 
-func decideUserVictory() -> Bool {
-    let victoryCount: Int = 3
-    
-    if foundStrike() == victoryCount {
-        return true
-    }
-    return false
-}
+//func decideUserVictory() -> Bool {
+//    let victoryCount: Int = 3
+//
+//    if foundStrike() == victoryCount {
+//        return true
+//    }
+//    return false
+//}
 
 enum InputError: Error {
     case countError(message: String)
@@ -101,8 +100,9 @@ func executeFilter(input: [String]) -> Bool {
     return true
 }
 
-func getUserInput() -> [String] {
+func bringUserInput() -> [String] {
     print("입력 : ",terminator: "")
+    
     guard let userInput = readLine()?.components(separatedBy: " ") else {
         return []
     }
@@ -110,51 +110,45 @@ func getUserInput() -> [String] {
 }
 
 func startBaseBallGame() {
+    computerNumbers = generateThreeRandomNumbers()
+    
     while(tryNumber > 0) {
-        let tryUserInput =  getUserInput()
-        
-        for number in tryUserInput {
-            if let number = Int(number) {
-                userNumbers.append(number)
-            }
-        }
+        let tryUserInput = bringUserInput()
+        let victoryStrikeCount: Int = 3
+        var strikeCount: Int = 0
         
         if executeFilter(input: tryUserInput) == false {
             userNumbers.removeAll()
             continue
+        } else {
+            userNumbers = tryUserInput.compactMap{Int($0)}
         }
-
+        
         tryNumber -= 1
         
-        if tryNumber == 8 {
-            computerNumbers = generateThreeRandomNumbers()
-        }
-        
         print(foundStrike() ," 스트라이크,", foundBall(), " 볼")
+        strikeCount = foundStrike()
         
-        if tryNumber == 0 {
-            if decideUserVictory() == true {
-                print("사용자 승리!")
-                userNumbers.removeAll()
-                break
-            } else {
-                print("컴퓨터 승리...!")
-                userNumbers.removeAll()
-                break
-            }
-        } else {
-            if decideUserVictory() == true {
-                print("사용자 승리!")
-                userNumbers.removeAll()
-                break
-            }
-            print("남은 기회 : \(tryNumber)")
-        }
         userNumbers.removeAll()
+        if tryNumber == 0 && strikeCount == victoryStrikeCount {
+            print("사용자 승리!")
+            break
+        } else if tryNumber == 0 && strikeCount != victoryStrikeCount {
+            print("컴퓨터 승리...!")
+            break
+        } else if tryNumber != 0 && strikeCount == victoryStrikeCount {
+            print("사용자 승리!")
+            break
+        }
+        print("남은 기회 : \(tryNumber)")
     }
 }
 
 func selectMenu() {
+    let gameStart: String = "1"
+    let gameExit: String = "2"
+    var exitSelectMenu: Bool = false
+    
     while exitSelectMenu == false {
         tryNumber = 9
         print("1. 게임시작")
@@ -162,15 +156,13 @@ func selectMenu() {
         print("원하는 기능을 선택해 주세요",terminator: " ")
         
         guard let menuInput = readLine() else {
-            print("원하시는 메뉴를 입력해주세요.")
             continue
         }
+        let menu = menuInput.replacingOccurrences(of: " ", with: "")
         
-        let menu = menuInput.map{ String($0) }.filter{$0 != " "}.joined()
-        
-        if menu == "1" {
+        if menu == gameStart {
             startBaseBallGame()
-        } else if menu == "2" {
+        } else if menu == gameExit {
             print("게임을 종료합니다.")
             exitSelectMenu = true
         } else {
