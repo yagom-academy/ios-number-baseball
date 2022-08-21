@@ -29,11 +29,20 @@ func compare(between computerNumbers: [Int], and userNumbers: [Int]) -> [Int] {
 }
 
 func playGame() {
-    var computerNumbers: [Int] = []
+    while true {
+        print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
+        guard let inputedMenuValue = readLine(), let num = Int(inputedMenuValue), 1...2 ~= num else { print("입력이 잘못되었습니다."); continue }
+        if num == 1 {
+            break
+        }else {
+            return
+        }
+    }
+    
+    let computerNumbers: [Int] = generateNumbers()
     var gameCounter: Int = 9
-    computerNumbers = generateNumbers()
     while gameCounter > 0 {
-        guard let userNumbers = reciveNumbers() else {
+        guard let userNumbers = getUserNumbers() else {
             print("입력이 잘못되었습니다")
             continue
         }
@@ -42,30 +51,12 @@ func playGame() {
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
         if gameResult[0] == 3 {
             print("유저 승리...!")
-            gameCounter = 9
             break
         } else if gameCounter == 0 {
             print("컴퓨터 승리...!")
-            gameCounter = 9
             break
         }
         print("남은 기회 : \(gameCounter)")
-    }
-}
-
-func gameMenuSelect() {
-    var isGameStart: Bool = true
-    while isGameStart {
-        print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
-        guard let inputedMenuValue = readLine() else { return }
-        switch Int(inputedMenuValue) {
-        case 1:
-            playGame()
-        case 2:
-            isGameStart = false
-        default:
-            print("입력이 잘못되었습니다")
-        }
     }
 }
 
@@ -79,7 +70,7 @@ func removeDuplicate(_ array: [Int]) -> [Int] {
     return removedArray
 }
 
-func reciveNumbers() -> [Int]? {
+func getUserNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n" , terminator: "")
     guard let recivedValue = readLine() else { return nil }
     let separatedNumbers = recivedValue.components(separatedBy: " ").compactMap{ Int($0) }
@@ -89,4 +80,4 @@ func reciveNumbers() -> [Int]? {
     return oneDigitNumbers
 }
 
-gameMenuSelect()
+playGame()
