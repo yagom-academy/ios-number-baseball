@@ -45,15 +45,6 @@ func foundStrike() -> Int {
     return strikeCount
 }
 
-//func decideUserVictory() -> Bool {
-//    let victoryCount: Int = 3
-//
-//    if foundStrike() == victoryCount {
-//        return true
-//    }
-//    return false
-//}
-
 enum InputError: Error {
     case countError(message: String)
     case numberError(message: String)
@@ -109,13 +100,26 @@ func bringUserInput() -> [String] {
     return userInput
 }
 
+func checkUserVictory() -> Bool {
+    let victoryCount: Int = 3
+
+    if tryNumber == 0 && foundStrike() == victoryCount {
+        return true
+    } else if tryNumber != 0 && foundStrike() == victoryCount {
+        return true
+    }
+    return false
+}
+
 func startBaseBallGame() {
     computerNumbers = generateThreeRandomNumbers()
     
     while(tryNumber > 0) {
+        userNumbers.removeAll()
+        
         let tryUserInput = bringUserInput()
-        let victoryStrikeCount: Int = 3
         var strikeCount: Int = 0
+        var ballCount: Int = 0
         
         if executeFilter(input: tryUserInput) == false {
             userNumbers.removeAll()
@@ -125,19 +129,16 @@ func startBaseBallGame() {
         }
         
         tryNumber -= 1
-        
-        print(foundStrike() ," 스트라이크,", foundBall(), " 볼")
+        print(computerNumbers)
         strikeCount = foundStrike()
+        ballCount = foundBall()
+        print(strikeCount ," 스트라이크,", ballCount, " 볼")
         
-        userNumbers.removeAll()
-        if tryNumber == 0 && strikeCount == victoryStrikeCount {
+        if checkUserVictory() {
             print("사용자 승리!")
             break
-        } else if tryNumber == 0 && strikeCount != victoryStrikeCount {
+        } else if tryNumber == 0{
             print("컴퓨터 승리...!")
-            break
-        } else if tryNumber != 0 && strikeCount == victoryStrikeCount {
-            print("사용자 승리!")
             break
         }
         print("남은 기회 : \(tryNumber)")
