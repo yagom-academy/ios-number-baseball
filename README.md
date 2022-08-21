@@ -56,7 +56,7 @@
 
 - 사용자 입력 값에 대한 유효성 체크를하는 기능입니다.
 - 1~9 사이의 유효한 양수 값이 3개를 입력하였는지 체크합니다.
-<img src="https://velog.velcdn.com/images/ostone/post/5f19b0ef-d4ac-4ba2-8dfd-a895fb18d10d/image.png" width="500px">
+<img src="https://velog.velcdn.com/images/ostone/post/ab7c3292-e31d-4a1c-8f35-6e0fb19a6df5/image.png" width="500px">
 
 #### 유저 승리
 
