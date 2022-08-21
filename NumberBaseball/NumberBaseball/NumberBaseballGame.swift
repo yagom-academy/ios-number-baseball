@@ -36,21 +36,16 @@ func manageNumberBaseballGame() {
 }
 
 func getThreeGameNumbers() -> [Int] {
-    var threeNumbers = [Int]()
-    
     while true {
         printNumberInputRule()
         let userInput: [String] = getStringInput()
-        threeNumbers = checkValid(userInput)
-        
-        if threeNumbers.isEmpty {
+        guard let threeNumbers = convertToIntArray(userInput: userInput) else {
             printWrongInputMessage()
-        } else {
-            break
+            continue
         }
+        
+        return threeNumbers
     }
-    
-    return threeNumbers
 }
 
 func printNumberInputRule() {
@@ -71,22 +66,31 @@ func getStringInput() -> [String] {
     return convertedInput ?? []
 }
 
-func checkValid(_ userInput: [String]) -> [Int] {
-    var validNumbers = [Int]()
+func convertToIntArray(userInput: [String]) -> [Int]? {
+    var convertedArray = [Int]()
     
+    if isValid(userInput) {
+        convertedArray = userInput.compactMap({ Int($0 )})
+        return convertedArray
+    }
+    
+    return nil
+}
+
+func isValid(_ userInput: [String]) -> Bool {
     if userInput.count != 3 {
-        return []
+        return false
     }
     
     for number in userInput {
         if number.count == 1, let convertedNumber = Int(number), convertedNumber != 0 {
-            validNumbers.append(convertedNumber)
+            continue
         } else {
-            return []
+            return false
         }
     }
     
-    return validNumbers
+    return true
 }
 
 func isThreeStrike(in userNumber : [Int]) -> Bool {
