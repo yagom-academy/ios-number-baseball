@@ -74,7 +74,7 @@ func checkValid(_ userInput: [String]) -> [Int] {
 }
 
 func isThreeStrike(in userNumber : [Int]) -> Bool {
-    let strike: Int = countStrikeOrBall(with: userNumber).0
+    let strike: Int = countStrikeOrBall(with: userNumber).strike
     
     if strike == 3 {
         return true
@@ -83,7 +83,7 @@ func isThreeStrike(in userNumber : [Int]) -> Bool {
     return false
 }
 
-func countStrikeOrBall(with myNumbers: [Int]) -> (Int, Int) {
+func countStrikeOrBall(with myNumbers: [Int]) -> (strike: Int, ball: Int) {
     var (strike, ball) = (0, 0)
 
     for (number, myNumber) in zip(targetNumbers, myNumbers) {
