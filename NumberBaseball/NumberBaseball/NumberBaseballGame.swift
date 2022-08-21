@@ -40,17 +40,14 @@ func getThreeGameNumbers() -> [Int] {
     
     while true {
         printNumberInputRule()
-        guard let userInput = readLine()?.split(separator: " ").map({ String($0) }) else {
-            continue
-        }
-        
+        let userInput: [String] = getStringInput()
         threeNumbers = checkValid(userInput)
         
-        if !threeNumbers.isEmpty {
+        if threeNumbers.isEmpty {
+            printWrongInputMessage()
+        } else {
             break
         }
-        
-        print("입력이 잘못됐습니다.")
     }
     
     return threeNumbers
@@ -62,6 +59,16 @@ func printNumberInputRule() {
            중복 숫자는 허용하지 않습니다.
            입력 :
            """, terminator: " ")
+}
+
+func printWrongInputMessage() {
+    print("입력이 잘못됐습니다.")
+}
+
+func getStringInput() -> [String] {
+    let convertedInput = readLine()?.split(separator: " ").map({ String($0) })
+    
+    return convertedInput ?? []
 }
 
 func checkValid(_ userInput: [String]) -> [Int] {
