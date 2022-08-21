@@ -28,15 +28,16 @@ func compare(between computerNumbers: [Int], and userNumbers: [Int]) -> [Int] {
     return compareResult
 }
 
+func checkDuplication(in numbers: [Int]) -> Bool {
+    return Set(numbers).count == 3 ? true : false
+}
+
 func playGame() {
     while true {
         print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
         guard let inputedMenuValue = readLine(), let selectedMenu = Int(inputedMenuValue), 1...2 ~= selectedMenu else { print("입력이 잘못되었습니다."); continue }
-        if selectedMenu == 1 {
-            break
-        }else {
-            return
-        }
+        if selectedMenu == 1 { break }
+        return
     }
     let computerNumbers: [Int] = generateNumbers()
     var remainingChance: Int = 9
@@ -61,18 +62,10 @@ func playGame() {
 
 func getUserNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n" , terminator: "")
-    guard let recivedValue = readLine()?.components(separatedBy: " ").compactMap({ Int($0) }), recivedValue.count == 3 else { return nil }
-    if checkDuplication(str: recivedValue) {
-        return recivedValue
-    }
-    return nil
-}
-
-func checkDuplication(str: [Int]) -> Bool {
-    if Set(str).count == 3 {
-        return true
-    }
-    return false
+    guard let inputedValues = readLine()?.components(separatedBy: " "), inputedValues.count == 3 else { return nil }
+    let userNumbers = inputedValues.compactMap({ Int($0) }).filter{ 1...9 ~= $0 }
+    guard checkDuplication(in: userNumbers) else { return nil }
+    return userNumbers
 }
 
 playGame()
