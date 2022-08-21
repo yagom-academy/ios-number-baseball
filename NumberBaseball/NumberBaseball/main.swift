@@ -31,53 +31,48 @@ func compare(between computerNumbers: [Int], and userNumbers: [Int]) -> [Int] {
 func playGame() {
     while true {
         print("1. 게임시작", "2. 게임종료", "원하는 기능을 선택해주세요 : ", separator: "\n", terminator: "")
-        guard let inputedMenuValue = readLine(), let num = Int(inputedMenuValue), 1...2 ~= num else { print("입력이 잘못되었습니다."); continue }
-        if num == 1 {
+        guard let inputedMenuValue = readLine(), let selectedMenu = Int(inputedMenuValue), 1...2 ~= selectedMenu else { print("입력이 잘못되었습니다."); continue }
+        if selectedMenu == 1 {
             break
         }else {
             return
         }
     }
-    
     let computerNumbers: [Int] = generateNumbers()
-    var gameCounter: Int = 9
-    while gameCounter > 0 {
+    var remainingChance: Int = 9
+    while remainingChance > 0 {
         guard let userNumbers = getUserNumbers() else {
             print("입력이 잘못되었습니다")
             continue
         }
         let gameResult = compare(between: computerNumbers, and: userNumbers)
-        gameCounter -= 1
+        remainingChance -= 1
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
         if gameResult[0] == 3 {
             print("유저 승리...!")
             break
-        } else if gameCounter == 0 {
+        } else if remainingChance == 0 {
             print("컴퓨터 승리...!")
             break
         }
-        print("남은 기회 : \(gameCounter)")
+        print("남은 기회 : \(remainingChance)")
     }
-}
-
-func removeDuplicate(_ array: [Int]) -> [Int] {
-    var removedArray = [Int]()
-    for item in array {
-        if removedArray.contains(item) == false {
-            removedArray.append(item)
-        }
-    }
-    return removedArray
 }
 
 func getUserNumbers() -> [Int]? {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.", "중복 숫자는 허용하지 않습니다.", "입력 : ", separator: "\n" , terminator: "")
-    guard let recivedValue = readLine() else { return nil }
-    let separatedNumbers = recivedValue.components(separatedBy: " ").compactMap{ Int($0) }
-    guard separatedNumbers.count == 3 else { return nil }
-    let oneDigitNumbers = removeDuplicate(separatedNumbers).filter{ $0 < 10 }
-    guard oneDigitNumbers.count == 3 else { return nil }
-    return oneDigitNumbers
+    guard let recivedValue = readLine()?.components(separatedBy: " ").compactMap({ Int($0) }), recivedValue.count == 3 else { return nil }
+    if checkDuplication(str: recivedValue) {
+        return recivedValue
+    }
+    return nil
+}
+
+func checkDuplication(str: [Int]) -> Bool {
+    if Set(str).count == 3 {
+        return true
+    }
+    return false
 }
 
 playGame()
