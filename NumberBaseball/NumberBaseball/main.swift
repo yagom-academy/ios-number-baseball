@@ -103,4 +103,3 @@ func inputUserNumber() -> [Int] {
 }
 
 inputUserMenu()
-
