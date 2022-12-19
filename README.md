@@ -5,7 +5,7 @@
 > 팀원:
 
 ## STEP 0 : Git 저장소 준비 및 Flow Chart 작성
-![image](https://user-images.githubusercontent.com/67987230/208372395-e8df8571-4c49-4ac5-8f6d-add088324432.png)
+![number-baseball drawio (2)](https://user-images.githubusercontent.com/119860138/208427513-d67ac63e-2f44-4af0-b6d0-d2da7bf4df35.png)
 
 ### **숫자 야구 기능**
 
@@ -27,3 +27,4 @@
   <br>1. 3 스트라이크일때 성공 
   <br>2. 시도횟수 0번일때 실패 
 8. 종료
+
