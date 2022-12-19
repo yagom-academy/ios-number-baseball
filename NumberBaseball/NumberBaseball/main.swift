@@ -7,6 +7,9 @@
 import Foundation
 
 var answerBall : Array<Int> = []
+var firstBall: Int
+var secondBall: Int
+var thirdBall: Int
 var chance = 9
 
 func createRandomNumber() -> Array<Int> {
@@ -35,4 +38,12 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> Array<Int> {
     }
     
     return ballStrike
+}
+
+func startGame() {
+    answerBall = createRandomNumber()
+    
+    while chance == 0 {
+        var userBall = createRandomNumber()
+    }
 }
