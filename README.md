@@ -4,7 +4,7 @@
 - 프로젝트 기간: 2022.12.19~
 
 
+<<<<<<< HEAD
 
 ## Flow Chart
-Test
- ![BaseBall](/Users/ksj8277/Desktop/BaseBall.png)
+
