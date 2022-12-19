@@ -22,6 +22,25 @@ func makeRandomNumbers() -> [Int] {
     return Array(resultnumbers)
 }
 
+func playGame() {
+    var temp = 0
+    var result : [Int] = []
+    
+    while temp == 0 {
+        result = checkNumbers(numbers: makeRandomNumbers())
+        let strike = result[0]
+        let ball = result[1]
+        
+        if strike == 3 {
+            print("정답 입니다!")
+            return
+        }
+        
+        print("\(strike) 스트라이크, \(ball) 볼")
+    }
+    
+}
+
 func checkNumbers(numbers: [Int]) -> [Int] {
     var strike = 0
     var ball = 0
