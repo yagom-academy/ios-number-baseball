@@ -2,5 +2,6 @@
 
 ### 숫자야구 프로젝트 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+- Flow Chart
 
+![image](https://user-images.githubusercontent.com/61936306/208361824-b87470a9-b3a5-456f-b545-0976f60cc79f.png)
