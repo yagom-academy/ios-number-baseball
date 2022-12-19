@@ -1,7 +1,10 @@
-## iOS 커리어 스타터 캠프
-# ⚾️숫자야구⚾️
+# ⚾️ 첫번째 숫자야구 프로젝트
 
-### STEP 0 : Git 저장소 준비 및 Flow Chart 작성
+> 프로젝트 기간: 2022.12.19 ~ 
+> 
+> 팀원:
+
+## STEP 0 : Git 저장소 준비 및 Flow Chart 작성
 ![image](https://user-images.githubusercontent.com/67987230/208372395-e8df8571-4c49-4ac5-8f6d-add088324432.png)
 
 ### **숫자 야구 기능**
