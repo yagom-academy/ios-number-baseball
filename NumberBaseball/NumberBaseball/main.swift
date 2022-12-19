@@ -1,34 +1,21 @@
 import Foundation
 
 var chances: Int = 9
-var randomNumbers = [String]()
+var resultNumbers = [String]()
 var selectedNumbers = [String]()
 
-func presentMenu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요", terminator: " : ")
-}
-
-func startGame() {
-    print("숫자 세개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-}
 
 func inputNumbers() {
-    print("입력", terminator: " : ")
+    print("임의의 수", terminator: " : ")
 
     selectedNumbers = readLine()!.components(separatedBy: " ")
     
-    if selectedNumbers.count == 3 {
-        
-    } else {
-        print("입력이 잘못되었습니다.")
-    }
+    chances -= 1
 }
 
 
 func makeRandomNumbers() {
+    var randomNumbers = [String]()
     randomNumbers.append(String(Int.random(in: 1...9)))
     randomNumbers.append(String(Int.random(in: 1...9)))
     
@@ -42,22 +29,50 @@ func makeRandomNumbers() {
         randomNumbers[2] = String(Int.random(in: 1...9))
     }
     
+    resultNumbers = randomNumbers
 }
 
 func checkStrike() {
-    randomNumbers
-    selectedNumbers
+    var ballCounter: Int = 0
+    var strikeCounter: Int = 0
+    
+    for number in 0...2 {
+        if resultNumbers[number] == selectedNumbers[number] {
+            strikeCounter += 1
+        }
+        
+        if resultNumbers.contains(selectedNumbers[number]) == true && resultNumbers[number] != selectedNumbers[number] {
+            ballCounter += 1
+        }
+    }
+    
+    print("\(strikeCounter) 스트라이크, \(ballCounter) 볼")
+    print("남은 기회 : \(chances)")
+    print(resultNumbers)
+    
+    
+    if strikeCounter == 3 {
+        chances = -1
+        print("사용자 승리...!")
+    }
+    
+    if chances == 0 {
+        print("컴퓨터 승리...!")
+    }
 }
 
-//while true {
-//    presentMenu()
-//    let inputMenu: String = readLine()!
-//
-//    if inputMenu == "1" {
-//        startGame()
-//    } else if inputMenu == "2" {
-//        break
-//    } else {
-//        print("입력이 잘못되었습니다.")
-//    }
-//}
+func startGame(){
+    makeRandomNumbers()
+   
+    while true {
+        inputNumbers()
+        checkStrike()
+        if chances <= 0 {
+            break
+        }
+    }
+}
+
+startGame()
+
+
