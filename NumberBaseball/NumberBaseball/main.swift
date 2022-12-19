@@ -7,9 +7,6 @@
 import Foundation
 
 var answerBall: Array<Int> = []
-var firstBall: Int
-var secondBall: Int
-var thirdBall: Int
 var chance = 9
 
 func createRandomNumber() -> Array<Int> {
@@ -43,7 +40,7 @@ func startGame() {
     answerBall = createRandomNumber()
     
     while chance > 0 {
-        var userBall = createRandomNumber()
+        let userBall = createRandomNumber()
         chance -= 1
         print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
         let ballStrike = compareBall(userBall: userBall, answerBall: answerBall)
