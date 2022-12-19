@@ -22,4 +22,20 @@ func makeRandomNumbers() -> [Int] {
     return Array(resultnumbers)
 }
 
-
+func checkNumbers(numbers: [Int]) -> [Int] {
+    var strike = 0
+    var ball = 0
+    
+    for number in numbers {
+        if initialNumbers.contains(number){
+            ball += 1
+        }
+    }
+    for index in 0...2{
+        if initialNumbers[index] == numbers[index]{
+            strike += 1
+            ball -= 1
+        }
+    }
+    return [strike, ball]
+}
