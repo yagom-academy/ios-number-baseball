@@ -6,14 +6,14 @@
 
 import Foundation
 
-var answerBall : Array<Int> = []
+var answerBall: Array<Int> = []
 var firstBall: Int
 var secondBall: Int
 var thirdBall: Int
 var chance = 9
 
 func createRandomNumber() -> Array<Int> {
-    var numbers : Array<Int> = []
+    var numbers: Array<Int> = []
     
     while numbers.count < 3 {
         let number = Int.random(in: 1...9)
@@ -26,7 +26,7 @@ func createRandomNumber() -> Array<Int> {
 }
 
 func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> Array<Int> {
-    var ballStrike : Array<Int> = [0, 0]
+    var ballStrike: Array<Int> = [0, 0]
     for index in 0..<userBall.count {
         if userBall[index] == answerBall[index] {
             ballStrike[1] += 1
@@ -43,7 +43,16 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> Array<Int> {
 func startGame() {
     answerBall = createRandomNumber()
     
-    while chance == 0 {
+    while chance == 9 {
         var userBall = createRandomNumber()
+        print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
+        let ballStrike = compareBall(userBall: userBall, answerBall: answerBall)
+        let ball = ballStrike[0]
+        let strike = ballStrike[1]
+        print("\(strike) 스트라이크, \(ball) 볼")
+        print("남은 기회 : \(chance)")
+        break
     }
 }
+
+startGame()
