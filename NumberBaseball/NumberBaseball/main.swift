@@ -43,15 +43,19 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> Array<Int> {
 func startGame() {
     answerBall = createRandomNumber()
     
-    while chance == 9 {
+    while chance > 1 {
         var userBall = createRandomNumber()
+        chance -= 1
         print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
         let ballStrike = compareBall(userBall: userBall, answerBall: answerBall)
         let ball = ballStrike[0]
         let strike = ballStrike[1]
         print("\(strike) 스트라이크, \(ball) 볼")
+        if strike == 3 {
+            break
+        }
         print("남은 기회 : \(chance)")
-        break
+        print("컴퓨터 승리...!")
     }
 }
 
