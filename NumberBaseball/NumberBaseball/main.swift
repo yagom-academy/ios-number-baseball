@@ -7,15 +7,15 @@
 import Foundation
 
 let numbers = Array(1...9)
+let initialNumbers = makeRandomNumbers()
 
 func makeRandomNumbers() -> [Int] {
     var resultnumbers: Set<Int> = []
     
-    guard let randomElement = numbers.randomElement() else{
-        return []
-    }
-    
     while resultnumbers.count < 3 {
+        guard let randomElement = numbers.randomElement() else{
+            return []
+        }
         resultnumbers.insert(randomElement)
     }
     
