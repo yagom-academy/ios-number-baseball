@@ -61,6 +61,7 @@ func countBallStrike(computerArray: [Int], numberArray: [Int]) -> (Int, Int) {
 //}
 
 func selectMenu() {
+    print("1. 게임시작\n2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 
     if let userInput = readLine() {
@@ -77,12 +78,16 @@ func selectMenu() {
 func startGame() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
-    var userNumberArray: [Int]
+//    var userNumberArray: [Int]
     if let inputValue = readLine() {
         let numbers = inputValue.split(separator: " ")
 //        userNumberArray[0] = numbers
         print(numbers)
     }
+}
+
+func isValidNumberArray(stringNumberArray: [String]) {
+
 }
 
 selectMenu()
