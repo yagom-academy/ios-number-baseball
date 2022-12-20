@@ -51,16 +51,12 @@ func startGame() {
         print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
         
-        if strike == 3 {
-            print("사용자 승리...!")
-            break
+        if let winner = decideWinner(ballStrike: ballStrike, chance: chance) {
+            print("\(winner) 승리...!")
         }
+        
         
         print("남은 기회 : \(chance)")
-        
-        if chance == 0 {
-            print("컴퓨터 승리...!")
-        }
     }
 }
 
