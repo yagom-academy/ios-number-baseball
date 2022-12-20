@@ -36,11 +36,36 @@ func ReturnResult() -> [Int] {
         }
     }
     
+    for randomNum in randomNums {
+        result.append(randomNum)
+    }
     result.append(strike)
     result.append(ball)
     
     return result
 }
 
-let nums = [Int]()
+func StartGame() {
+    while tryNum > 0 {
+        let gameResult = ReturnResult()
+        tryNum -= 1
+        print("임의의 수 : \(gameResult[0]) \(gameResult[1]) \(gameResult[2])")
+        print("\(gameResult[3]) 스트라이크, \(gameResult[4]) 볼")
+        
+        if gameResult[3] == 3 {
+            print("사용자 승리...!")
+            break
+        }
+        
+        if tryNum == 0 {
+            print("컴퓨터 승리...!")
+        } else {
+            print("남은 기회 : \(tryNum)")
+        }
+    }
+}
+
+let nums = CreateRandomNums()
 var tryNum = 9
+
+StartGame()
