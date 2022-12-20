@@ -5,15 +5,7 @@
 //  Created by 강민수 on 2022/12/20.
 //
 
-// 1. startGame while문 함수 만들기
-// 2. startGame 안의 readInput do-catch문 만들어주기
-// 3. answerBall, chance 현재(전역변수) -> 지역변수
 import Foundation
-
-enum InputError: String, Error {
-    case wrongMenuInput = "입력이 잘못되었습니다"
-    case wrongUserInput
-}
 
 var answerBall: Array<Int> = []
 var chance = 9
@@ -47,13 +39,15 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> (Int, Int) {
     return (ball, strike)
 }
 
-func readMenu() throws -> Bool {
+//수정필요!!
+func readMenu() -> Bool {
     let inputValue = readLine()
     
     guard let menu = inputValue, menu != "" else {
         throw InputError.wrongMenuInput
     }
     
+    //swich
     if menu == "1" {
         return true
     } else if menu == "2" {
@@ -70,63 +64,27 @@ func displayMenu() {
             원하는 기능을 선택해주세요 :
             """, terminator: "")
     
-    do {
-        if try readMenu() == true {
-            try startGame()
-        }
-    } catch InputError.wrongMenuInput {
-        print(InputError.wrongMenuInput.rawValue)
-        displayMenu()
-    } catch InputError.wrongUserInput {
-        print("입력이 잘못되었습니다")
-        //            try self.startGame()
-    } catch {
-        print(error)
+    if readMenu() == true {
+        
     }
 }
 
-func readInput() throws -> [Int] {
-    guard let input = readLine(), input != "" else {
-        throw InputError.wrongUserInput
-    }
-    
-    let inputArray = input.components(separatedBy: " ")
-    
-    guard inputArray.count == 3 else {
-        throw InputError.wrongUserInput
-    }
-    
-    guard let firstBall = Int(inputArray[0]),
-          let secondBall = Int(inputArray[1]),
-          let thirdBall = Int(inputArray[2]) else {
-        throw InputError.wrongUserInput
-    }
-    
-    return [firstBall, secondBall, thirdBall]
+func readInput() -> [Int] {
 }
 
-func startGame() throws {
+func startGame() {
     answerBall = createRandomNumber()
     
-    do {
-        print("""
+    
+    print("""
             숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
             중복 숫자는 허용하지 않습니다.
             입력 :
-            """, terminator: "")
-        
-        try loopRound(chance, answerBall)
-    } catch InputError.wrongUserInput {
-        print("입력이 잘못되었습니다")
-        
-    }
-}
-
-func loopRound(_ round: Int, _ answerBall: [Int]) throws {
-    var chance = round
+            """,
+          terminator: "")
     
     while chance > 0 {
-        let userBall = try readInput()
+        let userBall = readInput()
         let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
         
         chance -= 1
