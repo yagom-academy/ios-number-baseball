@@ -8,10 +8,7 @@ import Foundation
 
 enum InputError: Error, String {
     case wrongMenuInput = "입력이 잘못되었습니다"
-    case wrongGameInput = """
-    숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
-    중복 숫자는 허용하지 않습니다.
-                          """
+    case wrongGameInput =
 }
 
 class baseballGame {
@@ -50,7 +47,7 @@ class baseballGame {
     func readMenu() throws -> Bool {
         let inputValue = readLine()
         
-        guard let menu = inputValue else {
+        guard let menu = inputValue, menu != "" else {
             throw InputError.wrongMenuInput
         }
         
@@ -71,7 +68,12 @@ class baseballGame {
             """)
         
         do {
-            try self.readMenu()
+            var selectedMenu = try self.readMenu()
+            if selectedMenu == true {
+
+                
+                self.startGame()
+            }
         } catch InputError.wrongMenuInput {
             print(InputError.wrongMenuInput.rawValue)
         } catch {
@@ -79,7 +81,34 @@ class baseballGame {
         }
     }
     
+    func readInput() throws -> {
+        guard let input = readLine(), input != "" else {
+            throw InputError.wrongMenuInput
+        }
+        
+        let inputArray = input.components(separatedBy: " ")
+        
+        guard let count = inputArray.count, count != 3 else {
+            throw InputError.wrongMenuInput
+        }
+        
+        let firstBall = Int(inputArray[0])
+        let secondBall = Int(inputArray[1])
+        let thirdBall = Int(inputArray[2])
+        
+        guard firstBall != nil && secondBall != nil && thirdBall != nil else {
+            throw InputError.wrongMenuInput
+        }
+    }
+    
     func startGame() {
+        print("""
+                숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
+                중복 숫자는 허용하지 않습니다.
+                입력 :
+                                        """)
+        
+        
         answerBall = createRandomNumber()
         
         while chance > 0 {
