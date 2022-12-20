@@ -74,6 +74,7 @@ func displayMenu() {
     
     if inputValue == "1" {
         startGame()
+        inputState = true
     }
 }
 
@@ -102,17 +103,29 @@ func readInput() -> [Int] {
     """, terminator: "")
     
     var (inputState, numberList) = isCorrectUserInput()
+    
+    while inputState {
+        print("""
+        입력이 잘못되었습니다
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: "")
+        
+        (inputState, numberList) = isCorrectUserInput()
+    }
+    
+    return numberList
 }
 
 func startGame() {
     answerBall = createRandomNumber()
     
     while chance > 0 {
-        let userBall = createRandomNumber()
+        let userBall = readInput()
         let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
         
         chance -= 1
-        print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
         
         if let winner = decideWinner(strike: strike, chance: chance) {
