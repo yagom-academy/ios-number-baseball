@@ -9,6 +9,8 @@ import Foundation
 let numbers = Array(1...9)
 let initialNumbers = makeRandomNumbers()
 
+menuPrint()
+
 func makeRandomNumbers() -> [Int] {
     var resultnumbers: Set<Int> = []
     
@@ -67,5 +69,25 @@ func checkNumbers(numbers: [Int]) -> [Int] {
     return [strike,ball]
 }
 
-
-playGame()
+func menuPrint() {
+    while true {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: " ")
+        guard let inputdata = readLine() else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+        
+        switch inputdata {
+        case "1" :
+            playGame()
+        case "2" :
+            print("게임을 종료합니다")
+            return
+        default :
+            print("입력이 잘못되었습니다")
+            continue
+        }
+    }
+}
