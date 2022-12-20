@@ -75,15 +75,21 @@ func selectMenu() {
     }
 }
 
-func startGame() {
+func startGame() -> [String] {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
 //    var userNumberArray: [Int]
+    var numbers: [String] = ["","",""]
     if let inputValue = readLine() {
-        let numbers = inputValue.split(separator: " ")
-//        userNumberArray[0] = numbers
-        print(numbers)
+        if inputValue == "" {
+            print("숫자 없음")
+        } else {
+            numbers = inputValue.split(separator: " ").map{String($0)}
+            //        userNumberArray[0] = numbers
+            print(numbers)
+        }
     }
+    return numbers
 }
 
 func isValidNumberArray(stringNumberArray: [String]) {
