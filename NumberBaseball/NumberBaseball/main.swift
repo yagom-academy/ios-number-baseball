@@ -22,3 +22,25 @@ func CreateRandomNums() -> [Int] {
     return createdNums
 }
 
+func ReturnResult() -> [Int] {
+    let randomNums = CreateRandomNums()
+    var strike = 0
+    var ball = 0
+    var result = [Int]()
+    
+    for i in 0...2 {
+        if nums[i] == randomNums[i] {
+            strike += 1
+        } else if randomNums.contains(nums[i]) {
+            ball += 1
+        }
+    }
+    
+    result.append(strike)
+    result.append(ball)
+    
+    return result
+}
+
+let nums = [Int]()
+var tryNum = 9
