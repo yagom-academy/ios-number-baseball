@@ -43,9 +43,7 @@ func startGame() {
     
     while chance > 0 {
         let userBall = createRandomNumber()
-        let ballStrike = compareBall(userBall: userBall, answerBall: answerBall)
-        let ball = ballStrike.0
-        let strike = ballStrike.1
+        let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
         
         chance -= 1
         print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
@@ -55,17 +53,16 @@ func startGame() {
             print("\(winner) 승리...!")
         }
         
-        
         print("남은 기회 : \(chance)")
     }
 }
 
-func decideWinner(ballStrike: (Int, Int)) -> String? {
+func decideWinner(strike: Int, chance: Int) -> String? {
     var winner: String?
     
-    if ballStrike.0 == 3 {
+    if strike == 3 {
         winner = "사용자"
-    } else if ballStrike.1 == 0 {
+    } else if chance == 0 {
         winner = "컴퓨터"
     }
     
