@@ -33,10 +33,10 @@ func checkStrikeAndBall() {
     for number in 0...2 {
         if computerNumbers[number] == userNumbers[number] {
             strikeCounter += 1
-        }
-        
-        if computerNumbers.contains(userNumbers[number]) == true && computerNumbers[number] != userNumbers[number] {
-            ballCounter += 1
+        } else {
+            if computerNumbers.contains(userNumbers[number]) == true {
+                ballCounter += 1
+            }
         }
     }
     
@@ -49,13 +49,13 @@ func checkStrikeAndBall() {
 }
 
 func printWinner() {
+    if chances == 0 {
+        print("컴퓨터 승리...!")
+    }
+    
     if  userWin == true {
         chances = -1
         print("사용자 승리...!")
-    }
-    
-    if chances == 0 {
-        print("컴퓨터 승리...!")
     }
 }
 
