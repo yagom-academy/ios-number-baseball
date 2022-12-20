@@ -6,5 +6,19 @@
 
 import Foundation
 
-print("Hello, World!")
+func CreateRandomNums() -> [Int] {
+    var createdNums = [Int]()
+    
+    while createdNums.count < 3 {
+        let createdRandomNum = Int.random(in:1...9)
+        
+        if createdNums.contains(createdRandomNum) {
+            continue
+        } else {
+            createdNums.append(createdRandomNum)
+        }
+    }
+    
+    return createdNums
+}
 
