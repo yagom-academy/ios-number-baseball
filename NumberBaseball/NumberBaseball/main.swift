@@ -1,18 +1,15 @@
 import Foundation
 
-// 전역변수로 resultNumbers, selectedNumbers Chances 생성
 var chances: Int = 9
 var resultNumbers = [String]()
 var selectedNumbers = [String]()
 
-//MARK: 입력받기
 func inputNumbers() {
     print("임의의 수", terminator: " : ")
     selectedNumbers = readLine()!.components(separatedBy: " ")
     chances -= 1
 }
 
-//MARK: 랜덤숫자 만들기
 func makeRandomNumbers() {
     var randomNumbers = [String]()
     randomNumbers.append(String(Int.random(in: 1...9)))
@@ -31,7 +28,6 @@ func makeRandomNumbers() {
     resultNumbers = randomNumbers
 }
 
-//MARK: 스트라이크, 볼 확인하기
 func checkStrike() {
     var ballCounter: Int = 0
     var strikeCounter: Int = 0
@@ -48,7 +44,6 @@ func checkStrike() {
     
     print("\(strikeCounter) 스트라이크, \(ballCounter) 볼")
     print("남은 기회 : \(chances)")
-    print(resultNumbers)
     
     if strikeCounter == 3 {
         chances = -1
@@ -60,7 +55,6 @@ func checkStrike() {
     }
 }
 
-//MARK: 게임 시작
 func startGame(){
     makeRandomNumbers()
    
