@@ -1,27 +1,22 @@
-//
-//  NumberBaseball - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
-
 import Foundation
 
 enum InputError: Error {
     case invalidFuncNum
-    case invalidUserNum
 }
 
 var winNumbers: Set<Int> = []
 var funcInt = 0
 var chance = 9
-let winNumArr = Array(winNumbers)
-var userNumArr: [Int] = []
+var winNumArr: [Int] = []
+var userNumArr: [UInt] = []
 var strikeNum = 0
 var ballNum = 0
 
 while winNumbers.count < 3 {
     winNumbers.insert(Int.random(in: 1...9))
 }
+
+winNumArr = Array(winNumbers)
 
 func countStrike() {
     if winNumArr[0] == userNumArr[0] {
@@ -71,23 +66,53 @@ func menuInputOutput() throws {
     }
 }
 
-func inputNumbers() throws {
+func inputNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
-    guard let inputNum = readLine(), inputNum != "" else {
-        throw InputError.invalidUserNum
+    guard let inputNum = readLine() else {
+        print("입력이 잘못되었습니다")
+        return inputNumbers()
     }
-    let inputNumArr = inputNum.components(separatedBy: " ").map{ Int($0) }
+    let inputNumArr = inputNum.components(separatedBy: " ").map{ UInt($0) }
     
     for num in inputNumArr {
         if let number = num {
             userNumArr.append(number)
         }
     }
+    
+    guard userNumArr.count == 3 else {
+        print("입력이 잘못되었습니다")
+        userNumArr = []
+        return inputNumbers()
+    }
+    
+    if userNumArr[0] > 9 {
+        print("입력이 잘못되었습니다")
+        userNumArr = []
+        return inputNumbers()
+    } else if userNumArr[1] > 9 {
+        print("입력이 잘못되었습니다")
+        userNumArr = []
+        return inputNumbers()
+    } else if userNumArr[2] > 9 {
+        print("입력이 잘못되었습니다")
+        userNumArr = []
+        return inputNumbers()
+    }
+    
+    let userNumSet = Set(userNumArr)
+    let userNumArray = Array(userNumSet)
+    
+    guard userNumArray.count == 3 else {
+        print("입력이 잘못되었습니다")
+        userNumArr = []
+        return inputNumbers()
+    }
 }
 
 func playGame() throws {
     for _ in 1...9 {
-        try inputNumbers()
+        inputNumbers()
         countStrike()
         if strikeNum == 3 {
             print("사용자 승리!")
