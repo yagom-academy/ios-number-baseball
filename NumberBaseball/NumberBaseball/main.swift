@@ -23,7 +23,7 @@ func createRandomNumber() -> Array<Int> {
     return numbers
 }
 
-func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> [Int] {
+func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> (Int, Int) {
     var ball = 0
     var strike = 0
     
@@ -35,7 +35,7 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> [Int] {
         }
     }
     
-    return [ball, strike]
+    return (ball, strike)
 }
 
 func startGame() {
@@ -44,8 +44,8 @@ func startGame() {
     while chance > 0 {
         let userBall = createRandomNumber()
         let ballStrike = compareBall(userBall: userBall, answerBall: answerBall)
-        let ball = ballStrike[0]
-        let strike = ballStrike[1]
+        let ball = ballStrike.0
+        let strike = ballStrike.1
         
         chance -= 1
         print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
@@ -62,6 +62,18 @@ func startGame() {
             print("컴퓨터 승리...!")
         }
     }
+}
+
+func decideWinner(ballStrike: (Int, Int)) -> String? {
+    var winner: String?
+    
+    if ballStrike.0 == 3 {
+        winner = "사용자"
+    } else if ballStrike.1 == 0 {
+        winner = "컴퓨터"
+    }
+    
+    return winner
 }
 
 startGame()
