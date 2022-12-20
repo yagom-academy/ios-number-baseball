@@ -44,7 +44,7 @@ func isCorrectMenu(_ inputValue: String?) -> Bool {
         return true
     }
     
-    if value == "1" {
+    if value == "1" || value == "2" {
         return false
     }
     
@@ -58,7 +58,8 @@ func displayMenu() {
         원하는 기능을 선택해주세요 :
         """, terminator: "")
     
-    var inputState = isCorrectMenu(readLine())
+    var inputValue = readLine()
+    var inputState = isCorrectMenu(inputValue)
     
     while inputState {
         print("""
@@ -67,10 +68,13 @@ func displayMenu() {
             2. 게임종료
             원하는 기능을 선택해주세요 :
             """, terminator: "")
-        let inputValue = readLine()
+        inputValue = readLine()
         inputState = isCorrectMenu(inputValue)
     }
-    startGame()
+    
+    if inputValue == "1" {
+        startGame()
+    }
 }
 
 func startGame() {
