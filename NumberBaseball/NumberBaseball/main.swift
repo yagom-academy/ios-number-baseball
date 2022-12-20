@@ -6,6 +6,14 @@
 
 import Foundation
 
+enum InputError: Error, String {
+    case wrongMenuInput = "입력이 잘못되었습니다"
+    case wrongGameInput = """
+    숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+                          """
+}
+
 class baseballGame {
     var answerBall: Array<Int> = []
     var chance = 9
@@ -43,14 +51,16 @@ class baseballGame {
         let inputValue = readLine()
         
         guard let menu = inputValue else {
-            return false
+            throw InputError.wrongMenuInput
         }
         
         if menu == "1" {
             return true
+        } else if menu == "2" {
+            return false
         }
         
-        return false
+        throw InputError.wrongMenuInput
     }
     
     func displayMenu() {
@@ -62,8 +72,8 @@ class baseballGame {
         
         do {
             try self.readMenu()
-        } catch InputError.wrongInput {
-            print("입력이 잘못되었습니다")
+        } catch InputError.wrongMenuInput {
+            print(InputError.wrongMenuInput.rawValue)
         } catch {
             print(error)
         }
