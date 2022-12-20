@@ -1,6 +1,6 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by 레옹아범 and Rowan.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -15,7 +15,7 @@ func createRandomNumber() -> Array<Int> {
     while numbers.count < 3 {
         let number = Int.random(in: 1...9)
         
-        if !numbers.contains(number) {
+        if numbers.contains(number) == false {
             numbers.append(number)
         }
     }
@@ -48,11 +48,13 @@ func startGame() {
         chance -= 1
         print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(chance)")
         
         if let winner = decideWinner(strike: strike, chance: chance) {
             print("\(winner) 승리...!")
+            break
         }
+        
+        print("남은 기회 : \(chance)")
     }
 }
 
