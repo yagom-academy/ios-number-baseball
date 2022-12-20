@@ -6,18 +6,18 @@
 
 import Foundation
 
-
+var computerNumbers: Set<Int> = []
 
 while true {
-    print(makeThreeBalls())
+    checkBalls(computerNumbers)
     break
 }
-
-func makeThreeBalls() -> Set<Int> {
-    var balls: Set<Int> = []
-    while balls.count < 3 {
-        balls.insert(Int.random(in: 1...9))
+var restOfTimes: Int = 9
+func makeThreeBalls() {
+    while computerNumbers.count < 3 {
+        computerNumbers.insert(Int.random(in: 1...9))
     }
-    return balls
 }
 
+func checkBalls(_ computerNumbers: Set<Int>) {
+}
