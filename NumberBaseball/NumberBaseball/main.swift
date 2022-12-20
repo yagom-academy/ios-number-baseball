@@ -1,3 +1,22 @@
+
+//func startGame() {
+//    print("숫자 세개를 띄어쓰기로 구분하여 입력해주세요.")
+//    print("중복 숫자는 허용하지 않습니다.")
+//}
+//
+//func inputNumbers() {
+//    print("입력", terminator: " : ")
+//
+//    selectedNumbers = readLine()!.components(separatedBy: " ")
+//
+//    if selectedNumbers.count == 3 {
+//
+//    } else {
+//        print("입력이 잘못되었습니다.")
+//    }
+//}
+
+
 import Foundation
 
 var chances: Int = 9
@@ -69,4 +88,39 @@ func startGame() {
     } while chances > 0
 }
 
-startGame()
+
+
+func presentMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+}
+
+func inputMenuNumber() -> String {
+    print("원하는 기능을 선택해주세요", terminator: " : ")
+    let inputedMenuNumber = readLine() ?? ""
+    
+    return inputedMenuNumber
+}
+
+func selectMenu(selectedMenuNunber: String) {
+    switch selectedMenuNunber {
+    case "1":
+        startGame()
+    case "2":
+        break
+    default:
+        print("입력이 잘못되었습니다.")
+    }
+}
+
+func startBaseBallGame() {
+    var inputedMenuNumber: String
+    
+    repeat {
+        presentMenu()
+        inputedMenuNumber = inputMenuNumber()
+        selectMenu(selectedMenuNunber: inputedMenuNumber)
+    } while inputedMenuNumber != "2"
+}
+
+startBaseBallGame()
