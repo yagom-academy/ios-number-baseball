@@ -53,21 +53,21 @@ func isCorrectMenu(_ inputValue: String?) -> Bool {
 
 func displayMenu() {
     print("""
-        1. 게임시작
-        2. 게임종료
-        원하는 기능을 선택해주세요 :
-        """, terminator: "")
+    1. 게임시작
+    2. 게임종료
+    원하는 기능을 선택해주세요 :
+    """, terminator: "")
     
     var inputValue = readLine()
     var inputState = isCorrectMenu(inputValue)
     
     while inputState {
         print("""
-            입력이 잘못되었습니다
-            1. 게임시작
-            2. 게임종료
-            원하는 기능을 선택해주세요 :
-            """, terminator: "")
+        입력이 잘못되었습니다
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: "")
         inputValue = readLine()
         inputState = isCorrectMenu(inputValue)
     }
@@ -135,6 +135,7 @@ func startGame() {
         
         print("남은 기회 : \(chance)")
     }
+    displayMenu()
 }
 
 func decideWinner(strike: Int, chance: Int) -> String? {
