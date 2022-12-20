@@ -26,34 +26,45 @@ func makeRandomNumbers() -> [Int] {
 
 func playGame() {
     var temp = 9
+    var inputNumbers : [Int] = []
     var result : [Int] = []
     
     while temp > 0 {
-        let randomNumbers = makeRandomNumbers()
-        result = checkNumbers(numbers: randomNumbers)
+        
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: " ")
+        
+        let inputData = readLine()
+        inputNumbers = checkAvailability(inputData: inputData)
+        guard inputNumbers.isEmpty == false else {
+            continue
+        }
+ 
+        result = checkStrikeBall(numbers: inputNumbers)
+        
         let strike = result[0]
         let ball = result[1]
-        
+
         if strike == 3 {
-            print("정답 입니다!")
+            print("사용자 승리!")
             return
         }
-        
+
         temp -= 1
-        
-        print("임의의 수 : \(randomNumbers[0]), \(randomNumbers[1]), \(randomNumbers[2])")
+
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(temp)")
+        print(" "1)
     }
     
     print("컴퓨터의 승리입니다.")
     
 }
 
-func checkNumbers(numbers: [Int]) -> [Int] {
+func checkStrikeBall(numbers: [Int]) -> [Int] {
     var strike = 0
     var ball = 0
-    
     
     for number in numbers {
         if initialNumbers.contains(number){
@@ -67,6 +78,43 @@ func checkNumbers(numbers: [Int]) -> [Int] {
         }
     }
     return [strike,ball]
+}
+
+func checkAvailability(inputData: String?) -> [Int] {
+    
+    guard let inputData = inputData?.split(separator: " ") else {
+        print("입력 형식이 잘못 되었습니다! 띄어쓰기를 준수해 주세요.")
+        return []
+    }
+    
+    let numberPattern = "^([1-9])$"
+    for data in inputData {
+        guard let _ = data.range(of: numberPattern, options: .regularExpression) else{
+            print("입력 형식이 잘못 되었습니다! 숫자만 입력해 주세요.")
+            return[]
+        }
+    }
+    
+    guard inputData.count == 3 else {
+        print("입력 갯수가 잘못 되었습니다!")
+        return []
+    }
+    
+    let inputNumbers = inputData.compactMap{str in Int(str) }
+    
+    for number in inputNumbers {
+        guard number > 0 && number < 10 else {
+            print("범위를 벗어 났습니다!")
+            return []
+        }
+    }
+    
+    guard Set(inputNumbers).count == 3 else {
+        print("중복된 숫자가 있습니다!")
+        return []
+    }
+        
+    return inputNumbers
 }
 
 func menuPrint() {
