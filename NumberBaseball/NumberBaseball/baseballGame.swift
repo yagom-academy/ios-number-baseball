@@ -39,6 +39,40 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> (Int, Int) {
     return (ball, strike)
 }
 
+func isCorrectMenu(_ inputValue: String?) -> Bool {
+    guard let value = inputValue else {
+        return true
+    }
+    
+    if value == "1" {
+        return false
+    }
+    
+    return true
+}
+
+func displayMenu() {
+    print("""
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: "")
+    
+    var inputState = isCorrectMenu(readLine())
+    
+    while inputState {
+        print("""
+            입력이 잘못되었습니다
+            1. 게임시작
+            2. 게임종료
+            원하는 기능을 선택해주세요 :
+            """, terminator: "")
+        let inputValue = readLine()
+        inputState = isCorrectMenu(inputValue)
+    }
+    startGame()
+}
+
 func startGame() {
     answerBall = createRandomNumber()
     
