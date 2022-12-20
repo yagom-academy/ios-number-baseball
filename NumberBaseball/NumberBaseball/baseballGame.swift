@@ -106,13 +106,24 @@ func readInput() throws -> [Int] {
 }
 
 func startGame() throws {
-    print("""
+    answerBall = createRandomNumber()
+    
+    do {
+        print("""
             숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
             중복 숫자는 허용하지 않습니다.
             입력 :
             """, terminator: "")
-    
-    answerBall = createRandomNumber()
+        
+        try loopRound(chance, answerBall)
+    } catch InputError.wrongUserInput {
+        print("입력이 잘못되었습니다")
+        
+    }
+}
+
+func loopRound(_ round: Int, _ answerBall: [Int]) throws {
+    var chance = round
     
     while chance > 0 {
         let userBall = try readInput()
