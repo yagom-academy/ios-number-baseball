@@ -6,5 +6,12 @@
 
 import Foundation
 
-print("Hello, World!")
+var comNums = Set<Int>()
+var chance = 9
 
+func createRandNums() {
+    while comNums.count < 3 {
+        let randNum = Int.random(in: 1...9)
+        comNums.insert(randNum)
+    }
+}
