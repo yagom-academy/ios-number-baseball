@@ -1,6 +1,8 @@
-## iOS 커리어 스타터 캠프
+# ⚾️ 숫자야구 프로젝트
 
-### 숫자야구 프로젝트 저장소
+- 팀 프로젝트(2인)
+- 프로젝트 기간: 2022.12.19~
+- Andrew, 송준
+## Flow Chart
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+![FlowChart](https://user-images.githubusercontent.com/45560895/208592877-5a37d55c-32c2-4af1-891a-3811fcb52408.png)
