@@ -39,55 +39,15 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> (Int, Int) {
     return (ball, strike)
 }
 
-//수정필요!!
-func readMenu() -> Bool {
-    let inputValue = readLine()
-    
-    guard let menu = inputValue, menu != "" else {
-        throw InputError.wrongMenuInput
-    }
-    
-    //swich
-    if menu == "1" {
-        return true
-    } else if menu == "2" {
-        return false
-    }
-    
-    throw InputError.wrongMenuInput
-}
-
-func displayMenu() {
-    print("""
-            1. 게임시작
-            2. 게임종료
-            원하는 기능을 선택해주세요 :
-            """, terminator: "")
-    
-    if readMenu() == true {
-        
-    }
-}
-
-func readInput() -> [Int] {
-}
-
 func startGame() {
     answerBall = createRandomNumber()
     
-    
-    print("""
-            숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
-            중복 숫자는 허용하지 않습니다.
-            입력 :
-            """,
-          terminator: "")
-    
     while chance > 0 {
-        let userBall = readInput()
+        let userBall = createRandomNumber()
         let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
         
         chance -= 1
+        print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
         
         if let winner = decideWinner(strike: strike, chance: chance) {
