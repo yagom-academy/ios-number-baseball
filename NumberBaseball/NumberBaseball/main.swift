@@ -8,6 +8,7 @@ import Foundation
 
 var computerBalls: Set<Int> = []
 var userBalls: Set<Int> = []
+var restOfTimes: Int = 9
 
 while true {
     computerBalls = makeThreeBalls()
@@ -15,7 +16,7 @@ while true {
     checkBalls(userBalls)
     break
 }
-var restOfTimes: Int = 9
+
 func makeThreeBalls() -> Set<Int> {
     var balls: Set<Int> = []
     while balls.count < 3 {
@@ -25,6 +26,25 @@ func makeThreeBalls() -> Set<Int> {
 }
 
 func checkBalls(_ userBalls: Set<Int>) {
+    
+    var strike = 0
+    var ball = 0
+    let computerBallsArray = Array(computerBalls)
+    let userBallsArray = Array(userBalls)
+    
     print("임의의 수 : ", terminator: "")
     userBalls.forEach{print("\($0)", terminator: " ")}
+    
+    (0..<computerBallsArray.count).forEach{ index in
+        if computerBallsArray[index] == userBallsArray[index] {
+            strike += 1
+            return
+        }
+        guard computerBallsArray.contains(userBallsArray[index]) else {
+            return
+        }
+        ball += 1
+    }
+    
+    print("\n\(strike) 스트라이크, \(ball) 볼")
 }
