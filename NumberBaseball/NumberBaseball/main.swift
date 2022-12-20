@@ -2,11 +2,11 @@
 //  NumberBaseball - main.swift
 //  Created by 레옹아범 and Rowan.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
-enum InputError: Error, String {
+enum InputError: String, Error {
     case wrongMenuInput = "입력이 잘못되었습니다"
 }
 
@@ -67,7 +67,7 @@ class baseballGame {
             """)
         
         do {
-            var selectedMenu = try self.readMenu()
+            let selectedMenu = try self.readMenu()
             if selectedMenu == true {
                 self.startGame()
             }
@@ -78,7 +78,7 @@ class baseballGame {
         }
     }
     
-    func readInput() throws -> {
+    func readInput() throws -> [Int] {
         guard let input = readLine(), input != "" else {
             throw InputError.wrongMenuInput
         }
@@ -89,13 +89,13 @@ class baseballGame {
             throw InputError.wrongMenuInput
         }
         
-        let firstBall = Int(inputArray[0])
-        let secondBall = Int(inputArray[1])
-        let thirdBall = Int(inputArray[2])
-        
-        guard firstBall != nil && secondBall != nil && thirdBall != nil else {
+        guard let firstBall = Int(inputArray[0]),
+              let secondBall = Int(inputArray[1]),
+              let thirdBall = Int(inputArray[2]) else {
             throw InputError.wrongMenuInput
         }
+        
+        return [firstBall, secondBall, thirdBall]
     }
     
     func startGame() {
@@ -108,11 +108,10 @@ class baseballGame {
         answerBall = createRandomNumber()
         
         while chance > 0 {
-            let userBall = createRandomNumber()
+            let userBall = readInput()
             let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
             
             chance -= 1
-            print("임의의 수 : \(userBall.map{ String($0) }.joined(separator: " "))")
             print("\(strike) 스트라이크, \(ball) 볼")
             
             if let winner = decideWinner(strike: strike, chance: chance) {
@@ -136,4 +135,7 @@ class baseballGame {
         return winner
     }
 }
+
+let game = baseballGame()
+game.displayMenu()
 
