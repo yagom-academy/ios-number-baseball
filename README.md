@@ -8,5 +8,5 @@
 ![image](https://user-images.githubusercontent.com/61936306/208361824-b87470a9-b3a5-456f-b545-0976f60cc79f.png)
 
 ### Step2
-![image](https://user-images.githubusercontent.com/61936306/208638396-78a3308f-f84f-46bd-8841-f0497f2cf94a.png)
+![image](https://user-images.githubusercontent.com/61936306/208640886-c59a79ff-2860-4a3e-a1f5-ff84c7f98940.png)
 
