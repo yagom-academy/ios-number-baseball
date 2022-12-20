@@ -7,6 +7,7 @@
 import Foundation
 
 var winNumbers: Set<Int> = []
+var funcInt = 0
 
 while winNumbers.count < 3 {
     winNumbers.insert(Int.random(in: 1...9))
@@ -62,9 +63,20 @@ func countBall() {
     }
 }
 
+func menuInputOutput() {
+    print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
+    let funcStr = readLine()
+    if let funcString = funcStr {
+        let funcIntOptional = Int(funcString)
+        if let funcInt1 = funcIntOptional {
+            funcInt = funcInt1
+        }
+    }
+}
 
 var chance = 9
 for _ in 1...9 {
+    menuInputOutput()
     userNumArr = createUserNum()
     countStrike()
     if strikeNum == 3 {
