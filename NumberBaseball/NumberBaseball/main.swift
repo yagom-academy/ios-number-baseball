@@ -17,15 +17,6 @@ let winNumArr = Array(winNumbers)
 
 var userNumArr: [Int] = []
 
-func createUserNum() -> [Int] {
-    var userNumbers: Set<Int> = []
-    while userNumbers.count < 3 {
-        userNumbers.insert(Int.random(in: 1...9))
-    }
-    
-    return Array(userNumbers)
-}
-
 var strikeNum = 0
 
 func countStrike() {
@@ -63,6 +54,20 @@ func countBall() {
     }
 }
 
+func inputNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+    guard let inputNum = readLine(), inputNum != "" else {
+        return print("입력이 잘못되었습니다")
+    }
+    let inputNumArr = inputNum.components(separatedBy: " ").map{Int($0)}
+    
+    for num in inputNumArr {
+        if let number = num {
+            userNumArr.append(number)
+        }
+    }
+}
+
 func menuInputOutput() {
     print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
     let funcStr = readLine()
@@ -77,7 +82,7 @@ func menuInputOutput() {
 var chance = 9
 for _ in 1...9 {
     menuInputOutput()
-    userNumArr = createUserNum()
+    inputNumbers()
     countStrike()
     if strikeNum == 3 {
         print("사용자 승리!")
@@ -85,7 +90,6 @@ for _ in 1...9 {
     }
     countBall()
     chance -= 1
-    print("임의의 수 :", userNumArr.map { String($0) }.joined(separator: " "))
     print("\(strikeNum) 스트라이크, \(ballNum) 볼")
     if chance != 0 {
         print("남은기회 : \(chance)")
@@ -95,4 +99,5 @@ for _ in 1...9 {
     }
     strikeNum = 0
     ballNum = 0
+    userNumArr = []
 }
