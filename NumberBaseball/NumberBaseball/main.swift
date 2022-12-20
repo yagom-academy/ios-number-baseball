@@ -8,7 +8,6 @@ import Foundation
 
 enum InputError: Error, String {
     case wrongMenuInput = "입력이 잘못되었습니다"
-    case wrongGameInput =
 }
 
 class baseballGame {
@@ -70,8 +69,6 @@ class baseballGame {
         do {
             var selectedMenu = try self.readMenu()
             if selectedMenu == true {
-
-                
                 self.startGame()
             }
         } catch InputError.wrongMenuInput {
@@ -88,7 +85,7 @@ class baseballGame {
         
         let inputArray = input.components(separatedBy: " ")
         
-        guard let count = inputArray.count, count != 3 else {
+        guard inputArray.count == 3 else {
             throw InputError.wrongMenuInput
         }
         
@@ -106,8 +103,7 @@ class baseballGame {
                 숫자 세 개를 띄어쓰기로 구분하여 입력해주세요.
                 중복 숫자는 허용하지 않습니다.
                 입력 :
-                                        """)
-        
+            """)
         
         answerBall = createRandomNumber()
         
