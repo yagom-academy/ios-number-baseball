@@ -6,15 +6,13 @@
 
 import Foundation
 
-var computerBalls: Set<Int> = []
+var computerBalls = makeThreeBalls()
 var userBalls: Set<Int> = []
 var restOfTimes: Int = 9
 
-while true {
-    computerBalls = makeThreeBalls()
+while restOfTimes > 0 {
     userBalls = makeThreeBalls()
     checkBalls(userBalls)
-    break
 }
 
 func makeThreeBalls() -> Set<Int> {
@@ -26,7 +24,6 @@ func makeThreeBalls() -> Set<Int> {
 }
 
 func checkBalls(_ userBalls: Set<Int>) {
-    
     var strike = 0
     var ball = 0
     let computerBallsArray = Array(computerBalls)
@@ -45,6 +42,14 @@ func checkBalls(_ userBalls: Set<Int>) {
         }
         ball += 1
     }
-    
+    restOfTimes -= 1
     print("\n\(strike) 스트라이크, \(ball) 볼")
+    if restOfTimes != 0 {
+        print("남은 기회 : \(restOfTimes)")
+    } else {
+        print("컴퓨터 승리...!")
+    }
+    if strike == 3 {
+        print("사용자 승리!")
+    }    
 }
