@@ -38,6 +38,20 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> (Int, Int) {
     return (ball, strike)
 }
 
+func readMenu() -> Bool {
+    let inputValue = readLine()
+    
+    guard let menu = inputValue else {
+        return false
+    }
+    
+    if menu == "1" {
+        return true
+    }
+    
+    return false
+}
+
 func startGame() {
     answerBall = createRandomNumber()
     
