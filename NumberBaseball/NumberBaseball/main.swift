@@ -6,18 +6,22 @@
 
 import Foundation
 
+enum InputError: Error {
+    case invalidFuncNum
+    case invalidUserNum
+}
+
 var winNumbers: Set<Int> = []
 var funcInt = 0
+var chance = 9
+let winNumArr = Array(winNumbers)
+var userNumArr: [Int] = []
+var strikeNum = 0
+var ballNum = 0
 
 while winNumbers.count < 3 {
     winNumbers.insert(Int.random(in: 1...9))
 }
-
-let winNumArr = Array(winNumbers)
-
-var userNumArr: [Int] = []
-
-var strikeNum = 0
 
 func countStrike() {
     if winNumArr[0] == userNumArr[0] {
@@ -30,8 +34,6 @@ func countStrike() {
         strikeNum += 1
     }
 }
-
-var ballNum = 0
 
 func countBall() {
     if winNumArr[0] == userNumArr[1]  {
@@ -54,12 +56,27 @@ func countBall() {
     }
 }
 
-func inputNumbers() {
+func menuInputOutput() throws {
+    print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
+    let funcStr = readLine()
+    guard let funcString = funcStr else {
+        throw InputError.invalidFuncNum
+    }
+    guard funcString == "1" || funcString == "2" else {
+        throw InputError.invalidFuncNum
+    }
+    let funcIntOptional = Int(funcString)
+    if let funcInt1 = funcIntOptional {
+        funcInt = funcInt1
+    }
+}
+
+func inputNumbers() throws {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
     guard let inputNum = readLine(), inputNum != "" else {
-        return print("입력이 잘못되었습니다")
+        throw InputError.invalidUserNum
     }
-    let inputNumArr = inputNum.components(separatedBy: " ").map{Int($0)}
+    let inputNumArr = inputNum.components(separatedBy: " ").map{ Int($0) }
     
     for num in inputNumArr {
         if let number = num {
@@ -68,36 +85,38 @@ func inputNumbers() {
     }
 }
 
-func menuInputOutput() {
-    print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
-    let funcStr = readLine()
-    if let funcString = funcStr {
-        let funcIntOptional = Int(funcString)
-        if let funcInt1 = funcIntOptional {
-            funcInt = funcInt1
+func playGame() throws {
+    for _ in 1...9 {
+        try inputNumbers()
+        countStrike()
+        if strikeNum == 3 {
+            print("사용자 승리!")
+            break
         }
+        countBall()
+        chance -= 1
+        print("\(strikeNum) 스트라이크, \(ballNum) 볼")
+        if chance != 0 {
+            print("남은기회 : \(chance)")
+        }
+        else {
+            print("컴퓨터 승리...!")
+        }
+        strikeNum = 0
+        ballNum = 0
+        userNumArr = []
     }
 }
 
-var chance = 9
-for _ in 1...9 {
-    menuInputOutput()
-    inputNumbers()
-    countStrike()
-    if strikeNum == 3 {
-        print("사용자 승리!")
-        break
+func startGame() throws{
+    do {
+        try menuInputOutput()
+        try playGame()
     }
-    countBall()
-    chance -= 1
-    print("\(strikeNum) 스트라이크, \(ballNum) 볼")
-    if chance != 0 {
-        print("남은기회 : \(chance)")
+    catch InputError.invalidFuncNum {
+        print("입력이 잘못되었습니다")
+        try startGame()
     }
-    else {
-        print("컴퓨터 승리...!")
-    }
-    strikeNum = 0
-    ballNum = 0
-    userNumArr = []
 }
+
+try startGame()
