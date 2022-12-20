@@ -116,6 +116,7 @@ func playGame() throws {
         countStrike()
         if strikeNum == 3 {
             print("사용자 승리!")
+            try startGame()
             break
         }
         countBall()
@@ -126,6 +127,7 @@ func playGame() throws {
         }
         else {
             print("컴퓨터 승리...!")
+            try startGame()
         }
         strikeNum = 0
         ballNum = 0
@@ -136,6 +138,9 @@ func playGame() throws {
 func startGame() throws{
     do {
         try menuInputOutput()
+        if funcInt == 2 {
+            return
+        }
         try playGame()
     }
     catch InputError.invalidFuncNum {
