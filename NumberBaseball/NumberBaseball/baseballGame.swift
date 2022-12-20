@@ -77,6 +77,33 @@ func displayMenu() {
     }
 }
 
+func isCorrectUserInput() -> (Bool, [Int]) {
+    guard let value = readLine() else {
+        return (true, [])
+    }
+    let valueList = value.components(separatedBy: " ").map{ String($0) }
+    
+    if valueList.count != 3 {
+        return (true, [])
+    }
+    
+    guard let firstBall = Int(valueList[0]), let secondBall = Int(valueList[1]), let thirdBall = Int(valueList[2]) else {
+        return (true, [])
+    }
+    
+    return (false, [firstBall, secondBall, thirdBall])
+}
+
+func readInput() -> [Int] {
+    print("""
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """, terminator: "")
+    
+    var (inputState, numberList) = isCorrectUserInput()
+}
+
 func startGame() {
     answerBall = createRandomNumber()
     
