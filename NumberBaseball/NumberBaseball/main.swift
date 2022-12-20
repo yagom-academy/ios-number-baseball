@@ -8,6 +8,7 @@ import Foundation
 
 let computerNumberArray: [Int]
 var numberOfTry = 9
+
 func makeRandomNumberArray() -> [Int] {
     var setNumber: Set<Int> = Set<Int>()
     while setNumber.count != 3 {
@@ -15,6 +16,7 @@ func makeRandomNumberArray() -> [Int] {
     }
     return Array(setNumber)
 }
+
 func countBallStrike(computerArray: [Int], numberArray: [Int]) -> (Int, Int) {
     var countStrike = 0
     var countBall = 0
@@ -30,7 +32,22 @@ func countBallStrike(computerArray: [Int], numberArray: [Int]) -> (Int, Int) {
     }
     return (countStrike, countBall)
 }
+
 computerNumberArray = makeRandomNumberArray()
+
 while numberOfTry != 0 {
-    let randomNumberArray
+    let randomNumberArray: [Int]
+    var result: (Int, Int)
+    
+    numberOfTry -= 1
+    randomNumberArray = makeRandomNumberArray()
+    result = countBallStrike(computerArray: computerNumberArray, numberArray: randomNumberArray)
+    var countStrike = result($0)
+    var countBall = result($1)
+//    if countStrike == 3 {
+//        break
+//    } else {
+//
+//    }
+    print(result)
 }
