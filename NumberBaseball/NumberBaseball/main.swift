@@ -55,7 +55,7 @@ func playGame() {
 
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(temp)")
-        print(" "1)
+        print(" ")
     }
     
     print("컴퓨터의 승리입니다.")
