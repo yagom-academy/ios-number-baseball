@@ -5,6 +5,8 @@
 //  Created by 강민수 on 2022/12/20.
 //
 
+// chance 초기화문제 (1 -> 1연속시 실행 안됨)
+// 입력 중복값 해결
 import Foundation
 
 var answerBall: Array<Int> = []
@@ -120,7 +122,7 @@ func readInput() -> [Int] {
 
 func startGame() {
     answerBall = createRandomNumber()
-    
+    print("Chance : \(chance)")
     while chance > 0 {
         let userBall = readInput()
         let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
