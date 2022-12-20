@@ -1,6 +1,6 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -37,17 +37,25 @@ computerNumberArray = makeRandomNumberArray()
 
 while numberOfTry != 0 {
     let randomNumberArray: [Int]
-    var result: (Int, Int)
-    
-    numberOfTry -= 1
+    let result: (Int, Int)
     randomNumberArray = makeRandomNumberArray()
     result = countBallStrike(computerArray: computerNumberArray, numberArray: randomNumberArray)
-    var countStrike = result($0)
-    var countBall = result($1)
-//    if countStrike == 3 {
-//        break
-//    } else {
-//
-//    }
-    print(result)
+    let countStrike = result.0
+    let countBall = result.1
+    print("임의의 수 : ", terminator: "")
+    for number in randomNumberArray {
+        print(number, terminator: " ")
+    }
+    print("\n\(countStrike) 스트라이크, \(countBall) 볼")
+    if countStrike == 3 {
+        break
+    }
+    numberOfTry -= 1
+    print("남은 기회 \(numberOfTry)")
+}
+
+if numberOfTry > 0 {
+    print("사용자 승리!")
+} else {
+    print("컴퓨터 승리...")
 }
