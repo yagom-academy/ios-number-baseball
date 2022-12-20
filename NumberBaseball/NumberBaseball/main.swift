@@ -68,11 +68,19 @@ func selectMenu() {
         if userInput == "1" {
             startGame()
         } else if userInput == "2" {
-            print("게임 종료")
+            endGame()
         } else {
-            print("입력이 잘못 되었습니다.")
+            inputErrorPrint()
         }
     }
+}
+
+func endGame() {
+    print("게임 종료")
+}
+
+func inputErrorPrint() {
+    print("입력이 잘못 되었습니다.")
 }
 
 func startGame() -> [String] {
@@ -92,8 +100,23 @@ func startGame() -> [String] {
     return numbers
 }
 
-func isValidNumberArray(stringNumberArray: [String]) {
+func isValidNumberArray(stringNumberArray: [String]) -> Bool {
+    if stringNumberArray.count != 3 {
+        return false
+    }
+    for stringNumber in stringNumberArray {
+        guard let intNumber = Int(stringNumber) else {
+            return false
+        }
+        if intNumber < 1 || intNumber > 9 {
+            return false
+        }
+    }
+    return true
+}
 
+func removeBlank(inputString: String) -> String {
+    return inputString.split(separator: " ").joined(separator: "")
 }
 
 selectMenu()
