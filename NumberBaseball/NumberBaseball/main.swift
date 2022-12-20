@@ -28,3 +28,28 @@ func checkStrike(_ computerNumbers: [Int], _ userNumbers: [Int]) -> (Int, Int) {
     }
     return (strike, ball)
 }
+
+func startGame() {
+    
+    while chance > 0 {
+        let comNums = createRandomNumbers()
+        let userNums = createRandomNumbers()
+        
+        let (strike, ball) = checkStrike(comNums, userNums)
+        chance -= 1
+        
+        print("임의의 수 : \(comNums.map{ String($0) }.joined(separator: " "))")
+        print("\(strike) 스트라이크, \(ball) 볼")
+        print("남은 기회 : \(chance)")
+        
+        
+        if strike == 3 {
+            print("사용자 승리...!")
+            break
+        } else if chance == 0 {
+            print("컴퓨터 승리...!")
+        }
+    }
+}
+
+startGame()
