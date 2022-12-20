@@ -6,18 +6,25 @@
 
 import Foundation
 
-var computerNumbers: Set<Int> = []
+var computerBalls: Set<Int> = []
+var userBalls: Set<Int> = []
 
 while true {
-    checkBalls(computerNumbers)
+    computerBalls = makeThreeBalls()
+    userBalls = makeThreeBalls()
+    checkBalls(userBalls)
     break
 }
 var restOfTimes: Int = 9
-func makeThreeBalls() {
-    while computerNumbers.count < 3 {
-        computerNumbers.insert(Int.random(in: 1...9))
+func makeThreeBalls() -> Set<Int> {
+    var balls: Set<Int> = []
+    while balls.count < 3 {
+        balls.insert(Int.random(in: 1...9))
     }
+    return balls
 }
 
-func checkBalls(_ computerNumbers: Set<Int>) {
+func checkBalls(_ userBalls: Set<Int>) {
+    print("임의의 수 : ", terminator: "")
+    userBalls.forEach{print("\($0)", terminator: " ")}
 }
