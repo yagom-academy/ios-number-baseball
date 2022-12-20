@@ -23,11 +23,12 @@ func makeRandomNumbers() -> [Int] {
 }
 
 func playGame() {
-    var temp = 0
+    var temp = 9
     var result : [Int] = []
     
-    while temp == 0 {
-        result = checkNumbers(numbers: makeRandomNumbers())
+    while temp > 0 {
+        let randomNumbers = makeRandomNumbers()
+        result = checkNumbers(numbers: randomNumbers)
         let strike = result[0]
         let ball = result[1]
         
@@ -36,14 +37,21 @@ func playGame() {
             return
         }
         
+        temp -= 1
+        
+        print("임의의 수 : \(randomNumbers[0]), \(randomNumbers[1]), \(randomNumbers[2])")
         print("\(strike) 스트라이크, \(ball) 볼")
+        print("남은 기회 : \(temp)")
     }
+    
+    print("컴퓨터의 승리입니다.")
     
 }
 
 func checkNumbers(numbers: [Int]) -> [Int] {
     var strike = 0
     var ball = 0
+    
     
     for number in numbers {
         if initialNumbers.contains(number){
@@ -56,5 +64,8 @@ func checkNumbers(numbers: [Int]) -> [Int] {
             ball -= 1
         }
     }
-    return [strike, ball]
+    return [strike,ball]
 }
+
+
+playGame()
