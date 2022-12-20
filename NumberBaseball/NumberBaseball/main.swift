@@ -6,6 +6,6 @@
 
 import Foundation
 
-let game = baseballGame()
-game.displayMenu()
+
+displayMenu()
 
