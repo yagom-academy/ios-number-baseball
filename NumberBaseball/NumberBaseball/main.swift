@@ -1,43 +1,41 @@
 import Foundation
 
 var chances: Int = 9
-var resultNumbers = [String]()
-var selectedNumbers = [String]()
+var userNumbers = [String]()
+var computerNumbers = [String]()
+var userWin: Bool = false
 
-func inputNumbers() {
-    print("임의의 수", terminator: " : ")
-    selectedNumbers = readLine()!.components(separatedBy: " ")
-    chances -= 1
-}
-
-func makeRandomNumbers() {
+func makeRandomNumbers() -> [String] {
     var randomNumbers = [String]()
-    randomNumbers.append(String(Int.random(in: 1...9)))
-    randomNumbers.append(String(Int.random(in: 1...9)))
     
-    while randomNumbers[0] == randomNumbers[1] {
-        randomNumbers[1] = String(Int.random(in: 1...9))
+    while randomNumbers.count != 3 {
+        let randomNumber = String(Int.random(in: 1...9))
+        
+        if !randomNumbers.contains(randomNumber) {
+            randomNumbers.append(randomNumber)
+        }
     }
     
-    randomNumbers.append(String(Int.random(in: 1...9)))
-    
-    while randomNumbers[0] == randomNumbers[2] || randomNumbers[1] == randomNumbers[2] {
-        randomNumbers[2] = String(Int.random(in: 1...9))
-    }
-    
-    resultNumbers = randomNumbers
+    return randomNumbers
 }
 
-func checkStrike() {
+func makeUserNumbers() {
+    userNumbers = makeRandomNumbers()
+    print("임의의 수 : \(userNumbers.joined(separator: " "))")
+    
+}
+
+func checkStrikeAndBall() {
     var ballCounter: Int = 0
     var strikeCounter: Int = 0
+    chances -= 1
     
     for number in 0...2 {
-        if resultNumbers[number] == selectedNumbers[number] {
+        if computerNumbers[number] == userNumbers[number] {
             strikeCounter += 1
         }
         
-        if resultNumbers.contains(selectedNumbers[number]) == true && resultNumbers[number] != selectedNumbers[number] {
+        if computerNumbers.contains(userNumbers[number]) == true && computerNumbers[number] != userNumbers[number] {
             ballCounter += 1
         }
     }
@@ -46,6 +44,12 @@ func checkStrike() {
     print("남은 기회 : \(chances)")
     
     if strikeCounter == 3 {
+        userWin = true
+    }
+}
+
+func printWinner() {
+    if  userWin == true {
         chances = -1
         print("사용자 승리...!")
     }
@@ -55,16 +59,14 @@ func checkStrike() {
     }
 }
 
-func startGame(){
-    makeRandomNumbers()
+func startGame() {
+    computerNumbers = makeRandomNumbers()
    
-    while true {
-        inputNumbers()
-        checkStrike()
-        if chances <= 0 {
-            break
-        }
-    }
+    repeat {
+        makeUserNumbers()
+        checkStrikeAndBall()
+        printWinner()
+    } while chances > 0
 }
 
 startGame()
