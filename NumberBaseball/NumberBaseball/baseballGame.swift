@@ -70,17 +70,14 @@ class baseballGame {
         
         do {
             if try self.readMenu() == true {
-                
+                try self.startGame()
             }
-            //            if selectedMenu == true {
-            //                self.startGame()
-            //            }
         } catch InputError.wrongMenuInput {
             print(InputError.wrongMenuInput.rawValue)
             self.displayMenu()
         } catch InputError.wrongUserInput {
             print("입력이 잘못되었습니다")
-            
+//            try self.startGame()
         } catch {
             print(error)
         }
