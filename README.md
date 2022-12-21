@@ -7,4 +7,4 @@
 참여자 : vetto, 무리
 
 <img src=https://github.com/parkmuri/ios-number-baseball/blob/step1/baseballGame_step1.drawio%20(1).png>
-<img src=https://github.com/parkmuri/ios-number-baseball/blob/step1/baseballGame_step2.drawio%20(2).png>
+<img src=https://github.com/parkmuri/ios-number-baseball/blob/step1/baseballGame_step2.drawio%20(1).png>
