@@ -4,5 +4,6 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
-![step1.drawio](./FlowChart/step1.drawio.PNG)
-![step2.drawio](./FlowChart/step2.drawio.PNG)
+
+/Users/jinahpark/Desktop/yagom/ios-number-baseball/FlowChart/step1.drawio.png
+/Users/jinahpark/Desktop/yagom/ios-number-baseball/FlowChart/step2.drawio.png
