@@ -22,6 +22,27 @@ func createRandomNumbers() -> [Int] {
     return createdNumbers
 }
 
+func inputUserNumbers() -> [Int] {
+    guard var userInput = readLine()?.split(separator:" ") else {
+        
+    }
+    
+    guard userInput.count == 3 else {
+        
+    }
+    var userNumbers = [Int]()
+    
+    for index in 0...userInput.count {
+        if userNumbers[index] = Int(userInput[index]) else {
+            
+        }
+    }
+    
+    guard let userNumbers = Int(userInput)
+    
+}
+
+
 func countBallAndStrike(comparing randomNumbers: [Int]) -> [String: Int] {
     var result = [String: Int]()
     result["strike"] = 0
