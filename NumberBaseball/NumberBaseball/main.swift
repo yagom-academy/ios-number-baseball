@@ -52,4 +52,28 @@ func startGame() {
     }
 }
 
-startGame()
+func selectMenu() -> Bool {
+    print("""
+          1. 게임시작
+          2. 게임종료
+          """)
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    guard let selectedMenu = readLine() else {
+        print("입력이 잘못되었습니다")
+        return selectMenu()
+    }
+    switch Int(selectedMenu) {
+    case 1:
+        return true
+    case 2:
+        return false
+    default:
+        print("입력이 잘못되었습니다")
+        return selectMenu()
+    }
+}
+
+while selectMenu() {
+    startGame()
+}
