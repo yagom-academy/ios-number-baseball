@@ -1,10 +1,5 @@
-//
-//  NumberBaseball - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
 
-import Foundation
+//  Created by vetto, 무리
+//  2022.12.19
 
-print("Hello, World!")
-
+startGame()
