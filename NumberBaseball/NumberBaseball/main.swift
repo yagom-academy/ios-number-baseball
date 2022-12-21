@@ -9,6 +9,14 @@ import Foundation
 let numbers = Array(1...9)
 let initialNumbers = makeRandomNumbers()
 
+enum inputError : Error {
+    case notOnlyNumber
+    case wordSpacing
+    case outOfRange
+    case sameNumber
+    case numberOfInput
+}
+
 func makeRandomNumbers() -> [Int] {
     var resultNumbers: Set<Int> = []
 
