@@ -78,39 +78,35 @@ func checkStrikeBall(numbers: [Int]) -> [Int] {
     return [strike,ball]
 }
 
-func checkAvailability(inputData: String?) -> [Int] {
+func checkAvailability(inputData: String?) throws -> [Int] {
     
     guard let inputData = inputData?.split(separator: " ") else {
-        print("입력 형식이 잘못 되었습니다! 띄어쓰기를 준수해 주세요.")
-        return []
+        throw inputError.wordSpacing
     }
     
     let numberPattern = "^([1-9])$"
     for data in inputData {
         guard let _ = data.range(of: numberPattern, options: .regularExpression) else {
-            print("입력 형식이 잘못 되었습니다! 숫자만 입력해 주세요.")
-            return[]
+            throw inputError.notOnlyNumber
         }
     }
     
     guard inputData.count == 3 else {
-        print("입력 갯수가 잘못 되었습니다!")
-        return []
+        throw inputError.numberOfInput
     }
     
     let inputNumbers = inputData.compactMap { str in Int(str) }
     
     for number in inputNumbers {
         guard number > 0 && number < 10 else {
-            print("범위를 벗어 났습니다!")
-            return []
+            throw inputError.outOfRange
         }
     }
     
     guard Set(inputNumbers).count == 3 else {
-        print("중복된 숫자가 있습니다!")
-        return []
+        throw inputError.sameNumber
     }
+    
     return inputNumbers
 }
 
