@@ -6,31 +6,31 @@
 
 import Foundation
 
-func CreateRandomNums() -> [Int] {
-    var createdNums = [Int]()
+func createRandomNumbers() -> [Int] {
+    var createdNumbers = [Int]()
     
-    while createdNums.count < 3 {
-        let createdRandomNum = Int.random(in:1...9)
+    while createdNumbers.count < 3 {
+        let createdRandomNumber = Int.random(in:1...9)
         
-        if createdNums.contains(createdRandomNum) {
+        if createdNumbers.contains(createdRandomNumber) {
             continue
         } else {
-            createdNums.append(createdRandomNum)
+            createdNumbers.append(createdRandomNumber)
         }
     }
     
-    return createdNums
+    return createdNumbers
 }
 
-func ReturnResult(randomNums: [Int]) -> [Int] {
+func countBallAndStrike(comparing randomNumbers: [Int]) -> [Int] {
     var strike = 0
     var ball = 0
     var result = [Int]()
     
     for i in 0...2 {
-        if computerRandomNums[i] == randomNums[i] {
+        if computerRandomNumbers[i] == randomNumbers[i] {
             strike += 1
-        } else if randomNums.contains(computerRandomNums[i]) {
+        } else if randomNumbers.contains(computerRandomNumbers[i]) {
             ball += 1
         }
     }
@@ -41,13 +41,13 @@ func ReturnResult(randomNums: [Int]) -> [Int] {
     return result
 }
 
-func StartGame() {
-    while remain > 0 {
-        let userRandomNums = CreateRandomNums()
-        let gameResult = ReturnResult(randomNums: userRandomNums)
-        remain -= 1
+func startGame() {
+    while remainingCount > 0 {
+        let userRandomNumbers = createRandomNumbers()
+        let gameResult = countBallAndStrike(comparing: userRandomNumbers)
+        remainingCount -= 1
         
-        print("임의의 수 : \(userRandomNums[0]) \(userRandomNums[1]) \(userRandomNums[2])")
+        print("임의의 수 : \(userRandomNumbers[0]) \(userRandomNumbers[1]) \(userRandomNumbers[2])")
         print("\(gameResult[0]) 스트라이크, \(gameResult[1]) 볼")
         
         if gameResult[0] == 3 {
@@ -55,15 +55,15 @@ func StartGame() {
             break
         }
         
-        if remain == 0 {
+        if remainingCount == 0 {
             print("컴퓨터 승리...!")
         } else {
-            print("남은 기회 : \(remain)")
+            print("남은 기회 : \(remainingCount)")
         }
     }
 }
 
-let computerRandomNums = CreateRandomNums()
-var remain = 9
+let computerRandomNumbers = createRandomNumbers()
+var remainingCount = 9
 
-StartGame()
+startGame()
