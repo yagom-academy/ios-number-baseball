@@ -34,7 +34,7 @@ func playBaseBallGame() {
     }
 }
 
-func makeThreeNumbers() -> Array<Int> {
+func makeThreeNumbers() -> [Int] {
     var numbers: Set<Int> = []
     while numbers.count < 3 {
         numbers.insert(Int.random(in: 1...9))
