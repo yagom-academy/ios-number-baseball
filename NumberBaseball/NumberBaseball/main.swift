@@ -1,8 +1,8 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -60,5 +60,25 @@ func compareNumbers(_ userNumbers: [Int], with computerNumbers: [Int]) -> (Int, 
     }
     return (strikeCount, ballCount)
 }
+enum BaseBallGameError : Error {
+    case invalidInput
+}
 
+func gameStart() throws {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ")
+    
+    let inputMenu: String? = readLine()
+    guard let menu = inputMenu, let menu = Int(menu), (1...2) ~= menu else {
+        throw BaseBallGameError.invalidInput
+    }
+    
+}
+do {
+    try playBaseBallGame()
+} catch BaseBallGameError.invalidInput {
+    print("입력이 잘못되었습니다")
+    
+}
 playBaseBallGame()
