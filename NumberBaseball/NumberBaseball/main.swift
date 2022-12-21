@@ -10,6 +10,7 @@ var computerNumbers = makeThreeNumbers()
 var userNumbers: [Int] = []
 var leftCount: Int = 9
 var isUserWin: Bool = false
+var endFlag: Bool = true
 
 func playBaseBallGame(userNumbers: [Int]) {
     var strikeCount: Int = 0
@@ -57,54 +58,72 @@ enum BaseBallGameError : Error {
     case invalidInput
 }
 
+
 func gameStart() throws {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-    
     let inputMenu: String? = readLine()
     guard let menu = inputMenu, let menu = Int(menu), (1...2) ~= menu else {
         throw BaseBallGameError.invalidFunction
     }
     if menu == 1 {
-        while leftCount > 0 {
-            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-            print("중복 숫자는 허용하지 않습니다.")
-            print("입력 : ", terminator: "")
-            let input: String? = readLine()
-            guard let inputNumbers = input else {
-                throw BaseBallGameError.invalidInput
+            do {
+                try abc()
+            } catch BaseBallGameError.invalidFunction {
+                print("입력이 잘못되었습니다")
+            } catch BaseBallGameError.invalidInput {
+                print("입력이 잘못되었습니다")
+                print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+                print("중복 숫자는 허용하지 않습니다.")
+                try abc()
+            } catch {
+                print(error)
             }
-            let inputNumbersArray = inputNumbers.split(separator: " ").compactMap{ Int($0) }
-            
-            guard inputNumbersArray.count == 3  else {
-                throw BaseBallGameError.invalidInput
-            }
-            
-            guard inputNumbersArray[0] != inputNumbersArray[1],
-                  inputNumbersArray[0] != inputNumbersArray[2],
-                  inputNumbersArray[1] != inputNumbersArray[2] else {
-                throw BaseBallGameError.invalidInput
-            }
-            playBaseBallGame(userNumbers: inputNumbersArray)
-            if isUserWin {
-                print("사용자 승리!")
-                break
-            } else if leftCount == 0 {
-                print("컴퓨터 승리...!")
-            }
+        
+    } else if menu == 2 {
+        endFlag = false
+    }
+}
+
+func abc() throws {
+    while leftCount > 0 {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: "")
+        let input: String? = readLine()
+        guard let inputNumbers = input else {
+            throw BaseBallGameError.invalidInput
+        }
+        let inputNumbersArray = inputNumbers.split(separator: " ").compactMap{ Int($0) }
+        
+        guard inputNumbersArray.count == 3  else {
+            throw BaseBallGameError.invalidInput
+        }
+        
+        guard inputNumbersArray[0] != inputNumbersArray[1],
+              inputNumbersArray[0] != inputNumbersArray[2],
+              inputNumbersArray[1] != inputNumbersArray[2] else {
+            throw BaseBallGameError.invalidInput
+        }
+        playBaseBallGame(userNumbers: inputNumbersArray)
+        if isUserWin {
+            print("사용자 승리!")
+            break
+        } else if leftCount == 0 {
+            print("컴퓨터 승리...!")
         }
     }
 }
-do {
-    try gameStart()
-} catch BaseBallGameError.invalidFunction {
-    print("입력이 잘못되었습니다")
-} catch BaseBallGameError.invalidInput {
-    print("입력이 잘못되었습니다")
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-} catch {
-    print(error)
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    do {
+        try gameStart()
+    } catch {
+        print(error)
+    }
 }
+
+printMenu()
+
+
 
