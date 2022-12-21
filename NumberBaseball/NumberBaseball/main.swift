@@ -82,10 +82,12 @@ func gameStart() throws {
         guard let inputNumbers = input else {
             throw BaseBallGameError.invalidInput
         }
-        var inputNumbersArray = inputNumbers.split(separator: " ").compactMap{ Int($0) }
-        guard inputNumbersArray.count < 3, inputNumbersArray.count != 3  else {
+        let inputNumbersArray = inputNumbers.split(separator: " ").compactMap{ Int($0) }
+        
+        guard inputNumbersArray.count == 3  else {
             throw BaseBallGameError.invalidInput
         }
+        
         guard inputNumbersArray[0] != inputNumbersArray[1],
               inputNumbersArray[0] != inputNumbersArray[2],
               inputNumbersArray[1] != inputNumbersArray[2] else {
@@ -94,7 +96,7 @@ func gameStart() throws {
     }
 }
 do {
-    try playBaseBallGame()
+    try gameStart()
 } catch BaseBallGameError.invalidFunction {
     print("입력이 잘못되었습니다")
 } catch BaseBallGameError.invalidInput {
@@ -103,4 +105,3 @@ do {
     print("중복 숫자는 허용하지 않습니다.")
 }
 
-playBaseBallGame()
