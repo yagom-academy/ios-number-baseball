@@ -40,7 +40,23 @@ func playGame() {
         print("입력 : ", terminator: " ")
         
         let inputData = readLine()
-        inputNumbers = checkAvailability(inputData: inputData)
+        
+        do {
+            inputNumbers = try checkAvailability(inputData: inputData)
+        } catch inputError.notOnlyNumber {
+            print("입력 형식이 잘못 되었습니다! 숫자만 입력해 주세요.")
+        } catch inputError.numberOfInput {
+            print("입력 갯수가 잘못 되었습니다.")
+        } catch inputError.outOfRange {
+            print("범위를 벗어 났습니다!")
+        } catch inputError.sameNumber {
+            print("중복된 숫자가 있습니다!")
+        } catch inputError.wordSpacing {
+            print("입력 형식이 잘못 되었습니다! 띄어쓰기를 준수해 주세요.")
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         guard inputNumbers.isEmpty == false else {
             continue
         }
