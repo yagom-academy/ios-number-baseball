@@ -9,10 +9,25 @@ func startGame() {
     var numberOfTry: Int = 9
     
     while numberOfTry > 0 {
-        let randomNumberArray = makeRandomNumberArray()
-        print("임의의 수 : \(randomNumberArray)")
+        let randomNumberArray: [Int] = makeRandomNumberArray()
+        let result: (Int, Int) = countStrikeBall(computerNumberArray: computerNumberArray, randomNumberArray: randomNumberArray)
+        let numberOfStrike: Int = result.0
+        let numberOfBall: Int = result.1
+        
+        print("임의의 수 : ", terminator: "")
+        
+        print("\(numberOfStrike) 스트라이크, \(numberOfBall) 볼")
+        
+        if numberOfStrike == 3 {
+            break
+        } else {
+            numberOfTry -= 1
+            print("남은기회 \(numberOfTry)")
+        }
     }
 }
+
+func printRandomNumberArray(randomNumberArray: [Int]) 
 
 func makeRandomNumberArray() -> [Int] {
     var randomSetNumber: Set<Int> = Set<Int>()
@@ -24,11 +39,22 @@ func makeRandomNumberArray() -> [Int] {
     return Array(randomSetNumber)
 }
 
-func countBallStrike(computerNumberArray: [Int], randomNumberArray: [Int]) -> (Int, Int) {
+func countStrikeBall(computerNumberArray: [Int], randomNumberArray: [Int]) -> (Int, Int) {
     var numberOfStrike: Int = 0
     var numberOfBall: Int = 0
     
-    
+    for currentIndex in 0..<3 {
+        guard let findIndex = randomNumberArray.firstIndex(of: computerNumberArray[currentIndex]) else {
+            continue
+        }
+        if currentIndex == findIndex {
+            numberOfStrike += 1
+        } else {
+            numberOfBall += 1
+        }
+    }
     
     return (numberOfStrike, numberOfBall)
 }
+
+startGame()
