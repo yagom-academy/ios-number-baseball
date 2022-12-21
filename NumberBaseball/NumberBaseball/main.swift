@@ -6,14 +6,34 @@
 
 import Foundation
 
-var chance = 9
-
 func createRandomNumbers() -> [Int] {
     var randomNumbers = Set<Int>()
     while randomNumbers.count < 3 {
         randomNumbers.insert(Int.random(in: 1...9))
     }
     return Array(randomNumbers)
+}
+
+func setUserNums() -> [Int] {
+    while true {
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        """)
+        print("입력 : ", terminator: "")
+        guard let input = readLine() else { return Array<Int>() }
+        if input == "" {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        let numArray = input.split(separator: " ").map{ Int($0) ?? 0 }
+        let filteredNums = numArray.filter{ $0 > 0 && $0 < 10 }
+        if Set(filteredNums).count != 3 {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        return filteredNums
+    }
 }
 
 func checkStrike(_ computerNumbers: [Int], _ userNumbers: [Int]) -> (Int, Int) {
@@ -31,14 +51,14 @@ func checkStrike(_ computerNumbers: [Int], _ userNumbers: [Int]) -> (Int, Int) {
 
 func startGame() {
     
+    var chance = 9
     while chance > 0 {
         let comNums = createRandomNumbers()
-        let userNums = createRandomNumbers()
+        let userNums = setUserNums()
         
         let (strike, ball) = checkStrike(comNums, userNums)
         chance -= 1
         
-        print("임의의 수 : \(comNums.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
         print("남은 기회 : \(chance)")
         
