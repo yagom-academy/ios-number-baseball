@@ -5,12 +5,9 @@
 //  Created by 강민수 on 2022/12/20.
 //
 
-// chance 초기화문제 (1 -> 1연속시 실행 안됨)
-// 입력 중복값 해결
 import Foundation
 
 var answerBall: Array<Int> = []
-var chance = 9
 
 func createRandomNumber() -> Array<Int> {
     var numbers: Array<Int> = []
@@ -86,7 +83,7 @@ func isCorrectUserInput() -> (Bool, [Int]) {
     }
     let valueList = value.components(separatedBy: " ").map{ String($0) }
     
-    if valueList.count != 3 {
+    if Set(valueList).count != 3 {
         return (true, [])
     }
     
@@ -122,7 +119,8 @@ func readInput() -> [Int] {
 
 func startGame() {
     answerBall = createRandomNumber()
-    print("Chance : \(chance)")
+    var chance = 9
+    
     while chance > 0 {
         let userBall = readInput()
         let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
