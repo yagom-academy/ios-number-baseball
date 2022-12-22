@@ -130,10 +130,12 @@ func readInput() -> [Int] {
 func startGame() {
     var chance = 9
     let answerBall = createRandomNumber()
+    var ball = 0
+    var strike = 0
     
-    while chance > 0 {
+    while chance > 0 && strike != 3 {
         let userBall = readInput()
-        let (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
+        (ball, strike) = compareBall(userBall: userBall, answerBall: answerBall)
         
         chance -= 1
         print("\(strike) 스트라이크, \(ball) 볼")
