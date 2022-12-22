@@ -1,10 +1,7 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by 레옹아범 and Rowan.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
-import Foundation
-
-print("Hello, World!")
-
+displayMenu()
