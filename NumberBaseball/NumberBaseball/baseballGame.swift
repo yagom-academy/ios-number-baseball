@@ -11,8 +11,6 @@ enum InputError: Error {
     case incorrectInput
 }
 
-var answerBall: Array<Int> = []
-
 func createRandomNumber() -> Array<Int> {
     var numbers: Array<Int> = []
     
@@ -88,6 +86,7 @@ func isSuccessUserInput() -> Result<[Int], InputError> {
     guard let value = readLine() else {
         return Result<[Int], InputError>.failure(InputError.incorrectInput)
     }
+    
     let valueList = value.components(separatedBy: " ").map{ String($0) }
     
     if Set(valueList).count != 3 {
@@ -129,8 +128,8 @@ func readInput() -> [Int] {
 }
 
 func startGame() {
-    answerBall = createRandomNumber()
     var chance = 9
+    let answerBall = createRandomNumber()
     
     while chance > 0 {
         let userBall = readInput()
@@ -146,11 +145,11 @@ func startGame() {
         
         print("남은 기회 : \(chance)")
     }
+    
     displayMenu()
 }
 
 func decideWinner(strike: Int, chance: Int) -> String? {
-        
     if strike == 3 {
         return "사용자"
     } else if chance == 0 {
