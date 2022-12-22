@@ -6,7 +6,7 @@
 
 import Foundation
 
-var computerNumbers = makeThreeNumbers()
+var computerNumbers: [Int] = makeThreeNumbers()
 var userNumbers: [Int] = []
 var leftCount: Int = 9
 var isUserWin: Bool = false
@@ -125,6 +125,7 @@ func printMenu() {
         }
         leftCount = 9
         isUserWin = false
+        computerNumbers = makeThreeNumbers()
     } 
 }
 
