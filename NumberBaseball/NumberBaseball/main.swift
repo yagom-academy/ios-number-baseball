@@ -6,81 +6,58 @@
 
 import Foundation
 
-var winNumbers: Set<Int> = []
+var winNumberArray: [Int] = []
+var userNumberArray: [Int] = []
+var strikeNumber = 0
+var ballNumber = 0
+var chance = 9
 
-while winNumbers.count < 3 {
-    winNumbers.insert(Int.random(in: 1...9))
-}
-
-let winNumArr = Array(winNumbers)
-
-var userNumArr: [Int] = []
-
-func createUserNum() -> [Int] {
-    var userNumbers: Set<Int> = []
-    while userNumbers.count < 3 {
-        userNumbers.insert(Int.random(in: 1...9))
+func createRandomNumbers() -> [Int] {
+    var randomNumbers: Set<Int> = []
+    
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
     }
     
-    return Array(userNumbers)
+    return Array(randomNumbers)
 }
 
-var strikeNum = 0
-
-func countStrike() {
-    if winNumArr[0] == userNumArr[0] {
-        strikeNum += 1
-    }
-    if winNumArr[1] == userNumArr[1] {
-        strikeNum += 1
-    }
-    if winNumArr[2] == userNumArr[2] {
-        strikeNum += 1
+func countStrikeBall() {
+    for index in 0 ..< winNumberArray.count {
+        if winNumberArray[index] == userNumberArray[index] {
+            strikeNumber += 1
+        } else if winNumberArray.contains(userNumberArray[index]) {
+            ballNumber += 1
+        }
     }
 }
 
-var ballNum = 0
-
-func countBall() {
-    if winNumArr[0] == userNumArr[1]  {
-        ballNum += 1
-    }
-    if winNumArr[0] == userNumArr[2]  {
-        ballNum += 1
-    }
-    if winNumArr[1] == userNumArr[0]  {
-        ballNum += 1
-    }
-    if winNumArr[2] == userNumArr[0]  {
-        ballNum += 1
-    }
-    if winNumArr[1] == userNumArr[2]  {
-        ballNum += 1
-    }
-    if winNumArr[2] == userNumArr[1]  {
-        ballNum += 1
+func playGame() {
+    winNumberArray = createRandomNumbers()
+    
+    for _ in 1...9 {
+        userNumberArray = createRandomNumbers()
+        countStrikeBall()
+        chance -= 1
+        
+        print("임의의 수 :", userNumberArray.map { String($0) }.joined(separator: " "))
+        print("\(strikeNumber) 스트라이크, \(ballNumber) 볼")
+        
+        if strikeNumber == 3 {
+            print("사용자 승리!")
+            break
+        }
+        
+        if chance != 0 {
+            print("남은기회 : \(chance)")
+        }
+        else {
+            print("컴퓨터 승리...!")
+        }
+        
+        strikeNumber = 0
+        ballNumber = 0
     }
 }
 
-
-var chance = 9
-for _ in 1...9 {
-    userNumArr = createUserNum()
-    countStrike()
-    if strikeNum == 3 {
-        print("사용자 승리!")
-        break
-    }
-    countBall()
-    chance -= 1
-    print("임의의 수 :", userNumArr.map { String($0) }.joined(separator: " "))
-    print("\(strikeNum) 스트라이크, \(ballNum) 볼")
-    if chance != 0 {
-        print("남은기회 : \(chance)")
-    }
-    else {
-        print("컴퓨터 승리...!")
-    }
-    strikeNum = 0
-    ballNum = 0
-}
+playGame()
