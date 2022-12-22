@@ -1,20 +1,25 @@
 func startGame() {
     let computerNumberArray: [Int] = makeRandomNumberArray()
     var numberOfTry: Int = 9
-    
+
     while numberOfTry > 0 {
-        let userNumberArray: [Int] = inputNumber()
-        if isValidInput(userNumber: userNumberArray) == false {
-            break
+        let userNumberArray: [String] = inputNumber()
+        var userIntArray: [Int] = [Int]()
+        if isValidInput(userInput: userNumberArray) == true {
+            userIntArray = convertToInt(stringArray: userNumberArray)
+        } else {
+            print("입력이 잘못되었습니다")
+            continue
         }
+        
         let result: (Int, Int) = countStrikeBall(baseArray: computerNumberArray,
-                                                 compareArray: userNumberArray)
+                                                 compareArray: userIntArray)
         let numberOfStrike: Int = result.0
         let numberOfBall: Int = result.1
-        
-        printNumberArray(numberArray: userNumberArray)
+
+        printNumberArray(numberArray: userIntArray)
         printNumberOfStrikeBall(strike: numberOfStrike, ball: numberOfBall)
-        
+
         if numberOfStrike == 3 {
             break
         } else {
@@ -22,7 +27,7 @@ func startGame() {
             print("남은기회 \(numberOfTry)")
         }
     }
-    
+
     printWinner(remainingTry: numberOfTry)
 }
 
@@ -74,8 +79,6 @@ func printWinner(remainingTry: Int) {
 }
 
 func runProgram() {
-//    var isRun: Bool = true
-    inputNumber()
     while isRun {
         selectMenu(onOff: isRun)
     }
@@ -92,43 +95,49 @@ func selectMenu(onOff: Bool) {
     case "1" :
         startGame()
     case "2" :
-//        endGame(onOff: false)
-        isRun = false
+        endGame()
     default :
         print("입력이 잘못되었습니다.")
     }
 }
 
-func endGame(onOff: Bool) {
-//    onOff = false
-    print("endgame")
+func endGame() {
+    isRun = false
 }
 
-func inputNumber() -> [Int] {
+func inputNumber() -> [String] {
+    var stringArray: [String] = [String]()
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
-    guard let userInput = readLine() else { return
-        [1,2,4]
+    if let userInput = readLine() {
+        stringArray = userInput.split(separator: " ").map{String($0)}
     }
-    var stringNumberArray: [String] = userInput.split(separator: " ").map{String($0)}
-    print(userInput)
-    var intNumberArray: [Int] = [Int]()
-    for index in 0..<stringNumberArray.count {
-        intNumberArray.append(Int(stringNumberArray[index]))
-    }
-    print(stringNumberArray)
-    return stringNumberArray.map{Int($0)!}
+    return stringArray
 }
 
-func isValidInput(userNumber:[Int]) -> Bool {
-    if Set(userNumber).count != 3 {
+func convertToInt(stringArray: [String]) -> [Int] {
+    var intArray: [Int] = [Int]()
+    for stringNumber in stringArray {
+        if let number = Int(stringNumber) {
+            intArray.append(number)
+        }
+    }
+        
+    return intArray
+}
+
+func isValidInput(userInput: [String]) -> Bool {
+    if Set(userInput).count != 3 {
         return false
     }
-    for number in userNumber {
-        if number < 1, number > 9 {
+    for stringNumber in userInput {
+        guard let number = Int(stringNumber) else {
+            return false
+        }
+        if number < 1 || number > 9 {
             return false
         }
     }
     
-    return false
+    return true
 }
