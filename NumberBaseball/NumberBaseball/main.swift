@@ -66,8 +66,6 @@ func startGame() {
     var chance = 9
     
     while chance > 0 {
-        let computerNumbers = createRandomNumbers()
-        let userNumbers = setUserNumbers()
         
         let userNumbers = isValidNumbers()
         let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
