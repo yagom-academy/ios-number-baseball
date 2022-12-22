@@ -2,7 +2,7 @@
 //  baseballGame.swift
 //  NumberBaseball
 //
-//  Created by 강민수 on 2022/12/20.
+//  Created by 레옹아범 and Rowan.
 //
 
 import Foundation
