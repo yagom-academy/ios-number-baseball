@@ -4,8 +4,8 @@ func startGame() {
     
     while numberOfTry > 0 {
         let randomNumberArray: [Int] = makeRandomNumberArray()
-        let result: (Int, Int) =
-            countStrikeBall(baseArray: computerNumberArray, compareArray: randomNumberArray)
+        let result: (Int, Int) = countStrikeBall(baseArray: computerNumberArray,
+                                                 compareArray: randomNumberArray)
         let numberOfStrike: Int = result.0
         let numberOfBall: Int = result.1
         
@@ -70,3 +70,26 @@ func printWinner(remainingTry: Int) {
     }
 }
 
+func runProgram() {
+    var isRun: Bool = true
+    while isRun {
+        selectMenu(onOff: isRun)
+    }
+}
+
+func selectMenu(onOff: Bool) {
+    let selectInput: String? = readLine()
+    
+    switch selectInput {
+    case "1" :
+        startGame()
+    case "2" :
+        endGame(onOff: onOff)
+    default :
+        print("default")
+    }
+}
+
+func endGame(inout onOff: Bool) {
+    onOff = false
+}
