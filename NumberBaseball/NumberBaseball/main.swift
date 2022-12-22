@@ -107,5 +107,3 @@ func selectMenu() -> Bool {
 while selectMenu() {
     startGame()
 }
-
-startGame()
