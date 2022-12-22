@@ -36,14 +36,14 @@ func checkStrike(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
 func startGame() {
     
     while chance > 0 {
-        let comNums = createRandomNumbers()
-        let userNums = createRandomNumbers()
+        let computerNumbers = createRandomNumbers()
+        let userNumbers = createRandomNumbers()
         
-        let (strike, ball) = checkStrike(computerNumbers: comNums, userNumbers: userNums)
+        let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
         chance -= 1
         
-        print("임의의 수 : \(comNums.map{ String($0) }.joined(separator: " "))")
+        print("임의의 수 : \(computerNumbers.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
         
         if strike == 3 {
