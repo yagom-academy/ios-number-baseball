@@ -104,18 +104,24 @@ func endGame(onOff: Bool) {
     print("endgame")
 }
 
-func inputNumber() {
+func inputNumber() -> [Int] {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     guard let userInput = readLine() else { return
-        print("입력이 잘못되었습니다.")
+        [1,2,4]
     }
-    
+    var stringNumberArray: [String] = userInput.split(separator: " ").map{String($0)}
     print(userInput)
+    var intNumberArray: [Int] = [Int]()
+    for index in 0..<stringNumberArray.count {
+        intNumberArray.append(Int(stringNumberArray[index]))
+    }
+    print(stringNumberArray)
+    return stringNumberArray.map{Int($0)!}
 }
 
 func isValidInput(userNumber:[Int]) -> Bool {
-    if Set(userNumbers).count != 3 {
+    if Set(userNumber).count != 3 {
         return false
     }
     for number in userNumber {
