@@ -25,10 +25,9 @@ func inputUserNumbers() -> String {
     return input
 }
 
-func isValidNumbers() -> [Int] {
-    let input = inputUserNumbers()
-    
+func checkNumbers() -> [Int] {
     while true {
+        let input = inputUserNumbers()
         if input == "" {
             print("입력이 잘못되었습니다.")
             continue
@@ -67,7 +66,7 @@ func startGame() {
     
     while chance > 0 {
         
-        let userNumbers = isValidNumbers()
+        let userNumbers = checkNumbers()
         let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
         chance -= 1
