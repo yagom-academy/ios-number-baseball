@@ -61,30 +61,30 @@ enum BaseBallGameError : Error {
 
 func gameStart() throws {
     let inputMenu: String? = readLine()
-    guard let menu = inputMenu, let menu = Int(menu), (1...2) ~= menu else {
+    guard let menu = inputMenu else {
+        throw BaseBallGameError.invalidFunction
+    }
+    let trimmedMenu = menu.trimmingCharacters(in: .whitespaces)
+    guard let menu = Int(trimmedMenu), (1...2) ~= menu else {
         throw BaseBallGameError.invalidFunction
     }
     if menu == 1 {
+        while leftCount != 0, !isUserWin {
             do {
                 try abc()
-            } catch BaseBallGameError.invalidFunction {
-                print("입력이 잘못되었습니다")
             } catch BaseBallGameError.invalidInput {
                 print("입력이 잘못되었습니다")
-                print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-                print("중복 숫자는 허용하지 않습니다.")
-                try abc()
             } catch {
                 print(error)
             }
-        
+        }
     } else if menu == 2 {
         endFlag = false
     }
 }
 
 func abc() throws {
-    while leftCount > 0 {
+    while leftCount != 0, !isUserWin {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
@@ -106,21 +106,26 @@ func abc() throws {
         playBaseBallGame(userNumbers: inputNumbersArray)
         if isUserWin {
             print("사용자 승리!")
-            break
         } else if leftCount == 0 {
             print("컴퓨터 승리...!")
         }
     }
 }
 func printMenu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-    do {
-        try gameStart()
-    } catch {
-        print(error)
-    }
+    while endFlag {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        do {
+            try gameStart()
+        } catch BaseBallGameError.invalidFunction {
+            print("입력이 잘못되었습니다")
+        } catch {
+            print(error)
+        }
+        leftCount = 9
+        isUserWin = false
+    } 
 }
 
 printMenu()
