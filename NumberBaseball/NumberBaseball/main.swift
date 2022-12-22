@@ -1,12 +1,8 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by sehong, Harry on 2022/12/22.
 //  Copyright © yagom academy. All rights reserved.
 // 
-
-import Foundation
-
-var chance = 9
 
 func createRandomNumbers() -> [Int] {
     
@@ -16,6 +12,32 @@ func createRandomNumbers() -> [Int] {
         randomNumbers.insert(Int.random(in: 1...9))
     }
     return Array(randomNumbers)
+}
+
+func setUserNums() -> [Int] {
+    
+    while true {
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        """)
+        print("입력 : ", terminator: "")
+        
+        guard let input = readLine() else { return Array<Int>() }
+        if input == "" {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        let numArray = input.split(separator: " ").map{ Int($0) ?? 0 }
+        let filteredNums = numArray.filter{ $0 > 0 && $0 < 10 }
+        
+        if Set(filteredNums).count != 3 {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        return filteredNums
+    }
 }
 
 func checkStrike(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
@@ -35,15 +57,16 @@ func checkStrike(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
 
 func startGame() {
     
+    var chance = 9
+    
     while chance > 0 {
         let computerNumbers = createRandomNumbers()
-        let userNumbers = createRandomNumbers()
+        let userNumbers = setUserNums()
         
         let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
         chance -= 1
         
-        print("임의의 수 : \(computerNumbers.map{ String($0) }.joined(separator: " "))")
         print("\(strike) 스트라이크, \(ball) 볼")
         
         if strike == 3 {
@@ -55,6 +78,34 @@ func startGame() {
         }
         print("남은 기회 : \(chance)")
     }
+}
+
+func selectMenu() -> Bool {
+    
+    print("""
+          1. 게임시작
+          2. 게임종료
+          """)
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    guard let selectedMenu = readLine() else {
+        print("입력이 잘못되었습니다")
+        return selectMenu()
+    }
+    
+    switch Int(selectedMenu) {
+    case 1:
+        return true
+    case 2:
+        return false
+    default:
+        print("입력이 잘못되었습니다")
+        return selectMenu()
+    }
+}
+
+while selectMenu() {
+    startGame()
 }
 
 startGame()
