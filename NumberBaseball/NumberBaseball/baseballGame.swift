@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum InputError: Error {
+    case incorrectInput
+}
+
 var answerBall: Array<Int> = []
 
 func createRandomNumber() -> Array<Int> {
@@ -80,21 +84,22 @@ func displayMenu() {
     }
 }
 
-func isCorrectUserInput() -> (Bool, [Int]) {
+func isSuccessUserInput() -> Result<[Int], InputError> {
+    var result: Result<[Int], InputError>
     guard let value = readLine() else {
-        return (true, [])
+        return result.failure(InputError.incorrectInput)
     }
     let valueList = value.components(separatedBy: " ").map{ String($0) }
     
     if Set(valueList).count != 3 {
-        return (true, [])
+        return result.failure(InputError.incorrectInput)
     }
     
     guard let firstBall = Int(valueList[0]), let secondBall = Int(valueList[1]), let thirdBall = Int(valueList[2]) else {
-        return (true, [])
+        return result.failure(InputError.incorrectInput)
     }
     
-    return (false, [firstBall, secondBall, thirdBall])
+    return result.success([firstBall, secondBall, thirdBall])
 }
 
 func printInputCondition() {
@@ -116,7 +121,7 @@ func readInput() -> [Int] {
         }
         isFirst = false
         printInputCondition()
-        (inputState, numberList) = isCorrectUserInput()
+        (inputState, numberList) = isSuccessUserInput()
     }
         
     
