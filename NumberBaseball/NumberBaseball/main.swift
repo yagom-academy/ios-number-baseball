@@ -110,7 +110,7 @@ func checkAvailability(userInput: String) throws -> [Int] {
         throw inputError.numberOfInput
     }
     
-    let inputNumbers = userInput.compactMap { str in Int(str) }
+    let inputNumbers = userInput.compactMap { number in Int(number) }
     
     for number in inputNumbers {
         guard number > 0 && number < 10 else {
