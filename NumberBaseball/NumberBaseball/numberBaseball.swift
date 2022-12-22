@@ -3,13 +3,16 @@ func startGame() {
     var numberOfTry: Int = 9
     
     while numberOfTry > 0 {
-        let randomNumberArray: [Int] = makeRandomNumberArray()
+        let userNumberArray: [Int] = inputNumber()
+        if isValidInput(userNumber: userNumberArray) == false {
+            break
+        }
         let result: (Int, Int) = countStrikeBall(baseArray: computerNumberArray,
-                                                 compareArray: randomNumberArray)
+                                                 compareArray: userNumberArray)
         let numberOfStrike: Int = result.0
         let numberOfBall: Int = result.1
         
-        printNumberArray(numberArray: randomNumberArray)
+        printNumberArray(numberArray: userNumberArray)
         printNumberOfStrikeBall(strike: numberOfStrike, ball: numberOfBall)
         
         if numberOfStrike == 3 {
@@ -109,4 +112,17 @@ func inputNumber() {
     }
     
     print(userInput)
+}
+
+func isValidInput(userNumber:[Int]) -> Bool {
+    if Set(userNumbers).count != 3 {
+        return false
+    }
+    for number in userNumber {
+        if number < 1, number > 9 {
+            return false
+        }
+    }
+    
+    return false
 }
