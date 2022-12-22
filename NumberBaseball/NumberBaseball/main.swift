@@ -7,6 +7,7 @@
 import Foundation
 
 let numbers = Array(1...9)
+
 let initialNumbers = makeRandomNumbers()
 
 enum inputError : Error {
