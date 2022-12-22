@@ -6,7 +6,6 @@
 
 import Foundation
 
-let numbers = Array(1...9)
 let initialNumbers = makeRandomNumbers()
 
 enum inputError : Error {
@@ -19,7 +18,8 @@ enum inputError : Error {
 
 func makeRandomNumbers() -> [Int] {
     var resultNumbers: Set<Int> = []
-
+    let numbers = Array(1...9)
+    
     while resultNumbers.count < 3 {
         guard let randomElement = numbers.randomElement() else {
             continue
