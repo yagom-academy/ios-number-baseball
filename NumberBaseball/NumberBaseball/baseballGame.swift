@@ -60,13 +60,15 @@ func printMenu() {
 }
 
 func displayMenu() {
-    printMenu()
-    
-    var inputValue = readLine()
-    var inputState = isCorrectMenu(inputValue)
+    var isFirst = true
+    var inputValue: String?
+    var inputState = true
     
     while inputState {
-        print("입력이 잘못되었습니다")
+        if isFirst == false {
+            print("입력이 잘못되었습니다")
+        }
+        isFirst = false
         printMenu()
         inputValue = readLine()
         inputState = isCorrectMenu(inputValue)
