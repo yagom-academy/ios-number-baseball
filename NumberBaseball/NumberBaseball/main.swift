@@ -14,7 +14,7 @@ func createRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
-func setUserNums() -> [Int] {
+func setUserNumbers() -> [Int] {
     
     while true {
         print("""
@@ -61,7 +61,7 @@ func startGame() {
     
     while chance > 0 {
         let computerNumbers = createRandomNumbers()
-        let userNumbers = setUserNums()
+        let userNumbers = setUserNumbers()
         
         let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
