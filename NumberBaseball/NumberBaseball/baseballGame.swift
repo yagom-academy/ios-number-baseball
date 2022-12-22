@@ -51,23 +51,23 @@ func isCorrectMenu(_ inputValue: String?) -> Bool {
     }
 }
 
-func displayMenu() {
+func printMenu() {
     print("""
     1. 게임시작
     2. 게임종료
     원하는 기능을 선택해주세요 :
     """, terminator: "")
+}
+
+func displayMenu() {
+    printMenu()
     
     var inputValue = readLine()
     var inputState = isCorrectMenu(inputValue)
     
     while inputState {
-        print("""
-        입력이 잘못되었습니다
-        1. 게임시작
-        2. 게임종료
-        원하는 기능을 선택해주세요 :
-        """, terminator: "")
+        print("입력이 잘못되었습니다")
+        printMenu()
         inputValue = readLine()
         inputState = isCorrectMenu(inputValue)
     }
@@ -95,22 +95,22 @@ func isCorrectUserInput() -> (Bool, [Int]) {
     return (false, [firstBall, secondBall, thirdBall])
 }
 
-func readInput() -> [Int] {
+func printInputCondition() {
     print("""
     숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
     중복 숫자는 허용하지 않습니다.
     입력 :
     """, terminator: "")
+}
+
+func readInput() -> [Int] {
+    printInputCondition()
     
     var (inputState, numberList) = isCorrectUserInput()
     
     while inputState {
-        print("""
-        입력이 잘못되었습니다
-        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
-        중복 숫자는 허용하지 않습니다.
-        입력 :
-        """, terminator: "")
+        print("입력이 잘못되었습니다")
+        printInputCondition()
         
         (inputState, numberList) = isCorrectUserInput()
     }
