@@ -34,15 +34,15 @@ func isValidNumbers() -> [Int] {
             continue
         }
         
-        let numArray = input.split(separator: " ").map{ Int($0) ?? 0 }
-        let filteredNums = numArray.filter{ $0 > 0 && $0 < 10 }
+        let numberArray = input.split(separator: " ").map{ Int($0) ?? 0 }
+        let filteredNumbers = numberArray.filter{ $0 > 0 && $0 < 10 }
         
-        if Set(filteredNums).count != 3 {
+        if Set(filteredNumbers).count != 3 {
             print("입력이 잘못되었습니다.")
             continue
         }
         
-        return filteredNums
+        return filteredNumbers
     }
 }
 
@@ -93,12 +93,12 @@ func printMenuList() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
-func selectMenu() -> Bool {
+func isSelectedMenu() -> Bool {
     printMenuList()
     
     guard let selectedMenu = readLine() else {
         print("입력이 잘못되었습니다")
-        return selectMenu()
+        return isSelectedMenu()
     }
     
     switch Int(selectedMenu) {
@@ -108,10 +108,10 @@ func selectMenu() -> Bool {
         return false
     default:
         print("입력이 잘못되었습니다")
-        return selectMenu()
+        return isSelectedMenu()
     }
 }
 
-while selectMenu() {
+while isSelectedMenu() {
     startGame()
 }
