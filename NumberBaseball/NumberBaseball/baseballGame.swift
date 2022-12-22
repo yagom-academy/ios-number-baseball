@@ -85,21 +85,20 @@ func displayMenu() {
 }
 
 func isSuccessUserInput() -> Result<[Int], InputError> {
-    var result: Result<[Int], InputError>
     guard let value = readLine() else {
-        return result.failure(InputError.incorrectInput)
+        return Result<[Int], InputError>.failure(InputError.incorrectInput)
     }
     let valueList = value.components(separatedBy: " ").map{ String($0) }
     
     if Set(valueList).count != 3 {
-        return result.failure(InputError.incorrectInput)
+        return Result<[Int], InputError>.failure(InputError.incorrectInput)
     }
     
     guard let firstBall = Int(valueList[0]), let secondBall = Int(valueList[1]), let thirdBall = Int(valueList[2]) else {
-        return result.failure(InputError.incorrectInput)
+        return Result<[Int], InputError>.failure(InputError.incorrectInput)
     }
     
-    return result.success([firstBall, secondBall, thirdBall])
+    return Result<[Int], InputError>.success([firstBall, secondBall, thirdBall])
 }
 
 func printInputCondition() {
@@ -111,19 +110,20 @@ func printInputCondition() {
 }
 
 func readInput() -> [Int] {
-    var isFirst = true
     var inputState = true
     var numberList: [Int] = []
     
     while inputState {
-        if isFirst == false {
+        printInputCondition()
+        
+        switch isSuccessUserInput() {
+        case .success(let resultArray):
+            inputState = false
+            numberList = resultArray
+        case .failure:
             print("입력이 잘못되었습니다")
         }
-        isFirst = false
-        printInputCondition()
-        (inputState, numberList) = isSuccessUserInput()
     }
-        
     
     return numberList
 }
