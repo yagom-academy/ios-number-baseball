@@ -104,5 +104,19 @@ repeat {
 } while userNumbers.count != 3
 print(userNumbers)
 
-
-//startGame()
+func showMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    let menuSelect = readLine()
+    
+    if menuSelect == String(1) {
+        startGame()
+    } else if menuSelect == String(2) {
+        
+    } else {
+        print("입력이 잘못되었습니다")
+        showMenu()
+    }
+}
