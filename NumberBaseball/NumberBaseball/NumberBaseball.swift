@@ -1,23 +1,25 @@
+//  numberBaseball.swift
+
 func startGame() {
     let computerNumberArray: [Int] = makeRandomNumberArray()
     var numberOfTry: Int = 9
 
     while numberOfTry > 0 {
-        let userNumberArray: [String] = inputNumber()
-        var userIntArray: [Int] = [Int]()
-        if isValidInput(userInput: userNumberArray) == true {
-            userIntArray = convertToInt(stringArray: userNumberArray)
+        let userInputNumber: [String] = inputNumber()
+        var userNumberArray: [Int] = [Int]()
+
+        if isValidInput(userInput: userInputNumber) {
+            userNumberArray = convertToInt(stringArray: userInputNumber)
         } else {
             print("입력이 잘못되었습니다")
             continue
         }
         
         let result: (Int, Int) = countStrikeBall(baseArray: computerNumberArray,
-                                                 compareArray: userIntArray)
+                                                 compareArray: userNumberArray)
         let numberOfStrike: Int = result.0
         let numberOfBall: Int = result.1
 
-        printNumberArray(numberArray: userIntArray)
         printNumberOfStrikeBall(strike: numberOfStrike, ball: numberOfBall)
 
         if numberOfStrike == 3 {
@@ -27,19 +29,11 @@ func startGame() {
             print("남은기회 \(numberOfTry)")
         }
     }
-
     printWinner(remainingTry: numberOfTry)
 }
 
-func printNumberArray(numberArray: [Int]) {
-    print("임의의 수 : ", terminator: "")
-    for number in numberArray {
-        print(number, terminator: " ")
-    }
-}
-
 func printNumberOfStrikeBall(strike: Int, ball: Int) {
-    print("\n\(strike) 스트라이크, \(ball) 볼")
+    print("\(strike) 스트라이크, \(ball) 볼")
 }
 
 func makeRandomNumberArray() -> [Int] {
@@ -66,7 +60,6 @@ func countStrikeBall(baseArray: [Int], compareArray: [Int]) -> (Int, Int) {
             numberOfBall += 1
         }
     }
-    
     return (numberOfStrike, numberOfBall)
 }
 
@@ -79,14 +72,14 @@ func printWinner(remainingTry: Int) {
 }
 
 func runProgram() {
-    while isRun {
-        selectMenu(onOff: isRun)
+    while switchOn {
+        selectMenu(gameSwitch: switchOn)
     }
 }
 
-var isRun: Bool = true
+var switchOn: Bool = true
 
-func selectMenu(onOff: Bool) {
+func selectMenu(gameSwitch: Bool) {
     print("1. 게임시작\n2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
     let selectInput: String? = readLine()
@@ -102,7 +95,7 @@ func selectMenu(onOff: Bool) {
 }
 
 func endGame() {
-    isRun = false
+    switchOn = false
 }
 
 func inputNumber() -> [String] {
@@ -122,7 +115,6 @@ func convertToInt(stringArray: [String]) -> [Int] {
             intArray.append(number)
         }
     }
-        
     return intArray
 }
 
@@ -138,6 +130,5 @@ func isValidInput(userInput: [String]) -> Bool {
             return false
         }
     }
-    
     return true
 }
