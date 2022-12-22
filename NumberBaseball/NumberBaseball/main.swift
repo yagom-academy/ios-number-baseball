@@ -12,7 +12,6 @@ let initialNumbers = makeRandomNumbers()
 
 enum inputError : Error {
     case notOnlyNumber
-    case wordSpacing
     case outOfRange
     case sameNumber
     case numberOfInput
@@ -21,7 +20,7 @@ enum inputError : Error {
 func makeRandomNumbers() -> [Int] {
     var resultNumbers: Set<Int> = []
     let numbers = Array(1...9)
-
+    
     while resultNumbers.count < 3 {
         guard let randomElement = numbers.randomElement() else {
             continue
@@ -34,7 +33,6 @@ func makeRandomNumbers() -> [Int] {
 func playGame() {
     var leftChances = 9
     
-
     while leftChances > 0 {
         var inputNumbers : Array<Int> = []
         var result : Array<Int> = []
@@ -48,7 +46,7 @@ func playGame() {
         }
         
         do {
-            inputNumbers = try checkAvailability(inputData: userInput)
+            inputNumbers = try checkAvailability(userInput: userInput)
         } catch inputError.notOnlyNumber {
             print("입력 형식이 잘못 되었습니다! 숫자만 입력해 주세요.")
         } catch inputError.numberOfInput {
@@ -57,8 +55,6 @@ func playGame() {
             print("범위를 벗어 났습니다!")
         } catch inputError.sameNumber {
             print("중복된 숫자가 있습니다!")
-        } catch inputError.wordSpacing {
-            print("입력 형식이 잘못 되었습니다! 띄어쓰기를 준수해 주세요.")
         } catch {
             print(error.localizedDescription)
         }
@@ -99,24 +95,22 @@ func checkStrikeBall(numbers: [Int]) -> [Int] {
     return [strike,ball]
 }
 
-func checkAvailability(inputData: String?) throws -> [Int] {
+func checkAvailability(userInput: String) throws -> [Int] {
     
-    guard let inputData = inputData?.split(separator: " ") else {
-        throw inputError.wordSpacing
-    }
+    let userInput = userInput.split(separator: " ")
     
-    let numberPattern = "^([1-9])$"
-    for data in inputData {
-        guard let _ = data.range(of: numberPattern, options: .regularExpression) else {
+    let notNumberPattern = "[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z]"
+    for data in userInput {
+        if let _ = data.range(of: notNumberPattern, options: .regularExpression) {
             throw inputError.notOnlyNumber
         }
     }
     
-    guard inputData.count == 3 else {
+    guard userInput.count == 3 else {
         throw inputError.numberOfInput
     }
     
-    let inputNumbers = inputData.compactMap { str in Int(str) }
+    let inputNumbers = userInput.compactMap { str in Int(str) }
     
     for number in inputNumbers {
         guard number > 0 && number < 10 else {
