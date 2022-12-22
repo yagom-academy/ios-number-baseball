@@ -43,11 +43,12 @@ func isCorrectMenu(_ inputValue: String?) -> Bool {
         return true
     }
     
-    if value == "1" || value == "2" {
+    switch value {
+    case "1", "2":
         return false
+    default:
+        return true
     }
-    
-    return true
 }
 
 func displayMenu() {
@@ -139,14 +140,13 @@ func startGame() {
 }
 
 func decideWinner(strike: Int, chance: Int) -> String? {
-    var winner: String?
-    
+        
     if strike == 3 {
-        winner = "사용자"
+        return "사용자"
     } else if chance == 0 {
-        winner = "컴퓨터"
+        return "컴퓨터"
     }
     
-    return winner
+    return nil
 }
 
