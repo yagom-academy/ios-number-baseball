@@ -1,49 +1,48 @@
-
-//func startGame() {
-//    print("숫자 세개를 띄어쓰기로 구분하여 입력해주세요.")
-//    print("중복 숫자는 허용하지 않습니다.")
-//}
-//
-//func inputNumbers() {
-//    print("입력", terminator: " : ")
-//
-//    selectedNumbers = readLine()!.components(separatedBy: " ")
-//
-//    if selectedNumbers.count == 3 {
-//
-//    } else {
-//        print("입력이 잘못되었습니다.")
-//    }
-//}
-
-
 import Foundation
 
 var chances: Int = 9
 var userNumbers = [String]()
 var computerNumbers = [String]()
 var userWin: Bool = false
+var checkingError: Bool = false
 
+//MARK: 랜덤 숫자 만들기
 func makeRandomNumbers() -> [String] {
     var randomNumbers = [String]()
     
-    while randomNumbers.count != 3 {
-        let randomNumber = String(Int.random(in: 1...9))
-        
-        if !randomNumbers.contains(randomNumber) {
-            randomNumbers.append(randomNumber)
-        }
+    while Set(randomNumbers).count != 3 {
+        randomNumbers.append(String(Int.random(in: 1...9)))
     }
     
     return randomNumbers
 }
 
-func makeUserNumbers() {
-    userNumbers = makeRandomNumbers()
-    print("임의의 수 : \(userNumbers.joined(separator: " "))")
+// MARK: 숫자 입력받기
+func inputUserNumbers() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력", terminator: " : ")
     
+    guard let inputtedUserNumber = readLine() else {
+        print("you entered nil")
+        
+        return
+    }
+    
+    let inputNumbers = inputtedUserNumber.components(separatedBy: " ")
+    let checkingNumberRange = inputNumbers.joined().range(of: "^[1-9]{3,3}$", options: .regularExpression) != nil
+    
+    if Set(inputNumbers).count != 3 || checkingNumberRange == false {
+        print("입력이 잘못되었습니다.")
+        checkingError = true
+        
+        return
+    }
+    
+    userNumbers = inputNumbers
 }
 
+//MARK: 스트라이크 볼 확인하기
 func checkStrikeAndBall() {
     var ballCounter: Int = 0
     var strikeCounter: Int = 0
@@ -52,10 +51,8 @@ func checkStrikeAndBall() {
     for number in 0...2 {
         if computerNumbers[number] == userNumbers[number] {
             strikeCounter += 1
-        } else {
-            if computerNumbers.contains(userNumbers[number]) == true {
-                ballCounter += 1
-            }
+        } else if computerNumbers.contains(userNumbers[number]) == true {
+            ballCounter += 1
         }
     }
     
@@ -67,6 +64,7 @@ func checkStrikeAndBall() {
     }
 }
 
+// MARK: 승리자 프린트
 func printWinner() {
     if chances == 0 {
         print("컴퓨터 승리...!")
@@ -80,15 +78,17 @@ func printWinner() {
 
 func startGame() {
     computerNumbers = makeRandomNumbers()
-   
+    
     repeat {
-        makeUserNumbers()
+        checkingError = false
+        inputUserNumbers()
+        if checkingError == true {
+            continue
+        }
         checkStrikeAndBall()
         printWinner()
     } while chances > 0
 }
-
-
 
 func presentMenu() {
     print("1. 게임시작")
@@ -124,3 +124,4 @@ func startBaseBallGame() {
 }
 
 startBaseBallGame()
+
