@@ -71,25 +71,42 @@ func printWinner(remainingTry: Int) {
 }
 
 func runProgram() {
-    var isRun: Bool = true
+//    var isRun: Bool = true
+    inputNumber()
     while isRun {
         selectMenu(onOff: isRun)
     }
 }
 
+var isRun: Bool = true
+
 func selectMenu(onOff: Bool) {
+    print("1. 게임시작\n2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
     let selectInput: String? = readLine()
     
     switch selectInput {
     case "1" :
         startGame()
     case "2" :
-        endGame(onOff: onOff)
+//        endGame(onOff: false)
+        isRun = false
     default :
-        print("default")
+        print("입력이 잘못되었습니다.")
     }
 }
 
-func endGame(inout onOff: Bool) {
-    onOff = false
+func endGame(onOff: Bool) {
+//    onOff = false
+    print("endgame")
+}
+
+func inputNumber() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    guard let userInput = readLine() else { return
+        print("입력이 잘못되었습니다.")
+    }
+    
+    print(userInput)
 }
