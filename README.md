@@ -5,7 +5,8 @@
 > 팀원:
 
 ## STEP 0 : Git 저장소 준비 및 Flow Chart 작성
-![number-baseball drawio (2)](https://user-images.githubusercontent.com/119860138/208427513-d67ac63e-2f44-4af0-b6d0-d2da7bf4df35.png)
+![number-baseball drawio](https://user-images.githubusercontent.com/119860138/209172211-1a98a379-17dc-4c2a-be98-75e0c622fd4a.png)
+
 
 ### **숫자 야구 기능**
 
