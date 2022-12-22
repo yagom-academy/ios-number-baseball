@@ -130,6 +130,7 @@ func readInput() -> [Int] {
 func startGame() {
     var chance = 9
     let answerBall = createRandomNumber()
+    var winner: String
     
     while chance > 0 {
         let userBall = readInput()
@@ -137,10 +138,13 @@ func startGame() {
         
         chance -= 1
         print("\(strike) 스트라이크, \(ball) 볼")
+        winner = decideWinner(strike: strike, chance: chance)
         
-        if let winner = decideWinner(strike: strike, chance: chance) {
+        if winner == "사용자" {
             print("\(winner) 승리...!")
             break
+        } else if winner == "컴퓨터", chance == 0 {
+            print("\(winner) 승리...!")
         }
         
         print("남은 기회 : \(chance)")
@@ -149,13 +153,11 @@ func startGame() {
     displayMenu()
 }
 
-func decideWinner(strike: Int, chance: Int) -> String? {
+func decideWinner(strike: Int, chance: Int) -> String {
     if strike == 3 {
         return "사용자"
-    } else if chance == 0 {
+    } else {
         return "컴퓨터"
     }
-    
-    return nil
 }
 
