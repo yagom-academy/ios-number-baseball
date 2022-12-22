@@ -6,7 +6,7 @@
 
 import Foundation
 
-let numbers = Array(1...9)
+
 let initialNumbers = makeRandomNumbers()
 
 enum inputError : Error {
@@ -19,7 +19,8 @@ enum inputError : Error {
 
 func makeRandomNumbers() -> [Int] {
     var resultNumbers: Set<Int> = []
-
+    let numbers = Array(1...9)
+    
     while resultNumbers.count < 3 {
         guard let randomElement = numbers.randomElement() else {
             continue
@@ -31,19 +32,22 @@ func makeRandomNumbers() -> [Int] {
 
 func playGame() {
     var leftChances = 9
-    var result : [Int] = []
+    
 
     while leftChances > 0 {
-        var inputNumbers : [Int] = []
+        var inputNumbers : Array<Int> = []
+        var result : Array<Int> = []
         
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: " ")
         
-        let inputData = readLine()
+        guard let userInput = readLine() else {
+            continue
+        }
         
         do {
-            inputNumbers = try checkAvailability(inputData: inputData)
+            inputNumbers = try checkAvailability(inputData: userInput)
         } catch inputError.notOnlyNumber {
             print("입력 형식이 잘못 되었습니다! 숫자만 입력해 주세요.")
         } catch inputError.numberOfInput {
@@ -67,7 +71,7 @@ func playGame() {
         let strike = result[0]
         let ball = result[1]
         
-        if strike == 3 {
+        guard strike != 3 else {
             print("사용자 승리!")
             return
         }
@@ -75,8 +79,7 @@ func playGame() {
         leftChances -= 1
         
         print("\(strike) 스트라이크, \(ball) 볼")
-        print("남은 기회 : \(leftChances)")
-        print(" ")
+        print("남은 기회 : \(leftChances)", terminator: "\n\n")
     }
     print("컴퓨터의 승리입니다.")
 }
