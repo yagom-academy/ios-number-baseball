@@ -22,8 +22,9 @@ func createRandomNumbers() -> [Int] {
     return createdNumbers
 }
 
-func inputUserNumbers() {
+func inputUserNumbers() -> [Int] {
     var numbers = [String]()
+    var userInput = [Int]()
     
     print("게임 시작. 입력 : ")
     
@@ -34,13 +35,14 @@ func inputUserNumbers() {
         
         if isCorrectNumber == true {
             numbers = userNumbers.components(separatedBy: " ")
-        } else {
-            print("입력이 잘못되었습니다")
-            inputUserNumbers()
         }
+        
+        if isCorrectNumber == false || Set(numbers).count != 3 {
+            print("입력이 잘못되었습니다")
+            return userInput
+        }
+        
     }
-    
-    var userInput = [Int]()
     
     for number in numbers {
         if let aa = Int(number) {
@@ -48,7 +50,7 @@ func inputUserNumbers() {
         }
     }
     
-    print(userInput)
+    return userInput
 }
 
 
@@ -94,6 +96,13 @@ let computerRandomNumbers = createRandomNumbers()
 var remainingCount = 9
 
 print("aaa")
-inputUserNumbers()
+
+var userNumbers = [Int]()
+
+repeat {
+    userNumbers = inputUserNumbers()
+} while userNumbers.count != 3
+print(userNumbers)
+
 
 //startGame()
