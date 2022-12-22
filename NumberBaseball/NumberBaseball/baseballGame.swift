@@ -42,14 +42,14 @@ func compareBall(userBall: Array<Int>, answerBall: Array<Int>) -> (Int, Int) {
 
 func isCorrectMenu(_ inputValue: String?) -> Bool {
     guard let value = inputValue else {
-        return true
+        return false
     }
     
     switch value {
     case "1", "2":
-        return false
-    default:
         return true
+    default:
+        return false
     }
 }
 
@@ -64,9 +64,9 @@ func printMenu() {
 func displayMenu() {
     var isFirst = true
     var inputValue: String?
-    var inputState = true
+    var inputState = false
     
-    while inputState {
+    while inputState == false {
         if isFirst == false {
             print("입력이 잘못되었습니다")
         }
@@ -78,7 +78,6 @@ func displayMenu() {
     
     if inputValue == "1" {
         startGame()
-        inputState = true
     }
 }
 
