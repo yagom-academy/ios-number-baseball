@@ -5,25 +5,30 @@
 // 
 
 func createRandomNumbers() -> [Int] {
-    
     var randomNumbers = Set<Int>()
     
     while randomNumbers.count < 3 {
         randomNumbers.insert(Int.random(in: 1...9))
     }
+    
     return Array(randomNumbers)
 }
 
-func setUserNumbers() -> [Int] {
+func inputUserNumbers() -> String {
+    print("""
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    """)
+    print("입력 : ", terminator: "")
+    guard let input = readLine() else { return String() }
+    
+    return input
+}
+
+func isValidNumbers() -> [Int] {
+    let input = inputUserNumbers()
     
     while true {
-        print("""
-        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
-        중복 숫자는 허용하지 않습니다.
-        """)
-        print("입력 : ", terminator: "")
-        
-        guard let input = readLine() else { return Array<Int>() }
         if input == "" {
             print("입력이 잘못되었습니다.")
             continue
@@ -36,33 +41,35 @@ func setUserNumbers() -> [Int] {
             print("입력이 잘못되었습니다.")
             continue
         }
+        
         return filteredNums
     }
 }
 
 func checkStrike(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
-    
     var strike = 0
     var ball = 0
     
     for index in 0..<3 {
         if computerNumbers[index] == userNumbers[index] {
             strike += 1
-        } else {
+        } else if computerNumbers.contains(userNumbers[index]){
             ball += 1
         }
     }
+    
     return (strike, ball)
 }
 
 func startGame() {
-    
+    let computerNumbers = createRandomNumbers()
     var chance = 9
     
     while chance > 0 {
         let computerNumbers = createRandomNumbers()
         let userNumbers = setUserNumbers()
         
+        let userNumbers = isValidNumbers()
         let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
         chance -= 1
@@ -80,13 +87,16 @@ func startGame() {
     }
 }
 
-func selectMenu() -> Bool {
-    
+func printMenuList() {
     print("""
           1. 게임시작
           2. 게임종료
           """)
     print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func selectMenu() -> Bool {
+    printMenuList()
     
     guard let selectedMenu = readLine() else {
         print("입력이 잘못되었습니다")
