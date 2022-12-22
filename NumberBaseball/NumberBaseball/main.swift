@@ -10,7 +10,7 @@ func createRandomNumbers() -> [Int] {
     var createdNumbers = [Int]()
     
     while createdNumbers.count < 3 {
-        let createdRandomNumber = Int.random(in:1...9)
+        let createdRandomNumber = Int.random(in: 1...9)
         
         if createdNumbers.contains(createdRandomNumber) {
             continue
@@ -23,46 +23,46 @@ func createRandomNumbers() -> [Int] {
 }
 
 func inputUserNumbers() -> [Int] {
-    var numbers = [String]()
-    var userInput = [Int]()
+    var inputComponents = [String]()
+    var userNumbers = [Int]()
     
-    print("게임 시작. 입력 : ")
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
     
-    if let userNumbers = readLine() {
-        let numberType = "^[1-9]{1}\\s[1-9]{1}\\s[1-9]{1}$"
+    if let userInputs = readLine() {
+        let inputType = "^[1-9]{1}\\s[1-9]{1}\\s[1-9]{1}$"
         
-        let isCorrectNumber = userNumbers.range(of: numberType, options: .regularExpression) != nil
+        let isCorrectInput = userInputs.range(of: inputType, options:  .regularExpression) != nil
         
-        if isCorrectNumber == true {
-            numbers = userNumbers.components(separatedBy: " ")
+        if isCorrectInput == true {
+            inputComponents = userInputs.components(separatedBy: " ")
         }
         
-        if isCorrectNumber == false || Set(numbers).count != 3 {
+        if isCorrectInput == false || Set(inputComponents).count != 3 {
             print("입력이 잘못되었습니다")
-            return userInput
-        }
-        
-    }
-    
-    for number in numbers {
-        if let aa = Int(number) {
-            userInput.append(aa)
+            return userNumbers
         }
     }
     
-    return userInput
+    for component in inputComponents {
+        if let number = Int(component) {
+            userNumbers.append(number)
+        }
+    }
+    
+    return userNumbers
 }
 
-
-func countBallAndStrike(from computerRandomNumbers: [Int], comparing randomNumbers: [Int]) -> [String: Int] {
+func countBallAndStrike(from computerRandomNumbers: [Int], comparing userNumbers: [Int]) -> [String: Int] {
     var result = [String: Int]()
     result["strike"] = 0
     result["ball"] = 0
 
     for i in 0...2 {
-        if computerRandomNumbers[i] == randomNumbers[i] {
+        if computerRandomNumbers[i] == userNumbers[i] {
             result["strike"]? += 1
-        } else if randomNumbers.contains(computerRandomNumbers[i]) {
+        } else if userNumbers.contains(computerRandomNumbers[i]) {
             result["ball"]? += 1
         }
     }
@@ -83,24 +83,24 @@ func startGame() {
         } while userNumbers.count != 3
         
         let currentScore = countBallAndStrike(from: computerRandomNumbers, comparing: userNumbers)
-        print("\(currentScore["strike"]) 스트라이크, \(currentScore["ball"]) 볼")
+        if let strikes = currentScore["strike"], let balls = currentScore["ball"] {
+            print("\(strikes) 스트라이크, \(balls) 볼")
+        }
         
         if currentScore["strike"] == 3 {
             print("사용자 승리...!")
+            showMenu()
             break
         }
         
         if remainingCount == 0 {
             print("컴퓨터 승리...!")
+            showMenu()
         } else {
             print("남은 기회 : \(remainingCount)")
         }
-    
     }
 }
-
-
-
 
 func showMenu() {
     print("1. 게임시작")
