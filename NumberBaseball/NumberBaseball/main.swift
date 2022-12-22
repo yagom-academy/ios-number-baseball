@@ -130,12 +130,11 @@ func menuPrint() {
         print("1. 게임시작")
         print("2. 게임종료")
         print("원하는 기능을 선택해주세요 : ", terminator: " ")
-        guard let inputData = readLine() else {
-            print("입력이 잘못되었습니다")
+        guard let userInput = readLine() else {
             continue
         }
         
-        switch inputData {
+        switch userInput {
         case "1" :
             playGame()
         case "2" :
