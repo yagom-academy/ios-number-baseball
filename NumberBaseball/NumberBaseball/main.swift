@@ -1,10 +1,8 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by sehong, Harry on 2022/12/22.
 //  Copyright © yagom academy. All rights reserved.
 // 
-
-import Foundation
 
 func createRandomNumbers() -> [Int] {
     
