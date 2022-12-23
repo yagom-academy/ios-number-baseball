@@ -1,14 +1,8 @@
 //  NumberBaseball-NumberBaseball.swift
 //  Created by vetto, 무리 on 2022.12.22
 
-let numberOfGameStart: String = "1"
-let numberOfGameEnd: String = "2"
-let strikeToWin: Int = 3
-let maximumlengthOfArray: Int = 3
-
-var switchOn: Bool = true
-
 func startGame() {
+    let strikeToWin: Int = 3
     let computerNumberArray: [Int] = makeRandomNumberArray()
     var numberOfTry: Int = 9
     
@@ -46,9 +40,11 @@ func printNumberOfStrikeAndBall(strike: Int, ball: Int) {
 }
 
 func makeRandomNumberArray() -> [Int] {
+    let maxLengthOfArray: Int = 3
+
     var randomSetNumber: Set<Int> = Set<Int>()
     
-    while randomSetNumber.count < maximumlengthOfArray {
+    while randomSetNumber.count < maxLengthOfArray {
         randomSetNumber.insert(Int.random(in: 1...9))
     }
     
@@ -78,12 +74,17 @@ func printWinner(remainingTry: Int) {
 }
 
 func runProgram() {
+    var switchOn: Bool = true
+    
     while switchOn {
-        selectMenu(gameSwitch: switchOn)
+        selectMenu(gameSwitch: &switchOn)
     }
 }
 
-func selectMenu(gameSwitch: Bool) {
+func selectMenu(gameSwitch: inout Bool) {
+    let numberOfGameStart: String = "1"
+    let numberOfGameEnd: String = "2"
+    
     print("1. 게임시작\n2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
     
@@ -93,13 +94,13 @@ func selectMenu(gameSwitch: Bool) {
     case numberOfGameStart :
         startGame()
     case numberOfGameEnd :
-        endGame()
+        endGame(switchOn: &gameSwitch)
     default :
         print("입력이 잘못되었습니다.")
     }
 }
 
-func endGame() {
+func endGame(switchOn: inout Bool) {
     switchOn = false
 }
 
