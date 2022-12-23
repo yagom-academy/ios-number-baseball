@@ -12,10 +12,11 @@ var leftCount: Int = 9
 var isUserWin: Bool = false
 var isGameEnd: Bool = false
 
-func checkGameResult(userNumbers: [Int]) {
+func checkGameResult(userNumbers: [String]) {
+    let userRandomNumbers = userNumbers.compactMap{ Int($0) }
     var strikeCount: Int = 0
     var ballCount: Int = 0
-    (strikeCount, ballCount) = compareNumbers(userNumbers, with: computerNumbers)
+    (strikeCount, ballCount) = compareNumbers(userRandomNumbers, with: computerNumbers)
     leftCount -= 1
     print("\n\(strikeCount) 스트라이크, \(ballCount) 볼")
     if leftCount != 0 {
@@ -67,18 +68,17 @@ func checkUserInput() throws {
         guard let inputNumbers = input else {
             throw BaseBallGameError.invalidInput
         }
-        let inputNumbersArray = inputNumbers.split(separator: " ").compactMap{ Int($0) }
         
-        guard inputNumbersArray.count == 3  else {
+        let separatedArray = inputNumbers.split(separator: " ").map{ String($0) }
+        
+        guard isAllNumber(inputArray: separatedArray),
+              isThreeCount(array: separatedArray),
+              hasDuplicateNumber(numbers: separatedArray),
+              isNumberFromOneToNine(numbers: separatedArray) else {
             throw BaseBallGameError.invalidInput
         }
         
-        guard inputNumbersArray[0] != inputNumbersArray[1],
-              inputNumbersArray[0] != inputNumbersArray[2],
-              inputNumbersArray[1] != inputNumbersArray[2] else {
-            throw BaseBallGameError.invalidInput
-        }
-        checkGameResult(userNumbers: inputNumbersArray)
+        checkGameResult(userNumbers: separatedArray)
         if isUserWin {
             print("사용자 승리!")
         } else if leftCount == 0 {
