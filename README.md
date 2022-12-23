@@ -151,5 +151,5 @@ func CreateRandomNums() -> [Int] {
 - 네이밍
     - [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)
 
-
-
+### 팀회고
+![팀회고.md](./팀회고.md)
