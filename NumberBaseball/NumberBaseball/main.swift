@@ -3,7 +3,6 @@ import Foundation
 var chances: Int = 9
 var userNumbers = [String]()
 var computerNumbers = [String]()
-var hasError: Bool = false
 
 func makeRandomNumbers() -> [String] {
     var randomNumbers = Set<String>()
@@ -17,26 +16,29 @@ func makeRandomNumbers() -> [String] {
     return randomNumberArray
 }
 
-func getUserNumbers() {
+func checkUserNumbers() -> Bool{
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
     guard let inputtedUserNumbers = readLine() else {
         print("you entered nil")
 
-        return
+        return true
     }
     
     let isNumbersValid = inputtedUserNumbers.components(separatedBy: " ").joined().range(of: "^[1-9]{3,3}$", options: .regularExpression) != nil
     
     if Set(inputtedUserNumbers.components(separatedBy: " ")).count != 3 || isNumbersValid == false {
         print("입력이 잘못되었습니다.")
-        hasError = true
         
-        return
+        return true
+    } else {
+        userNumbers = inputtedUserNumbers.components(separatedBy: " ")
+        
+        return false
     }
-    userNumbers = inputtedUserNumbers.components(separatedBy: " ")
 }
+
 
 
 func checkStrikeAndBall() {
@@ -72,16 +74,13 @@ func initializeData() {
     chances = 9
     userNumbers = [String]()
     computerNumbers = [String]()
-    hasError = false
 }
 
 func startGame() {
     computerNumbers = makeRandomNumbers()
     
     repeat {
-        hasError = false
-        getUserNumbers()
-        if hasError == true {
+        if checkUserNumbers() == true {
             continue
         }
         checkStrikeAndBall()
@@ -105,7 +104,7 @@ func selectMenu(selectedMenuNumber: String) {
     case "1":
         startGame()
     case "2":
-        print("12345")
+        break
     default:
         print("입력이 잘못되었습니다.")
     }
