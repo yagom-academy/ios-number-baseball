@@ -3,7 +3,8 @@
 > 프로젝트 기간: 2022.12.19 ~ 2022.12.23
 > 
 > 팀원: 👩🏻‍💻[sehong](https://github.com/sehoong0429), 👨🏻‍💻[harry](https://github.com/HarryHyeon) | 리뷰어: 👨🏻‍💻[inho](https://github.com/inho-98)
-
+> 
+> [📝팀 회고](https://github.com/sehoong0429/ios-number-baseball/blob/main/%ED%8C%80%ED%9A%8C%EA%B3%A0.md)
 <br>
 
 # 목차
