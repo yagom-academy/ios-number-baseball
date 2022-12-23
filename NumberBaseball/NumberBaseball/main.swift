@@ -18,7 +18,7 @@ func makeRandomNumbers() -> [String] {
     return randomNumberArray
 }
 
-func inputUserNumbers() {
+func receiveUserNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
@@ -28,18 +28,22 @@ func inputUserNumbers() {
         return
     }
     
-    let userNumberArray = inputtedUserNumbers.components(separatedBy: " ")
-    let checkingNumberRange = userNumberArray.joined().range(of: "^[1-9]{3,3}$", options: .regularExpression) != nil
+    let checkingNumberRange = inputtedUserNumbers.components(separatedBy: " ").joined().range(of: "^[1-9]{3,3}$", options: .regularExpression) != nil
     
-    if Set(userNumberArray).count != 3 || checkingNumberRange == false {
+    if Set(inputtedUserNumbers.components(separatedBy: " ")).count != 3 || checkingNumberRange == false {
         print("입력이 잘못되었습니다.")
         hasError = true
         
         return
     }
     
-    userNumbers = userNumberArray
+    userNumbers = inputtedUserNumbers.components(separatedBy: " ")
 }
+
+func checkInputtedErrorNumber() {
+    
+}
+
 
 func checkStrikeAndBall() {
     var ballCounter: Int = 0
@@ -86,7 +90,7 @@ func startGame() {
     
     repeat {
         hasError = false
-        inputUserNumbers()
+        receiveUserNumbers()
         if hasError == true {
             continue
         }
@@ -102,32 +106,34 @@ func presentMenu() {
 
 func inputMenuNumber() -> String {
     print("원하는 기능을 선택해주세요", terminator: " : ")
-    let inputedMenuNumber = readLine() ?? ""
+    let inputtedMenuNumber = readLine() ?? ""
     
-    return inputedMenuNumber
+    return inputtedMenuNumber
 }
 
-func selectMenu(selectedMenuNunber: String) {
-    switch selectedMenuNunber {
+func selectMenu(selectedMenuNumber: String) {
+    switch selectedMenuNumber {
     case "1":
         startGame()
     case "2":
-        break
+        print("12345")
     default:
         print("입력이 잘못되었습니다.")
     }
 }
 
 func startBaseBallGame() {
-    var inputedMenuNumber: String
+    var inputtedMenuNumber: String
     
-    repeat {
-        initializeData()
-        presentMenu()
-        inputedMenuNumber = inputMenuNumber()
-        selectMenu(selectedMenuNunber: inputedMenuNumber)
-    } while inputedMenuNumber != "2"
+    initializeData()
+    presentMenu()
+    inputtedMenuNumber = inputMenuNumber()
+    selectMenu(selectedMenuNumber: inputtedMenuNumber)
+    
+    if inputtedMenuNumber != "2" {
+        startBaseBallGame()
+    }
+    
 }
 
 startBaseBallGame()
-
