@@ -65,3 +65,5 @@ map 함수만 이용할 시 Optional 형태로 반환되어 이를 다시 언래
 - [GitHub Docs - Resolve merge conflicts](https://docs.github.com/ko/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github)
 - [API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)
 - [compactMap](https://developer.apple.com/documentation/swift/sequence/compactmap(_:))
+
+9. [팀회고](./팀회고.md)
