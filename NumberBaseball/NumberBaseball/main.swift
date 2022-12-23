@@ -68,7 +68,7 @@ func playGame() {
         let strike = result[0]
         let ball = result[1]
         
-        guard strike != 3 else {
+        if strike == 3 {
             print("사용자 승리!")
             return
         }
