@@ -74,11 +74,7 @@ func countStrikeAndBall(baseArray: [Int], compareArray: [Int]) -> (Int, Int) {
 }
 
 func printWinner(remainingTry: Int) {
-    if remainingTry == 0 {
-        print("컴퓨터 승리...")
-    } else {
-        print("사용자 승리!")
-    }
+    remainingTry == 0 ? print("컴퓨터 승리...") : print("사용자 승리!")
 }
 
 func runProgram() {
