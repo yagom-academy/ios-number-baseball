@@ -10,51 +10,47 @@ enum InputError: Error {
     case invalidNumber
 }
 
-var winNumberArray: [UInt] = []
-var userNumberArray: [UInt] = []
-var strikeNumber = 0
-var ballNumber = 0
-var chance = 9
+enum Menu: Int {
+    case start = 1
+    case exit = 2
+}
+
+var winNumberList: [Int] = []
+var userNumberList: [Int] = []
 var menuNumber = 0
 
-func createRandomNumbers() -> [UInt] {
-    var randomNumbers: Set<UInt> = []
+func createRandomNumbers() -> [Int] {
+    var randomNumbers: Set<Int> = []
     
     while randomNumbers.count < 3 {
-        randomNumbers.insert(UInt.random(in: 1...9))
+        randomNumbers.insert(Int.random(in: 1...9))
     }
-    
     return Array(randomNumbers)
 }
 
-func countStrikeBall() {
-    for index in 0 ..< winNumberArray.count {
-        if winNumberArray[index] == userNumberArray[index] {
-            strikeNumber += 1
-        } else if winNumberArray.contains(userNumberArray[index]) {
-            ballNumber += 1
+func countStrikeBall(strikeCount: inout Int, ballCount: inout Int) {
+    for index in 0 ..< winNumberList.count {
+        if winNumberList[index] == userNumberList[index] {
+            strikeCount += 1
+        } else if winNumberList.contains(userNumberList[index]) {
+            ballCount += 1
         }
     }
 }
 
-func menuInputOutput() throws {
+func choiceMenu() throws -> Int {
     print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요 : ", terminator: "")
     
     let inputMenu = readLine()
     
-    guard let menu = inputMenu else {
+    guard let menuString = inputMenu else {
         throw InputError.invalidNumber
     }
     
-    guard menu == "1" || menu == "2" else {
+    guard let menuRawValue = Int(menuString) else {
         throw InputError.invalidNumber
     }
-    
-    let menuIntOptional = Int(menu)
-    
-    if let menuInt = menuIntOptional {
-        menuNumber = menuInt
-    }
+    return menuRawValue
 }
 
 func inputNumbers() {
@@ -65,55 +61,41 @@ func inputNumbers() {
         return inputNumbers()
     }
     
-    let inputNumberArray = inputNumber.components(separatedBy: " ").map{ UInt($0) }
+    userNumberList = inputNumber.components(separatedBy: " ").compactMap{ Int($0) }
     
-    for number in inputNumberArray {
-        if let number = number {
-            userNumberArray.append(number)
-        }
-    }
-    
-    guard userNumberArray.count == 3 else {
+    guard userNumberList.count == 3 else {
         print("입력이 잘못되었습니다")
-        userNumberArray = []
+        userNumberList = []
         return inputNumbers()
     }
     
-    if userNumberArray[0] > 9 {
+    guard (1...9) ~= userNumberList[0] && (1...9) ~= userNumberList[1] && (1...9) ~= userNumberList[2]  else {
         print("입력이 잘못되었습니다")
-        userNumberArray = []
-        return inputNumbers()
-    } else if userNumberArray[1] > 9 {
-        print("입력이 잘못되었습니다")
-        userNumberArray = []
-        return inputNumbers()
-    } else if userNumberArray[2] > 9 {
-        print("입력이 잘못되었습니다")
-        userNumberArray = []
+        userNumberList = []
         return inputNumbers()
     }
     
-    let userNumberSet = Set(userNumberArray)
+    let userNumberSet = Set(userNumberList)
     let userNumbers = Array(userNumberSet)
     
     guard userNumbers.count == 3 else {
         print("입력이 잘못되었습니다")
-        userNumberArray = []
+        userNumberList = []
         return inputNumbers()
     }
 }
 
-func playGame() throws {
-    winNumberArray = createRandomNumbers()
+func playGame(chance: inout Int, strikeCount: inout Int, ballCount: inout Int) throws {
+    winNumberList = createRandomNumbers()
     
     for _ in 1...9 {
         inputNumbers()
-        countStrikeBall()
+        countStrikeBall(strikeCount: &strikeCount, ballCount: &ballCount)
         chance -= 1
         
-        print("\(strikeNumber) 스트라이크, \(ballNumber) 볼")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
-        if strikeNumber == 3 {
+        if strikeCount == 3 {
             print("사용자 승리!")
             try startGame()
             break
@@ -126,25 +108,26 @@ func playGame() throws {
             print("컴퓨터 승리...!")
             try startGame()
         }
-        strikeNumber = 0
-        ballNumber = 0
-        userNumberArray.removeAll()
+        userNumberList.removeAll()
+        strikeCount = 0
+        ballCount = 0
     }
 }
 
 func startGame() throws{
     do {
-        try menuInputOutput()
-        
-        chance = 9
-        strikeNumber = 0
-        ballNumber = 0
-        userNumberArray.removeAll()
-        
-        if menuNumber == 2 {
+        switch Menu(rawValue: try choiceMenu()) {
+        case .start:
+            var chance = 9
+            var strikeCount = 0
+            var ballCount = 0
+            userNumberList.removeAll()
+            try playGame(chance: &chance, strikeCount: &strikeCount, ballCount: &ballCount)
+        case .exit:
             return
+        default:
+            throw InputError.invalidNumber
         }
-        try playGame()
     }
     catch InputError.invalidNumber {
         print("입력이 잘못되었습니다")
