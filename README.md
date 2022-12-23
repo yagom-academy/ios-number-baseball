@@ -152,4 +152,4 @@ func CreateRandomNums() -> [Int] {
     - [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)
 
 ### 팀회고
-![팀회고.md](./팀회고.md)
+[팀회고.md](https://github.com/Rhode-park/ios-number-baseball/blob/ic_8_rhode8/팀회고.md)
