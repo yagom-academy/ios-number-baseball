@@ -100,7 +100,7 @@ func checkAvailability(userInput: String) throws -> [Int] {
     let userInput = userInput.split(separator: " ")
     
     for number in userInput {
-        guard let _ = Int(number) else {
+        guard Int(number) != nil else {
             throw inputError.notOnlyNumber
         }
     }
