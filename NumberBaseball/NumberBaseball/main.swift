@@ -88,12 +88,12 @@ func startGame() {
         let userNumbers = inputUserNumbers()
         remainingCount -= 1
                 
-        let currentScore = countBallAndStrike(from: computerRandomNumbers, comparing: userNumbers)
-        if let strikes = currentScore["strike"], let balls = currentScore["ball"] {
-            print("\(strikes) 스트라이크, \(balls) 볼")
+        let ballAndStrikeCount = countBallAndStrike(from: computerRandomNumbers, comparing: userNumbers)
+        if let strikeCount = ballAndStrikeCount["strike"], let ballCount = ballAndStrikeCount["ball"] {
+            print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         }
         
-        if currentScore["strike"] == 3 {
+        if ballAndStrikeCount["strike"] == 3 {
             print("사용자 승리...!")
             selectMenu()
             break
