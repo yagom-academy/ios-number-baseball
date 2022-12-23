@@ -25,7 +25,7 @@ func checkGameResult(userNumbers: [String]) {
 }
 
 func reduceLeftCount() {
-     leftCount -= 1
+    leftCount -= 1
 }
 
 func isThreeStrike(strike strikeCount: Int) -> Bool {
@@ -116,23 +116,27 @@ func playBaseBallGame() {
         let gameMenuResult = choiceGameMenu()
         switch gameMenuResult {
         case .success(let menu):
-            menu == 1 ? pressNumberOne() : pressNumberTwo()
-        case .failure(let failure):
+            menu == 1 ? arrangeGame() : pressNumberTwo()
+        case .failure(_):
             print("입력이 잘못되었습니다")
         }
     }
 }
 
 func pressNumberOne() {
+    let validThreeNumbersResult = checkUserInput()
+    switch validThreeNumbersResult {
+    case .success(let numbers):
+        checkGameResult(userNumbers: numbers)
+    case .failure(_):
+        print("입력이 잘못되었습니다")
+    }
+    printWinner()
+}
+
+func arrangeGame() {
     while leftCount != 0, !isUserWin {
-        let validThreeNumbersResult = checkUserInput()
-        switch validThreeNumbersResult {
-        case .success(let numbers):
-           checkGameResult(userNumbers: numbers)
-        case .failure(let failure):
-            print("입력이 잘못되었습니다")
-        }
-        printWinner()
+        pressNumberOne()
     }
 }
 
