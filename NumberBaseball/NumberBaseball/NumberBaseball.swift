@@ -130,7 +130,7 @@ func convertToIntArray(stringArray: [String]) -> [Int] {
 }
 
 func validInput(userInput: [String]) -> Bool {
-    if Set(userInput).count != 3 {
+    if Set(userInput).count != 3 || userInput.count != 3 {
         return false
     }
     
