@@ -69,7 +69,6 @@ func startGame() {
     var chance = 9
     
     while chance > 0 {
-        
         let userNumbers = checkNumbers()
         let (strike, ball) = checkStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
@@ -96,12 +95,12 @@ func printMenuList() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
-func isSelectedMenu() -> Bool {
+func checkSelectedMenu() -> Bool {
     printMenuList()
     
     guard let selectedMenu = readLine() else {
         printErrorInputMessage()
-        return isSelectedMenu()
+        return checkSelectedMenu()
     }
     
     switch Int(selectedMenu) {
@@ -111,10 +110,10 @@ func isSelectedMenu() -> Bool {
         return false
     default:
         printErrorInputMessage()
-        return isSelectedMenu()
+        return checkSelectedMenu()
     }
 }
 
-while isSelectedMenu() {
+while checkSelectedMenu() {
     startGame()
 }
