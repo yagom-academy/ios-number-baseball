@@ -71,12 +71,16 @@ enum BaseBallGameError : Error {
     case invalidInput
 }
 
-func checkUserInput() -> Result<[String], BaseBallGameError> {
+func printGameRule() {
     print("""
          숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
          중복 숫자는 허용하지 않습니다.
          입력 :
          """, terminator: "")
+}
+
+func checkUserInput() -> Result<[String], BaseBallGameError> {
+    printGameRule()
     let input: String? = readLine()
     guard let inputNumbers = input else {
         return .failure(BaseBallGameError.invalidInput)
