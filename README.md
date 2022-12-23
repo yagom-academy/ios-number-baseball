@@ -8,7 +8,7 @@
 ## 팀원
 | 닉네임 |                   Rhode                    |                  kokkilE                   |
 |:------:|:------------------------------------------:|:------------------------------------------:|
-|  사진  | ![](https://i.imgur.com/XyDwGwe.jpg) | ![](https://i.imgur.com/FL0gKeq.png) |
+|  사진  | ![](https://i.imgur.com/XyDwGwe.jpg =400x) | ![](https://i.imgur.com/FL0gKeq.png) |
 |  역할  |            내비게이터, 드라이버            |            내비게이터, 드라이버            |
 
 
