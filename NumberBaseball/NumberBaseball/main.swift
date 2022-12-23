@@ -3,7 +3,6 @@ import Foundation
 var chances: Int = 9
 var userNumbers = [String]()
 var computerNumbers = [String]()
-var isUserWin: Bool = false
 var hasError: Bool = false
 
 func makeRandomNumbers() -> [String] {
@@ -18,7 +17,7 @@ func makeRandomNumbers() -> [String] {
     return randomNumberArray
 }
 
-func receiveUserNumbers() {
+func getUserNumbers() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력", terminator: " : ")
@@ -28,20 +27,15 @@ func receiveUserNumbers() {
         return
     }
     
-    let checkingNumberRange = inputtedUserNumbers.components(separatedBy: " ").joined().range(of: "^[1-9]{3,3}$", options: .regularExpression) != nil
+    let isNumbersValid = inputtedUserNumbers.components(separatedBy: " ").joined().range(of: "^[1-9]{3,3}$", options: .regularExpression) != nil
     
-    if Set(inputtedUserNumbers.components(separatedBy: " ")).count != 3 || checkingNumberRange == false {
+    if Set(inputtedUserNumbers.components(separatedBy: " ")).count != 3 || isNumbersValid == false {
         print("입력이 잘못되었습니다.")
         hasError = true
         
         return
     }
-    
     userNumbers = inputtedUserNumbers.components(separatedBy: " ")
-}
-
-func checkInputtedErrorNumber() {
-    
 }
 
 
@@ -61,17 +55,14 @@ func checkStrikeAndBall() {
     print("\(strikeCounter) 스트라이크, \(ballCounter) 볼")
     print("남은 기회 : \(chances)")
     
-    if strikeCounter == 3 {
-        isUserWin = true
-    }
-    
+    printWinner(strikeCounter: strikeCounter)
 }
 
-func printWinner() {
+func printWinner(strikeCounter: Int) {
     if chances == 0 {
         print("컴퓨터 승리...!")
     }
-    if isUserWin == true {
+    if strikeCounter == 3 {
         chances = 0
         print("사용자 승리...!")
     }
@@ -81,7 +72,6 @@ func initializeData() {
     chances = 9
     userNumbers = [String]()
     computerNumbers = [String]()
-    isUserWin = false
     hasError = false
 }
 
@@ -90,12 +80,11 @@ func startGame() {
     
     repeat {
         hasError = false
-        receiveUserNumbers()
+        getUserNumbers()
         if hasError == true {
             continue
         }
         checkStrikeAndBall()
-        printWinner()
     } while chances > 0
 }
 
