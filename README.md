@@ -8,7 +8,7 @@
 ## 팀원
 | 닉네임 |                   Rhode                    |                  kokkilE                   |
 |:------:|:------------------------------------------:|:------------------------------------------:|
-|  사진  | ![](https://i.imgur.com/XyDwGwe.jpg =250x) | ![](https://i.imgur.com/FL0gKeq.png =180x) |
+|  사진  | ![](https://i.imgur.com/XyDwGwe.jpg) | ![](https://i.imgur.com/FL0gKeq.png) |
 |  역할  |            내비게이터, 드라이버            |            내비게이터, 드라이버            |
 
 
@@ -49,7 +49,7 @@
 
 | 구분 | 비정상 입력 | 사용자 승리 |컴퓨터 승리 |
 | -------- | -------- | -------- |-------- |
-| 실행 화면     | ![](https://i.imgur.com/8dD359u.png =200x)     |  ![](https://i.imgur.com/0hLUShi.png =650x)  | ![](https://i.imgur.com/Vif9Lak.png =600x)     |
+| 실행 화면     | ![](https://i.imgur.com/8dD359u.png)     |  ![](https://i.imgur.com/0hLUShi.png)  | ![](https://i.imgur.com/Vif9Lak.png)     |
 | 화면 설명     | 1부터 9까지를 초과한 입력, 입력 숫자의 개수가 3개를 초과한 입력, 중복된 입력, 문자열 입력에 대하여 **입력이 잘못되었습니다** 를 출력     | 사용자가 9번의 기회 안에 3스트라이크를 얻어낸 경우 **사용자 승리...!** 를 출력     |사용자가 9번의 기회 안에 3스트라이크를 얻어내지 못한 경우 **컴퓨터 승리...!** 를 출력     |
 
 
