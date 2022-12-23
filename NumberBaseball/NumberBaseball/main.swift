@@ -17,7 +17,6 @@ enum Menu: Int {
 
 var winNumberList: [Int] = []
 var userNumberList: [Int] = []
-var menuNumber = 0
 
 func createRandomNumbers() -> [Int] {
     var randomNumbers: Set<Int> = []
@@ -85,7 +84,7 @@ func inputNumbers() {
     }
 }
 
-func playGame(chance: inout Int, strikeCount: inout Int, ballCount: inout Int) throws {
+func playGame(chance: inout Int, strikeCount: inout Int, ballCount: inout Int) {
     winNumberList = createRandomNumbers()
     
     for _ in 1...9 {
@@ -97,7 +96,7 @@ func playGame(chance: inout Int, strikeCount: inout Int, ballCount: inout Int) t
         
         if strikeCount == 3 {
             print("사용자 승리!")
-            try startGame()
+            startGame()
             break
         }
         
@@ -106,7 +105,7 @@ func playGame(chance: inout Int, strikeCount: inout Int, ballCount: inout Int) t
         }
         else {
             print("컴퓨터 승리...!")
-            try startGame()
+            startGame()
         }
         userNumberList.removeAll()
         strikeCount = 0
@@ -114,7 +113,7 @@ func playGame(chance: inout Int, strikeCount: inout Int, ballCount: inout Int) t
     }
 }
 
-func startGame() throws{
+func startGame() {
     do {
         switch Menu(rawValue: try choiceMenu()) {
         case .start:
@@ -122,17 +121,18 @@ func startGame() throws{
             var strikeCount = 0
             var ballCount = 0
             userNumberList.removeAll()
-            try playGame(chance: &chance, strikeCount: &strikeCount, ballCount: &ballCount)
+            playGame(chance: &chance, strikeCount: &strikeCount, ballCount: &ballCount)
         case .exit:
             return
         default:
             throw InputError.invalidNumber
         }
-    }
-    catch InputError.invalidNumber {
+    } catch InputError.invalidNumber {
         print("입력이 잘못되었습니다")
-        try startGame()
+        startGame()
+    } catch {
+        print(error)
     }
 }
 
-try startGame()
+startGame()
