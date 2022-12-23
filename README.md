@@ -101,7 +101,7 @@
 * [Swift The Basics](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
 * [git commit convention 블로그](https://doublesprogramming.tistory.com/256)
 * [git commit message style 블로그](https://velog.io/@hanganda23/Git-Commit-%EB%A9%94%EC%84%B8%EC%A7%80-%EC%8A%A4%ED%83%80%EC%9D%BC)
-* 
+
 # 9. 프로젝트 수행 중 핵심 경험
  * 순서도 익히기
  * 함수 단위 고민하기
