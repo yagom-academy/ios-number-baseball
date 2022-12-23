@@ -59,32 +59,25 @@ enum BaseBallGameError : Error {
     case invalidInput
 }
 
-func checkUserInput() throws {
-    while leftCount != 0, !isUserWin {
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-        print("중복 숫자는 허용하지 않습니다.")
-        print("입력 : ", terminator: "")
-        let input: String? = readLine()
-        guard let inputNumbers = input else {
-            throw BaseBallGameError.invalidInput
-        }
-        
-        let separatedArray = inputNumbers.split(separator: " ").map{ String($0) }
-        
-        guard isAllNumber(inputArray: separatedArray),
-              isThreeCount(array: separatedArray),
-              hasDuplicateNumber(numbers: separatedArray),
-              isNumberFromOneToNine(numbers: separatedArray) else {
-            throw BaseBallGameError.invalidInput
-        }
-        
-        checkGameResult(userNumbers: separatedArray)
-        if isUserWin {
-            print("사용자 승리!")
-        } else if leftCount == 0 {
-            print("컴퓨터 승리...!")
-        }
+func checkUserInput() -> Result<[String], BaseBallGameError> {
+    print("""
+         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+         중복 숫자는 허용하지 않습니다.
+         입력 :  """, terminator: "")
+    let input: String? = readLine()
+    guard let inputNumbers = input else {
+        return .failure(BaseBallGameError.invalidInput)
     }
+    
+    let separatedArray = inputNumbers.split(separator: " ").map{ String($0) }
+    
+    guard isAllNumber(inputArray: separatedArray),
+          isThreeCount(array: separatedArray),
+          hasDuplicateNumber(numbers: separatedArray),
+          isNumberFromOneToNine(numbers: separatedArray) else {
+        return .failure(BaseBallGameError.invalidInput)
+    }
+    return .success(separatedArray)
 }
 
 func choiceGameMenu() -> Result<Int, BaseBallGameError> {
@@ -110,17 +103,22 @@ func playBaseBallGame() {
         case .failure(let failure):
             print("입력이 잘못되었습니다")
         }
-    } 
+    }
 }
 
 func pressNumberOne() {
     while leftCount != 0, !isUserWin {
-        do {
-            try checkUserInput()
-        } catch BaseBallGameError.invalidInput {
+        let validThreeNumbersResult = checkUserInput()
+        switch validThreeNumbersResult {
+        case .success(let numbers):
+           checkGameResult(userNumbers: numbers)
+        case .failure(let failure):
             print("입력이 잘못되었습니다")
-        } catch {
-            print(error)
+        }
+        if isUserWin {
+            print("사용자 승리!")
+        } else if leftCount == 0 {
+            print("컴퓨터 승리...!")
         }
     }
 }
