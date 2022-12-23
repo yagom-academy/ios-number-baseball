@@ -19,9 +19,13 @@ func checkGameResult(userNumbers: [String]) {
     (strikeCount, ballCount) = compareNumbers(userRandomNumbers, with: computerNumbers)
     leftCount -= 1
     printGameResult(strike: strikeCount, ball: ballCount, leftCount: leftCount)
-    if strikeCount == 3 {
+    if isThreeStrike(strike: strikeCount) {
         isUserWin = true
     }
+}
+
+func isThreeStrike(strike strikeCount: Int) -> Bool {
+    return strikeCount == 3 ? true : false
 }
 
 func printGameResult(strike strikeCount: Int, ball ballCount: Int, leftCount: Int) {
