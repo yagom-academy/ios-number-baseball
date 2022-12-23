@@ -87,46 +87,45 @@ func checkUserInput() throws {
     }
 }
 
-func choiceGameMenu() throws {
+func choiceGameMenu() -> Result<Int, BaseBallGameError> {
     let input: String? = readLine()
     guard let menu = input else {
-        throw BaseBallGameError.invalidFunction
+        return .failure(BaseBallGameError.invalidFunction)
     }
     let trimmedMenu = menu.trimmingCharacters(in: .whitespaces)
     guard let gameMenu = Int(trimmedMenu), (1...2) ~= gameMenu else {
-        throw BaseBallGameError.invalidFunction
+        return .failure(BaseBallGameError.invalidFunction)
     }
-    if gameMenu == 1 {
-        while leftCount != 0, !isUserWin {
-            do {
-                try checkUserInput()
-            } catch BaseBallGameError.invalidInput {
-                print("입력이 잘못되었습니다")
-            } catch {
-                print(error)
-            }
-        }
-    } else if gameMenu == 2 {
-        isGameEnd = true
-    }
+    return .success(gameMenu)
 }
 
 func playBaseBallGame() {
     while !isGameEnd {
         initializeGame()
         printMenu()
-        
-        do {
-            try choiceGameMenu()
-        } catch BaseBallGameError.invalidFunction {
+        let gameMenuResult = choiceGameMenu()
+        switch gameMenuResult {
+        case .success(let menu):
+            if menu == 1 {
+                while leftCount != 0, !isUserWin {
+                    do {
+                        try checkUserInput()
+                    } catch BaseBallGameError.invalidInput {
+                        print("입력이 잘못되었습니다")
+                    } catch {
+                        print(error)
+                    }
+                }
+            } else if menu == 2 {
+                isGameEnd = true
+            }
+        case .failure(let failure):
             print("입력이 잘못되었습니다")
-        } catch {
-            print(error)
         }
+
     } 
 }
 
 playBaseBallGame()
-
 
 
