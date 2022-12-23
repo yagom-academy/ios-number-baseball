@@ -99,9 +99,8 @@ func checkAvailability(userInput: String) throws -> [Int] {
     
     let userInput = userInput.split(separator: " ")
     
-    let notNumberPattern = "[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z]"
-    for data in userInput {
-        if let _ = data.range(of: notNumberPattern, options: .regularExpression) {
+    for number in userInput {
+        guard let _ = Int(number) else {
             throw inputError.notOnlyNumber
         }
     }
