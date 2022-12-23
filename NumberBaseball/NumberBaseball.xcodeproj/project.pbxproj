@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		624992072955AA320054F405 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624992062955AA320054F405 /* Function.swift */; };
+		624992072955AA320054F405 /* validateFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624992062955AA320054F405 /* validateFunction.swift */; };
+		6249920B2955ED820054F405 /* gameCheckFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249920A2955ED820054F405 /* gameCheckFunction.swift */; };
+		6249920D2955F0CB0054F405 /* userInputFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249920C2955F0CB0054F405 /* userInputFunction.swift */; };
 		C7A29CFC2551372B00CAC77A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A29CFB2551372B00CAC77A /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +36,9 @@
 
 /* Begin PBXFileReference section */
 		624991FF2952EC2B0054F405 /* step2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = step2; sourceTree = BUILT_PRODUCTS_DIR; };
-		624992062955AA320054F405 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		624992062955AA320054F405 /* validateFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = validateFunction.swift; sourceTree = "<group>"; };
+		6249920A2955ED820054F405 /* gameCheckFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameCheckFunction.swift; sourceTree = "<group>"; };
+		6249920C2955F0CB0054F405 /* userInputFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInputFunction.swift; sourceTree = "<group>"; };
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				C7A29CFB2551372B00CAC77A /* main.swift */,
-				624992062955AA320054F405 /* Function.swift */,
+				624992062955AA320054F405 /* validateFunction.swift */,
+				6249920A2955ED820054F405 /* gameCheckFunction.swift */,
+				6249920C2955F0CB0054F405 /* userInputFunction.swift */,
 			);
 			path = NumberBaseball;
 			sourceTree = "<group>";
@@ -168,8 +174,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6249920B2955ED820054F405 /* gameCheckFunction.swift in Sources */,
 				C7A29CFC2551372B00CAC77A /* main.swift in Sources */,
-				624992072955AA320054F405 /* Function.swift in Sources */,
+				624992072955AA320054F405 /* validateFunction.swift in Sources */,
+				6249920D2955F0CB0054F405 /* userInputFunction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
