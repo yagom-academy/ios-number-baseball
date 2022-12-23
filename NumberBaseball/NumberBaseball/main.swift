@@ -95,12 +95,12 @@ func printMenuList() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
-func checkSelectedMenu() -> Bool {
+func isSelectedGameStart() -> Bool {
     printMenuList()
     
     guard let selectedMenu = readLine() else {
         printErrorInputMessage()
-        return checkSelectedMenu()
+        return isSelectedGameStart()
     }
     
     switch Int(selectedMenu) {
@@ -110,10 +110,10 @@ func checkSelectedMenu() -> Bool {
         return false
     default:
         printErrorInputMessage()
-        return checkSelectedMenu()
+        return isSelectedGameStart()
     }
 }
 
-while checkSelectedMenu() {
+while isSelectedGameStart() {
     startGame()
 }
