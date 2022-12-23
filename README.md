@@ -118,9 +118,8 @@
  * 스위프트 코딩 컨벤션 고민하기
  * 동료와 협업자세 고민하기
 
-
-
-
+# 10. 팀 회고 링크
+- [5조 팀 회고](https://github.com/parkmuri/ios-number-baseball/blob/step2/5%EC%A1%B0%ED%9A%8C%EA%B3%A0.md)
 
 
 
