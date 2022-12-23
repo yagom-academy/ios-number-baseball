@@ -113,9 +113,7 @@ func choiceGameMenu() throws {
 
 func playBaseBallGame() {
     while !isGameEnd {
-        print("1. 게임시작")
-        print("2. 게임종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        printMenu()
         do {
             try choiceGameMenu()
         } catch BaseBallGameError.invalidFunction {
@@ -127,6 +125,13 @@ func playBaseBallGame() {
         isUserWin = false
         computerNumbers = makeThreeNumbers()
     } 
+}
+func printMenu() {
+    print("""
+          1. 게임시작
+          2. 게임종료
+          원하는 기능을 선택해주세요 :
+          """, terminator:" ")
 }
 
 playBaseBallGame()
