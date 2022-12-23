@@ -14,7 +14,7 @@ func createRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
-func inputUserNumbers() -> String {
+func readUserNumbers() -> String {
     print("""
     숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
     중복 숫자는 허용하지 않습니다.
@@ -25,11 +25,15 @@ func inputUserNumbers() -> String {
     return input
 }
 
+func printErrorInputMessage() {
+    print("입력이 잘못되었습니다.")
+}
+
 func checkNumbers() -> [Int] {
     while true {
-        let input = inputUserNumbers()
+        let input = readUserNumbers()
         if input == "" {
-            print("입력이 잘못되었습니다.")
+            printErrorInputMessage()
             continue
         }
         
@@ -37,7 +41,7 @@ func checkNumbers() -> [Int] {
         let filteredNumbers = numberArray.filter{ $0 > 0 && $0 < 10 }
         
         if Set(filteredNumbers).count != 3 {
-            print("입력이 잘못되었습니다.")
+            printErrorInputMessage()
             continue
         }
         
@@ -96,7 +100,7 @@ func isSelectedMenu() -> Bool {
     printMenuList()
     
     guard let selectedMenu = readLine() else {
-        print("입력이 잘못되었습니다")
+        printErrorInputMessage()
         return isSelectedMenu()
     }
     
@@ -106,7 +110,7 @@ func isSelectedMenu() -> Bool {
     case 2:
         return false
     default:
-        print("입력이 잘못되었습니다")
+        printErrorInputMessage()
         return isSelectedMenu()
     }
 }
