@@ -6,6 +6,19 @@
 
 import Foundation
 
+let inputGuideLine = """
+                   숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+                   중복 숫자는 허용하지 않습니다.
+                   입력 :
+                   """
+let menuMessage = """
+                  1. 게임시작
+                  2. 게임종료
+                  원하는 기능을 선택해주세요 :
+                  """
+let menu = ["게임시작": "1", "게임종료": "2"]
+let wrongInputMessage = "입력이 잘못되었습니다"
+
 func createRandomNumbers() -> [Int] {
     var createdNumbers = [Int]()
     
@@ -26,22 +39,19 @@ func inputUserNumbers() -> [Int] {
     var inputComponents = [String]()
     var userNumbers = [Int]()
     
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
+    print(inputGuideLine, terminator: " ")
     
     if let userInputs = readLine() {
-        let inputType = "^[1-9]{1}\\s[1-9]{1}\\s[1-9]{1}$"
-        
-        let isCorrectInput = userInputs.range(of: inputType, options:  .regularExpression) != nil
+        let inputForm = "^[1-9]{1}\\s[1-9]{1}\\s[1-9]{1}$"
+        let isCorrectInput: Bool = userInputs.range(of: inputForm, options: .regularExpression) != nil
         
         if isCorrectInput == true {
             inputComponents = userInputs.components(separatedBy: " ")
         }
         
         if isCorrectInput == false || Set(inputComponents).count != 3 {
-            print("입력이 잘못되었습니다")
-            return userNumbers
+            print(wrongInputMessage)
+            return inputUserNumbers()
         }
     }
     
@@ -59,10 +69,10 @@ func countBallAndStrike(from computerRandomNumbers: [Int], comparing userNumbers
     result["strike"] = 0
     result["ball"] = 0
 
-    for i in 0...2 {
-        if computerRandomNumbers[i] == userNumbers[i] {
+    for index in 0...2 {
+        if computerRandomNumbers[index] == userNumbers[index] {
             result["strike"]? += 1
-        } else if userNumbers.contains(computerRandomNumbers[i]) {
+        } else if userNumbers.contains(computerRandomNumbers[index]) {
             result["ball"]? += 1
         }
     }
@@ -75,13 +85,9 @@ func startGame() {
     let computerRandomNumbers = createRandomNumbers()
     
     while remainingCount > 0 {
-        var userNumbers = [Int]()
+        let userNumbers = inputUserNumbers()
         remainingCount -= 1
-        
-        repeat {
-            userNumbers = inputUserNumbers()
-        } while userNumbers.count != 3
-        
+                
         let currentScore = countBallAndStrike(from: computerRandomNumbers, comparing: userNumbers)
         if let strikes = currentScore["strike"], let balls = currentScore["ball"] {
             print("\(strikes) 스트라이크, \(balls) 볼")
@@ -89,34 +95,30 @@ func startGame() {
         
         if currentScore["strike"] == 3 {
             print("사용자 승리...!")
-            showMenu()
+            selectMenu()
             break
-        }
-        
-        if remainingCount == 0 {
+        } else if remainingCount == 0 {
             print("컴퓨터 승리...!")
-            showMenu()
+            selectMenu()
         } else {
             print("남은 기회 : \(remainingCount)")
         }
     }
 }
 
-func showMenu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
+func selectMenu() {
+    print(menuMessage, terminator: " ")
     
-    let menuSelect = readLine()
+    let selectedMenu = readLine()
     
-    if menuSelect == String(1) {
+    if selectedMenu == menu["게임시작"] {
         startGame()
-    } else if menuSelect == String(2) {
+    } else if selectedMenu == menu["게임종료"] {
         
     } else {
-        print("입력이 잘못되었습니다")
-        showMenu()
+        print(wrongInputMessage)
+        selectMenu()
     }
 }
 
-showMenu()
+selectMenu()
