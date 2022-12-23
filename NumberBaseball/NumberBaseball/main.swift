@@ -115,11 +115,15 @@ func pressNumberOne() {
         case .failure(let failure):
             print("입력이 잘못되었습니다")
         }
-        if isUserWin {
-            print("사용자 승리!")
-        } else if leftCount == 0 {
-            print("컴퓨터 승리...!")
-        }
+        printWinner()
+    }
+}
+
+func printWinner() {
+    if isUserWin {
+        print("사용자 승리!")
+    } else if leftCount == 0 {
+        print("컴퓨터 승리...!")
     }
 }
 
