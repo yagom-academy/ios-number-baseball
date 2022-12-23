@@ -106,24 +106,27 @@ func playBaseBallGame() {
         let gameMenuResult = choiceGameMenu()
         switch gameMenuResult {
         case .success(let menu):
-            if menu == 1 {
-                while leftCount != 0, !isUserWin {
-                    do {
-                        try checkUserInput()
-                    } catch BaseBallGameError.invalidInput {
-                        print("입력이 잘못되었습니다")
-                    } catch {
-                        print(error)
-                    }
-                }
-            } else if menu == 2 {
-                isGameEnd = true
-            }
+            menu == 1 ? pressNumberOne() : pressNumberTwo()
         case .failure(let failure):
             print("입력이 잘못되었습니다")
         }
-
     } 
+}
+
+func pressNumberOne() {
+    while leftCount != 0, !isUserWin {
+        do {
+            try checkUserInput()
+        } catch BaseBallGameError.invalidInput {
+            print("입력이 잘못되었습니다")
+        } catch {
+            print(error)
+        }
+    }
+}
+
+func pressNumberTwo() {
+    isGameEnd = true
 }
 
 playBaseBallGame()
