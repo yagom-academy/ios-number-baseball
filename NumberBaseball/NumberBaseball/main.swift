@@ -18,12 +18,16 @@ func checkGameResult(userNumbers: [String]) {
     var ballCount: Int = 0
     (strikeCount, ballCount) = compareNumbers(userRandomNumbers, with: computerNumbers)
     leftCount -= 1
+    printGameResult(strike: strikeCount, ball: ballCount, leftCount: leftCount)
+    if strikeCount == 3 {
+        isUserWin = true
+    }
+}
+
+func printGameResult(strike strikeCount: Int, ball ballCount: Int, leftCount: Int) {
     print("\n\(strikeCount) 스트라이크, \(ballCount) 볼")
     if leftCount != 0 {
         print("남은 기회 : \(leftCount)")
-    }
-    if strikeCount == 3 {
-        isUserWin = true
     }
 }
 
@@ -63,7 +67,8 @@ func checkUserInput() -> Result<[String], BaseBallGameError> {
     print("""
          숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
          중복 숫자는 허용하지 않습니다.
-         입력 :  """, terminator: "")
+         입력 :
+         """, terminator: "")
     let input: String? = readLine()
     guard let inputNumbers = input else {
         return .failure(BaseBallGameError.invalidInput)
