@@ -6,16 +6,13 @@
 
 - [소개](#소개)
 - [실행화면](#실행화면)
-
 - [흐름도](#흐름도)
 - [팀 규칙](#팀-규칙)
-  - [코드 컨벤션](#코드-컨벤션)
+  - [코딩 컨벤션](#코딩-컨벤션)
   - [커밋 컨벤션](#커밋-컨벤션)
-
 - [고민했던 점 및 해결방안](#고민했던-점-및-해결방안)
   - [Step 1](#Step-1)
   - [Step 2](#Step-2)
-
 - [참고 링크](#참고-링크)
 
 
@@ -40,21 +37,21 @@
 
 ### 야구 게임 실행 
 
-![야구게임](https://user-images.githubusercontent.com/88870642/209295667-93eb986d-070f-4591-86c2-9806ca3ede3f.gif)
+<img src = "https://user-images.githubusercontent.com/88870642/209295667-93eb986d-070f-4591-86c2-9806ca3ede3f.gif" height = "150" >
 
 ### 사용자 승리 
 
-![승리](https://user-images.githubusercontent.com/88870642/209295933-3abd7e64-3104-4236-91b3-64d396e4f200.gif)
+<img src = "https://user-images.githubusercontent.com/88870642/209295933-3abd7e64-3104-4236-91b3-64d396e4f200.gif" height = "150" >
 
 ### 컴퓨터 승리 
 
-![컴퓨터 승리](https://user-images.githubusercontent.com/88870642/209296048-71df4ab4-957a-4edf-a633-67762e6a60fb.gif)
+<img src = "https://user-images.githubusercontent.com/88870642/209296048-71df4ab4-957a-4edf-a633-67762e6a60fb.gif" height = "150" >
 
 
 
 ## 📊흐름도
 
-![FlowChart](https://user-images.githubusercontent.com/45560895/208592877-5a37d55c-32c2-4af1-891a-3811fcb52408.png)
+<img src = "https://user-images.githubusercontent.com/45560895/208592877-5a37d55c-32c2-4af1-891a-3811fcb52408.png" height = "700" >
 
 
 
@@ -190,8 +187,8 @@ let isNumbersValid = inputtedUserNumbers.components(separatedBy: " ").joined().r
 
 **- 에러처리 사용 예시**
 
-[![스크린샷 2022-12-22 오후 3 31 02](https://user-images.githubusercontent.com/88870642/209071985-a2df4a74-cd3a-4cf0-8105-90b51676e834.png)](https://user-images.githubusercontent.com/88870642/209071985-a2df4a74-cd3a-4cf0-8105-90b51676e834.png)
-[![스크린샷 2022-12-22 오후 3 31 17](https://user-images.githubusercontent.com/88870642/209072078-2e74dcab-c2b6-4d71-885c-50406cfb6a90.png)](https://user-images.githubusercontent.com/88870642/209072078-2e74dcab-c2b6-4d71-885c-50406cfb6a90.png)
+<img src = "https://user-images.githubusercontent.com/88870642/209071985-a2df4a74-cd3a-4cf0-8105-90b51676e834.png" height = "250">
+<img src = "https://user-images.githubusercontent.com/88870642/209072078-2e74dcab-c2b6-4d71-885c-50406cfb6a90.png" height = "350">
 
 **-에러처리 사용 안함**
 
