@@ -50,6 +50,7 @@ func startBaseballGame() {
     var answerCountCheck: Set<Int> = Set<Int>()
     var answerNumbers: Array<Int> = Array<Int>()
     var lastChance = 9
+    var startLoop: Bool = true
     
     while answerCountCheck.count < 3 {
         answerCountCheck.insert(Int.random(in: 1...9))
@@ -59,19 +60,19 @@ func startBaseballGame() {
         answerNumbers.append(number)
     }
     
-    while lastChance > 0 {
+    while startLoop {
         let strike = checkBallStrikeCount(to: answerNumbers, and: initRandomNumber())
         
         if strike == 3 {
-            break
+            print("사용자 승리!")
+            startLoop = false
+        } else if lastChance == 0 {
+            print("컴퓨터 승리...!")
+            startLoop = false
+        } else {
+            print("남은 기회 : \(lastChance)")
         }
         lastChance -= 1
-        print("남은 기회 : \(lastChance)")
-    }
-    if lastChance == 0 {
-        print("컴퓨터 승리...!")
-    } else {
-        print("사용자 승리!")
     }
 }
 
