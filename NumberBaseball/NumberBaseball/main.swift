@@ -6,17 +6,37 @@
 
 import Foundation
 
-func checkBallStrikeCount() {
-    
+func checkBallStrikeCount(to: [Int], and: [Int]){
+    var ball: Int
+    var strike: Int
 }
 
-var answerNumbers = [Int]()
-var lastChance = 9
-var ball: Int
-var strike: Int
-var answerCountCheck: Set<Int> = Set<Int>()
-var randomNumbers = [Int]()
-var randomNumberSet: Set<Int> = Set<Int>()
+func initRandomNumber() -> from: [Int] {
+    var randomNumbers: Array<Int> = Array<Int>()
+    var randomNumberSet: Set<Int> = Set<Int>()
+}
+
+func startBaseballGame() {
+    var answerCountCheck: Set<Int> = Set<Int>()
+    var answerNumbers: Array<Int> = Array<Int>()
+    var lastChance = 9
+    
+    while answerCountCheck.count < 3 {
+        answerCountCheck.insert(Int.random(in: 1...9))
+    }
+
+    for number in answerCountCheck {
+        answerNumbers.append(number)
+    }
+    
+    while lastChance > 0 {
+        checkBallStrikeCount(to: answerNumbers, and: initRandomNumber())
+        
+        
+        
+        lastChance -= 1
+    }
+}
 
 while randomNumberSet.count < 3 {
     randomNumberSet.insert(Int.random(in: 1...9))
@@ -27,14 +47,6 @@ for randomNumber in randomNumberSet {
 }
 
 print("임의의 수 : \(randomNumbers)")
-
-while answerCountCheck.count < 3 {
-    answerCountCheck.insert(Int.random(in: 1...9))
-}
-
-for number in answerCountCheck {
-    answerNumbers.append(number)
-}
 
 for number in inputNumber {
     if answerNumber.contains(Int(number) ?? 0) {
