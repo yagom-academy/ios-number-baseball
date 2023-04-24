@@ -8,6 +8,12 @@ import Foundation
 
 var answerNumber = [Int]()
 var lastChance = 9
+var ball: Int
+var strike: Int
+var answerCountCheck: Set<Int> = Set<Int>()
 
-print("임의의 수 : \(readline())")
+print("임의의 수 : ",terminator: "")
 
+guard let playerNumber = readLine() else {
+    return ""
+}
