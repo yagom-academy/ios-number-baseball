@@ -6,6 +6,10 @@
 
 import Foundation
 
+func checkBallStrikeCount() {
+    
+}
+
 var answerNumber = [Int]()
 var lastChance = 9
 var ball: Int
@@ -28,6 +32,17 @@ for randomNumber in answerCountCheck {
 
 for number in inputNumber {
     if answerNumber.contains(Int(number) ?? 0) {
-        
+        ball += 1
     }
 }
+
+for number in answerNumber {
+    if answerNumber[number] == Int(inputNumber[number]) {
+        ball -= 1
+        strike += 1
+    }
+}
+lastChance -= 1
+
+print("\(strike) 스트라이크, \(ball) 볼")
+print("남은 기회 : \(lastChance)")
