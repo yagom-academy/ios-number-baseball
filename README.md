@@ -1,6 +1,14 @@
-## iOS 커리어 스타터 캠프
+# 숫자 야구 프로젝트
 
-### 숫자야구 프로젝트 저장소
+## STEP 1. 순서도(Flow-Chart)
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+[STEP1 순서도](https://cdn.discordapp.com/attachments/1099908467956908102/1100016169802543114/1bbd0a5a57d9f527.png)
+
+<br/>
+
+## STEP 2. 순서도(Flow-Chart)
+
+[STEP2 순서도](https://cdn.discordapp.com/attachments/1099908467956908102/1100025443383529543/step2.png)
+
+
 
