@@ -10,24 +10,30 @@ func checkBallStrikeCount() {
     
 }
 
-var answerNumber = [Int]()
+var answerNumbers = [Int]()
 var lastChance = 9
 var ball: Int
 var strike: Int
 var answerCountCheck: Set<Int> = Set<Int>()
+var randomNumbers = [Int]()
+var randomNumberSet: Set<Int> = Set<Int>()
 
-print("임의의 수 : ",terminator: "")
-
-guard let inputNumber = readLine()?.components(separatedBy: " ") else {
-    return ""
+while randomNumberSet.count < 3 {
+    randomNumberSet.insert(Int.random(in: 1...9))
 }
+
+for randomNumber in randomNumberSet {
+    randomNumbers.append(randomNumber)
+}
+
+print("임의의 수 : \(randomNumbers)")
 
 while answerCountCheck.count < 3 {
     answerCountCheck.insert(Int.random(in: 1...9))
 }
 
-for randomNumber in answerCountCheck {
-    answerNumber.append(randomNumber)
+for number in answerCountCheck {
+    answerNumbers.append(number)
 }
 
 for number in inputNumber {
@@ -36,8 +42,8 @@ for number in inputNumber {
     }
 }
 
-for number in answerNumber {
-    if answerNumber[number] == Int(inputNumber[number]) {
+for index in 0...2 {
+    if answerNumbers[index] == Int(inputNumber[index]) {
         ball -= 1
         strike += 1
     }
@@ -46,3 +52,7 @@ lastChance -= 1
 
 print("\(strike) 스트라이크, \(ball) 볼")
 print("남은 기회 : \(lastChance)")
+
+if strike == 3 {
+    print("사용자 승리!")
+}
