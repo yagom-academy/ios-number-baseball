@@ -6,12 +6,11 @@
 
 import Foundation
 
-
 var computerRandomNumbers: Set<Int> = []
 var userRandomNumbers: Set<Int> = []
 var remainCount: Int = 9
 
-func randomNumberGenerator() -> Int {
+func generateRandomNumber() -> Int {
     return Int.random(in: 1...9)
 }
 
@@ -19,7 +18,7 @@ func addNumbers() -> Set<Int> {
     var randomNumbers: Set<Int> = []
     
     while randomNumbers.count < 3 {
-        randomNumbers.insert(randomNumberGenerator())
+        randomNumbers.insert(generateRandomNumber())
     }
     
     return randomNumbers
