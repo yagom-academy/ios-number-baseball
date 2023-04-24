@@ -41,7 +41,7 @@ func initRandomNumber() -> [Int] {
         randomNumbers.append(randomNumber)
     }
 
-    print("임의의 수 : \(randomNumbers)")
+    print("임의의 수 : \(randomNumbers.map{(randomNumber: Int) -> String in return String(randomNumber)}.joined(separator: " "))")
     
     return randomNumbers
 }
