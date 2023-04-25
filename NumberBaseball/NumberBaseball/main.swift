@@ -8,16 +8,21 @@ import Foundation
 
 var randomNumbers: [Int] = []
 var tryCount: Int = 9
+var resultCheck = true
 
 start()
 
 func start() {
-    while true {
-        randomNumbers = getRandomNumbers()
-        compareToRandomNumbers(randomNumbers: getRandomNumbers())
+    randomNumbers = getRandomNumbers()
+    
+    while resultCheck {
+        
         if tryCount == 0 {
+            print("컴퓨터의 승리")
             break
         }
+        
+        compareToRandomNumbers(randomNumbers: randomNumbers)
     }
 }
 
@@ -44,10 +49,11 @@ func compareToRandomNumbers(randomNumbers: [Int]) {
     
     if myBaseballNumbers == randomNumbers {
         print("사용자의 승리")
+        resultCheck = false
+        return
     }
     
-    print("randomNumbers: \(randomNumbers)")
-    print("mybaseballNumbers: \(myBaseballNumbers)")
+    print("임의의 수: \(randomNumbers)")
     
     for elements in 0...2 {
         if randomNumbers[elements] == myBaseballNumbers[elements] {
