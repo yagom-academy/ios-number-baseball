@@ -10,6 +10,7 @@ var computerRandomNumbers: [Int] = []
 var userRandomNumbers: [Int] = []
 var remainCount: Int = 9
 var ballCount: Int = 0
+var strikeCount: Int = 0
 
 func generateRandomNumber() -> Int {
     return Int.random(in: 1...9)
@@ -34,3 +35,8 @@ func addNumbers() -> [Int] {
 func checkMatchingCount(with computerRandomNumbers: [Int], _ userRandomNumbers: [Int]) -> Int {
     return Set(computerRandomNumbers).intersection(userRandomNumbers).count
 }
+
+func checkStrikeCount() -> Int {
+    return (0..<computerRandomNumbers.count).filter { computerRandomNumbers[$0] == userRandomNumbers[$0] }.count
+}
+
