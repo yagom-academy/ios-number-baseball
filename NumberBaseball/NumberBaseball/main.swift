@@ -6,67 +6,57 @@
 
 import Foundation
 
-func checkBallStrikeCount(to answerNumbersOfBaseballGame: [Int], and randomNumbersOfUser: [Int]) -> Int {
+func checkBallStrikeCount(from answerNumbersOfBaseballGame: [Int], with matchNumbersOfUser: [Int]) -> (strike: Int, ball: Int) {
     var ballCounts = 0
     var strikeCounts = 0
     
-    for randomNumber in randomNumbersOfUser {
-        if answerNumbersOfBaseballGame.contains(randomNumber) {
+    for index in 0...2 {
+        if answerNumbersOfBaseballGame.contains(matchNumbersOfUser[index]) {
             ballCounts += 1
         }
-    }
-
-    for index in 0...2 {
-        if answerNumbersOfBaseballGame[index] == randomNumbersOfUser[index] {
+        
+        if answerNumbersOfBaseballGame[index] == matchNumbersOfUser[index] {
             ballCounts -= 1
             strikeCounts += 1
         }
     }
     
-    print("\(strikeCounts) 스트라이크, \(ballCounts) 볼")
-    return strikeCounts
+    return (strikeCounts, ballCounts)
 }
 
-func initRandomNumber() -> [Int] {
-    var randomNumberSet: Set<Int> = Set<Int>()
-    var randomNumbers = Array(randomNumberSet)
+func initializeRandomNumber() -> [Int] {
+    var randomNumbers: Set<Int> = Set<Int>()
     
-    while randomNumberSet.count < 3 {
-        randomNumberSet.insert(Int.random(in: 1...9))
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
     }
-    
-    randomNumbers = Array(randomNumberSet)
 
-    print("임의의 수 : \(randomNumbers.map{(randomNumber: Int) -> String in return String(randomNumber)}.joined(separator: " "))")
-    
-    return randomNumbers
+    return Array(randomNumbers)
 }
 
 func startBaseballGame() {
-    var answerNumbersSet: Set<Int> = Set<Int>()
-    var answerNumbers: Array<Int> = Array<Int>()
-    var leftChance = 9
-    var isWorking: Bool = true
+    let answerNumbers = initializeRandomNumber()
+    var chance = 9
+    var isLeftChance: Bool = true
     
-    while answerNumbersSet.count < 3 {
-        answerNumbersSet.insert(Int.random(in: 1...9))
-    }
-    
-    answerNumbers = Array(answerNumbersSet)
-    
-    while isWorking {
-        let strike = checkBallStrikeCount(to: answerNumbers, and: initRandomNumber())
+    while isLeftChance {
+        chance -= 1
         
-        if strike == 3 {
+        var randomNumbers = initializeRandomNumber()
+        let matchCount = checkBallStrikeCount(from: answerNumbers, with: randomNumbers)
+        
+        print("임의의 수 : \(Array(randomNumbers).map{String($0)}.joined(separator: " "))")
+        print("\(matchCount.strike) 스트라이크, \(matchCount.ball) 볼")
+        
+        if matchCount.strike == 3 {
             print("사용자 승리!")
-            isWorking = false
-        } else if leftChance == 0 {
+            isLeftChance = false
+        } else if chance == 0 {
             print("컴퓨터 승리...!")
-            isWorking = false
+            isLeftChance = false
         } else {
-            print("남은 기회 : \(leftChance)")
+            print("남은 기회 : \(chance)")
         }
-        leftChance -= 1
     }
 }
 
