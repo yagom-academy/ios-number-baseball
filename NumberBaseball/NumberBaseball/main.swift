@@ -8,7 +8,7 @@ import Foundation
 
 var computerRandomInt = [Int]()
 var userRandomInt = [Int]()
-var count: Int
+var count: Int = 9
 
 func creatRandomNumber() -> [Int] {
     var outputRandomInput = [Int]()
@@ -23,7 +23,7 @@ func creatRandomNumber() -> [Int] {
 }
 
 computerRandomInt = creatRandomNumber()
-userRandomInt = creatRandomNumber()
+//userRandomInt = creatRandomNumber()
 
 func compare(to computerNumbers: [Int], from userNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount: Int = 0
@@ -42,9 +42,33 @@ func compare(to computerNumbers: [Int], from userNumbers: [Int]) -> (strikeCount
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-var one: Int = compare(to: computerRandomInt, from: userRandomInt).strikeCount
-var two: Int = compare(to: computerRandomInt, from: userRandomInt).ballCount
+//var one: Int = compare(to: computerRandomInt, from: userRandomInt).strikeCount
+//var two: Int = compare(to: computerRandomInt, from: userRandomInt).ballCount
 //test용
 //print(computerRandomInt)
 //print(userRandomInt)
 //print("strike: \(one), ball: \(two)")
+
+func startGame() -> String {
+    while count > 1 {
+        userRandomInt = creatRandomNumber()
+        let one: Int = compare(to: computerRandomInt, from: userRandomInt).strikeCount
+        let two: Int = compare(to: computerRandomInt, from: userRandomInt).ballCount
+        
+        count -= 1
+        
+        print(computerRandomInt)
+        print(userRandomInt)
+        print("남은 기회: \(count)")
+        print("\(one) 스트라이크, \(two) 볼")
+        
+        if one == 3 {
+            return "USER 승리"
+            //break
+        }
+    }
+    return "COMPUTER WIN"
+}
+
+var result = startGame()
+print(result)
