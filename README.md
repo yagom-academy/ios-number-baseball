@@ -2,5 +2,5 @@
 
 ### 숫자야구 프로젝트 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+- 순서도
+![baseball_game_jusbug_max](./baseball_game_jusbug_max.png)
