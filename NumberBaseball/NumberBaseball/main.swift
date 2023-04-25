@@ -29,12 +29,18 @@ func compareToRandomNumbers(randomNumbers: [Int]) {
     var myBaseballNumbers: [Int] = getRandomNumbers()
     var strikeCount: Int = 0
     var ballCount: Int = 0
-    var outCount: Int = 0
     
-    for elements in myBaseballNumbers.count {
+    if myBaseballNumbers == randomNumbers {
+        print("사용자의 승리")
+    }
+    
+    for elements in myBaseballNumbers {
         if randomNumbers[elements] == myBaseballNumbers[elements] {
             strikeCount += 1
+        } else if randomNumbers.contains(myBaseballNumbers[elements]) {
+            ballCount += 1
         }
-        
     }
+    
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
