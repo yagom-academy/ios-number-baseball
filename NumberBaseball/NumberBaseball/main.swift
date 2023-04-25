@@ -6,5 +6,6 @@
 
 import Foundation
 
-print("Hello, World!")
+let answer = (1...9).shuffled()[0...2]
+var tryCount = 9
 
