@@ -6,6 +6,12 @@
 
 import Foundation
 
-let answer = (1...9).shuffled()[0...2]
+var answer: Array<Int>
 var tryCount = 9
 
+func createThreeNumber() -> Array<Int> {
+    return Array((1...9).shuffled()[0...2])
+}
+
+answer = createThreeNumber()
+print(answer)
