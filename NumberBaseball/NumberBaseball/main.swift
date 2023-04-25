@@ -18,7 +18,7 @@ func start() {
     while resultCheck {
         
         if tryCount == 0 {
-            print("컴퓨터의 승리")
+            print("컴퓨터의 승리...!")
             break
         }
         
@@ -27,7 +27,6 @@ func start() {
 }
 
 func getRandomNumbers() -> [Int] {
-    
     var randomNumbers: [Int] = []
     
     while randomNumbers.count != 3 {
@@ -48,20 +47,22 @@ func compareToRandomNumbers(randomNumbers: [Int]) {
     var ballCount: Int = 0
     
     if myBaseballNumbers == randomNumbers {
-        print("사용자의 승리")
+        print("사용자의 승리...!")
         resultCheck = false
         return
     }
     
-    print("임의의 수: \(randomNumbers)")
-    
+    print("임의의 수: ", terminator: "")
+
     for elements in 0...2 {
+        print("\(myBaseballNumbers[elements]) ", terminator: "")
         if randomNumbers[elements] == myBaseballNumbers[elements] {
             strikeCount += 1
         } else if randomNumbers.contains(myBaseballNumbers[elements]) {
             ballCount += 1
         }
     }
+    print("")
     
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     
