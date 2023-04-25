@@ -6,8 +6,8 @@
 
 import Foundation
 
-var computerRandomNumbers: Set<Int> = []
-var userRandomNumbers: Set<Int> = []
+var computerRandomNumbers: [Int] = []
+var userRandomNumbers: [Int] = []
 var remainCount: Int = 9
 var ballCount: Int = 0
 
@@ -15,16 +15,22 @@ func generateRandomNumber() -> Int {
     return Int.random(in: 1...9)
 }
 
-func addNumbers() -> Set<Int> {
-    var randomNumbers: Set<Int> = []
+func addNumbers() -> [Int] {
+    var uniqueRandomNumbers: Set<Int> = []
+    var randomNumbers: [Int] = []
+    var randomNumber: Int = 0
     
     while randomNumbers.count < 3 {
-        randomNumbers.insert(generateRandomNumber())
+        randomNumber = generateRandomNumber()
+        
+        if uniqueRandomNumbers.insert(randomNumber).inserted {
+            randomNumbers.append(randomNumber)
+        }
     }
     
     return randomNumbers
 }
 
-func checkMatchingCount() -> Int {
-    return computerRandomNumbers.intersection(userRandomNumbers).count
+func checkMatchingCount(with computerRandomNumbers: [Int], _ userRandomNumbers: [Int]) -> Int {
+    return Set(computerRandomNumbers).intersection(userRandomNumbers).count
 }
