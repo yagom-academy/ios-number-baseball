@@ -25,5 +25,23 @@ func baseballResult(answer: [Int]) -> [Int] {
     }
     return [ball, strike]
 }
-print(computerAnswer)
-print(baseballResult(answer: [1,2,3]))
+
+func startGame() {
+    while tryCount > 0 {
+        let someNumber = createThreeNumber()
+        let gameResult = baseballResult(answer: someNumber)
+        print("임의의 수 : \(someNumber.map { String($0) }.joined(separator: " "))")
+        print("\(gameResult[1]) 스트라이크, \(gameResult[0]) 볼")
+        if gameResult[1] == 3 {
+            print("사용자 승리!")
+            break
+        }
+        tryCount -= 1
+        if tryCount == 0 {
+            print("컴퓨터 승리...!")
+            break
+        }
+        print("남은 기회 : \(tryCount)")
+    }
+}
+startGame()
