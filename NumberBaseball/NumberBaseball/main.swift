@@ -9,6 +9,7 @@ import Foundation
 var computerRandomNumbers: Set<Int> = []
 var userRandomNumbers: Set<Int> = []
 var remainCount: Int = 9
+var ballCount: Int = 0
 
 func generateRandomNumber() -> Int {
     return Int.random(in: 1...9)
@@ -22,4 +23,8 @@ func addNumbers() -> Set<Int> {
     }
     
     return randomNumbers
+}
+
+func checkMatchingCount() -> Int {
+    return computerRandomNumbers.intersection(userRandomNumbers).count
 }
