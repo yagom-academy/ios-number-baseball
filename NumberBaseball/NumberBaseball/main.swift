@@ -32,12 +32,12 @@ func checkStrikeAndBall(_ randomNumberList: [Int]) -> (strike: Int, ball: Int) {
 }
 
 func startNumberBaseball() {
-    var turnCount = 9
+    var inning = 9
     
-    while turnCount != 0 {
+    while inning != 0 {
         let randomNumberList = generateRandomNumberList()
         let strikeAndBallCount = checkStrikeAndBall(randomNumberList)
-        turnCount -= 1
+        inning -= 1
         
         print("""
               임의의 수 : \(randomNumberList[0]) \(randomNumberList[1]) \(randomNumberList[2])
@@ -49,11 +49,11 @@ func startNumberBaseball() {
             break
         }
         
-        if turnCount == 0 {
+        if inning == 0 {
             print("컴퓨터 승리...!")
             break
         }
-        print("남은 기회 : \(turnCount)")
+        print("남은 기회 : \(inning)")
     }
 }
 
