@@ -3,7 +3,9 @@
 //  Copyright © yagom academy. All rights reserved.
 import Foundation
 
-func generateNumbers(numbers: inout [Int]) -> [Int] {
+func generateNumbers() -> [Int] {
+    var numbers: [Int] = []
+    
     while numbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
         if !numbers.contains(randomNumber) {
@@ -14,11 +16,12 @@ func generateNumbers(numbers: inout [Int]) -> [Int] {
     return numbers
 }
 
-func playNumberBaseballGame(remainingChance: inout Int) {
+func playNumberBaseballGame() {
+    var remainingChance = 9
     var computerNumbers: [Int] = []
     var playerNumbers: [Int] = []
     
-    computerNumbers = generateNumbers(numbers: &computerNumbers)
+    computerNumbers = generateNumbers()
     
     while remainingChance > 0 {
         remainingChance -= 1
@@ -26,7 +29,7 @@ func playNumberBaseballGame(remainingChance: inout Int) {
         var ball = 0
         var strike = 0
         
-        playerNumbers = generateNumbers(numbers: &playerNumbers)
+        playerNumbers = generateNumbers()
         
         for index in 0...2 {
             if playerNumbers[index] == computerNumbers[index] {
@@ -50,6 +53,4 @@ func playNumberBaseballGame(remainingChance: inout Int) {
     }
 }
 
-var remainingChance = 9
-
-playNumberBaseballGame(remainingChance: &remainingChance)
+playNumberBaseballGame()
