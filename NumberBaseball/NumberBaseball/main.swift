@@ -6,12 +6,6 @@
 
 import Foundation
 
-var input1: Int
-var input2: Int
-var input3: Int
-
-var chance: Int = 9
-
 func randomNumbers() -> Array<Int> {
     var computerNumbers: Array<Int> = []
     
@@ -28,14 +22,31 @@ func randomNumbers() -> Array<Int> {
     return computerNumbers
 }
 
-func compareNumbers(to computerNumbers: Array<Int>) {
-    let userNumbers = randomNumbers()
+func compareNumbers(with userNumbers: Array<Int>, to computerNumbers: Array<Int>) -> (strike: Int, ball: Int) {
     let strikes = userNumbers.enumerated().filter {userNumbers[$0.offset] == computerNumbers[$0.offset]}.map {$0.element}
+    let balls = userNumbers.filter {(strikes.contains($0) == false) && (computerNumbers.contains($0))}
+    let strike = strikes.count
+    let ball = balls.count
     
+    return (strike: strike, ball: ball)
 }
 
 func menuSelect() {
-    print("임의의 수 : \(computerNumbers)")
+    var computerNumbers: Array<Int>
+    var chance: Int = 9
+    computerNumbers = randomNumbers()
+    while chance > 0 {
+        let userNumbers = randomNumbers()
+        var result: (strike: Int, ball: Int) = compareNumbers(with: computerNumbers, to: computerNumbers)
+        print("임의의 수 : \(userNumbers)")
+        print("\(result.strike) 스트라이크, \(result.ball) 볼")
+        chance -= 1
+        if chance == 0 {
+            print("컴퓨터 승리...!")
+            break
+        }
+        print("남은 기회 : \(chance)")
+    }
 }
-
+menuSelect()
 
