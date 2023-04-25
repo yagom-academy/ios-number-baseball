@@ -12,12 +12,15 @@ var count: Int
 func creatRandomNumber() -> [Int] {
     var outputRandomInput = [Int]()
     
-    for i in 1...3 {
-        outputRandomInput[i] = Int.random(in: 1...9)
-        // set 사용?
+    while outputRandomInput.count < 3 {
+        let randomNumber = Int.random(in: 1...9)
+        if !outputRandomInput.contains(randomNumber) {
+            outputRandomInput.append(randomNumber)
+        }
     }
+    return outputRandomInput
 }
-
+var testNumber = creatRandomNumber()
 
 
 
