@@ -6,11 +6,8 @@
 
 import Foundation
 
-var randomNumbers: [Int] = []
-var userNumbers: [Int] = []
-var attemptCount = 9
-
 func createRandomNumbers() -> Array<Int> {
+    var randomNumbers: [Int] = []
     while randomNumbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
         if !randomNumbers.contains(randomNumber) {
@@ -22,7 +19,7 @@ func createRandomNumbers() -> Array<Int> {
 }
 
 func createUserNumbers() -> Array<Int> {
-    attemptCount -= 1
+    var userNumbers: [Int] = []
     while userNumbers.count < 3 {
         let userNumber = Int.random(in: 1...9)
         if !userNumbers.contains(userNumber) {
@@ -33,7 +30,7 @@ func createUserNumbers() -> Array<Int> {
     return userNumbers
 }
 
-func checkBall(to randomNumers: Array<Int>, from userNumbers: Array<Int>) -> Int {
+func checkBall(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> Int {
     var ballCount = 0
     for index in 0...2 {
         if randomNumbers.contains(userNumbers[index]) {
@@ -44,7 +41,7 @@ func checkBall(to randomNumers: Array<Int>, from userNumbers: Array<Int>) -> Int
     return ballCount
 }
 
-func checkStrike(to randomNumers: Array<Int>, from userNumbers: Array<Int>) -> Int {
+func checkStrike(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> Int {
     var strikeCount = 0
     for (a, b) in zip(randomNumbers, userNumbers) {
         if a == b {
@@ -55,4 +52,26 @@ func checkStrike(to randomNumers: Array<Int>, from userNumbers: Array<Int>) -> I
     return strikeCount
 }
 
+func playBall() {
+    let randomNumbers = createRandomNumbers()
+    var userNumbers = createUserNumbers()
+    var attemptCount = 9
+    var ballCount = 0
+    var strikeCount = 0
 
+    if checkBall(to: randomNumbers, from: userNumbers) == 0 {
+        userNumbers = createUserNumbers()
+        attemptCount -= 1
+    } else {
+        ballCount = checkBall(to: randomNumbers, from: userNumbers)
+        strikeCount = checkStrike(to: randomNumbers, from: userNumbers)
+        attemptCount -= 1
+    }
+    print("""
+임의의 수 : \(randomNumbers)
+\(strikeCount) 스트라이크, \(ballCount) 볼
+남은 기회 : \(attemptCount)
+""")
+}
+
+playBall()
