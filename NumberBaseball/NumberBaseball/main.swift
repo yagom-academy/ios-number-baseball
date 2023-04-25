@@ -9,8 +9,6 @@ import Foundation
 var randomNumbers: [Int] = []
 var userNumbers: [Int] = []
 var attemptCount = 9
-var strike = 0
-var ball = 0
 
 func createRandomNumbers() -> Array<Int> {
     while randomNumbers.count < 3 {
@@ -19,7 +17,7 @@ func createRandomNumbers() -> Array<Int> {
             randomNumbers.append(randomNumber)
         }
     }
-    print("RandomNumber : \(randomNumbers)")
+    print("임의의 수 : \(randomNumbers)")
     return randomNumbers
 }
 
@@ -46,5 +44,15 @@ func checkBall(to randomNumers: Array<Int>, from userNumbers: Array<Int>) -> Int
     return ballCount
 }
 
-checkBall(to: createRandomNumbers(), from: createUserNumbers())
+func checkStrike(to randomNumers: Array<Int>, from userNumbers: Array<Int>) -> Int {
+    var strikeCount = 0
+    for (a, b) in zip(randomNumbers, userNumbers) {
+        if a == b {
+            strikeCount += 1
+        }
+    }
+    print(strikeCount)
+    return strikeCount
+}
+
 
