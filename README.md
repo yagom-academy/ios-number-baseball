@@ -6,7 +6,7 @@
 ### Step0
 - 숫자야구 프로젝트의 플로우 차트를 작성합니다.
 
-![FlowChart][./FlowChart.jpeg]
+![FlowChart][./image/FlowChart.jpeg]
 
 ### Step1
 - 숫자야구 프로젝트의 기본기능을 구현합니다.
