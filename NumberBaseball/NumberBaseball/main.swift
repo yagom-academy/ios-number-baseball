@@ -6,7 +6,8 @@
 
 import Foundation
 
-var randomInt = [Int]()
+var computerRandomInt = [Int]()
+var userRandomInt = [Int]()
 var count: Int
 
 func creatRandomNumber() -> [Int] {
@@ -20,119 +21,30 @@ func creatRandomNumber() -> [Int] {
     }
     return outputRandomInput
 }
-var testNumber = creatRandomNumber()
 
+computerRandomInt = creatRandomNumber()
+userRandomInt = creatRandomNumber()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-var computerRandomNumbers = [Int]()//[Int]()
-var userNumber = [5, 8, 6]//[Int]()
-
-
-
-print(computerRandomNumbers)
-
-func createRandomThreeNumbers(numberArray: [Int]) -> [Int] {
+func compare(to computerNumbers: [Int], from userNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
+    var strikeCount: Int = 0
+    var ballCount: Int = 0
     
-    while numberArray.count < 3 {
-        let randomNumber = Int.random(in: 1...9)
-        if !numberArray.contains(randomNumber) {
-            numberArray.append(randomNumber)
+    for i in 0...2 {
+        if computerNumbers.contains(userNumbers[i]) {
+            ballCount += 1
+        }
+        
+        if computerNumbers[i] == userNumbers[i] {
+            strikeCount += 1
+            ballCount -= 1
         }
     }
-    
-    return numberArray
-}
- */
-
-
-/*
-var numberAttempts = 9
-var count = 0
-var strikeCounter = 0
-var ballCounter = 0
-
-repeat {
-    if strikeCounter < 3 {
-        // 유저 넘버 입력
-        strikeCounter = 0
-        ballCounter = 0
-        inputNumber()
-        test()
-    }
-    numberAttempts -= 1
-    
-} while numberAttempts > 0
-
-func test() {
-    for index in 0...computerNumber.count-1 {
-        if userNumber.contains(computerNumber[index]) && userNumber[index] == computerNumber[index] {
-            strikeCounter += 1
-        } else if userNumber.contains(computerNumber[index]) {
-            ballCounter += 1
-        }
-        //userNumber.reduce(<#T##initialResult: Result##Result#>, <#T##nextPartialResult: (Result, Int) throws -> Result##(Result, Int) throws -> Result##(_ partialResult: Result, Int) throws -> Result#>)
-    }
-    print(computerNumber)
-    print(userNumber)
-    print("\(strikeCounter) 스트라이크 \(ballCounter) 볼")
-    
+    return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-func inputNumber() {
-    var randomNumbers = [Int]()
-
-    while randomNumbers.count < 3 {
-        var randomNumber = Int.random(in: 1...9)
-        if !randomNumbers.contains(randomNumber) {
-            randomNumbers.append(randomNumber)
-        }
-    }
-    
-    userNumber = randomNumbers
-}
-
-
-*/
+var one: Int = compare(to: computerRandomInt, from: userRandomInt).strikeCount
+var two: Int = compare(to: computerRandomInt, from: userRandomInt).ballCount
+//test용
+//print(computerRandomInt)
+//print(userRandomInt)
+//print("strike: \(one), ball: \(two)")
