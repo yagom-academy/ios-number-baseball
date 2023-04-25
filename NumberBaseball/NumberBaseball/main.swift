@@ -28,16 +28,14 @@ func randomNumbers() -> Array<Int> {
     return computerNumbers
 }
 
-func compareNumbers(to computerNumbers: Array<Int>) -> (Int, Int) {
+func compareNumbers(to computerNumbers: Array<Int>) {
     let userNumbers = randomNumbers()
     let strikes = userNumbers.enumerated().filter {userNumbers[$0.offset] == computerNumbers[$0.offset]}.map {$0.element}
     
 }
 
-feat 숫자 비교 함수
-
-네비게이터 : 맥스
-드라이버 : jusbug
-
+func menuSelect() {
+    print("임의의 수 : \(computerNumbers)")
+}
 
 
