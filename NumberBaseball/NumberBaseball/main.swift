@@ -8,6 +8,7 @@ import Foundation
 
 var randomNumbers: [Int] = []
 var userNumbers: [Int] = []
+var attemptCount = 9
 var strike = 0
 var ball = 0
 
@@ -19,6 +20,16 @@ func createRandomNumbers() {
         }
     }
     print("RandomNumber : \(randomNumbers)")
+}
+
+func createUserNumbers() {
+    attemptCount -= 1
+    while userNumbers.count < 3 {
+        let userNumber = Int.random(in: 1...9)
+        if !userNumbers.contains(userNumber) {
+            userNumbers.append(userNumber)
+        }
+    }
 }
 
 createRandomNumbers()
