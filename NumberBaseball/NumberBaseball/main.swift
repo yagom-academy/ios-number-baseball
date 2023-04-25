@@ -1,38 +1,42 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
-var computerAnswer = createThreeNumber()
-var tryCount = 9
 
-func createThreeNumber() -> Array<Int> {
+func createThreeNumbers() -> [Int] {
     return Array((1...9).shuffled()[0...2])
 }
 
-func baseballResult(answer: [Int]) -> [Int] {
+func computeGameResult(correctAnswer: [Int], userAnswer: [Int]) -> (ball: Int, strike: Int) {
     var ball = 0
     var strike = 0
-    for (index, element) in answer.enumerated() {
-        if element == computerAnswer[index] {
+    
+    for (index, element) in userAnswer.enumerated() {
+        if element == correctAnswer[index] {
             strike += 1
-        } else if computerAnswer.contains(element) {
+        } else if correctAnswer.contains(element) {
             ball += 1
         }
     }
-    return [ball, strike]
+    
+    return (ball, strike)
 }
 
 func startGame() {
+    let correctAnswer = createThreeNumbers()
+    var tryCount = 9
+    
     while tryCount > 0 {
-        let someNumber = createThreeNumber()
-        let gameResult = baseballResult(answer: someNumber)
+        let someNumber = createThreeNumbers()
+        let gameResult = computeGameResult(correctAnswer: correctAnswer, userAnswer: someNumber)
+        
         print("임의의 수 : \(someNumber.map { String($0) }.joined(separator: " "))")
-        print("\(gameResult[1]) 스트라이크, \(gameResult[0]) 볼")
-        if gameResult[1] == 3 {
+        print("\(gameResult.strike) 스트라이크, \(gameResult.ball) 볼")
+        if gameResult.strike == 3 {
             print("사용자 승리!")
             break
         }
@@ -44,4 +48,5 @@ func startGame() {
         print("남은 기회 : \(tryCount)")
     }
 }
+
 startGame()
