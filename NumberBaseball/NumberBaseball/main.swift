@@ -9,6 +9,18 @@ import Foundation
 var randomNumbers: [Int] = []
 var tryCount: Int = 9
 
+start()
+
+func start() {
+    while true {
+        randomNumbers = getRandomNumbers()
+        compareToRandomNumbers(randomNumbers: getRandomNumbers())
+        if tryCount == 0 {
+            break
+        }
+    }
+}
+
 func getRandomNumbers() -> [Int] {
     
     var randomNumbers: [Int] = []
@@ -26,7 +38,7 @@ func getRandomNumbers() -> [Int] {
 }
 
 func compareToRandomNumbers(randomNumbers: [Int]) {
-    var myBaseballNumbers: [Int] = getRandomNumbers()
+    let myBaseballNumbers: [Int] = getRandomNumbers()
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
@@ -34,7 +46,10 @@ func compareToRandomNumbers(randomNumbers: [Int]) {
         print("사용자의 승리")
     }
     
-    for elements in myBaseballNumbers {
+    print("randomNumbers: \(randomNumbers)")
+    print("mybaseballNumbers: \(myBaseballNumbers)")
+    
+    for elements in 0...2 {
         if randomNumbers[elements] == myBaseballNumbers[elements] {
             strikeCount += 1
         } else if randomNumbers.contains(myBaseballNumbers[elements]) {
@@ -43,4 +58,7 @@ func compareToRandomNumbers(randomNumbers: [Int]) {
     }
     
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    
+    tryCount -= 1
+    print("남은 기회 : \(tryCount)")
 }
