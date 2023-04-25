@@ -44,3 +44,31 @@ func checkStrikeCount() -> Int {
 func checkBallCount(matching matchCount: Int, strike strikeCount: Int) -> Int {
     return matchCount - strikeCount
 }
+
+func playBaseballGame() {
+    computerRandomNumbers = addNumbers()
+    
+    while remainCount > 0 {
+        remainCount -= 1
+        userRandomNumbers = addNumbers()
+        matchCount = checkMatchingCount(with: computerRandomNumbers, userRandomNumbers)
+        strikeCount = checkStrikeCount()
+        ballCount = checkBallCount(matching: matchCount, strike: strikeCount)
+        
+        print("임의의 수 : \(userRandomNumbers.map { String($0) }.joined(separator: " "))")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        
+        if strikeCount != 3 && remainCount == 0 {
+            print("컴퓨터 승리...!")
+            return
+        } else if strikeCount == 3 {
+            print("사용자 승리!!!!")
+            return
+        } else {
+            print("남은 기회 : \(remainCount)")
+        }
+    }
+}
+
+//MARK: 실행
+playBaseballGame()
