@@ -14,13 +14,14 @@ var chance: Int = 9
 func menuStart() {
     print("1. 게임시작\n2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
-    var optionNumber = readLine()
+    
+    let optionNumber = readLine()
     
     switch optionNumber {
     case "1":
         menuSelect()
     case "2":
-        print()
+        print("", terminator: "")
     default:
         print("입력이 잘못되었습니다")
     }
@@ -56,19 +57,18 @@ func menuSelect() {
     opponentNumbers = makeRandomNumbers()
     
     while chance > 0 {
-        let userNumbers = makeRandomNumbers()
+        let userNumbers = inputGameNumbers()
         let result: gameResultType = compareNumbers(user: userNumbers, to: opponentNumbers)
-        let printNumber = userNumbers.map { String($0) }.joined(separator: ", ")
         
         print("\(result.strike) 스트라이크, \(result.ball) 볼")
         
         chance -= 1
         
-        if chance == 0 {
-            print("컴퓨터 승리...!")
-            break
-        } else if result.strike == 3 {
+        if result.strike == 3 {
             print("사용자 승리!")
+            break
+        } else if chance == 0 {
+            print("컴퓨터 승리...!")
             break
         }
         
@@ -83,17 +83,21 @@ func inputGameNumbers() -> Array<Int> {
     
     while !isNumberIn {
         print("입력 : ", terminator: "")
-        var inputNumber = readLine()
-        inputNumbers = inputNumber?.components(separatedBy: " ").compactMap { Int($0) }
         
-        guard Set(inputNumbers).count == 3 else {
+        guard let inputNumber = readLine() else { break }
+        inputNumbers = inputNumber.components(separatedBy: " ").compactMap { Int($0) }
+        
+        guard (inputNumbers.count == 3) && (Set(inputNumbers).count == 3) else {
             print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
             print("중복 숫자는 허용하지 않습니다.")
+            
+            continue
         }
         isNumberIn = true
     }
     return inputNumbers
 }
 
-menuSelect()
+menuStart()
+
 
