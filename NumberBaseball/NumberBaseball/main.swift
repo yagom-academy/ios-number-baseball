@@ -34,7 +34,7 @@ func checkBallCount(matching matchCount: Int, strike strikeCount: Int) -> Int {
     return matchCount - strikeCount
 }
 
-func printMessages(userRandomNumbers: [Int], strikeCount: Int, ballCount: Int, remainCount: Int) -> Bool {
+func printMessages(with userRandomNumbers: [Int], _ strikeCount: Int, _ ballCount: Int, _ remainCount: Int) -> Bool {
     print("임의의 수 : \(userRandomNumbers.map { String($0) }.joined(separator: " "))")
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     
@@ -61,8 +61,8 @@ func playBaseballGame() {
         let strikeCount = checkStrikeCount(with: computerRandomNumbers, userRandomNumbers)
         let ballCount = checkBallCount(matching: matchCount, strike: strikeCount)
         remainCount -= 1
-        
-        guard printMessages(userRandomNumbers: userRandomNumbers, strikeCount: strikeCount, ballCount: ballCount, remainCount: remainCount) else { return }
+
+        guard printMessages(with: userRandomNumbers, strikeCount, ballCount, remainCount) else { return }
     }
 }
 
