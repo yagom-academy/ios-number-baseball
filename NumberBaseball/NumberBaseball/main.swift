@@ -58,7 +58,25 @@ func startGame() {
     }
 }
 
+func showMenu() {
+    while true {
+        print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요 : ", terminator: "")
+        let menuChoice = readLine() ?? ""
+        let startOption = "1"
+        let endOption = "2"
+        
+        if menuChoice == startOption {
+            print("start Game")
+        } else if menuChoice == endOption {
+            print("end Game")
+            break
+        } else {
+            print("입력이 잘못되었습니다.")
+        }
+    }
+}
+
 let computerNumbers = makeUniqueRandomNumbers()
 var tryCounts = 9
 
-startGame()
+showMenu()
