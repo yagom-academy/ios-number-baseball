@@ -12,6 +12,19 @@ var resultCheck: Bool = true
 
 start()
 
+func selectMenu(input: String) {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    switch input {
+    case "1":
+        print("게임시작 선택")
+    case "2":
+        print("게임종료 선택")
+    default:
+        print("입력이 잘못되었습니다")
+    }
+}
+
 func start() {
     randomNumbers = getRandomNumbers()
     
