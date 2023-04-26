@@ -14,20 +14,7 @@ func createRandomNumbers() -> Array<Int> {
             randomNumbers.append(randomNumber)
         }
     }
-    print("임의의 수 : \(randomNumbers)")
     return randomNumbers
-}
-
-func createUserNumbers() -> Array<Int> {
-    var userNumbers: [Int] = []
-    while userNumbers.count < 3 {
-        let userNumber = Int.random(in: 1...9)
-        if !userNumbers.contains(userNumber) {
-            userNumbers.append(userNumber)
-        }
-    }
-    print("userNumber : \(userNumbers)")
-    return userNumbers
 }
 
 func checkBall(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> Int {
@@ -37,7 +24,6 @@ func checkBall(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> In
             ballCount += 1
         }
     }
-    print(ballCount)
     return ballCount
 }
 
@@ -48,30 +34,31 @@ func checkStrike(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> 
             strikeCount += 1
         }
     }
-    print(strikeCount)
     return strikeCount
 }
 
 func playBall() {
     let randomNumbers = createRandomNumbers()
-    var userNumbers = createUserNumbers()
     var attemptCount = 9
     var ballCount = 0
     var strikeCount = 0
-
-    if checkBall(to: randomNumbers, from: userNumbers) == 0 {
-        userNumbers = createUserNumbers()
-        attemptCount -= 1
-    } else {
-        ballCount = checkBall(to: randomNumbers, from: userNumbers)
+    print("임의의 수 : \(randomNumbers)")
+    while attemptCount > 0 && strikeCount < 3 {
+        let userNumbers = createRandomNumbers()
         strikeCount = checkStrike(to: randomNumbers, from: userNumbers)
+        ballCount = checkBall(to: randomNumbers, from: userNumbers)
         attemptCount -= 1
-    }
-    print("""
-임의의 수 : \(randomNumbers.map { String($0) }.joined(separator: " "))
+        print("""
+임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))
 \(strikeCount) 스트라이크, \(ballCount) 볼
 남은 기회 : \(attemptCount)
 """)
+    }
+    if strikeCount == 3 {
+        print("사용자 승리!")
+    }else {
+        print("컴퓨터 승리...!")
+    }
 }
 
 playBall()
