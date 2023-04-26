@@ -55,7 +55,11 @@ func startNumberBaseball() {
     
         guard let userNumberList = inputNumberList?.components(separatedBy: .whitespaces),
               userNumberList.count == 3,
-              Set(userNumberList).count == 3
+              Set(userNumberList).count == 3,
+              userNumberList.filter({ stringNumber in
+                  guard let integerNumber = Int(stringNumber), integerNumber <= 9 && integerNumber >= 1 else { return false }
+                  return true
+              }).count == 3
         else {
             print("입력이 잘못되었습니다.")
             continue
