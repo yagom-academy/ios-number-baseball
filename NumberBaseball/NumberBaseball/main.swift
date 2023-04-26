@@ -4,9 +4,6 @@
 
 import Foundation
 
-var remainingChance = 9
-var computerNumbers: [Int] = []
-
 func generateNumbers() -> [Int] {
     var numbers: [Int] = []
     
@@ -35,14 +32,16 @@ func evaluateStrikeBall(computer computerNumbers: [Int], player playerNumbers: [
     return (strike, ball)
 }
 
-func playNumberBaseballGame(remainingChance: inout Int, computerNumbers: inout [Int]) {
+func playNumberBaseballGame() {
+    var remainingChance = 9
+    
     while remainingChance > 0 {
         remainingChance -= 1
         
         var ball = 0
         var strike = 0
         
-        computerNumbers = generateNumbers()
+        let computerNumbers = generateNumbers()
         let playerNumbers = generateNumbers()
         
         (strike, ball) = evaluateStrikeBall(computer: computerNumbers, player: playerNumbers)
@@ -61,4 +60,4 @@ func playNumberBaseballGame(remainingChance: inout Int, computerNumbers: inout [
     }
 }
 
-playNumberBaseballGame(remainingChance: &remainingChance, computerNumbers: &computerNumbers)
+playNumberBaseballGame()
