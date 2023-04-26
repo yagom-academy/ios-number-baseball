@@ -5,8 +5,6 @@
 
 import Foundation
 
-var inning = 9
-
 func generateRandomNumberList() -> [String] {
     var randomNumberList: Set<String> = []
     
@@ -35,18 +33,18 @@ func checkStrikeAndBall(_ computerNumberList: [String], _ userNumberList: [Strin
     return (strikeCount, ballCount)
 }
 
-func isGameOver(_ strikeCount: Int, _ turnCount: Int) -> Bool {
+func isGameOver(_ strikeCount: Int, _ inning: Int) -> Bool {
     if strikeCount == 3 {
         print("사용자 승리!")
         return true
     }
     
-    if turnCount == 0 {
+    if inning == 0 {
         print("컴퓨터 승리...!")
         return true
     }
     
-    print("남은 기회 : \(turnCount)")
+    print("남은 기회 : \(inning)")
     return false
 }
 
@@ -64,7 +62,8 @@ func verifyInputNumberList(_ inputNumberList: String?) -> [String]? {
 
 func startNumberBaseball() {
     let computerNumberList = generateRandomNumberList()
-
+    var inning = 9
+    
     while inning != 0 {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력", terminator: " : ")
         let inputNumberList = readLine()
@@ -78,7 +77,6 @@ func startNumberBaseball() {
         inning -= 1
 
         if isGameOver(strikeAndBallCount.strike, inning) {
-            inning = 9
             break
         }
     }
