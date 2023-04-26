@@ -4,6 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+var inning = 9
+
 func generateRandomNumberList() -> [Int] {
     var randomIntegerList: Set<Int> = []
     
@@ -43,7 +45,6 @@ func isGameOver(_ strikeCount: Int, _ turnCount: Int) -> Bool {
 }
 
 func startNumberBaseball() {
-    var inning = 9
     let computerNumberList = generateRandomNumberList()
 
     while inning != 0 {
@@ -63,5 +64,20 @@ func startNumberBaseball() {
     }
 }
 
-startNumberBaseball()
+func start() {
+    while true {
+        print("1. 게임시작\n2. 게임종료\n원하는 기능을 선택해주세요", terminator: " : ")
+        let inputMenu = readLine()
 
+        switch inputMenu {
+        case "1":
+            startNumberBaseball()
+        case "2":
+            return
+        default:
+            print("입력이 잘못되었습니다.")
+        }
+    }
+}
+
+start()
