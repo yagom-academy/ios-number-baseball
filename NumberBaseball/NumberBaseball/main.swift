@@ -48,10 +48,9 @@ func startGame() {
     var remainingAttempts = 9
     
     while remainingAttempts > 0 {
-        let guessNumbers = createThreeNumbers()
+        let guessNumbers = receiveGuessNumber()
         let gameResult = computeGameResult(computer: winningNumbers, user: guessNumbers)
         
-        print("임의의 수 : \(guessNumbers.map { String($0) }.joined(separator: " "))")
         print("\(gameResult.strike) 스트라이크, \(gameResult.ball) 볼")
         
         if isWin(strike: gameResult.strike) { break }
@@ -76,9 +75,8 @@ func showMenu() {
         }
         
         if selectingMenu == 1 {
-            print("게임시작")
+            startGame()
         } else if selectingMenu == 2 {
-            print("게임종료")
             break
         } else {
             print("입력이 잘못되었습니다.")
@@ -86,7 +84,7 @@ func showMenu() {
     }
 }
 
-func receiveGuessNumber() {
+func receiveGuessNumber() -> [Int] {
     while true {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
@@ -95,7 +93,7 @@ func receiveGuessNumber() {
             print("입력이 잘못되었습니다.")
             continue
         }
-        break
+        return guessNumber.components(separatedBy: " ").compactMap { Int($0) }
     }
 }
 
@@ -112,4 +110,4 @@ func isValidGuessNumber(guessNumber: String) -> Bool {
     return true
 }
 
-receiveGuessNumber()
+showMenu()
