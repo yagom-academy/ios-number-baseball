@@ -11,19 +11,24 @@ typealias gameResultType = (strike: Int, ball: Int)
 var opponentNumbers: Array<Int> = []
 var chance: Int = 9
 
-func menuStart() {
-    print("1. 게임시작\n2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-    
-    let optionNumber = readLine()
-    
-    switch optionNumber {
-    case "1":
-        menuSelect()
-    case "2":
-        print("", terminator: "")
-    default:
-        print("입력이 잘못되었습니다")
+func startGame() {
+    var isGameOver = false
+    while !isGameOver {
+        print("1. 게임시작\n2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        
+        let optionNumber = readLine()
+        
+        switch optionNumber {
+        case "1":
+            isGameOver = true
+            selectMenu()
+        case "2":
+            isGameOver = true
+            print("", terminator: "")
+        default:
+            print("입력이 잘못되었습니다")
+        }
     }
 }
 
@@ -53,7 +58,7 @@ func compareNumbers(user userNumbers: Array<Int>, to opponentNumbers: Array<Int>
     return (strike: strike, ball: ball)
 }
 
-func menuSelect() {
+func selectMenu() {
     opponentNumbers = makeRandomNumbers()
     
     while chance > 0 {
@@ -98,6 +103,6 @@ func inputGameNumbers() -> Array<Int> {
     return inputNumbers
 }
 
-menuStart()
+startGame()
 
 
