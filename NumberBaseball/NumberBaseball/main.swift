@@ -8,7 +8,7 @@ import Foundation
 
 var randomNumbers: [Int] = []
 var tryCount: Int = 9
-var resultCheck = true
+var resultCheck: Bool = true
 
 start()
 
@@ -22,7 +22,7 @@ func start() {
             break
         }
         
-        compareToRandomNumbers(randomNumbers: randomNumbers)
+        compareToRandomNumbers(randomNumbers)
     }
 }
 
@@ -41,7 +41,7 @@ func getRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func compareToRandomNumbers(randomNumbers: [Int]) {
+func compareToRandomNumbers(_ randomNumbers: [Int]) {
     let myBaseballNumbers: [Int] = getRandomNumbers()
     var strikeCount: Int = 0
     var ballCount: Int = 0
@@ -52,18 +52,18 @@ func compareToRandomNumbers(randomNumbers: [Int]) {
         return
     }
     
-    print("임의의 수: ", terminator: "")
+    var randomNumber: String = ""
 
-    for elements in 0...2 {
-        print("\(myBaseballNumbers[elements]) ", terminator: "")
-        if randomNumbers[elements] == myBaseballNumbers[elements] {
+    for ( index, number ) in myBaseballNumbers.enumerated() {
+        randomNumber.append("\(number)")
+        if randomNumbers[index] == number {
             strikeCount += 1
-        } else if randomNumbers.contains(myBaseballNumbers[elements]) {
+        } else if randomNumbers.contains(number) {
             ballCount += 1
         }
     }
-    print("")
     
+    print("임의의 수: \(randomNumber)")
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     
     tryCount -= 1
