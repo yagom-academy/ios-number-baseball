@@ -61,12 +61,25 @@ func startGame() {
 }
 
 func menu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
-    let selectingMenu = readLine()
-    if let selectingMenu {
-        print(selectingMenu)
+    while true {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        let selectingMenu = readLine()
+
+        guard let selectingMenu, let selectingMenu = Int(selectingMenu) else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        if selectingMenu == 1 {
+            print("게임시작")
+        } else if selectingMenu == 2 {
+            print("게임종료")
+            break
+        } else {
+            print("입력이 잘못되었습니다.")
+        }
     }
 }
 
@@ -78,4 +91,5 @@ func receiveGuessNumber() {
         print(guessNumber)
     }
 }
-receiveGuessNumber()
+
+menu()
