@@ -60,4 +60,23 @@ func playNumberBaseballGame() {
     }
 }
 
+func selectMenu() {
+    while true {
+        print("1. 게임 시작")
+        print("2. 게임 종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        
+        let input = readLine() ?? ""
+        
+        switch input {
+        case "1":
+            playNumberBaseballGame()
+        case "2":
+            return
+        default:
+            print("입력이 잘못되었습니다.")
+        }
+    }
+}
+
 playNumberBaseballGame()
