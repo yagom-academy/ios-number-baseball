@@ -11,6 +11,21 @@ typealias gameResultType = (strike: Int, ball: Int)
 var opponentNumbers: Array<Int> = []
 var chance: Int = 9
 
+func menuStart() {
+    print("1. 게임시작\n2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    var optionNumber = readLine()
+    
+    switch optionNumber {
+    case "1":
+        print()
+    case "2":
+        print()
+    default:
+        print("입력이 잘못되었습니다")
+    }
+}
+
 func makeRandomNumbers() -> Array<Int> {
     var opponentNumbers: Array<Int> = []
     
@@ -45,7 +60,11 @@ func menuSelect() {
         let result: gameResultType = compareNumbers(user: userNumbers, to: opponentNumbers)
         let printNumber = userNumbers.map { String($0) }.joined(separator: ", ")
         
-        print("임의의 수 : \(printNumber)")
+        print("입력 : ", terminator: "")
+        var inputNumber = readLine()
+        var inputNumbers: Array<String> = []
+        
+        
         print("\(result.strike) 스트라이크, \(result.ball) 볼")
         
         chance -= 1
