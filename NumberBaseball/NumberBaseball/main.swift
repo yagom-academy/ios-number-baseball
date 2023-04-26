@@ -1,27 +1,24 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom.
+//  Created by Zion, Minsup
 //  Copyright © yagom academy. All rights reserved.
-//
 
-enum InputError: Error {
-    case wrongComponentCount
-    case duplicatedNumber
-}
+import Foundation
 
 var inning = 9
 
-func generateRandomNumberList() -> [Int] {
-    var randomIntegerList: Set<Int> = []
+func generateRandomNumberList() -> [String] {
+    var randomNumberList: Set<String> = []
     
-    while randomIntegerList.count != 3 {
-        randomIntegerList.insert(Int.random(in: 1...9))
+    while randomNumberList.count != 3 {
+        let test = String(Int.random(in: 1...9))
+        randomNumberList.insert(test)
     }
     
-    return Array(randomIntegerList)
+    return Array(randomNumberList)
 }
 
-func checkStrikeAndBall(_ computerNumberList: [Int], _ randomNumberList: [Int]) -> (strike: Int, ball: Int) {
+func checkStrikeAndBall(_ computerNumberList: [String], _ randomNumberList: [String]) -> (strike: Int, ball: Int) {
     var strikeCount = 0
     var ballCount = 0
 
@@ -49,35 +46,30 @@ func isGameOver(_ strikeCount: Int, _ turnCount: Int) -> Bool {
     return false
 }
 
-func insertUserNumberList() {
-    do {
-        let inputNumberList = readLine()
-        
-        guard let userNumberList = inputNumberList?.components(separatedBy: .whitespace), userNumberList.count == 3 else {
-            throw InputError.wrongComponentCount
-        }
-        
-        guard Set(userNumberList).count == 3 else {
-            throw InputError.duplicatedNumber
-        }
-    } catch {
-        
-    }
-}
-
 func startNumberBaseball() {
     let computerNumberList = generateRandomNumberList()
 
     while inning != 0 {
-        let randomNumberList = generateRandomNumberList()
-        let strikeAndBallCount = checkStrikeAndBall(computerNumberList, randomNumberList)
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력", terminator: " : ")
+        let inputNumberList = readLine()
+    
+        guard let userNumberList = inputNumberList?.components(separatedBy: .whitespaces),
+              userNumberList.count == 3,
+              Set(userNumberList).count == 3
+        else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+                
+        let randomNumberList = userNumberList
+        let strikeAndBallCount = checkStrikeAndBall(computerNumberList, userNumberList)
 
         inning -= 1
         print("""
               임의의 수 : \(randomNumberList[0]) \(randomNumberList[1]) \(randomNumberList[2])
               \(strikeAndBallCount.strike) 스트라이크, \(strikeAndBallCount.ball) 볼
               """)
-        
+
 
         if isGameOver(strikeAndBallCount.strike, inning) {
             break
