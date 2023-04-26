@@ -12,6 +12,14 @@ var resultCheck: Bool = true
 
 start()
 
+
+
+func inputData() -> String {
+    guard let inputData = readLine() else { return ""}
+    
+    return inputData
+}
+
 func selectMenu(input: String) {
     print("1. 게임시작")
     print("2. 게임종료")
