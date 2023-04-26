@@ -94,7 +94,10 @@ func inputGameNumbers() -> Array<Int> {
         guard let inputNumber = readLine() else { break }
         inputNumbers = inputNumber.components(separatedBy: " ").compactMap { Int($0) }
         
-        guard (inputNumbers.count == 3) && (Set(inputNumbers).count == 3) else { continue }
+        guard (inputNumbers.count == 3) && (Set(inputNumbers).count == 3) else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
         
         isNumberIn = true
     }
