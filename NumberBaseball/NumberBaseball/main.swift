@@ -18,7 +18,7 @@ func menuStart() {
     
     switch optionNumber {
     case "1":
-        print()
+        menuSelect()
     case "2":
         print()
     default:
@@ -60,11 +60,6 @@ func menuSelect() {
         let result: gameResultType = compareNumbers(user: userNumbers, to: opponentNumbers)
         let printNumber = userNumbers.map { String($0) }.joined(separator: ", ")
         
-        print("입력 : ", terminator: "")
-        var inputNumber = readLine()
-        var inputNumbers: Array<String> = []
-        
-        
         print("\(result.strike) 스트라이크, \(result.ball) 볼")
         
         chance -= 1
@@ -79,6 +74,25 @@ func menuSelect() {
         
         print("남은 기회 : \(chance)")
     }
+}
+
+func inputGameNumbers() -> Array<Int> {
+    
+    var isNumberIn = false
+    var inputNumbers: Array<Int> = []
+    
+    while !isNumberIn {
+        print("입력 : ", terminator: "")
+        var inputNumber = readLine()
+        inputNumbers = inputNumber?.components(separatedBy: " ").compactMap { Int($0) }
+        
+        guard Set(inputNumbers).count == 3 else {
+            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+            print("중복 숫자는 허용하지 않습니다.")
+        }
+        isNumberIn = true
+    }
+    return inputNumbers
 }
 
 menuSelect()
