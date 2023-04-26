@@ -1,24 +1,21 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom.
+//  Created by Etailmoon, Mary.
 //  Copyright © yagom academy. All rights reserved.
 //
-
-import Foundation
-
 
 func createThreeNumbers() -> [Int] {
     return Array((1...9).shuffled()[0...2])
 }
 
-func computeGameResult(correctAnswer: [Int], userAnswer: [Int]) -> (ball: Int, strike: Int) {
+func computeGameResult(computer winningNumbers: [Int], user guessNumbers: [Int]) -> (ball: Int, strike: Int) {
     var ball = 0
     var strike = 0
     
-    for (index, element) in userAnswer.enumerated() {
-        if element == correctAnswer[index] {
+    for (index, element) in guessNumbers.enumerated() {
+        if element == winningNumbers[index] {
             strike += 1
-        } else if correctAnswer.contains(element) {
+        } else if winningNumbers.contains(element) {
             ball += 1
         }
     }
@@ -26,26 +23,40 @@ func computeGameResult(correctAnswer: [Int], userAnswer: [Int]) -> (ball: Int, s
     return (ball, strike)
 }
 
+func isWin(strike: Int) -> Bool {
+    if strike == 3 {
+        print("사용자 승리!")
+        return true
+    } else {
+        return false
+    }
+}
+
+func isLose(remainingAttempts: Int) -> Bool {
+    if remainingAttempts == 1 {
+        print("컴퓨터 승리...!")
+        return true
+    } else {
+        return false
+    }
+}
+
 func startGame() {
-    let correctAnswer = createThreeNumbers()
-    var tryCount = 9
+    let winningNumbers = createThreeNumbers()
+    var remainingAttempts = 9
     
-    while tryCount > 0 {
-        let someNumber = createThreeNumbers()
-        let gameResult = computeGameResult(correctAnswer: correctAnswer, userAnswer: someNumber)
+    while remainingAttempts > 0 {
+        let guessNumbers = createThreeNumbers()
+        let gameResult = computeGameResult(computer: winningNumbers, user: guessNumbers)
         
-        print("임의의 수 : \(someNumber.map { String($0) }.joined(separator: " "))")
+        print("임의의 수 : \(guessNumbers.map { String($0) }.joined(separator: " "))")
         print("\(gameResult.strike) 스트라이크, \(gameResult.ball) 볼")
-        if gameResult.strike == 3 {
-            print("사용자 승리!")
-            break
-        }
-        tryCount -= 1
-        if tryCount == 0 {
-            print("컴퓨터 승리...!")
-            break
-        }
-        print("남은 기회 : \(tryCount)")
+        
+        if isWin(strike: gameResult.strike) { break }
+        if isLose(remainingAttempts: remainingAttempts) { break }
+
+        remainingAttempts -= 1
+        print("남은 기회 : \(remainingAttempts)")
     }
 }
 
