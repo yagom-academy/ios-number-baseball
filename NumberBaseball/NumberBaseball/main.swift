@@ -18,16 +18,20 @@ func generateRandomNumberList() -> [String] {
     return Array(randomNumberList)
 }
 
-func checkStrikeAndBall(_ computerNumberList: [String], _ randomNumberList: [String]) -> (strike: Int, ball: Int) {
+func checkStrikeAndBall(_ computerNumberList: [String], _ userNumberList: [String]) -> (strike: Int, ball: Int) {
     var strikeCount = 0
     var ballCount = 0
 
     for index in 0..<3 {
-        strikeCount += computerNumberList[index] == randomNumberList[index] ? 1 : 0
-        ballCount += computerNumberList.contains(randomNumberList[index]) ? 1 : 0
+        strikeCount += computerNumberList[index] == userNumberList[index] ? 1 : 0
+        ballCount += computerNumberList.contains(userNumberList[index]) ? 1 : 0
     }
     
     ballCount -= strikeCount
+    print("""
+          임의의 수 : \(userNumberList[0]) \(userNumberList[1]) \(userNumberList[2])
+          \(strikeCount) 스트라이크, \(ballCount) 볼
+          """)
     return (strikeCount, ballCount)
 }
 
@@ -46,6 +50,18 @@ func isGameOver(_ strikeCount: Int, _ turnCount: Int) -> Bool {
     return false
 }
 
+func verifyInputNumberList(_ inputNumberList: String?) -> [String]? {
+    guard let userNumberList = inputNumberList?.components(separatedBy: .whitespaces) else { return  nil }
+    guard userNumberList.count == 3, Set(userNumberList).count == 3 else { return nil }
+    guard userNumberList.filter({
+        guard let integerNumber = Int($0), integerNumber <= 9 && integerNumber >= 1 else { return false }
+        return true
+    }).count == 3 else { return nil }
+    
+    
+    return userNumberList
+}
+
 func startNumberBaseball() {
     let computerNumberList = generateRandomNumberList()
 
@@ -53,29 +69,16 @@ func startNumberBaseball() {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력", terminator: " : ")
         let inputNumberList = readLine()
     
-        guard let userNumberList = inputNumberList?.components(separatedBy: .whitespaces),
-              userNumberList.count == 3,
-              Set(userNumberList).count == 3,
-              userNumberList.filter({ stringNumber in
-                  guard let integerNumber = Int(stringNumber), integerNumber <= 9 && integerNumber >= 1 else { return false }
-                  return true
-              }).count == 3
-        else {
+        guard let userNumberList = verifyInputNumberList(inputNumberList) else {
             print("입력이 잘못되었습니다.")
             continue
         }
-                
-        let randomNumberList = userNumberList
+        
         let strikeAndBallCount = checkStrikeAndBall(computerNumberList, userNumberList)
-
         inning -= 1
-        print("""
-              임의의 수 : \(randomNumberList[0]) \(randomNumberList[1]) \(randomNumberList[2])
-              \(strikeAndBallCount.strike) 스트라이크, \(strikeAndBallCount.ball) 볼
-              """)
-
 
         if isGameOver(strikeAndBallCount.strike, inning) {
+            inning = 9
             break
         }
     }
