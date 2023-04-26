@@ -20,17 +20,28 @@ func inputData() -> String {
     return inputData
 }
 
-func selectMenu(input: String) {
+func selectMenu() -> String {
     print("1. 게임시작")
     print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 :", terminator: "")
+    var input: String = inputData()
+    
     switch input {
     case "1":
-        print("게임시작 선택")
+        while true {
+            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+            print("중복숫자는 허용하지 않습니다")
+            print("입력 : ", terminator: "")
+        }
+        
     case "2":
         print("게임종료 선택")
+        break
     default:
         print("입력이 잘못되었습니다")
+        break
     }
+    return input
 }
 
 func start() {
@@ -89,4 +100,8 @@ func compareToRandomNumbers(_ randomNumbers: [Int]) {
     
     tryCount -= 1
     print("남은 기회 : \(tryCount)")
+}
+
+func checkInputData(_: String) {
+    
 }
