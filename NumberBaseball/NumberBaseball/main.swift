@@ -6,62 +6,55 @@
 
 import Foundation
 
-var computerRandomNumbers = [Int]()
-var userRandomNumbers = [Int]()
-var remainingChance: Int = 9
-
 func creatRandomNumbers() -> [Int] {
-    var randomNumbers = [Int]()
+    var uniqueRandomNumbers = Set<Int>()
     
-    while randomNumbers.count < 3 {
-        let randomNumber = Int.random(in: 1...9)
-        if !randomNumbers.contains(randomNumber) {
-            randomNumbers.append(randomNumber)
-        }
+    while uniqueRandomNumbers.count < 3 {
+        uniqueRandomNumbers.insert(Int.random(in: 1...9))
     }
-    return randomNumbers
+    
+    return Array(uniqueRandomNumbers)
 }
 
-func compareComputerNumbers(and userNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
+func compare(_ hiddenRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
-    for i in 0...2 {
-        if computerRandomNumbers.contains(userNumbers[i]) {
-            ballCount += 1
-        }
-        
-        if computerRandomNumbers[i] == userNumbers[i] {
+    for index in 0...2 {
+        if hiddenRandomNumbers[index] == userNumbers[index] {
             strikeCount += 1
-            ballCount -= 1
+        } else if hiddenRandomNumbers.contains(userNumbers[index]){
+            ballCount += 1
         }
     }
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-func startGame() {
+func startBaseballGame() {
+    var hiddenRandomNumbers = creatRandomNumbers()
+    var userRandomNumbers = [Int]()
+    var remainingChance: Int = 9
+    
     while remainingChance > 0 {
-        userRandomNumbers = creatRandomNumbers()
-        let strikeCount: Int = compareComputerNumbers(and: userRandomNumbers).strikeCount
-        let ballCount: Int = compareComputerNumbers(and: userRandomNumbers).ballCount
-        
         remainingChance -= 1
+        userRandomNumbers = creatRandomNumbers()
         
-        print("임의의 수 : \(userRandomNumbers[0]) \(userRandomNumbers[1]) \(userRandomNumbers[2])")
+        let gameResult = compare(hiddenRandomNumbers, and: userRandomNumbers)
+        let strikeCount: Int = gameResult.strikeCount
+        let ballCount: Int = gameResult.ballCount
+        
+        print("임의의 수 : \(userRandomNumbers.map{String($0)}.joined(separator: " "))")
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
-        if remainingChance > 0 {
-            print("남은 기회: \(remainingChance)")
-        }
         if strikeCount == 3 {
             print("USER WIN!!")
             break
-        }
-        if remainingChance == 0 {
+        } else if remainingChance == 0 {
             print("COMPUTER WIN!!")
+        } else {
+            print("남은 기회: \(remainingChance)")
         }
     }
 }
 
-computerRandomNumbers = creatRandomNumbers()
-startGame()
+startBaseballGame()
