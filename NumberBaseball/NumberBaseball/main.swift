@@ -4,6 +4,11 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+enum InputError: Error {
+    case wrongComponentCount
+    case duplicatedNumber
+}
+
 var inning = 9
 
 func generateRandomNumberList() -> [Int] {
@@ -42,6 +47,22 @@ func isGameOver(_ strikeCount: Int, _ turnCount: Int) -> Bool {
     
     print("남은 기회 : \(turnCount)")
     return false
+}
+
+func insertUserNumberList() {
+    do {
+        let inputNumberList = readLine()
+        
+        guard let userNumberList = inputNumberList?.components(separatedBy: .whitespace), userNumberList.count == 3 else {
+            throw InputError.wrongComponentCount
+        }
+        
+        guard Set(userNumberList).count == 3 else {
+            throw InputError.duplicatedNumber
+        }
+    } catch {
+        
+    }
 }
 
 func startNumberBaseball() {
