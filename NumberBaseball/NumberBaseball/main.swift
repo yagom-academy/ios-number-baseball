@@ -5,7 +5,7 @@
 // 
 
 func offerBaseballGameMenu() {
-    var inMenu: Bool = true
+    var inMenu = true
     
     while inMenu {
         print("""
@@ -20,15 +20,15 @@ func offerBaseballGameMenu() {
         }
         
         if userOrder == "1" {
-            
+            startBaseballGame()
+        } else {
+            inMenu = false
         }
-        
-        inMenu = false
     }
 }
 
-func retrieveNumbers() -> [Int] {
-    let isInput: Bool = true
+func retrieveUserNumbers() -> Array<Int> {
+    let isInput = true
     
     while isInput {
         print("""
@@ -46,5 +46,57 @@ func retrieveNumbers() -> [Int] {
     }
 }
 
-//offerBaseballGameMenu()
-retrieveNumbers()
+func checkBallStrikeCount(from answerNumbers: Array<Int>, with matchNumbersOfUser: Array<Int>) -> (strike: Int, ball: Int) {
+    var ballCount = 0
+    var strikeCount = 0
+
+    for index in 0...2 {
+        if answerNumbers.contains(matchNumbersOfUser[index]) {
+            ballCount += 1
+        }
+
+        if answerNumbers[index] == matchNumbersOfUser[index] {
+            ballCount -= 1
+            strikeCount += 1
+        }
+    }
+
+    return (strikeCount, ballCount)
+}
+
+func generateRandomNumber() -> Array<Int> {
+    var randomNumbers = Set<Int>()
+
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
+    }
+
+    return Array(randomNumbers)
+}
+
+func startBaseballGame() {
+    let answerNumbers = generateRandomNumber()
+    var chance = 9
+    var isRemainingChance = true
+
+    while isRemainingChance {
+        chance -= 1
+
+        let userNumbers = retrieveUserNumbers()
+        let matchCount = checkBallStrikeCount(from: answerNumbers, with: userNumbers)
+
+        print("\(matchCount.strike) 스트라이크, \(matchCount.ball) 볼")
+
+        if matchCount.strike == 3 {
+            print("사용자 승리!")
+            isRemainingChance = false
+        } else if chance == 0 {
+            print("컴퓨터 승리...!")
+            isRemainingChance = false
+        } else {
+            print("남은 기회 : \(chance)")
+        }
+    }
+}
+
+offerBaseballGameMenu()

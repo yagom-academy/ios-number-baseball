@@ -5,9 +5,6 @@
 //  Created by kangkyungmin on 2023/04/26.
 //
 
-//let answerNumbers = generateRandomNumber()
-//var chance = 9
-//
 //func checkBallStrikeCount(from answerNumbers: [Int], with matchNumbersOfUser: [Int]) -> (strike: Int, ball: Int) {
 //    var ballCount = 0
 //    var strikeCount = 0
@@ -25,7 +22,7 @@
 //
 //    return (strikeCount, ballCount)
 //}
-//
+
 //func generateRandomNumber() -> [Int] {
 //    var randomNumbers: Set<Int> = Set<Int>()
 //
@@ -37,6 +34,8 @@
 //}
 //
 //func startBaseballGame() {
+//    let answerNumbers = generateRandomNumber()
+//    var chance = 9
 //    var isRemainingChance: Bool = true
 //
 //    while isRemainingChance {
@@ -59,5 +58,5 @@
 //        }
 //    }
 //}
-//
+
 //startBaseballGame()
