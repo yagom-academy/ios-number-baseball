@@ -6,17 +6,13 @@
 
 import Foundation
 
-func generateRandomNumber() -> Int {
-    return Int.random(in: 1...9)
-}
-
 func drawRandomNumbers() -> [Int] {
     var uniqueRandomNumbers: Set<Int> = []
     var randomNumbers: [Int] = []
     var randomNumber: Int = 0
     
     while randomNumbers.count < 3 {
-        randomNumber = generateRandomNumber()
+        randomNumber = Int.random(in: 1...9)
         
         if uniqueRandomNumbers.insert(randomNumber).inserted {
             randomNumbers.append(randomNumber)
