@@ -68,7 +68,7 @@ func playBall() {
         attemptCount -= 1
     }
     print("""
-임의의 수 : \(randomNumbers)
+임의의 수 : \(randomNumbers.map { String($0) }.joined(separator: " "))
 \(strikeCount) 스트라이크, \(ballCount) 볼
 남은 기회 : \(attemptCount)
 """)
