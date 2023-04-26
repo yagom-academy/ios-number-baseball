@@ -58,7 +58,6 @@ func playNumberBaseballGame() {
         
         (strike, ball) = evaluateStrikeBall(computer: computerNumbers, player: playerNumbers)
         
-        print("임의의 수 : \(computerNumbers[0]) \(computerNumbers[1]) \(computerNumbers[2])")
         print("\(strike) 스트라이크, \(ball) 볼")
         
         if strike == 3 {
@@ -91,4 +90,4 @@ func selectMenu() {
     }
 }
 
-playNumberBaseballGame()
+selectMenu()
