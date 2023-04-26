@@ -3,7 +3,6 @@
 //  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
 //
-import Foundation
 
 func generateRandomNumberList() -> [Int] {
     var randomIntegerList: Set<Int> = []
