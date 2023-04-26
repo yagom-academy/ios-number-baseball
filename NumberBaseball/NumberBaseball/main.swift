@@ -28,20 +28,20 @@ func compare(_ computerRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeC
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-func decideWinner(_ strikeCount: Int, _ remainingChance: Int) -> Bool {
-    var isContinue: Bool
+func judgeWinner(by strikeCount: Int, _ remainingChance: Int, perfectScore: Int) -> String {
+    var winner: String
     
-    if strikeCount == 3 {
+    if strikeCount == perfectScore {
+        winner = "USER"
         print("USER WIN!!")
-        isContinue = false
     } else if remainingChance == 0 {
+        winner = "COMPUTER"
         print("COMPUTER WIN!!")
-        isContinue = false
     } else {
-        print("남은 기회: \(remainingChance)")
-        isContinue = true
+        winner = "NotYet"
     }
-    return isContinue
+    
+    return winner
 }
 
 func startBaseballGame() {
@@ -49,6 +49,7 @@ func startBaseballGame() {
     var userRandomNumbers = [Int]()
     var remainingChance: Int = 9
     var isContinue: Bool = true
+    var winner: String
     
     repeat {
         remainingChance -= 1
@@ -59,7 +60,13 @@ func startBaseballGame() {
         print("임의의 수 : \(userRandomNumbers.map{ String($0) }.joined(separator: " "))")
         print("\(gameResult.strikeCount) 스트라이크, \(gameResult.ballCount) 볼")
         
-        isContinue = decideWinner(gameResult.strikeCount, remainingChance)
+        winner = judgeWinner(by: gameResult.strikeCount, remainingChance, perfectScore: computerRandomNumbers.count)
+        
+        if winner == "NotYet" {
+            print("남은 기회: \(remainingChance)")
+        } else {
+            isContinue = false
+        }
 
     } while isContinue
 }
