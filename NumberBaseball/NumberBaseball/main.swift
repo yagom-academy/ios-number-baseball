@@ -6,7 +6,7 @@
 
 import Foundation
 
-func creatRandomNumbers() -> [Int] {
+func createRandomNumbers() -> [Int] {
     var uniqueRandomNumbers = Set<Int>()
     
     while uniqueRandomNumbers.count < 3 {
@@ -20,7 +20,7 @@ func compare(_ hiddenRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeCou
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
-    for index in 0...2 {
+    for index in 0..<hiddenRandomNumbers.count {
         if hiddenRandomNumbers[index] == userNumbers[index] {
             strikeCount += 1
         } else if hiddenRandomNumbers.contains(userNumbers[index]){
@@ -31,22 +31,20 @@ func compare(_ hiddenRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeCou
 }
 
 func startBaseballGame() {
-    let hiddenRandomNumbers = creatRandomNumbers()
+    let hiddenRandomNumbers = createRandomNumbers()
     var userRandomNumbers = [Int]()
     var remainingChance: Int = 9
     
     while remainingChance > 0 {
         remainingChance -= 1
-        userRandomNumbers = creatRandomNumbers()
+        userRandomNumbers = createRandomNumbers()
         
-        let gameResult = compare(hiddenRandomNumbers, and: userRandomNumbers)
-        let strikeCount: Int = gameResult.strikeCount
-        let ballCount: Int = gameResult.ballCount
+        let gameResult: (strikeCount: Int, ballCount: Int) = compare(hiddenRandomNumbers, and: userRandomNumbers)
         
-        print("임의의 수 : \(userRandomNumbers.map{String($0)}.joined(separator: " "))")
-        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+        print("임의의 수 : \(userRandomNumbers.map{ String($0) }.joined(separator: " "))")
+        print("\(gameResult.strikeCount) 스트라이크, \(gameResult.ballCount) 볼")
         
-        if strikeCount == 3 {
+        if gameResult.strikeCount == 3 {
             print("USER WIN!!")
             break
         } else if remainingChance == 0 {
