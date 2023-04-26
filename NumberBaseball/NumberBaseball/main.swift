@@ -70,4 +70,12 @@ func menu() {
     }
 }
 
-menu()
+func receiveGuessNumber() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+    let guessNumber = readLine()
+    if let guessNumber {
+        print(guessNumber)
+    }
+}
+receiveGuessNumber()
