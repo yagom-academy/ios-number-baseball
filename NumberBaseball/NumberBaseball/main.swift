@@ -87,22 +87,18 @@ func inputGameNumbers() -> Array<Int> {
     var inputNumbers: Array<Int> = []
     
     while !isNumberIn {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
         print("입력 : ", terminator: "")
         
         guard let inputNumber = readLine() else { break }
         inputNumbers = inputNumber.components(separatedBy: " ").compactMap { Int($0) }
         
-        guard (inputNumbers.count == 3) && (Set(inputNumbers).count == 3) else {
-            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-            print("중복 숫자는 허용하지 않습니다.")
-            
-            continue
-        }
+        guard (inputNumbers.count == 3) && (Set(inputNumbers).count == 3) else { continue }
+        
         isNumberIn = true
     }
     return inputNumbers
 }
 
 startGame()
-
-
