@@ -31,7 +31,7 @@ func compare(_ hiddenRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeCou
 }
 
 func startBaseballGame() {
-    var hiddenRandomNumbers = creatRandomNumbers()
+    let hiddenRandomNumbers = creatRandomNumbers()
     var userRandomNumbers = [Int]()
     var remainingChance: Int = 9
     
