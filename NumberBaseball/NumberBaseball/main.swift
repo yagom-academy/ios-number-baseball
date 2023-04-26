@@ -60,4 +60,14 @@ func startGame() {
     }
 }
 
-startGame()
+func menu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    let selectingMenu = readLine()
+    if let selectingMenu {
+        print(selectingMenu)
+    }
+}
+
+menu()
