@@ -33,16 +33,28 @@ func evaluateStrikeBall(computer computerNumbers: [Int], player playerNumbers: [
 }
 
 func playNumberBaseballGame() {
+    let computerNumbers = generateNumbers()
+    var playerNumbers: [Int] = []
     var remainingChance = 9
     
     while remainingChance > 0 {
-        remainingChance -= 1
-        
-        var ball = 0
         var strike = 0
+        var ball = 0
         
-        let computerNumbers = generateNumbers()
-        let playerNumbers = generateNumbers()
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+        let input = readLine() ?? ""
+        
+        playerNumbers = input
+            .split(separator: " ")
+            .compactMap { Int($0 ) }
+            .filter { $0 > 0 && $0 < 10 }
+        
+        if playerNumbers.count != 3 {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        remainingChance -= 1
         
         (strike, ball) = evaluateStrikeBall(computer: computerNumbers, player: playerNumbers)
         
