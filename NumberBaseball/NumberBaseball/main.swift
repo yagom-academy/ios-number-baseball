@@ -1,6 +1,6 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by myungsun, yyss99.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -35,19 +35,18 @@ func getBallAndStrikeResult(of userNumbers: [Int]) -> (Int, Int) {
 func startGame() {
     while tryCounts > 0 {
         let userNumbers = makeUniqueRandomNumbers()
+        let (ballCount, strikeCount) = getBallAndStrikeResult(of: userNumbers)
         
         print("임의의 수 : \(userNumbers.map { String($0)}.joined(separator: " "))")
+        print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
-        let ballAndStrike = getBallAndStrikeResult(of: userNumbers)
-        
-        print("\(ballAndStrike.1) 스트라이크, \(ballAndStrike.0) 볼")
         tryCounts -= 1
         
         if tryCounts > 0 {
             print("남은 기회 : \(tryCounts)")
         }
         
-        if ballAndStrike.1 == 3 {
+        if strikeCount == 3 {
             print("사용자 승리!")
             break
         }
@@ -55,12 +54,11 @@ func startGame() {
         if tryCounts == 0 {
             print("컴퓨터 승리...!")
         }
-        
         print()
     }
 }
 
-var computerNumbers = makeUniqueRandomNumbers()
+let computerNumbers = makeUniqueRandomNumbers()
 var tryCounts = 9
 
 startGame()
