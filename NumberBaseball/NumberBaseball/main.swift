@@ -46,7 +46,9 @@ func showMenu() {
     }
 }
 
-
+func decreaseCount() {
+    count -= 1
+}
 
 func checkNumbers(for userInput: String) -> [Int]? {
     let invaildInput = -1
@@ -73,7 +75,15 @@ func inputUserGameNumber() {
             continue
         }
         let strikeCount = getBallAndStrikeResult(of: validNumber).1
+        
+        decreaseCount()
+        showBallAndStrikeResult(with: validNumber)
     }
+}
+
+func showBallAndStrikeResult(with validNumber: [Int]) {
+    let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
 var computerNumbers = makeUniqueRandomNumbers()
