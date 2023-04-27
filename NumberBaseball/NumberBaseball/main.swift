@@ -20,6 +20,9 @@ func start() {
         if selectMenu == "2" {
             break
         }
+        
+        tryCount = 9
+        resultCheck = true
     }
 }
 
@@ -37,18 +40,24 @@ func selectMenu() -> String {
     
     switch input {
     case "1":
+        randomNumbers = getRandomNumbers()
+        
         while true {
+            if tryCount == 0 {
+                print("컴퓨터의 승리...!")
+                break
+            } else if !resultCheck {
+                break
+            }
+            
             let inputNumbers = checkInputData()
             
-            if tryCount == 0 || !resultCheck {
-                break
-            } else if inputNumbers != [] {
-                compareToRandomNumbers(inputNumbers)
+            if inputNumbers != [] {
+                compareToRandomNumbers(randomNumbers, inputNumbers)
             }
         }
         break
     case "2":
-        print("게임종료 선택")
         break
     default:
         print("입력이 잘못되었습니다")
@@ -72,8 +81,7 @@ func getRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func compareToRandomNumbers(_ randomNumbers: [Int]) {
-    let myBaseballNumbers: [Int] = getRandomNumbers()
+func compareToRandomNumbers(_ randomNumbers: [Int], _ myBaseballNumbers: [Int]) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
@@ -82,11 +90,8 @@ func compareToRandomNumbers(_ randomNumbers: [Int]) {
         resultCheck = false
         return
     }
-    
-    var randomNumber: String = ""
-    
+        
     for ( index, number ) in myBaseballNumbers.enumerated() {
-        randomNumber.append("\(number)")
         if randomNumbers[index] == number {
             strikeCount += 1
         } else if randomNumbers.contains(number) {
@@ -94,10 +99,9 @@ func compareToRandomNumbers(_ randomNumbers: [Int]) {
         }
     }
     
-    print("임의의 수: \(randomNumber)")
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    
     tryCount -= 1
+
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
     print("남은 기회 : \(tryCount)")
 }
 
