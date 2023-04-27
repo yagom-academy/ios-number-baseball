@@ -38,10 +38,12 @@ func selectMenu() -> String {
     switch input {
     case "1":
         while true {
-            checkInputData()
+            let inputNumbers = checkInputData()
             
             if tryCount == 0 || !resultCheck {
                 break
+            } else if inputNumbers != [] {
+                compareToRandomNumbers(inputNumbers)
             }
         }
         break
@@ -104,23 +106,27 @@ func checkInputData() -> [Int] {
     print("중복숫자는 허용하지 않습니다")
     print("입력 : ", terminator: "")
     
-    var inputDataToInt: [Int] = []
     let inputData = inputData()
     let splitInputData = inputData.components(separatedBy: " ")
+    var inputNumbers: [Int] = []
     
-    if splitInputData.count != 3 {
+    for index in 0...splitInputData.count - 1 {
+        guard let number = Int(splitInputData[index]) else {
+            print("입력이 잘못되었습니다")
+            return []
+        }
+        
+        if (1...9).contains(number) {
+            inputNumbers.append(number)
+        }
+    }
+    
+    let setInputNumbers = Set(inputNumbers)
+    
+    if setInputNumbers.count != 3 {
         print("입력이 잘못되었습니다")
         return []
     }
     
-    for elements in 0...splitInputData.count - 1 {
-        guard let number = Int(splitInputData[elements]) else {
-            print("입력이 잘못되었습니다")
-            return []
-        }
-        inputDataToInt.append(number)
-        
-    }
-    
-    return inputDataToInt
+    return inputNumbers
 }
