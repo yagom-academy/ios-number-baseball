@@ -6,9 +6,8 @@
 
 import Foundation
 
-let menu: [String] = ["1", "2"]
-
 func selectMenu() -> String {
+    let menu: [String] = ["1", "2"]
     print("""
         1. 게임 시작
         2. 게임 종료
@@ -64,7 +63,10 @@ func getNumbers() -> [Int] {
     print("입력 :", terminator: " ")
     
     while true {
-        if let input = readLine()?.split(separator: " "), input.count == 3, input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"}) {
+        if let input = readLine()?.split(separator: " "),
+           input.count == 3,
+           input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
+        {
             inputNumbers = input.map({Int($0)!})
             break
         } else {
@@ -100,4 +102,11 @@ func playBall() {
     }
 }
 
-playBall()
+func executeGame(of selectedMenu: String) {
+    if selectedMenu == "1" {
+        playBall()
+    }
+}
+
+executeGame(of: selectMenu())
+
