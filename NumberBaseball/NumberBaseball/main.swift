@@ -68,7 +68,7 @@ func getNumbers() -> [Int] {
            input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
         {
             inputNumbers = input.map({Int($0)!})
-            break
+           // playBall(of: inputNumbers)
         } else {
             print("입력이 잘못되었습니다.")
         }
@@ -76,25 +76,16 @@ func getNumbers() -> [Int] {
     return inputNumbers
 }
 
-func playBall() {
-    let randomNumbers = createRandomNumbers()
-    var attemptCount = 9
-    var ballCount = 0
-    var strikeCount = 0
+func playBall(of userNumbers: [Int]) {
+    strikeCount = checkStrikeCount(to: randomNumbers, from: userNumbers)
+    ballCount = checkBallCount(to: randomNumbers, from: userNumbers)
+    attemptCount -= 1
 
-    while attemptCount > 0 && strikeCount < 3 {
-        let userNumbers = createRandomNumbers()
-        strikeCount = checkStrikeCount(to: randomNumbers, from: userNumbers)
-        ballCount = checkBallCount(to: randomNumbers, from: userNumbers)
-        attemptCount -= 1
-        
-        print("""
-        임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))
+    print("""
         \(strikeCount) 스트라이크, \(ballCount) 볼
         남은 기회 : \(attemptCount)
         """)
-    }
-    
+
     if strikeCount == 3 {
         print("사용자 승리!")
     } else {
@@ -102,11 +93,19 @@ func playBall() {
     }
 }
 
+let randomNumbers = createRandomNumbers()
+var attemptCount = 9
+var ballCount = 0
+var strikeCount = 0
+
 func executeGame(of selectedMenu: String) {
     if selectedMenu == "1" {
-        playBall()
+        while attemptCount > 0 && strikeCount < 3 {
+            playBall(of: getNumbers())
+        }
+    } else if selectedMenu == "2" {
+        return
     }
 }
 
 executeGame(of: selectMenu())
-
