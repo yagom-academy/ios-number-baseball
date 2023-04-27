@@ -38,7 +38,7 @@ func inputUserNumbers() -> [Int] {
         입력 :
         """, terminator: " ")
         
-        guard let inputNumbers = readLine()?.split(separator: " ").compactMap({ Int($0) }), Set(userNumbers).count == 3 else {
+        guard let inputNumbers = readLine()?.split(separator: " ").compactMap({ Int($0) }), Set(inputNumbers).count == 3 else {
             print("입력이 잘못되었습니다")
             continue
         }
@@ -62,13 +62,15 @@ func checkBallStrikeCount(from answerNumbers: [Int], with matchNumbersOfUser: [I
 }
 
 func generateRandomNumber() -> [Int] {
-    var randomNumbers = Set<Int>()
+    var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var randomNumbers = [Int]()
 
-    while randomNumbers.count < 3 {
-        randomNumbers.insert(Int.random(in: 1...9))
+    for index in (6...8).reversed() {
+        let outIndex = Int.random(in: 0...index)
+        randomNumbers.append(numbers[outIndex])
+        numbers.remove(at: outIndex)
     }
-
-    return Array(randomNumbers)
+    return randomNumbers
 }
 
 func startBaseballGame() {
