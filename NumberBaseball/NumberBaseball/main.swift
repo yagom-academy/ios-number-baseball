@@ -86,12 +86,30 @@ func inputUserMenu() {
     }
 }
 
-func inputUserGuessingNumbers() {
-    guard let userGuessingNumbers = readLine() else { return }
+func inputUserGuessingNumbers() -> [Int] {
+    guard let userGuessingNumbers = readLine() else { return [] }
     
-//TODO: 입력받은 값이 숫자 3개인지 검증 하는 함수 호출
-//    verifyUserGuessingNumbers()
+    return verifyUserGuessingNumbers(with: userGuessingNumbers)
+}
+
+func verifyUserGuessingNumbers(with userGuessingNumbers: String) -> [Int] {
+    let components = userGuessingNumbers.split(separator: " ")
+    var validUserGuessingNumbers: [Int] = []
+    
+    guard components.count == 3 else { return [] }
+    
+    for component in components {
+        guard let guessingNumber = Int(component),
+                guessingNumber > 0,
+                guessingNumber < 10
+        else { return [] }
+        
+        validUserGuessingNumbers.append(guessingNumber)
+    }
+    
+    return validUserGuessingNumbers
 }
 
 //MARK: 실행
-inputUserMenu()
+//inputUserMenu()
+print(inputUserGuessingNumbers())
