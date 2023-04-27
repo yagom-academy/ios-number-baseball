@@ -4,3 +4,5 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
+![STEP1-flowchart](./STEP-1-flowchart.jpg)
+![STEP2-flowchart](./STEP-2-flowchart.jpg)
