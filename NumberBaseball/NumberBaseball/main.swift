@@ -2,11 +2,6 @@
 //  Created by qoocrab, bmo.
 //  Copyright © yagom academy. All rights reserved.
 
-import Foundation
-
-var remainingChance = 9
-var computerNumbers: [Int] = []
-
 func generateNumbers() -> [Int] {
     var numbers: [Int] = []
     
@@ -35,30 +30,83 @@ func evaluateStrikeBall(computer computerNumbers: [Int], player playerNumbers: [
     return (strike, ball)
 }
 
-func playNumberBaseballGame(remainingChance: inout Int, computerNumbers: inout [Int]) {
+func validateNumbers(of input: String) -> [Int] {
+    return input
+        .split(separator: " ")
+        .compactMap { Int($0) }
+        .filter { $0 > 0 && $0 < 10 }
+}
+
+func printGameResult(strike: Int, ball: Int, remainingChance: Int) {
+    print("\(strike) 스트라이크, \(ball) 볼")
+    
+    if strike == 3 {
+        print("사용자 승리!")
+    } else if remainingChance > 0 {
+        print("남은 기회 : \(remainingChance)")
+    } else {
+        print("컴퓨터 승리...!")
+    }
+}
+
+func isPlayerWin(strike: Int) -> Bool {
+    return strike == 3
+}
+
+func playNumberBaseballGame() {
+    let computerNumbers = generateNumbers()
+    var remainingChance = 9
+    
     while remainingChance > 0 {
-        remainingChance -= 1
-        
-        var ball = 0
         var strike = 0
+        var ball = 0
         
-        computerNumbers = generateNumbers()
-        let playerNumbers = generateNumbers()
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+        guard let input = readLine() else {
+            return
+        }
+        
+        let playerNumbers = validateNumbers(of: input)
+        
+        if playerNumbers.count != 3 {
+            print("입력이 잘못되었습니다.")
+            
+            continue
+        }
+        
+        remainingChance -= 1
         
         (strike, ball) = evaluateStrikeBall(computer: computerNumbers, player: playerNumbers)
         
-        print("임의의 수 : \(computerNumbers[0]) \(computerNumbers[1]) \(computerNumbers[2])")
-        print("\(strike) 스트라이크, \(ball) 볼")
+        printGameResult(strike: strike, ball: ball, remainingChance: remainingChance)
         
-        if strike == 3 {
-            print("사용자 승리!")
-            break
-        } else if remainingChance > 0 {
-            print("남은 기회 : \(remainingChance)")
-        } else {
-            print("컴퓨터 승리...!")
+        if isPlayerWin(strike: strike) { break }
+    }
+}
+
+func printMenuOption() {
+    print("1. 게임 시작")
+    print("2. 게임 종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func selectMenu() {
+    while true {
+        printMenuOption()
+        
+        guard let input = readLine() else {
+            return
+        }
+        
+        switch input {
+        case "1":
+            playNumberBaseballGame()
+        case "2":
+            return
+        default:
+            print("입력이 잘못되었습니다.")
         }
     }
 }
 
-playNumberBaseballGame(remainingChance: &remainingChance, computerNumbers: &computerNumbers)
+selectMenu()
