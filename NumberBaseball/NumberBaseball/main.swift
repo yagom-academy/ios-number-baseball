@@ -30,25 +30,27 @@ func evaluateStrikeBall(computer computerNumbers: [Int], player playerNumbers: [
     return (strike, ball)
 }
 
-func filterPlayerNumbers(playerNumbers: String) -> [Int] {
-    return playerNumbers
+func validateNumbers(of input: String) -> [Int] {
+    return input
         .split(separator: " ")
         .compactMap { Int($0) }
         .filter { $0 > 0 && $0 < 10 }
 }
 
-func printGameResult(strike: Int, remainingChance: Int) -> Bool {
+func printGameResult(strike: Int, ball: Int, remainingChance: Int) {
+    print("\(strike) 스트라이크, \(ball) 볼")
+    
     if strike == 3 {
         print("사용자 승리!")
     } else if remainingChance > 0 {
         print("남은 기회 : \(remainingChance)")
-        
-        return false
     } else {
         print("컴퓨터 승리...!")
     }
-    
-    return true
+}
+
+func isPlayerWin(strike: Int) -> Bool {
+    return strike == 3
 }
 
 func playNumberBaseballGame() {
@@ -64,7 +66,7 @@ func playNumberBaseballGame() {
             return
         }
         
-        let playerNumbers = filterPlayerNumbers(playerNumbers: input)
+        let playerNumbers = validateNumbers(of: input)
         
         if playerNumbers.count != 3 {
             print("입력이 잘못되었습니다.")
@@ -76,19 +78,21 @@ func playNumberBaseballGame() {
         
         (strike, ball) = evaluateStrikeBall(computer: computerNumbers, player: playerNumbers)
         
-        print("\(strike) 스트라이크, \(ball) 볼")
+        printGameResult(strike: strike, ball: ball, remainingChance: remainingChance)
         
-        let gameOver = printGameResult(strike: strike, remainingChance: remainingChance)
-        
-        if gameOver { break }
+        if isPlayerWin(strike: strike) { break }
     }
+}
+
+func printMenuOption() {
+    print("1. 게임 시작")
+    print("2. 게임 종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
 func selectMenu() {
     while true {
-        print("1. 게임 시작")
-        print("2. 게임 종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        printMenuOption()
         
         guard let input = readLine() else {
             return
