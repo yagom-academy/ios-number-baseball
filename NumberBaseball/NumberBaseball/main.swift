@@ -78,12 +78,35 @@ func inputUserGameNumber() {
         
         decreaseCount()
         showBallAndStrikeResult(with: validNumber)
+        isGameDone = getGameResult(with: strikeCount)
     }
+    resetGame()
 }
 
 func showBallAndStrikeResult(with validNumber: [Int]) {
     let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+}
+
+func getGameResult(with strikeCount: Int) -> Bool {
+    if strikeCount == 3 {
+        print("사용자 승리!\n")
+        return false
+    } else {
+        print("남은 기회 : \(count)\n")
+    }
+    
+    if count == 0 {
+        print("컴퓨터 승리...!\n")
+        return false
+    }
+    
+    return true
+}
+
+func resetGame() {
+    computerNumbers = makeUniqueRandomNumbers()
+    count = 9
 }
 
 var computerNumbers = makeUniqueRandomNumbers()
