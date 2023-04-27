@@ -2,8 +2,6 @@
 //  Created by qoocrab, bmo.
 //  Copyright © yagom academy. All rights reserved.
 
-import Foundation
-
 func generateNumbers() -> [Int] {
     var numbers: [Int] = []
     
@@ -34,7 +32,6 @@ func evaluateStrikeBall(computer computerNumbers: [Int], player playerNumbers: [
 
 func playNumberBaseballGame() {
     let computerNumbers = generateNumbers()
-    var playerNumbers: [Int] = []
     var remainingChance = 9
     
     while remainingChance > 0 {
@@ -42,15 +39,18 @@ func playNumberBaseballGame() {
         var ball = 0
         
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
-        let input = readLine() ?? ""
+        guard let input = readLine() else {
+            return
+        }
         
-        playerNumbers = input
+        let playerNumbers = input
             .split(separator: " ")
-            .compactMap { Int($0 ) }
+            .compactMap { Int($0) }
             .filter { $0 > 0 && $0 < 10 }
         
         if playerNumbers.count != 3 {
             print("입력이 잘못되었습니다.")
+            
             continue
         }
         
@@ -62,6 +62,7 @@ func playNumberBaseballGame() {
         
         if strike == 3 {
             print("사용자 승리!")
+            
             break
         } else if remainingChance > 0 {
             print("남은 기회 : \(remainingChance)")
@@ -77,7 +78,9 @@ func selectMenu() {
         print("2. 게임 종료")
         print("원하는 기능을 선택해주세요 : ", terminator: "")
         
-        let input = readLine() ?? ""
+        guard let input = readLine() else {
+            return
+        }
         
         switch input {
         case "1":
