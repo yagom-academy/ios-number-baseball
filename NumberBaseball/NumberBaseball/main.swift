@@ -10,7 +10,6 @@ func createRandomNumbers() -> [Int] {
     while uniqueRandomNumbers.count < 3 {
         uniqueRandomNumbers.insert(Int.random(in: 1...9))
     }
-    
     return Array(uniqueRandomNumbers)
 }
 
@@ -28,19 +27,14 @@ func compare(_ computerRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeC
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-func judgeWinner(by strikeCount: Int, _ remainingChance: Int, perfectScore: Int) -> String {
-    var winner: String
+func judgeWinner(by strikeCount: Int, _ remainingChance: Int, winCondition: Int) -> String {
+    var winner: String = String()
     
-    if strikeCount == perfectScore {
+    if strikeCount == winCondition {
         winner = "USER"
-        print("USER WIN!!")
     } else if remainingChance == 0 {
         winner = "COMPUTER"
-        print("COMPUTER WIN!!")
-    } else {
-        winner = "NotYet"
     }
-    
     return winner
 }
 
@@ -48,10 +42,8 @@ func startBaseballGame() {
     let computerRandomNumbers: [Int] = createRandomNumbers()
     var userRandomNumbers = [Int]()
     var remainingChance: Int = 9
-    var isContinue: Bool = true
-    var winner: String
     
-    repeat {
+    while remainingChance > 0 {
         remainingChance -= 1
         userRandomNumbers = createRandomNumbers()
         
@@ -60,15 +52,15 @@ func startBaseballGame() {
         print("임의의 수 : \(userRandomNumbers.map{ String($0) }.joined(separator: " "))")
         print("\(gameResult.strikeCount) 스트라이크, \(gameResult.ballCount) 볼")
         
-        winner = judgeWinner(by: gameResult.strikeCount, remainingChance, perfectScore: computerRandomNumbers.count)
+        let winner: String = judgeWinner(by: gameResult.strikeCount, remainingChance, winCondition: computerRandomNumbers.count)
         
-        if winner == "NotYet" {
+        if winner.isEmpty {
             print("남은 기회: \(remainingChance)")
         } else {
-            isContinue = false
+            print("\(winner) WIN!!")
+            break
         }
-
-    } while isContinue
+    }
 }
 
 startBaseballGame()
