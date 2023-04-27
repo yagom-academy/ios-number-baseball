@@ -6,7 +6,7 @@
 
 import Foundation
 
-func createRandomNumbers() -> Array<Int> {
+func createRandomNumbers() -> [Int] {
     var randomNumbers: [Int] = []
     
     while randomNumbers.count < 3 {
@@ -18,7 +18,7 @@ func createRandomNumbers() -> Array<Int> {
     return randomNumbers
 }
 
-func checkBall(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> Int {
+func checkBallCount(to randomNumbers: [Int], from userNumbers: [Int]) -> Int {
     var ballCount = 0
     
     for index in 0...2 {
@@ -29,7 +29,7 @@ func checkBall(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> In
     return ballCount
 }
 
-func checkStrike(to randomNumbers: Array<Int>, from userNumbers: Array<Int>) -> Int {
+func checkStrikeCount(to randomNumbers: [Int], from userNumbers: [Int]) -> Int {
     var strikeCount = 0
     
     for (a, b) in zip(randomNumbers, userNumbers) {
@@ -48,8 +48,8 @@ func playBall() {
 
     while attemptCount > 0 && strikeCount < 3 {
         let userNumbers = createRandomNumbers()
-        strikeCount = checkStrike(to: randomNumbers, from: userNumbers)
-        ballCount = checkBall(to: randomNumbers, from: userNumbers)
+        strikeCount = checkStrikeCount(to: randomNumbers, from: userNumbers)
+        ballCount = checkBallCount(to: randomNumbers, from: userNumbers)
         attemptCount -= 1
         
         print("""
