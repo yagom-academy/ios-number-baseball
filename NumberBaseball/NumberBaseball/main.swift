@@ -55,10 +55,7 @@ func playBaseballGame() {
     var remainCount: Int = 9
     
     while remainCount > 0 {
-        let (isValid, userRandomNumbers) = inputUserGuessingNumbers()
-        
-        guard isValid else { continue }
-        
+        let userRandomNumbers = inputUserGuessingNumbers()
         let matchCount = checkMatchingCount(with: computerRandomNumbers, userRandomNumbers)
         let strikeCount = checkStrikeCount(with: computerRandomNumbers, userRandomNumbers)
         let ballCount = checkBallCount(matching: matchCount, strike: strikeCount)
@@ -88,42 +85,45 @@ func inputUserMenu() {
     }
 }
 
-func inputUserGuessingNumbers() -> (Bool, [Int]) {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 :", terminator: " ")
-    
-    guard let userGuessingNumbers = readLine() else {
-        print("입력이 잘못되었습니다.")
-        return (false, [])
+func inputUserGuessingNumbers() -> [Int] {
+    while true {
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 :", terminator: " ")
+        
+        guard let userGuessingNumbers = readLine() else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        let validUserGuessingNumbers = verifyUserGuessingNumbers(with: userGuessingNumbers)
+        
+        guard validUserGuessingNumbers.count == 3 else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        return validUserGuessingNumbers
     }
-    
-    let validUserGuessingNumbers = verifyUserGuessingNumbers(with: userGuessingNumbers)
-    
-    guard validUserGuessingNumbers.0 else {
-        print("입력이 잘못되었습니다.")
-        return (false, [])
-    }
-    
-    return validUserGuessingNumbers
 }
 
-func verifyUserGuessingNumbers(with userGuessingNumbers: String) -> (Bool, [Int]) {
+func verifyUserGuessingNumbers(with userGuessingNumbers: String) -> [Int] {
     let components = userGuessingNumbers.split(separator: " ")
     var validUserGuessingNumbers: [Int] = []
     
-    guard components.count == 3 else { return (false, []) }
+    guard components.count == 3 else { return [] }
     
     for component in components {
         guard let guessingNumber = Int(component),
               guessingNumber > 0,
-              guessingNumber < 10
-        else { return (false, []) }
+              guessingNumber < 10,
+              !validUserGuessingNumbers.contains(guessingNumber)
+        else { return [] }
         
         validUserGuessingNumbers.append(guessingNumber)
     }
     
-    return (true, validUserGuessingNumbers)
+    return validUserGuessingNumbers
 }
 
 func start() {
