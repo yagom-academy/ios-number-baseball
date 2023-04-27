@@ -28,6 +28,42 @@ func selectBaseballGameMenu() {
     }
 }
 
+func startBaseballGame() {
+    let answerNumbers = generateRandomNumber()
+    var chance = 9
+
+    while chance > 0 {
+        chance -= 1
+
+        let userNumbers = inputUserNumbers()
+        let matchCount = checkBallStrikeCount(from: answerNumbers, with: userNumbers)
+
+        print("\(matchCount.strike) 스트라이크, \(matchCount.ball) 볼")
+
+        if matchCount.strike == 3 {
+            print("사용자 승리!")
+            break
+        } else if chance == 0 {
+            print("컴퓨터 승리...!")
+            break
+        } else {
+            print("남은 기회 : \(chance)")
+        }
+    }
+}
+
+func generateRandomNumber() -> [Int] {
+    var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var randomNumbers = [Int]()
+
+    for index in (6...8).reversed() {
+        let indexToRemove = Int.random(in: 0...index)
+        randomNumbers.append(numbers[indexToRemove])
+        numbers.remove(at: indexToRemove)
+    }
+    return randomNumbers
+}
+
 func inputUserNumbers() -> [Int] {
     var userNumbers = [Int]()
     
@@ -59,42 +95,6 @@ func checkBallStrikeCount(from answerNumbers: [Int], with matchNumbersOfUser: [I
         }
     }
     return (strikeCount, ballCount)
-}
-
-func generateRandomNumber() -> [Int] {
-    var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    var randomNumbers = [Int]()
-
-    for index in (6...8).reversed() {
-        let indexToRemove = Int.random(in: 0...index)
-        randomNumbers.append(numbers[indexToRemove])
-        numbers.remove(at: indexToRemove)
-    }
-    return randomNumbers
-}
-
-func startBaseballGame() {
-    let answerNumbers = generateRandomNumber()
-    var chance = 9
-
-    while chance > 0 {
-        chance -= 1
-
-        let userNumbers = inputUserNumbers()
-        let matchCount = checkBallStrikeCount(from: answerNumbers, with: userNumbers)
-
-        print("\(matchCount.strike) 스트라이크, \(matchCount.ball) 볼")
-
-        if matchCount.strike == 3 {
-            print("사용자 승리!")
-            break
-        } else if chance == 0 {
-            print("컴퓨터 승리...!")
-            break
-        } else {
-            print("남은 기회 : \(chance)")
-        }
-    }
 }
 
 selectBaseballGameMenu()
