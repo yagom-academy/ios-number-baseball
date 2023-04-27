@@ -5,9 +5,9 @@
 // 
 
 func selectBaseballGameMenu() {
-    var isRunning = true
+    var hasGameStarted = true
     
-    while isRunning {
+    while hasGameStarted {
         print("""
         1. 게임시작
         2. 게임종료
@@ -20,7 +20,7 @@ func selectBaseballGameMenu() {
         case "1":
             startBaseballGame()
         case "2":
-            isRunning = false
+            hasGameStarted = false
         default:
             print("입력이 잘못되었습니다")
             continue
@@ -66,9 +66,9 @@ func generateRandomNumber() -> [Int] {
     var randomNumbers = [Int]()
 
     for index in (6...8).reversed() {
-        let outIndex = Int.random(in: 0...index)
-        randomNumbers.append(numbers[outIndex])
-        numbers.remove(at: outIndex)
+        let indexToRemove = Int.random(in: 0...index)
+        randomNumbers.append(numbers[indexToRemove])
+        numbers.remove(at: indexToRemove)
     }
     return randomNumbers
 }
