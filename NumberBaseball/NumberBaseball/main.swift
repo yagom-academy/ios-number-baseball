@@ -30,6 +30,27 @@ func evaluateStrikeBall(computer computerNumbers: [Int], player playerNumbers: [
     return (strike, ball)
 }
 
+func filterPlayerNumbers(playerNumbers: String) -> [Int] {
+    return playerNumbers
+        .split(separator: " ")
+        .compactMap { Int($0) }
+        .filter { $0 > 0 && $0 < 10 }
+}
+
+func printGameResult(strike: Int, remainingChance: Int) -> Bool {
+    if strike == 3 {
+        print("사용자 승리!")
+    } else if remainingChance > 0 {
+        print("남은 기회 : \(remainingChance)")
+        
+        return false
+    } else {
+        print("컴퓨터 승리...!")
+    }
+    
+    return true
+}
+
 func playNumberBaseballGame() {
     let computerNumbers = generateNumbers()
     var remainingChance = 9
@@ -43,10 +64,7 @@ func playNumberBaseballGame() {
             return
         }
         
-        let playerNumbers = input
-            .split(separator: " ")
-            .compactMap { Int($0) }
-            .filter { $0 > 0 && $0 < 10 }
+        let playerNumbers = filterPlayerNumbers(playerNumbers: input)
         
         if playerNumbers.count != 3 {
             print("입력이 잘못되었습니다.")
@@ -60,15 +78,9 @@ func playNumberBaseballGame() {
         
         print("\(strike) 스트라이크, \(ball) 볼")
         
-        if strike == 3 {
-            print("사용자 승리!")
-            
-            break
-        } else if remainingChance > 0 {
-            print("남은 기회 : \(remainingChance)")
-        } else {
-            print("컴퓨터 승리...!")
-        }
+        let gameOver = printGameResult(strike: strike, remainingChance: remainingChance)
+        
+        if gameOver { break }
     }
 }
 
