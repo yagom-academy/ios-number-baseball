@@ -4,67 +4,64 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-func offerBaseballGameMenu() {
-    var inMenu = true
+func selectBaseballGameMenu() {
+    var isRunning = true
     
-    while inMenu {
+    while isRunning {
         print("""
         1. 게임시작
         2. 게임종료
         원하는 기능을 선택해주세요 :
         """, terminator: " ")
         
-        guard let userOrder = readLine(), (userOrder == "1" || userOrder == "2") else {
+        guard let userOrder = readLine() else { return }
+        
+        switch userOrder {
+        case "1":
+            startBaseballGame()
+        case "2":
+            isRunning = false
+        default:
             print("입력이 잘못되었습니다")
             continue
-        }
-        
-        if userOrder == "1" {
-            startBaseballGame()
-        } else {
-            inMenu = false
         }
     }
 }
 
-func retrieveUserNumbers() -> Array<Int> {
-    let isInput = true
+func inputUserNumbers() -> [Int] {
+    var userNumbers = [Int]()
     
-    while isInput {
+    while userNumbers.count != 3 {
         print("""
         숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
         중복 숫자는 허용하지 않습니다.
         입력 :
         """, terminator: " ")
         
-        guard let userNumbers = readLine()?.split(separator: " ").compactMap({ Int($0) }), userNumbers.count == 3, Set(userNumbers).count == 3 else {
+        guard let inputNumbers = readLine()?.split(separator: " ").compactMap({ Int($0) }), Set(userNumbers).count == 3 else {
             print("입력이 잘못되었습니다")
             continue
         }
-    
-        return userNumbers
+        userNumbers = inputNumbers
     }
+    return userNumbers
 }
 
-func checkBallStrikeCount(from answerNumbers: Array<Int>, with matchNumbersOfUser: Array<Int>) -> (strike: Int, ball: Int) {
+func checkBallStrikeCount(from answerNumbers: [Int], with matchNumbersOfUser: [Int]) -> (strike: Int, ball: Int) {
     var ballCount = 0
     var strikeCount = 0
 
     for index in 0...2 {
-        if answerNumbers.contains(matchNumbersOfUser[index]) {
+        if answerNumbers[index] == matchNumbersOfUser[index] {
+            strikeCount += 1
+        } else if answerNumbers.contains(matchNumbersOfUser[index]) {
             ballCount += 1
         }
-
-        if answerNumbers[index] == matchNumbersOfUser[index] {
-            ballCount -= 1
-            strikeCount += 1
-        }
     }
-
     return (strikeCount, ballCount)
 }
 
-func generateRandomNumber() -> Array<Int> {
+func generateRandomNumber() -> [Int] {
     var randomNumbers = Set<Int>()
 
     while randomNumbers.count < 3 {
@@ -77,26 +74,25 @@ func generateRandomNumber() -> Array<Int> {
 func startBaseballGame() {
     let answerNumbers = generateRandomNumber()
     var chance = 9
-    var isRemainingChance = true
 
-    while isRemainingChance {
+    while chance > 0 {
         chance -= 1
 
-        let userNumbers = retrieveUserNumbers()
+        let userNumbers = inputUserNumbers()
         let matchCount = checkBallStrikeCount(from: answerNumbers, with: userNumbers)
 
         print("\(matchCount.strike) 스트라이크, \(matchCount.ball) 볼")
 
         if matchCount.strike == 3 {
             print("사용자 승리!")
-            isRemainingChance = false
+            break
         } else if chance == 0 {
             print("컴퓨터 승리...!")
-            isRemainingChance = false
+            break
         } else {
             print("남은 기회 : \(chance)")
         }
     }
 }
 
-offerBaseballGameMenu()
+selectBaseballGameMenu()
