@@ -38,7 +38,12 @@ func selectMenu() -> String {
     switch input {
     case "1":
         while true {
-            
+            checkInputData()
+
+            if tryCount == 0 {
+                break
+            }
+            break
         }
         
     case "2":
@@ -99,8 +104,9 @@ func checkInputData() {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
     print("중복숫자는 허용하지 않습니다")
     print("입력 : ", terminator: "")
-    
     let inputData = inputData()
-    
-    
+    let splitInputData = inputData.split(separator: " ")
+    if splitInputData.count != 3 {
+        print("입력이 잘못되었습니다")
+    }
 }
