@@ -57,31 +57,31 @@ func checkStrikeCount(to randomNumbers: [Int], from userNumbers: [Int]) -> Int {
 
 func getNumbers() {
     var inputNumbers: [Int] = []
-
-    while true {
-        print("""
+    
+    print("""
             숫자 세개를 띄어쓰기를 구분하여 입력하세요.
             중복숫자는 허용하지 않습니다.
             입력 :
             """, terminator: " ")
-        while attemptCount > 0 && strikeCount < 3 {
-            if let input = readLine()?.split(separator: " "),
-               input.count == 3,
-               input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
-            {
-                inputNumbers = input.map({Int($0)!})
-                playBall(of: inputNumbers)
-            } else {
-                print("입력이 잘못되었습니다.")
-                getNumbers()
-            }
-        }
+    
+    if let input = readLine()?.split(separator: " "),
+       input.count == 3,
+       input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
+    {
+        inputNumbers = input.map({Int($0)!})
+        playBall(of: inputNumbers)
+    } else {
+        print("입력이 잘못되었습니다.")
+        getNumbers()
+    }
+    if attemptCount == 0 {
+        print("컴퓨터 승리...!")
     }
 }
 
 func playBall(of userNumbers: [Int]) {
     strikeCount = checkStrikeCount(to: randomNumbers, from: userNumbers)
-    ballCount = checkBallCount(to: randomNumbers, from: userNumbers)
+    ballCount = checkBallCount(to: randomNumbers, from: userNumbers) - strikeCount
     attemptCount -= 1
 
     print("""
@@ -91,19 +91,20 @@ func playBall(of userNumbers: [Int]) {
 
     if strikeCount == 3 {
         print("사용자 승리!")
-    } else {
-        print("컴퓨터 승리...!")
     }
 }
 
 let randomNumbers = createRandomNumbers()
+//print(randomNumbers)
 var attemptCount = 9
 var ballCount = 0
 var strikeCount = 0
 
 func executeGame(of selectedMenu: String) {
     if selectedMenu == "1" {
-        getNumbers()
+        while attemptCount > 0 && strikeCount < 3 {
+            getNumbers()
+        }
     } else if selectedMenu == "2" {
         return
     }
