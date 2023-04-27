@@ -74,17 +74,16 @@ func inputUserGameNumber() {
             print("입력이 잘못되었습니다. \n")
             continue
         }
-        let strikeCount = getBallAndStrikeResult(of: validNumber).1
+        let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
         
         decreaseCount()
-        showBallAndStrikeResult(with: validNumber)
+        showBallAndStrikeResult(with:validNumber, ballCount, strikeCount)
         isGameDone = getGameResult(with: strikeCount)
     }
     resetGame()
 }
-
-func showBallAndStrikeResult(with validNumber: [Int]) {
-    let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
+ 
+func showBallAndStrikeResult(with validNumber: [Int], _ ballCount: Int, _ strikeCount: Int) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
