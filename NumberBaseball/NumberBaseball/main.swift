@@ -9,8 +9,8 @@ func generateRandomNumberList() -> [String] {
     var randomNumberList: Set<String> = []
     
     while randomNumberList.count != 3 {
-        let test = String(Int.random(in: 1...9))
-        randomNumberList.insert(test)
+        let randomNumber = String(Int.random(in: 1...9))
+        randomNumberList.insert(randomNumber)
     }
     
     return Array(randomNumberList)
@@ -26,10 +26,7 @@ func checkStrikeAndBall(_ computerNumberList: [String], _ userNumberList: [Strin
     }
     
     ball -= strike
-    print("""
-          임의의 수 : \(userNumberList[0]) \(userNumberList[1]) \(userNumberList[2])
-          \(strike) 스트라이크, \(ball) 볼
-          """)
+    print("\(strike) 스트라이크, \(ball) 볼")
     return (strike, ball)
 }
 
@@ -49,7 +46,7 @@ func isGameOver(_ strike: Int, _ inning: Int) -> Bool {
 }
 
 func verifyInputString(_ inputString: String?) -> [String]? {
-    guard let userNumberList = inputString?.components(separatedBy: .whitespaces) else { return  nil }
+    guard let userNumberList = inputString?.components(separatedBy: .whitespaces) else { return nil }
     guard userNumberList.count == 3, Set(userNumberList).count == 3 else { return nil }
     guard userNumberList.filter({
         guard let integerNumber = Int($0), 1...9 ~= integerNumber else { return false }
