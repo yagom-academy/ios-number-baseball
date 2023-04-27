@@ -12,7 +12,16 @@ var resultCheck: Bool = true
 
 start()
 
-
+func start() {
+    
+    while true {
+        let selectMenu = selectMenu()
+        
+        if selectMenu == "2" {
+            break
+        }
+    }
+}
 
 func inputData() -> String {
     guard let inputData = readLine() else { return ""}
@@ -23,15 +32,13 @@ func inputData() -> String {
 func selectMenu() -> String {
     print("1. 게임시작")
     print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 :", terminator: "")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
     var input: String = inputData()
     
     switch input {
     case "1":
         while true {
-            print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
-            print("중복숫자는 허용하지 않습니다")
-            print("입력 : ", terminator: "")
+            
         }
         
     case "2":
@@ -42,20 +49,6 @@ func selectMenu() -> String {
         break
     }
     return input
-}
-
-func start() {
-    randomNumbers = getRandomNumbers()
-    
-    while resultCheck {
-        
-        if tryCount == 0 {
-            print("컴퓨터의 승리...!")
-            break
-        }
-        
-        compareToRandomNumbers(randomNumbers)
-    }
 }
 
 func getRandomNumbers() -> [Int] {
@@ -85,7 +78,7 @@ func compareToRandomNumbers(_ randomNumbers: [Int]) {
     }
     
     var randomNumber: String = ""
-
+    
     for ( index, number ) in myBaseballNumbers.enumerated() {
         randomNumber.append("\(number)")
         if randomNumbers[index] == number {
@@ -102,6 +95,12 @@ func compareToRandomNumbers(_ randomNumbers: [Int]) {
     print("남은 기회 : \(tryCount)")
 }
 
-func checkInputData(_: String) {
+func checkInputData() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복숫자는 허용하지 않습니다")
+    print("입력 : ", terminator: "")
+    
+    let inputData = inputData()
+    
     
 }
