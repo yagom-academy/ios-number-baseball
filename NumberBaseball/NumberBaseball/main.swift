@@ -6,63 +6,8 @@
 
 import Foundation
 
-func drawRandomNumbers() -> [Int] {
-    var uniqueRandomNumbers: Set<Int> = []
-    var randomNumbers: [Int] = []
-    var randomNumber: Int = 0
-    
-    while randomNumbers.count < 3 {
-        randomNumber = Int.random(in: 1...9)
-        
-        if uniqueRandomNumbers.insert(randomNumber).inserted {
-            randomNumbers.append(randomNumber)
-        }
-    }
-    
-    return randomNumbers
-}
-
-func checkMatchingCount(with computerRandomNumbers: [Int], _ userRandomNumbers: [Int]) -> Int {
-    return Set(computerRandomNumbers).intersection(userRandomNumbers).count
-}
-
-func checkStrikeCount(with computerRandomNumbers: [Int], _ userRandomNumbers: [Int]) -> Int {
-    return (0..<computerRandomNumbers.count).filter { computerRandomNumbers[$0] == userRandomNumbers[$0] }.count
-}
-
-func checkBallCount(matching matchCount: Int, strike strikeCount: Int) -> Int {
-    return matchCount - strikeCount
-}
-
-func printMessages(with userRandomNumbers: [Int], _ strikeCount: Int, _ ballCount: Int, _ remainCount: Int) -> Bool {
-    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    
-    if strikeCount != 3 && remainCount == 0 {
-        print("컴퓨터 승리...!")
-        return false
-    } else if strikeCount == 3 {
-        print("사용자 승리!!!!")
-        return false
-    } else {
-        print("남은 기회 : \(remainCount)")
-    }
-    
-    return true
-}
-
-func playBaseballGame() {
-    let computerRandomNumbers: [Int] = drawRandomNumbers()
-    var remainCount: Int = 9
-    
-    while remainCount > 0 {
-        let userRandomNumbers = inputUserGuessingNumbers()
-        let matchCount = checkMatchingCount(with: computerRandomNumbers, userRandomNumbers)
-        let strikeCount = checkStrikeCount(with: computerRandomNumbers, userRandomNumbers)
-        let ballCount = checkBallCount(matching: matchCount, strike: strikeCount)
-        remainCount -= 1
-        
-        guard printMessages(with: userRandomNumbers, strikeCount, ballCount, remainCount) else { return }
-    }
+func start() {
+    inputUserMenu()
 }
 
 func inputUserMenu() {
@@ -85,8 +30,41 @@ func inputUserMenu() {
     }
 }
 
+func playBaseballGame() {
+    let computerRandomNumbers: [Int] = drawRandomNumbers()
+    var remainCount: Int = 9
+    
+    while remainCount > 0 {
+        let userRandomNumbers = inputUserGuessingNumbers()
+        let matchCount = checkMatchingCount(with: computerRandomNumbers, userRandomNumbers)
+        let strikeCount = checkStrikeCount(with: computerRandomNumbers, userRandomNumbers)
+        let ballCount = checkBallCount(matching: matchCount, strike: strikeCount)
+        remainCount -= 1
+        
+        guard printMessages(with: userRandomNumbers, strikeCount, ballCount, remainCount) else { return }
+    }
+}
+
+func drawRandomNumbers() -> [Int] {
+    var uniqueRandomNumbers: Set<Int> = []
+    var randomNumbers: [Int] = []
+    var randomNumber: Int = 0
+    
+    while randomNumbers.count < 3 {
+        randomNumber = Int.random(in: 1...9)
+        
+        if uniqueRandomNumbers.insert(randomNumber).inserted {
+            randomNumbers.append(randomNumber)
+        }
+    }
+    
+    return randomNumbers
+}
+
 func inputUserGuessingNumbers() -> [Int] {
-    while true {
+    let isAndrew: Bool = true
+    
+    while isAndrew {
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 허용하지 않습니다.")
         print("입력 :", terminator: " ")
@@ -126,8 +104,32 @@ func verifyUserGuessingNumbers(with userGuessingNumbers: String) -> [Int] {
     return validUserGuessingNumbers
 }
 
-func start() {
-    inputUserMenu()
+func checkMatchingCount(with computerRandomNumbers: [Int], _ userRandomNumbers: [Int]) -> Int {
+    return Set(computerRandomNumbers).intersection(userRandomNumbers).count
+}
+
+func checkStrikeCount(with computerRandomNumbers: [Int], _ userRandomNumbers: [Int]) -> Int {
+    return (0..<computerRandomNumbers.count).filter { computerRandomNumbers[$0] == userRandomNumbers[$0] }.count
+}
+
+func checkBallCount(matching matchCount: Int, strike strikeCount: Int) -> Int {
+    return matchCount - strikeCount
+}
+
+func printMessages(with userRandomNumbers: [Int], _ strikeCount: Int, _ ballCount: Int, _ remainCount: Int) -> Bool {
+    print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    
+    if strikeCount != 3 && remainCount == 0 {
+        print("컴퓨터 승리...!")
+        return false
+    } else if strikeCount == 3 {
+        print("사용자 승리!!!!")
+        return false
+    } else {
+        print("남은 기회 : \(remainCount)")
+    }
+    
+    return true
 }
 
 //MARK: 실행
