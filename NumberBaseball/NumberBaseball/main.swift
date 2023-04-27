@@ -86,5 +86,12 @@ func inputUserMenu() {
     }
 }
 
+func inputUserGuessingNumbers() {
+    guard let userGuessingNumbers = readLine() else { return }
+    
+//TODO: 입력받은 값이 숫자 3개인지 검증 하는 함수 호출
+//    verifyUserGuessingNumbers()
+}
+
 //MARK: 실행
 inputUserMenu()
