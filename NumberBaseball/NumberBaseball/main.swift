@@ -46,6 +46,43 @@ func judgeWinnerBy(_ strikeCount: Int, _ remainingChance: Int, _ winCondition: I
     return winner
 }
 
+func selectMenu() {
+    var selectNumber: String = ""
+    var isGameLoop: Bool = true
+    
+    while isGameLoop {
+        print("""
+    1. 게임시작
+    2. 게임종료
+    원하는 기능을 선택해주세요
+    """, terminator: " : ")
+        
+        do {
+            try selectNumber = input()
+        } catch InputError.emptyInput {
+            print("다시 입력해주세요.")
+        } catch {
+            print("알 수 없는 오류가 발생했습니다. 다시 입력해주세요.")
+        }
+        
+        switch selectNumber {
+        case "1":
+            startBaseballGame()
+        case "2":
+            isGameLoop = false
+        default:
+            print("입력이 잘못되었습니다.")
+        }
+    }
+}
+
+func input() throws -> String {
+    guard let userInput = readLine() else {
+        throw InputError.emptyInput
+    }
+    return userInput
+}
+
 func receiveUserInput() throws -> [Int] {
     var userStringInputs = [String]()
     var userIntInputs = [Int]()
@@ -79,19 +116,30 @@ func receiveUserInput() throws -> [Int] {
     for input in userStringInputs {
         userIntInputs.append(Int(input) ?? 0)
     }
-    
     return userIntInputs
 }
 
-func startBaseballGame() throws {
+func startBaseballGame() {
     let computerRandomNumbers: [Int] = createRandomNumbers()
     var userRandomNumbers = [Int]()
     var remainingChance: Int = 9
     
+    print(computerRandomNumbers)
     while remainingChance > 0 {
         remainingChance -= 1
-        userRandomNumbers = try receiveUserInput()
         
+        do {
+            try userRandomNumbers = receiveUserInput()
+        } catch InputError.emptyInput {
+            print("빈 값입니다.")
+        } catch InputError.wrongInput {
+            print("입력이 잘못되었습니다.")
+        } catch InputError.duplicateNumber {
+            print("중복된 숫자가 있습니다.")
+        } catch {
+            print("알 수 없는 오류가 발생했습니다. 다시 입력해주세요.")
+        }
+ 
         let gameResult: (strikeCount: Int, ballCount: Int) = compare(computerRandomNumbers, and: userRandomNumbers)
         
         print("임의의 수 : \(userRandomNumbers.map{ String($0) }.joined(separator: " "))")
@@ -107,12 +155,5 @@ func startBaseballGame() throws {
         }
     }
 }
-do {
-    try startBaseballGame()
-} catch InputError.emptyInput {
-    print("빈 값입니다.")
-} catch InputError.wrongInput {
-    print("입력이 잘못되었습니다.")
-} catch InputError.duplicateNumber {
-    print("중복된 숫자가 있습니다.")
-}
+
+selectMenu()
