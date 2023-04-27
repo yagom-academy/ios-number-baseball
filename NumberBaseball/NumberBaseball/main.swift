@@ -48,11 +48,10 @@ func isGameOver(_ strike: Int, _ inning: Int) -> Bool {
 func verifyInputString(_ inputString: String?) -> [String]? {
     guard let userNumberList = inputString?.components(separatedBy: .whitespaces) else { return nil }
     guard userNumberList.count == 3, Set(userNumberList).count == 3 else { return nil }
-    guard userNumberList.filter({
-        guard let integerNumber = Int($0), 1...9 ~= integerNumber else { return false }
-        
-        return true
-    }).count == 3 else { return nil }
+    
+    for userNumber in userNumberList {
+        guard let integerNumber = Int(userNumber), 1...9 ~= integerNumber else { return nil }
+    }
     
     return userNumberList
 }
