@@ -55,25 +55,28 @@ func checkStrikeCount(to randomNumbers: [Int], from userNumbers: [Int]) -> Int {
     return strikeCount
 }
 
-func getNumbers() -> [Int] {
+func getNumbers() {
     var inputNumbers: [Int] = []
-    
-    print("숫자 세개를 띄어쓰기를 구분하여 입력하세요.")
-    print("중복숫자는 허용하지 않습니다.")
-    print("입력 :", terminator: " ")
-    
+
     while true {
-        if let input = readLine()?.split(separator: " "),
-           input.count == 3,
-           input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
-        {
-            inputNumbers = input.map({Int($0)!})
-           // playBall(of: inputNumbers)
-        } else {
-            print("입력이 잘못되었습니다.")
+        print("""
+            숫자 세개를 띄어쓰기를 구분하여 입력하세요.
+            중복숫자는 허용하지 않습니다.
+            입력 :
+            """, terminator: " ")
+        while attemptCount > 0 && strikeCount < 3 {
+            if let input = readLine()?.split(separator: " "),
+               input.count == 3,
+               input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
+            {
+                inputNumbers = input.map({Int($0)!})
+                playBall(of: inputNumbers)
+            } else {
+                print("입력이 잘못되었습니다.")
+                getNumbers()
+            }
         }
     }
-    return inputNumbers
 }
 
 func playBall(of userNumbers: [Int]) {
@@ -100,9 +103,7 @@ var strikeCount = 0
 
 func executeGame(of selectedMenu: String) {
     if selectedMenu == "1" {
-        while attemptCount > 0 && strikeCount < 3 {
-            playBall(of: getNumbers())
-        }
+        getNumbers()
     } else if selectedMenu == "2" {
         return
     }
