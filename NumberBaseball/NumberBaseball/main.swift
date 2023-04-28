@@ -79,13 +79,13 @@ func startGame() {
         let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
         
         decreaseCount()
-        showBallAndStrikeResult(with:validNumber, ballCount, strikeCount)
+        showBallAndStrikeResultWith(ballCount, strikeCount)
         isGameDone = getGameResult(with: strikeCount)
     }
     resetGame()
 }
  
-func showBallAndStrikeResult(with validNumber: [Int], _ ballCount: Int, _ strikeCount: Int) {
+func showBallAndStrikeResultWith(_ ballCount: Int, _ strikeCount: Int) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
 
