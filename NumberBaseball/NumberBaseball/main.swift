@@ -30,11 +30,12 @@ func getBallAndStrikeResult(of userNumbers: [Int]) -> (Int, Int) {
 }
 
 func showMenu() {
+    let startOption = "1"
+    let endOption = "2"
+    
     while true {
         print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요 : ", terminator: "")
         guard let menuChoice = readLine() else { continue }
-        let startOption = "1"
-        let endOption = "2"
         
         if menuChoice == startOption {
             inputUserGameNumber()
@@ -58,8 +59,8 @@ func checkNumbers(for userInput: String) -> [Int]? {
                                   .map { Int($0) ?? invaildInput }
                                   .filter { $0 != 0 }
     
-    if separatedInput.contains(invaildInput)
-        || Set(separatedInput.filter({ String($0).count == vaildNumberLength })).count != vaildNumberCount {
+    if separatedInput.contains(invaildInput) ||
+        Set(separatedInput.filter { String($0).count == vaildNumberLength }).count != vaildNumberCount {
         return nil
     }
     return separatedInput
@@ -70,7 +71,8 @@ func inputUserGameNumber() {
     while isGameDone {
         print("\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
         
-        guard let userInput = readLine(), let validNumber = checkNumbers(for: userInput) else {
+        guard let userInput = readLine(),
+              let validNumber = checkNumbers(for: userInput) else {
             print("입력이 잘못되었습니다. \n")
             continue
         }
