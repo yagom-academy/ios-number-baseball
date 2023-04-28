@@ -56,17 +56,30 @@ func decreaseCount() {
 
 func checkNumbers(for userInput: String) -> [Int]? {
     let invaildInput = -1
-    let vaildNumberLength = 1
-    let vaildNumberCount = 3
+    let validNumberLength = 1
+    let validNumberCount = 3
     let separatedInput = userInput.split(separator: " ")
                                   .map { Int($0) ?? invaildInput }
                                   .filter { $0 != 0 }
     
-    if separatedInput.contains(invaildInput) ||
-        Set(separatedInput.filter { String($0).count == vaildNumberLength }).count != vaildNumberCount {
+    if hasInvalidInput(in: separatedInput, invaildInput) ||
+        hasInvalidNumberCount(in: separatedInput, validNumberCount, validNumberLength) {
         return nil
     }
     return separatedInput
+}
+
+func hasInvalidInput(in separatedInput: [Int], _ invalidInput: Int) -> Bool {
+    return separatedInput.contains(invalidInput) ? true : false
+}
+
+func getValidLengthNumbers(in separatedInput: [Int], _ validNumberLength: Int) -> [Int] {
+    return separatedInput.filter { String($0).count == validNumberLength }
+}
+
+func hasInvalidNumberCount(in separatedInput: [Int], _ validNumberCount: Int, _ validNumberLength: Int) -> Bool {
+    let validLengthNumbers = getValidLengthNumbers(in: separatedInput, validNumberLength)
+    return Set(validLengthNumbers).count != validNumberCount ? true : false
 }
 
 func startGame() {
