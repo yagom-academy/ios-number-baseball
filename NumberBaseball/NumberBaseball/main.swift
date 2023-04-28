@@ -5,11 +5,11 @@ var computerRandomNumbers: Set<Int> = []
 var randomNumbers: Set<Int> = []
 
 func createComputerRandomNumbers() -> [Int] {
-	while computerRandomNumbers.count != 3 {
+    while computerRandomNumbers.count != 3 {
         computerRandomNumbers.insert(Int.random(in: 1...9))
-	}
+    }
     let computerRandomNumbers = Array(computerRandomNumbers)
-	return computerRandomNumbers
+    return computerRandomNumbers
 }
 
 func createRandomNumbers() -> [Int] {
@@ -20,10 +20,35 @@ func createRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func judgeResult(randomNumbers: [Int]) -> [Int] {
+
+
+
+func judgeResult(computerRandomNumbersArray: [Int] ,randomNumbersArray: [Int]) -> [Int] {
     var ball: Int = 0
     var strike: Int = 0
+    var resultOfStrikeAndBall: [Int] = []
     
-    
-    return [0]
+    for i in 0...2 {
+        if computerRandomNumbersArray[i] == randomNumbersArray[i] {
+            strike += 1
+        } else if computerRandomNumbersArray[i] != randomNumbersArray[i] && randomNumbersArray.contains(computerRandomNumbersArray[i]) {
+            ball += 1
+        }
+    }
+    remainCount -= 1
+    print("임의의 수 : \(randomNumbersArray)")
+    print("\(strike) 스트라이크, \(ball) 볼")
+    print("남은 기회 : \(remainCount)")
+    resultOfStrikeAndBall.append(strike)
+    resultOfStrikeAndBall.append(ball)
+    return resultOfStrikeAndBall
 }
+
+func startGame() {
+    let computerRandomNumbersArray = createComputerRandomNumbers()
+    var randomNumbersArray = createRandomNumbers()
+    let judgeResult = judgeResult(computerRandomNumbersArray: computerRandomNumbersArray, randomNumbersArray: randomNumbersArray)
+    
+    print(judgeResult)
+}
+startGame()
