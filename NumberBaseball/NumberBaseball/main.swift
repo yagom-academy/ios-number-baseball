@@ -8,9 +8,6 @@ import Foundation
 
 typealias gameResultType = (strike: Int, ball: Int)
 
-var opponentNumbers: Array<Int> = []
-var chance: Int = 9
-
 func inputMenu() {
     var isGameOver = false
     while !isGameOver {
@@ -44,17 +41,14 @@ func printInstruction (level: Int) {
 }
 
 func makeRandomNumbers() -> Array<Int> {
-    var randomNumbers: Array<Int> = []
+    var randomNumbers: Set<Int> = []
     
     while randomNumbers.count < 3 {
         let randomNumber = Int.random(in:1...9)
-        if randomNumbers.contains(randomNumber) {
-            continue
-        }
-        randomNumbers.append(randomNumber)
+        randomNumbers.insert(randomNumber)
     }
     
-    return randomNumbers
+    return Array(randomNumbers)
 }
 
 func compareNumbers(user userNumbers: Array<Int>, to opponentNumbers: Array<Int>) -> gameResultType {
@@ -70,8 +64,10 @@ func compareNumbers(user userNumbers: Array<Int>, to opponentNumbers: Array<Int>
 }
 
 func startGame() {
-    opponentNumbers = makeRandomNumbers()
-    
+
+    let opponentNumbers: Array<Int> = makeRandomNumbers()
+    var chance: Int = 9
+
     while chance > 0 {
         let userNumbers = inputGameNumbers()
         let result: gameResultType = compareNumbers(user: userNumbers, to: opponentNumbers)
