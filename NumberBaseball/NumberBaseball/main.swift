@@ -7,8 +7,8 @@
 import Foundation
 
 var randomNumbers: [Int] = []
-var tryCount: Int = 9
-var resultCheck: Bool = true
+var remainTryCount: Int = 9
+var isResultCheck: Bool = true
 
 start()
 
@@ -21,8 +21,8 @@ func start() {
             break
         }
         
-        tryCount = 9
-        resultCheck = true
+        remainTryCount = 9
+        isResultCheck = true
     }
 }
 
@@ -41,21 +41,7 @@ func selectMenu() -> String {
     switch input {
     case "1":
         randomNumbers = getRandomNumbers()
-        
-        while true {
-            if tryCount == 0 {
-                print("컴퓨터의 승리...!")
-                break
-            } else if !resultCheck {
-                break
-            }
-            
-            let inputNumbers = checkInputData()
-            
-            if inputNumbers != [] {
-                compareToRandomNumbers(randomNumbers, inputNumbers)
-            }
-        }
+        playingGame(randomNumbers)
         break
     case "2":
         break
@@ -81,16 +67,34 @@ func getRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func compareToRandomNumbers(_ randomNumbers: [Int], _ myBaseballNumbers: [Int]) {
+func playingGame(_ randomNumbers: [Int]) {
+    
+    while true {
+        if remainTryCount == 0 {
+            print("컴퓨터의 승리...!")
+            break
+        } else if !isResultCheck {
+            print("사용자의 승리...!")
+            break
+        }
+        
+        let inputNumbers = checkInputData()
+        
+        if inputNumbers != [] {
+            compare(randomNumbers, to: inputNumbers)
+        }
+    }
+}
+
+func compare(_ randomNumbers: [Int], to myBaseballNumbers: [Int]) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
     if myBaseballNumbers == randomNumbers {
-        print("사용자의 승리...!")
-        resultCheck = false
+        isResultCheck = false
         return
     }
-        
+    
     for ( index, number ) in myBaseballNumbers.enumerated() {
         if randomNumbers[index] == number {
             strikeCount += 1
@@ -99,10 +103,10 @@ func compareToRandomNumbers(_ randomNumbers: [Int], _ myBaseballNumbers: [Int]) 
         }
     }
     
-    tryCount -= 1
-
+    remainTryCount -= 1
+    
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
-    print("남은 기회 : \(tryCount)")
+    print("남은 기회 : \(remainTryCount)")
 }
 
 func checkInputData() -> [Int] {
