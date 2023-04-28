@@ -20,7 +20,7 @@ myungsun, yyss99(와이)
 
 ### 타임라인(Commit Message)
 
-<img src="/Users/myungsun/Library/Application Support/typora-user-images/image-20230428165854317.png" alt="image-20230428165854317" style="zoom:33%;" />
+<img src="/Users/myungsun/Desktop/Yagom-Academy/ios-number-baseball/Images/commit-image.png" alt="commit-image" style="zoom:33%;" />
 
 ### Flow-Chart
 
@@ -36,9 +36,9 @@ myungsun, yyss99(와이)
 
 ### 실행 화면(기능 설명)
 
-<img src="/Users/myungsun/Library/Application Support/typora-user-images/image-20230428170422124.png" alt="image-20230428170422124" style="zoom: 33%;" />
+<img src="/Users/myungsun/Desktop/Yagom-Academy/ios-number-baseball/Images/console-image-1.png" alt="console-image-1" style="zoom:33%;" />
 
-<img src="/Users/myungsun/Library/Application Support/typora-user-images/image-20230428170406350.png" alt="image-20230428170406350" style="zoom: 33%;" />
+<img src="/Users/myungsun/Desktop/Yagom-Academy/ios-number-baseball/Images/console-image-2.png" alt="console-image-2" style="zoom:33%;" />
 
 - 사용자가 입력한 수와 임의로 생성한 수를 비교한다.
   - 스트라이크 기준: 사용자가 입력한 숫자와 컴퓨터의 숫자를 비교했을 때 숫자와 자리 위치가 모두 맞는 경우 
