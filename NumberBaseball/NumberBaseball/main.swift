@@ -1,6 +1,6 @@
 import Foundation
 
-var remainCount: Int = 9
+
 var computerRandomNumbers: Set<Int> = []
 var randomNumbers: Set<Int> = []
 
@@ -13,6 +13,7 @@ func createComputerRandomNumbers() -> [Int] {
 }
 
 func createRandomNumbers() -> [Int] {
+	randomNumbers.removeAll()
     while randomNumbers.count != 3 {
         randomNumbers.insert(Int.random(in: 1...9))
     }
@@ -33,20 +34,29 @@ func judgeResult(computerRandomNumbersArray: [Int] ,randomNumbersArray: [Int]) -
             ball += 1
         }
     }
-    remainCount -= 1
-    print("임의의 수 : \(randomNumbersArray)")
+    
+    
     print("\(strike) 스트라이크, \(ball) 볼")
-    print("남은 기회 : \(remainCount)")
+    
     resultOfStrikeAndBall.append(strike)
     resultOfStrikeAndBall.append(ball)
     return resultOfStrikeAndBall
 }
 
 func startGame() {
+	var remainCount: Int = 9
     let computerRandomNumbersArray = createComputerRandomNumbers()
-    var randomNumbersArray = createRandomNumbers()
-    let judgeResult = judgeResult(computerRandomNumbersArray: computerRandomNumbersArray, randomNumbersArray: randomNumbersArray)
-    
-    print(judgeResult)
+	while remainCount != 0 {
+		let randomNumbersArray = createRandomNumbers()
+		print("임의의 수 : \(randomNumbersArray[0]) \(randomNumbersArray[1]) \(randomNumbersArray[2])")
+		let judgeResult = judgeResult(computerRandomNumbersArray: computerRandomNumbersArray, randomNumbersArray: randomNumbersArray)
+		remainCount -= 1
+		
+		if remainCount != 0 {
+			print("남은 기회 : \(remainCount)")
+		} else {
+			print("컴퓨터 승리...!")
+		}
+	}
 }
 startGame()
