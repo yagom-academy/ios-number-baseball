@@ -14,8 +14,7 @@ var chance: Int = 9
 func inputMenu() {
     var isGameOver = false
     while !isGameOver {
-        print("1. 게임시작\n2. 게임종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        printInstruction(level: 1)
         
         let optionNumber = readLine()
         
@@ -28,6 +27,19 @@ func inputMenu() {
         default:
             print("입력이 잘못되었습니다")
         }
+    }
+}
+func printInstruction (level: Int) {
+    switch level {
+    case 1:
+        print("1. 게임시작\n2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+    case 2:
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: "")
+    default:
+        print("선택이 잘못되었습니다.")
     }
 }
 
@@ -86,9 +98,7 @@ func inputGameNumbers() -> Array<Int> {
     var inputNumbers: Array<Int> = []
     
     while !isNumberIn {
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-        print("중복 숫자는 허용하지 않습니다.")
-        print("입력 : ", terminator: "")
+        printInstruction(level: 2)
         
         guard let inputNumber = readLine() else { break }
         inputNumbers = inputNumber.components(separatedBy: " ").compactMap { Int($0) }
@@ -104,3 +114,5 @@ func inputGameNumbers() -> Array<Int> {
 }
 
 inputMenu()
+
+
