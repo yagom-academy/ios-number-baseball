@@ -14,21 +14,6 @@ func makeUniqueRandomNumbers() -> [Int] {
     return Array(randomNumbers)
 }
 
-func getBallAndStrikeResult(of userNumbers: [Int]) -> (Int, Int) {
-    let sameNumbers = computerNumbers.filter { userNumbers.contains($0) }
-    var ballCount = 0
-    var strikeCount = 0
-    
-    for number in sameNumbers {
-        if computerNumbers.firstIndex(of: number) == userNumbers.firstIndex(of: number) {
-            strikeCount += 1
-        }
-    }
-    ballCount = sameNumbers.count - strikeCount
-    
-    return (ballCount, strikeCount)
-}
-
 func showMenu() {
     let startOption = "1"
     let endOption = "2"
@@ -50,8 +35,23 @@ func showMenu() {
     }
 }
 
-func decreaseCount() {
-    count -= 1
+func startGame() {
+    var isGameOn = true
+    while isGameOn {
+        print("\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+        
+        guard let userInput = readLine(),
+              let validNumber = checkNumbers(for: userInput) else {
+            print("입력이 잘못되었습니다. \n")
+            continue
+        }
+        let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
+        
+        decreaseCount()
+        showBallAndStrikeResultWith(ballCount, strikeCount)
+        isGameOn = getGameResult(with: strikeCount)
+    }
+    resetGame()
 }
 
 func checkNumbers(for userInput: String) -> [Int]? {
@@ -82,25 +82,25 @@ func hasInvalidNumberCount(in separatedInput: [Int], _ validNumberCount: Int, _ 
     return Set(validLengthNumbers).count != validNumberCount ? true : false
 }
 
-func startGame() {
-    var isGameOn = true
-    while isGameOn {
-        print("\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
-        
-        guard let userInput = readLine(),
-              let validNumber = checkNumbers(for: userInput) else {
-            print("입력이 잘못되었습니다. \n")
-            continue
+func getBallAndStrikeResult(of userNumbers: [Int]) -> (Int, Int) {
+    let sameNumbers = computerNumbers.filter { userNumbers.contains($0) }
+    var ballCount = 0
+    var strikeCount = 0
+    
+    for number in sameNumbers {
+        if computerNumbers.firstIndex(of: number) == userNumbers.firstIndex(of: number) {
+            strikeCount += 1
         }
-        let (ballCount, strikeCount) = getBallAndStrikeResult(of: validNumber)
-        
-        decreaseCount()
-        showBallAndStrikeResultWith(ballCount, strikeCount)
-        isGameOn = getGameResult(with: strikeCount)
     }
-    resetGame()
+    ballCount = sameNumbers.count - strikeCount
+    
+    return (ballCount, strikeCount)
 }
- 
+
+func decreaseCount() {
+    count -= 1
+}
+
 func showBallAndStrikeResultWith(_ ballCount: Int, _ strikeCount: Int) {
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
 }
