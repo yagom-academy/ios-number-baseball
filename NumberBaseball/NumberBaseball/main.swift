@@ -53,15 +53,12 @@ func startBaseballGame() {
 }
 
 func generateRandomNumber() -> [Int] {
-    var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    var randomNumbers = [Int]()
+    var randomNumbers = Set<Int>()
 
-    for index in (6...8).reversed() {
-        let indexToRemove = Int.random(in: 0...index)
-        randomNumbers.append(numbers[indexToRemove])
-        numbers.remove(at: indexToRemove)
+    while randomNumbers.count < 3 {
+        randomNumbers.insert(Int.random(in: 1...9))
     }
-    return randomNumbers
+    return Array(randomNumbers)
 }
 
 func inputUserNumbers() -> [Int] {
