@@ -1,12 +1,34 @@
 ## iOS 커리어 스타터 캠프
 
-### 숫자야구 프로젝트 저장소
+### 숫자야구 프로젝트
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+### 소개
+- 중복되지 않은 랜덤숫자 3개를 생성하고 사용자가 입력한 숫자 3개를 비교해서 순서와 번호를 맞추면 사용자가 승리하는 게임
+
+
+### 팀원
+- Erick
+- idinaloq
+
+## Flow Chart
 
 ![제목 없는 다이어그램 drawio-2-2](https://user-images.githubusercontent.com/109963294/235088769-cd1a8df9-7bb5-4832-a9a6-91f217df226d.png)
 
+<br>
 
+## 실행화면
+
+### 메뉴선택
+
+<img width="387" alt="스크린샷 2023-04-28 오후 5 20 41" src="https://user-images.githubusercontent.com/109963294/235095123-7dabef4b-4472-42ed-99e2-63bdffdfdbcc.png">
+
+### 사용자의 승리
+
+<img width="387" alt="스크린샷 2023-04-28 오후 5 21 52" src="https://user-images.githubusercontent.com/109963294/235095443-54122a82-a877-491c-99d1-796da5ece470.png">
+
+### 컴퓨터의 승리
+
+<img width="387" alt="스크린샷 2023-04-28 오후 5 23 35" src="https://user-images.githubusercontent.com/109963294/235095590-f3deebfb-88cf-4202-aabb-58848d519303.png">
 
 <br>
 
@@ -33,3 +55,11 @@
 - Erick: 기능을 구현하는 방법과 방향이 달라서 생기는 의견차이(?) 때문에 시간이 조금은 더 걸렸던 것 같습니다.
 - idinaloq: 월,화,목,금 중간에 협동수업이 있어서 이 부분때문에 약간 흐름이 끊기는 감이 있었다고 생각해서 조금 아쉬웠지만, 다음 주 부터는 주 2회 수업이기 때문에 미리 조율하면 괜찮을 것 같다고 생각합니다.
 - idinaloq: 코드 작성할 때 스타일이 많이 달라서 어느정도까지 내가 원하는 대로 해도 되는지, 서로 어떻게 정할지에 대해 미리 협의하고 시작하지 않았던 점이 조금 아쉬워서 다음 프로젝트부터는 변수 이름, 코드 개행 등 전체적으로 정하고 가는 편이 좋다고 생각합니다.
+
+<br>
+
+## 참고자료
+
+- https://velog.io/@folw159/Swift-components와-split의-차이
+- https://developer.apple.com/documentation/swift/set
+- https://velog.io/@lhj26/Swift-if-vs-if-let-vs-guard-let
