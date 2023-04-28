@@ -38,7 +38,7 @@ func showMenu() {
         guard let menuChoice = readLine() else { continue }
         
         if menuChoice == startOption {
-            inputUserGameNumber()
+            startGame()
         } else if menuChoice == endOption {
             break
         } else {
@@ -66,7 +66,7 @@ func checkNumbers(for userInput: String) -> [Int]? {
     return separatedInput
 }
 
-func inputUserGameNumber() {
+func startGame() {
     var isGameDone = true
     while isGameDone {
         print("\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
