@@ -66,9 +66,10 @@ func getNumbers() {
     
     if let input = readLine()?.split(separator: " "),
        input.count == 3,
-       input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"})
+       input.allSatisfy({str in str.count == 1 && str >= "1" && str <= "9"}),
+       Set(input).count == 3
     {
-        inputNumbers = input.map({Int($0)!})
+        inputNumbers = input.compactMap({Int($0)})
         playBall(of: inputNumbers)
     } else {
         print("입력이 잘못되었습니다.")
