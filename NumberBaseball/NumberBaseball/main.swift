@@ -32,17 +32,20 @@ func getBallAndStrikeResult(of userNumbers: [Int]) -> (Int, Int) {
 func showMenu() {
     let startOption = "1"
     let endOption = "2"
+    var isMenuChoiceOn = true
     
-    while true {
+    while isMenuChoiceOn {
         print("1. 게임시작 \n2. 게임종료 \n원하는 기능을 선택해주세요 : ", terminator: "")
         guard let menuChoice = readLine() else { continue }
         
-        if menuChoice == startOption {
+        switch menuChoice {
+        case startOption:
             startGame()
-        } else if menuChoice == endOption {
-            break
-        } else {
+        case endOption:
+            isMenuChoiceOn = false
+        default:
             print("입력이 잘못되었습니다.")
+            continue
         }
     }
 }
@@ -67,8 +70,8 @@ func checkNumbers(for userInput: String) -> [Int]? {
 }
 
 func startGame() {
-    var isGameDone = true
-    while isGameDone {
+    var isGameOn = true
+    while isGameOn {
         print("\n숫자 3개를 띄어쓰기로 구분하여 입력해주세요.\n중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
         
         guard let userInput = readLine(),
@@ -80,7 +83,7 @@ func startGame() {
         
         decreaseCount()
         showBallAndStrikeResultWith(ballCount, strikeCount)
-        isGameDone = getGameResult(with: strikeCount)
+        isGameOn = getGameResult(with: strikeCount)
     }
     resetGame()
 }
