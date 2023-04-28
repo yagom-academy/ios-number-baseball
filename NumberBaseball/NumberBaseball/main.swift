@@ -6,13 +6,7 @@
 
 import Foundation
 
-let computerRandomNumbers: [Int] = createRandomNumbers()
-
-enum InputError: Error {
-    case invalidInput
-    case wrongInput
-    case duplicateNumber
-}
+var computerRandomNumbers = [Int]()
 
 func createRandomNumbers() -> [Int] {
     var uniqueRandomNumbers = Set<Int>()
@@ -37,10 +31,10 @@ func compare(_ computerRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeC
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
-func judgeWinnerBy(_ strikeCount: Int, _ remainingChance: Int, _ winCondition: Int) -> String {
+func judgeWinnerBy(_ strikeCount: Int, _ remainingChance: Int) -> String {
     var winner: String = String()
     
-    if strikeCount == winCondition {
+    if strikeCount == computerRandomNumbers.count {
         winner = "USER"
     } else if remainingChance == 0 {
         winner = "COMPUTER"
@@ -49,44 +43,30 @@ func judgeWinnerBy(_ strikeCount: Int, _ remainingChance: Int, _ winCondition: I
 }
 
 func selectMenu() {
-    var selectNumber: String = ""
-    var isGameLoop: Bool = true
+    var isEnable: Bool = true
     
-    while isGameLoop {
+    while isEnable {
         print("""
     1. 게임시작
     2. 게임종료
     원하는 기능을 선택해주세요
     """, terminator: " : ")
         
-        do {
-            try selectNumber = input()
-        } catch InputError.invalidInput {
-            print("다시 입력해주세요.")
-        } catch {
-            print("알 수 없는 오류가 발생했습니다. 다시 입력해주세요.")
-        }
+        let selectedNumber = readLine()
         
-        switch selectNumber {
+        switch selectedNumber {
         case "1":
             startBaseballGame()
         case "2":
-            isGameLoop = false
+            isEnable = false
         default:
             print("입력이 잘못되었습니다.")
         }
     }
 }
 
-func input() throws -> String {
-    guard let userInput = readLine() else {
-        throw InputError.invalidInput
-    }
-    return userInput
-}
-
 func createInputRegEx() -> String {
-    var RegEx = "^([1-9]{1})"
+    var RegEx: String = "^([1-9]{1})"
     let maxCount: Int = computerRandomNumbers.count
     
     if maxCount > 1 {
@@ -94,80 +74,56 @@ func createInputRegEx() -> String {
             RegEx.append(#"\s([1-9]{1})"#)
         }
     }
-    
     RegEx.append("$")
     
     return RegEx
 }
 
-func checkUserInput() throws -> [Int] {
-    let uniqueUserNumbers: Set<String>
-    var userInput: String = ""
-    var userStringInputs = [String]()
-    var userIntInputs = [Int]()
+func checkUserInput() -> [Int] {
+    var validUserInputs = [Int]()
+    var isValid: Bool = false
     
-    do {
-        try userInput = input()
-    } catch InputError.invalidInput {
-        print("다시 입력해주세요.")
-    } catch {
-        print("알 수 없는 오류가 발생했습니다. 다시 입력해주세요.")
-    }
-    
-    guard let _ = userInput.range(of: createInputRegEx(), options: .regularExpression) else {
-        throw InputError.wrongInput
-    }
-    
-    userStringInputs = userInput.split(separator: " ", omittingEmptySubsequences: true).map{ String($0) }
-    
-    uniqueUserNumbers = Set(userStringInputs)
-    
-    guard userStringInputs.count == uniqueUserNumbers.count else {
-        throw InputError.duplicateNumber
-    }
-
-    for input in userStringInputs {
-        userIntInputs.append(Int(input) ?? 0)
-    }
-    return userIntInputs
-}
-
-func startBaseballGame() {
-    var userRandomNumbers = [Int]()
-    var remainingChance: Int = 9
-    
-    print(computerRandomNumbers)
-    while remainingChance > 0 {
-        
+    while !isValid {
         print("""
         숫자 \(computerRandomNumbers.count)개를 띄어쓰기로 구분하여 입력해주세요.
         중복 숫자는 허용하지 않습니다.
         입력
         """, terminator: " : ")
         
-        do {
-            try userRandomNumbers = checkUserInput()
-        } catch InputError.invalidInput {
-            print("빈 값입니다.")
-            continue
-        } catch InputError.wrongInput {
+        guard let userInput = readLine() else {
             print("입력이 잘못되었습니다.")
             continue
-        } catch InputError.duplicateNumber {
-            print("중복된 숫자가 있습니다.")
-            continue
-        } catch {
-            print("알 수 없는 오류가 발생했습니다. 다시 입력해주세요.")
+        }
+        guard let _ = userInput.range(of: createInputRegEx(), options: .regularExpression) else {
+            print("입력이 잘못되었습니다.")
             continue
         }
+        validUserInputs = userInput.split(separator: " ").compactMap{ Int($0) }
         
+        guard validUserInputs.count == Set(validUserInputs).count else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        isValid = true
+    }
+    return validUserInputs
+}
+
+func startBaseballGame() {
+    var userRandomNumbers = [Int]()
+    var remainingChance: Int = 9
+    
+    computerRandomNumbers = createRandomNumbers()
+    
+    while remainingChance > 0 {
+        
+        userRandomNumbers = checkUserInput()
         remainingChance -= 1
-        
         let gameResult: (strikeCount: Int, ballCount: Int) = compare(computerRandomNumbers, and: userRandomNumbers)
 
         print("\(gameResult.strikeCount) 스트라이크, \(gameResult.ballCount) 볼")
         
-        let winner: String = judgeWinnerBy(gameResult.strikeCount, remainingChance, computerRandomNumbers.count)
+        let winner: String = judgeWinnerBy(gameResult.strikeCount, remainingChance)
         
         if winner.isEmpty {
             print("남은 기회: \(remainingChance)")
