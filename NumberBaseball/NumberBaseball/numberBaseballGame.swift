@@ -24,7 +24,7 @@ fileprivate func computeGameResult(computer winningNumbers: [Int], user guessNum
     return (ball, strike)
 }
 
-fileprivate func isWin(strike: Int) -> Bool {
+fileprivate func isWin(condition strike: Int) -> Bool {
     if strike == 3 {
         print("사용자 승리!")
         return true
@@ -33,7 +33,7 @@ fileprivate func isWin(strike: Int) -> Bool {
     }
 }
 
-fileprivate func isLose(remainingAttempts: Int) -> Bool {
+fileprivate func isLose(condition remainingAttempts: Int) -> Bool {
     if remainingAttempts == 1 {
         print("컴퓨터 승리...!")
         return true
@@ -52,8 +52,8 @@ fileprivate func startGame() {
         
         print("\(gameResult.strike) 스트라이크, \(gameResult.ball) 볼")
         
-        if isWin(strike: gameResult.strike) { break }
-        if isLose(remainingAttempts: remainingAttempts) { break }
+        if isWin(condition: gameResult.strike) { break }
+        if isLose(condition: remainingAttempts) { break }
 
         remainingAttempts -= 1
         print("남은 기회 : \(remainingAttempts)")
@@ -62,12 +62,13 @@ fileprivate func startGame() {
 
 func showMenu() {
     while true {
-        print("1. 게임시작")
-        print("2. 게임종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
-        let selectingMenu = readLine()
+        print("""
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: " ")
         
-        guard let selectingMenu,
+        guard let selectingMenu = readLine(),
               let selectingMenu = Int(selectingMenu),
               [1, 2].contains(selectingMenu)
         else {
@@ -82,8 +83,11 @@ func showMenu() {
 
 fileprivate func receiveGuessNumbers() -> [Int] {
     while true {
-        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-        print("중복 숫자는 허용하지 않습니다.\n입력 : ", terminator: "")
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
         
         guard let inputValue = readLine(),
               isValidGuessNumbers(inputValue) else {
