@@ -10,6 +10,7 @@
 ## 3. 팀원
 3-1. 사진 (아바타 or 미모지)
 ![redmango](./redmango.png)    ![dasan](./dasan.png)
+
 3-2. 닉네임: redmango & dasanKim
 
 ## 4. 타임라인: 
