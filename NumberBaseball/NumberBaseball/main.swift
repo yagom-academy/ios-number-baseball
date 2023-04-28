@@ -16,11 +16,9 @@ func createRandomNumbers() -> [Int] {
     while randomNumbers.count != 3 {
         randomNumbers.insert(Int.random(in: 1...9))
     }
-    let randomNumbers = Array(randomNumbers)
+	let randomNumbers = Array(randomNumbers)
     return randomNumbers
 }
-
-
 
 
 func judgeResult(computerRandomNumbersArray: [Int] ,randomNumbersArray: [Int]) -> [Int] {
