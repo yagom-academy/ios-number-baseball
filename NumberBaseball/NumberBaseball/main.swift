@@ -9,23 +9,21 @@ import Foundation
 typealias gameResultType = (strike: Int, ball: Int)
 
 func inputMenu() {
-    var isGameOver = false
-    while !isGameOver {
-        printInstruction(level: 1)
-        
-        let optionNumber = readLine()
-        
-        switch optionNumber {
-        case "1":
-            isGameOver = true
-            startGame()
-        case "2":
-            isGameOver = true
-        default:
-            print("입력이 잘못되었습니다")
-        }
+    printInstruction(level: 1)
+    
+    let optionNumber = readLine()
+    
+    switch optionNumber {
+    case "1":
+        startGame()
+    case "2":
+        print("", terminator:"")
+    default:
+        print("입력이 잘못되었습니다")
+        inputMenu()
     }
 }
+
 func printInstruction (level: Int) {
     switch level {
     case 1:
@@ -64,7 +62,6 @@ func compareNumbers(user userNumbers: Array<Int>, to opponentNumbers: Array<Int>
 }
 
 func startGame() {
-
     let opponentNumbers: Array<Int> = makeRandomNumbers()
     var chance: Int = 9
 
@@ -83,13 +80,11 @@ func startGame() {
             print("컴퓨터 승리...!")
             break
         }
-        
         print("남은 기회 : \(chance)")
     }
 }
 
 func inputGameNumbers() -> Array<Int> {
-    
     var isNumberIn = false
     var inputNumbers: Array<Int> = []
     
@@ -103,10 +98,9 @@ func inputGameNumbers() -> Array<Int> {
             print("입력이 잘못되었습니다")
             continue
         }
-
-        
         isNumberIn = true
     }
+    
     return inputNumbers
 }
 
@@ -117,12 +111,10 @@ func validateInputNumbers(_ inputNumbers: Array<Int>) -> Bool {
         inputNumbers.count == 3,
         Set(inputNumbers).count == 3,
         filteredNumbers.count == 3
-    else {
-        return false
-    }
+    else { return false }
+    
     return true
 }
-
 
 inputMenu()
 
