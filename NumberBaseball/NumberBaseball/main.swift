@@ -16,6 +16,7 @@ func inputMenu() {
     switch optionNumber {
     case "1":
         startGame()
+        inputMenu()
     case "2":
         print("", terminator:"")
     default:
