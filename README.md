@@ -31,8 +31,7 @@
 ## 6. 실행 화면(기능 설명)
 | 구분 | 비정상 입력 | 사용자 승리 |컴퓨터 승리 |
 | :--------: | :--------: | :--------: | :--------: |
-| 실행 화면 |
-<img src="./menuError.png" width="500" height="150"/><img src="./gameInputError.png" width="500" height="350"/> | <img src="./userWin.png" width="500" height="500"/> |  <img src="./computerWin.png" width="500" height="500"/> |
+| 실행 화면 |<img src="./menuError.png" width="500" height="150"/><img src="./gameInputError.png" width="500" height="350"/> | <img src="./userWin.png" width="500" height="300"/> |  <img src="./computerWin.png" width="500" height="300"/> |
 | 화면 설명 | 공백, 3개 미만의 숫자, 1~9이외의 숫자, 띄어쓰기 미준수, 중복숫자등 잘못된 입력일 경우 '입력이 잘못되었습니다' 출력| 사용자가 9번 이내에 정답을 맞추면 userWin 출력 | 사용자가 9번 이내에 정답을 맞추지 못하면 computerWin 출력 |
 
 ## 7. 트러블 슈팅
