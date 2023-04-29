@@ -4,30 +4,35 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
-## 1. 제목: 야구숫자게임
-## 2. 소개: 9번의 기회 안에 컴퓨터의 임의의 수 3개를 맞추는 게임
+## 1. 제목
+- 야구숫자게임
+
+## 2. 소개
+- 9번의 기회 안에 컴퓨터의 임의의 수 3개를 맞추는 게임이다.
 
 ## 3. 팀원
 |redmango|DasanKim|
 |:------:|:------:|
 |<img src="./redmango.png" width="100" height="100"/>|<img src="./dasan.png" width="100" height="100"/>|
-| Driver, Navigator | Driver, Navigator |
-## 4. 타임라인: 
-### [STEP1]
-- 2023.04.24. 순서도 고민
-- 2023.04.25. 랜덤한 정수를 생성하는 함수 및 숫자비교 함수 구현
-- 2023.04.26. 전체적인 리펙토리 진행
+|Driver, Navigator|    Driver, Navigator|
 
-### [STEP2]
-- 2023.04.27. 사용자에게 숫자 3개 입력받는 함수 및 메뉴 선택하는 함수 구현
-- 2023.04.28. 입력 검증을 위한 정규식 함수 구현 
+## 4. 타임라인
+|날짜|내용|
+|:--:|--|
+|2023.04.24.| 순서도 고민|
+|2023.04.25.| 랜덤한 정수를 생성하는 함수 및 숫자비교 함수 구현|
+|2023.04.26.| 전체적인 리펙토리 진행|
+|2023.04.27.| 사용자에게 숫자 3개 입력받는 함수 및 메뉴 선택하는 함수 구현|
+|2023.04.28.| 입력 검증을 위한 정규식 함수 구현|
 
-## 5. 시각화된 프로젝트 구조(다이어그램 등)
-![STEP2-flowchart](./STEP-2-flowchart.jpg)
+## 5. FlowChart
+<img src="./STEP-2-flowchart.jpg" width="600" height="800"/>
+
 ## 6. 실행 화면(기능 설명)
 | 구분 | 비정상 입력 | 사용자 승리 |컴퓨터 승리 |
 | :--------: | :--------: | :--------: | :--------: |
-| 실행 화면 | ![menuError](./menuError.png) ![gameInputError](./gameInputError.png)    |  ![userWin](./userWin.png)  | ![computerWin](./computerWin.png)     |
+| 실행 화면 |
+<img src="./menuError.png" width="500" height="150"/><img src="./gameInputError.png" width="500" height="350"/> | <img src="./userWin.png" width="500" height="500"/> |  <img src="./computerWin.png" width="500" height="500"/> |
 | 화면 설명 | 공백, 3개 미만의 숫자, 1~9이외의 숫자, 띄어쓰기 미준수, 중복숫자등 잘못된 입력일 경우 '입력이 잘못되었습니다' 출력| 사용자가 9번 이내에 정답을 맞추면 userWin 출력 | 사용자가 9번 이내에 정답을 맞추지 못하면 computerWin 출력 |
 
 ## 7. 트러블 슈팅
