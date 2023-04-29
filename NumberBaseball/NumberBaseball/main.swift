@@ -19,12 +19,13 @@ func inputUserMenu() {
         
         guard let userMenu = readLine() else { return }
         
-        if userMenu == "1" {
+        switch Int(userMenu) {
+        case 1:
             playBaseballGame()
-        } else if userMenu == "2" {
+        case 2:
             print("게임종료")
             isRun = false
-        } else {
+        default:
             print("입력이 잘못되었습니다")
         }
     }
