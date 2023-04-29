@@ -8,21 +8,46 @@ import Foundation
 
 typealias gameResultType = (strike: Int, ball: Int)
 
-var opponentNumbers: Array<Int> = []
-var chance: Int = 9
+func inputMenu() {
+    printInstruction(level: 1)
+    
+    let optionNumber = readLine()
+    
+    switch optionNumber {
+    case "1":
+        startGame()
+        inputMenu()
+    case "2":
+        print("", terminator:"")
+    default:
+        print("입력이 잘못되었습니다")
+        inputMenu()
+    }
+}
+
+func printInstruction (level: Int) {
+    switch level {
+    case 1:
+        print("1. 게임시작\n2. 게임종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+    case 2:
+        print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+        print("중복 숫자는 허용하지 않습니다.")
+        print("입력 : ", terminator: "")
+    default:
+        print("선택이 잘못되었습니다.")
+    }
+}
 
 func makeRandomNumbers() -> Array<Int> {
-    var opponentNumbers: Array<Int> = []
+    var randomNumbers: Set<Int> = []
     
-    while opponentNumbers.count < 3 {
+    while randomNumbers.count < 3 {
         let randomNumber = Int.random(in:1...9)
-        if opponentNumbers.contains(randomNumber) {
-            continue
-        }
-        opponentNumbers.append(randomNumber)
+        randomNumbers.insert(randomNumber)
     }
     
-    return opponentNumbers
+    return Array(randomNumbers)
 }
 
 func compareNumbers(user userNumbers: Array<Int>, to opponentNumbers: Array<Int>) -> gameResultType {
@@ -37,30 +62,60 @@ func compareNumbers(user userNumbers: Array<Int>, to opponentNumbers: Array<Int>
     return (strike: strike, ball: ball)
 }
 
-func menuSelect() {
-    opponentNumbers = makeRandomNumbers()
-    
+func startGame() {
+    let opponentNumbers: Array<Int> = makeRandomNumbers()
+    var chance: Int = 9
+
     while chance > 0 {
-        let userNumbers = makeRandomNumbers()
+        let userNumbers = inputGameNumbers()
         let result: gameResultType = compareNumbers(user: userNumbers, to: opponentNumbers)
-        let printNumber = userNumbers.map { String($0) }.joined(separator: ", ")
         
-        print("임의의 수 : \(printNumber)")
         print("\(result.strike) 스트라이크, \(result.ball) 볼")
         
         chance -= 1
         
-        if chance == 0 {
-            print("컴퓨터 승리...!")
-            break
-        } else if result.strike == 3 {
+        if result.strike == 3 {
             print("사용자 승리!")
             break
+        } else if chance == 0 {
+            print("컴퓨터 승리...!")
+            break
         }
-        
         print("남은 기회 : \(chance)")
     }
 }
 
-menuSelect()
+func inputGameNumbers() -> Array<Int> {
+    var isNumberIn = false
+    var inputNumbers: Array<Int> = []
+    
+    while !isNumberIn {
+        printInstruction(level: 2)
+        
+        guard let inputNumber = readLine() else { break }
+        inputNumbers = inputNumber.components(separatedBy: " ").compactMap { Int($0) }
+        
+        guard validateInputNumbers(inputNumbers) else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+        isNumberIn = true
+    }
+    
+    return inputNumbers
+}
+
+func validateInputNumbers(_ inputNumbers: Array<Int>) -> Bool {
+    let filteredNumbers = inputNumbers.filter { (0 < $0) && ($0 < 10) }
+    
+    guard
+        inputNumbers.count == 3,
+        Set(inputNumbers).count == 3,
+        filteredNumbers.count == 3
+    else { return false }
+    
+    return true
+}
+
+inputMenu()
 
