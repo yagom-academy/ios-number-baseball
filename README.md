@@ -10,7 +10,7 @@
 ## 3. 팀원
 |redmango|DasanKim|
 |:------:|:------:|
-|![redmango](.redmango.png){: width="50" height="50"}|![dasan](.dasan.png){: width="50" height="50"}|
+|![redmango](./redmango.png){: width="50" height="50"}|![dasan](./dasan.png){: width="50" height="50"}|
 |Driver, Navigator|    Driver, Navigator
 
 ## 4. 타임라인: 
