@@ -6,18 +6,20 @@
 
 import Foundation
 
-var computerRandomNumbers = [Int]()
+var computerRandomNumbers: [Int] = [Int]()
 
 func createRandomNumbers() -> [Int] {
-    var uniqueRandomNumbers = Set<Int>()
+    var uniqueRandomNumbers: Set<Int> = Set<Int>()
     
     while uniqueRandomNumbers.count < 3 {
         uniqueRandomNumbers.insert(Int.random(in: 1...9))
     }
+    
     return Array(uniqueRandomNumbers)
 }
 
-func compare(_ computerRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
+func compare(_ computerRandomNumbers: [Int], and userNumbers: [Int]
+            ) -> (strikeCount: Int, ballCount: Int) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
@@ -28,6 +30,7 @@ func compare(_ computerRandomNumbers: [Int], and userNumbers: [Int]) -> (strikeC
             ballCount += 1
         }
     }
+    
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
@@ -39,48 +42,35 @@ func judgeWinnerBy(_ strikeCount: Int, _ remainingChance: Int) -> String {
     } else if remainingChance == 0 {
         winner = "COMPUTER"
     }
+    
     return winner
 }
 
 func selectMenu() {
-    var isEnable: Bool = true
+    var isGameContinue: Bool = true
     
-    while isEnable {
+    while isGameContinue {
         print("""
-    1. 게임시작
-    2. 게임종료
-    원하는 기능을 선택해주세요
-    """, terminator: " : ")
+        1. 게임시작
+        2. 게임종료
+        원하는 기능을 선택해주세요
+        """, terminator: " : ")
         
-        let selectedNumber = readLine()
+        let selectedNumber: String? = readLine()
         
         switch selectedNumber {
         case "1":
             startBaseballGame()
         case "2":
-            isEnable = false
+            isGameContinue = false
         default:
             print("입력이 잘못되었습니다.")
         }
     }
 }
 
-func createInputRegEx() -> String {
-    var RegEx: String = "^([1-9]{1})"
-    let maxCount: Int = computerRandomNumbers.count
-    
-    if maxCount > 1 {
-        for _ in 1...maxCount-1 {
-            RegEx.append(#"\s([1-9]{1})"#)
-        }
-    }
-    RegEx.append("$")
-    
-    return RegEx
-}
-
 func checkUserInput() -> [Int] {
-    var validUserInputs = [Int]()
+    var validUserInputs: [Int] = [Int]()
     var isValid: Bool = false
     
     while !isValid {
@@ -94,33 +84,38 @@ func checkUserInput() -> [Int] {
             print("입력이 잘못되었습니다.")
             continue
         }
-        guard let _ = userInput.range(of: createInputRegEx(), options: .regularExpression) else {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
-        validUserInputs = userInput.split(separator: " ").compactMap{ Int($0) }
         
-        guard validUserInputs.count == Set(validUserInputs).count else {
+        validUserInputs = userInput
+            .split(separator: " ")
+            .compactMap{ Int($0) }
+            .filter{(0 < $0) && ($0 < 10)}
+                
+        guard validUserInputs.count == Set(validUserInputs).count,
+              validUserInputs.count == computerRandomNumbers.count
+        else {
             print("입력이 잘못되었습니다.")
             continue
         }
+        
         isValid = true
     }
+    
     return validUserInputs
 }
 
 func startBaseballGame() {
-    var userRandomNumbers = [Int]()
+    var userRandomNumbers: [Int] = [Int]()
     var remainingChance: Int = 9
     
     computerRandomNumbers = createRandomNumbers()
     
     while remainingChance > 0 {
-        
         userRandomNumbers = checkUserInput()
         remainingChance -= 1
-        let gameResult: (strikeCount: Int, ballCount: Int) = compare(computerRandomNumbers, and: userRandomNumbers)
-
+        
+        let gameResult: (strikeCount: Int, ballCount: Int) = compare(computerRandomNumbers,
+                                                                     and: userRandomNumbers)
+        
         print("\(gameResult.strikeCount) 스트라이크, \(gameResult.ballCount) 볼")
         
         let winner: String = judgeWinnerBy(gameResult.strikeCount, remainingChance)
