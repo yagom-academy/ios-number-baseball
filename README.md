@@ -26,7 +26,14 @@
 |2023.04.28.| 입력 검증을 위한 정규식 함수 구현|
 
 ## 5. FlowChart
-<img src="./STEP-2-flowchart.jpg" width="600" height="800"/>
+<details>
+<summary>STEP 2 순서도</summary>
+<div markdown="1">
+
+<img src="./STEP-2-flowchart.jpg" width="1000" height="1600"/>
+
+</div>
+</details>
 
 ## 6. 실행 화면(기능 설명)
 | 구분 | 비정상 입력 | 사용자 승리 |컴퓨터 승리 |
