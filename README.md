@@ -8,11 +8,10 @@
 ## 2. 소개: 9번의 기회 안에 컴퓨터의 임의의 수 3개를 맞추는 게임
 
 ## 3. 팀원
-3-1. 사진 (아바타 or 미모지)
-![redmango](./redmango.png)    ![dasan](./dasan.png)
-
-3-2. 닉네임: redmango & dasanKim
-
+|redmango|DasanKim|
+|:------:|:------:|
+|![](https://github.com/DasanKim/ios-number-baseball/blob/main/redmango.png) {: width="50" height="50"}|![](https://github.com/DasanKim/ios-number-baseball/blob/main/) {: width="50" height="50"}|
+|Driver, Navigator|    Driver, Navigator
 ## 4. 타임라인: 
 ### [STEP1]
 - 2023.04.24. 순서도 고민
