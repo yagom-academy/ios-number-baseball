@@ -2,20 +2,36 @@
 
 ### 숫자야구 프로젝트 저장소
 
+## 목차
+
+1. [제목](#1.)
+2. [소개](#2.)
+3. [팀원](#3.)
+4. [타임라인](#4.)
+5. [순서도(Flow Chart)](#5.)
+6. [실행 화면(기능 설명)](#6.)
+7. [트러블 슈팅](#7.)
+8. [참고 링크](#8.)
+9. [팀 회고](#9.)
+
+
+<a id="1."></a>
 ## 1. 제목
-EeE-e 숫자야구게임 ⚾️
+#### 🛎️ EeE-e's 숫자야구게임 ⚾️
 
+<a id="2."></a>
 ## 2. 소개 
-        플레이어에게 1부터 9까지의 한 자리 숫자 중복없이 3개를 입력받아 지정된 숫자 3개와
-        자리와 숫자가 같으면 스트라이크, 동일 숫자가 포함되어 있으면 볼로 나타났을 때,
-        9번 시도 중에 3 스트라이크면 사용자가 승리하고, 아니면 컴퓨터가 승리하는 게임
+        플레이어에게 1부터 9까지의 한 자리 숫자 중복없이 3개를 입력받아 지정된 숫자 3개와자리와 숫자가 같으면 스트라이크, 
+        동일 숫자가 포함되어 있으면 볼로 나타났을 때, 9번 시도 중에 3 스트라이크면 사용자가 승리하고, 아니면 컴퓨터가 승리하는 게임
 
+<a id="3."></a>
 ## 3. 팀원
 | [Karen 🐕](https://github.com/karenyang835) | [Serena 🐷](https://github.com/serena0720) | [Whales 🐋](https://github.com/WhalesJin) |
 | :--------: | :--------: | :--------: |
 | <Img src = "https://i.imgur.com/gwxTotR.png" width="150"/>|  <Img src = "https://i.imgur.com/q0XdY1F.jpg" width="150"/>| <Img src = "https://i.imgur.com/wnhhCv9.jpg" width="150"/>|
 
-## 4. 타임라인: 시간 순으로 프로젝트의 주요 진행 척도를 표시
+<a id="4."></a>
+## 4. 타임라인
 **2023.04.24**
 - 순서도 작성
 
@@ -45,25 +61,30 @@ EeE-e 숫자야구게임 ⚾️
 - 리뷰어 피드백에 따른 승패 출력 후 메뉴 출력하도록 수정
 - README 최종 수정
 
+<a id="5."></a>
+## 5. 순서도(Flow Chart)
 
-## 5. 시각화된 프로젝트 구조(다이어그램 등)
-**Flow Chart**
 <Img src = "https://i.imgur.com/cn5Swjz.png" width="450"/>
 
+<a id="6."></a>
 ## 6. 실행 화면(기능 설명)
 - 메뉴 번호를 입력받아서 1이면 게임 시작, 2면 게임종료가 됩니다.
-**1 입력 시**
-<Img src = "https://i.imgur.com/OYgiTEI.png" width="350"/>
-**2 입력 시**
-<Img src = "https://i.imgur.com/4ouC2Y2.png" width="350"/>
+
+| 1 입력 시 | 
+| :--------: |
+| <Img src = "https://i.imgur.com/OYgiTEI.png" width="350"/> |
+| **2 입력 시** | 
+| <Img src = "https://i.imgur.com/4ouC2Y2.png" width="350"/>|
 
 - 게임이 시작되었을 때, 제한조건을 보여주며 사용자에게 숫자 입력을 받아 승패를 결정합니다.
-**컴퓨터 승리 시**
-<Img src = "https://i.imgur.com/q3d4hnR.png" width="350"/>
-**사용자 승리 시**
-<Img src = "https://i.imgur.com/DF1sB5u.png" width="350"/>
 
+| 컴퓨터 승리 시 | 
+| :--------: |
+| <Img src = "https://i.imgur.com/q3d4hnR.png" width="350"/> |
+| **사용자 승리 시** | 
+| <Img src = "https://i.imgur.com/DF1sB5u.png" width="350"/>|
 
+<a id="7."></a>
 ## 7. 트러블 슈팅
 ### 🔥 중복함수 삭제
 `createUserNumbers` 함수와 `createRandomNumbers` 함수의 기능이 동일하여 `createRandomNumbers` 함수로 통일시켰습니다.
@@ -202,11 +223,12 @@ func playBall() {
 ### 🔥 `map{Int($0)!}` 수정 대안 고민
 저희는 `compactMap`함수를 이용해 수정했는데 다른 어떤 방법이 더 있을지 궁금하여 리뷰어분에게 문의 드린 결과 또다른 고차함수`reduce`나 `forEach`문 등을 사용하여 구현할 수 있을 것 같지만 지금 단계에서는 **`compactMap`이 훨씬 깔끔해 보인다**는 답변을 받았습니다.
 
-    
+<a id="8."></a> 
 ## 8. 참고 링크
-1. [Apple Developer - zip 함수](https://developer.apple.com/documentation/swift/zip(_:_:))
-2. [블로그 - compactMap 함수](https://jeonyeohun.tistory.com/265) 
+- [Apple Developer - zip 함수](https://developer.apple.com/documentation/swift/zip(_:_:))
+- [블로그 - compactMap 함수](https://jeonyeohun.tistory.com/265) 
 
+<a id="9."></a>
 ## 9. 팀 회고
 ### 👏🏻 우리팀이 잘한 점
 - 대화, 소통이 원활했습니다.
