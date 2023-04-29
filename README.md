@@ -10,9 +10,8 @@
 ## 3. 팀원
 |redmango|DasanKim|
 |:------:|:------:|
-|![redmango](./redmango.png){: width="50" height="50"}|![dasan](./dasan.png){: width="50" height="50"}|
-|Driver, Navigator|    Driver, Navigator
-
+|<img src="./redmango.png" width="100" height="100"/>|<img src="./dasan.png" width="100" height="100"/>|
+| Driver, Navigator | Driver, Navigator |
 ## 4. 타임라인: 
 ### [STEP1]
 - 2023.04.24. 순서도 고민
