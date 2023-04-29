@@ -2,7 +2,7 @@
 //  Game.swift
 //  NumberBaseball
 //
-//  Created by Hyun A Song on 2023/04/28.
+//  Created by Karen, Serena, Whales on 2023/04/28.
 //
 
 import Foundation
@@ -75,7 +75,9 @@ func playBall(of userNumbers: [Int]) {
 
     if strikeCount == 3 {
         print("사용자 승리!")
+        executeGame(of: selectMenu())
     } else if attemptCount == 0 {
         print("컴퓨터 승리...!")
+        executeGame(of: selectMenu())
     }
 }
