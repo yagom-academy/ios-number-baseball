@@ -1,3 +1,9 @@
+//
+//  NumberBaseball - main.swift
+//  Created by yagom.
+//  Copyright © yagom academy. All rights reserved.
+//
+
 import Foundation
 
 var computerRandomNumbers: Set<Int> = []
@@ -20,11 +26,10 @@ func createRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func judgeResult(computerRandomNumbersArray: [Int],randomNumbersArray: [Int]) -> [Int] {
-    var ball: Int = 0
-    var strike: Int = 0
+func judgeResult(_ computerRandomNumbersArray: [Int],_ randomNumbersArray: [Int]) -> [Int] {
+    var (strike, ball) = (0, 0)
     var resultOfStrikeAndBall: [Int] = []
-    
+
     for i in 0...2 {
         if computerRandomNumbersArray[i] == randomNumbersArray[i] {
             strike += 1
@@ -40,23 +45,25 @@ func judgeResult(computerRandomNumbersArray: [Int],randomNumbersArray: [Int]) ->
 func startGame() {
     var remainCount: Int = 9
     let computerRandomNumbersArray = createComputerRandomNumbers()
-    let randomNumbersArray = createRandomNumbers()
-    let judgeResult = judgeResult(computerRandomNumbersArray: computerRandomNumbersArray, randomNumbersArray: randomNumbersArray)
-    
-    while remainCount != 0 && judgeResult[0] != 3 {
-        print("임의의 수 : \(randomNumbersArray[0]) \(randomNumbersArray[1]) \(randomNumbersArray[2])")
-        print("\(judgeResult[0]) 스트라이크, \(judgeResult[1]) 볼")
+
+    while remainCount > 0 {
+        let randomNumbersArray = createRandomNumbers()
+        let judgeResult = judgeResult(computerRandomNumbersArray, randomNumbersArray)
+        let strike = judgeResult[0]
+        let ball = judgeResult[1]
         remainCount -= 1
-        if remainCount != 0 {
+
+        print("임의의 수 : \(randomNumbersArray[0]) \(randomNumbersArray[1]) \(randomNumbersArray[2])")
+        print("\(strike) 스트라이크, \(ball) 볼")
+
+        if remainCount > 0 && strike < 3 {
             print("남은 기회 : \(remainCount)")
+        } else if strike == 3 {
+            print("사용자 승리!")
+            remainCount = 0
         } else {
             print("컴퓨터 승리...!")
         }
     }
-    
-    if judgeResult[0] == 3 {
-        print("임의의 수 : \(randomNumbersArray[0]) \(randomNumbersArray[1]) \(randomNumbersArray[2])")
-        print("\(judgeResult[0]) 스트라이크, \(judgeResult[1]) 볼")
-        print("사용자 승리!")
-    }
 }
+
