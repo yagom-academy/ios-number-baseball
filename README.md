@@ -10,8 +10,9 @@
 ## 3. 팀원
 |redmango|DasanKim|
 |:------:|:------:|
-|![](https://github.com/DasanKim/ios-number-baseball/blob/main/redmango.png) {: width="50" height="50"}|![](https://github.com/DasanKim/ios-number-baseball/blob/main/) {: width="50" height="50"}|
+|![redmango](.redmango.png){: width="50" height="50"}|![dasan](.dasan.png){: width="50" height="50"}|
 |Driver, Navigator|    Driver, Navigator
+
 ## 4. 타임라인: 
 ### [STEP1]
 - 2023.04.24. 순서도 고민
