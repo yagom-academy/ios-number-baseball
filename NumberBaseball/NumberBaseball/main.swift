@@ -7,23 +7,49 @@
 import Foundation
 
 var randomNumbers: [Int] = []
-var tryCount: Int = 9
-var resultCheck = true
+var remainTryCount: Int = 9
+var isResultCheck: Bool = true
 
 start()
 
 func start() {
-    randomNumbers = getRandomNumbers()
     
-    while resultCheck {
+    while true {
+        let selectMenu = selectMenu()
         
-        if tryCount == 0 {
-            print("컴퓨터의 승리...!")
+        if selectMenu == "2" {
             break
         }
         
-        compareToRandomNumbers(randomNumbers: randomNumbers)
+        remainTryCount = 9
+        isResultCheck = true
     }
+}
+
+func inputData() -> String {
+    guard let inputData = readLine() else { return ""}
+    
+    return inputData
+}
+
+func selectMenu() -> String {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    let input: String = inputData()
+    
+    switch input {
+    case "1":
+        randomNumbers = getRandomNumbers()
+        playingGame(randomNumbers)
+        break
+    case "2":
+        break
+    default:
+        print("입력이 잘못되었습니다")
+        break
+    }
+    return input
 }
 
 func getRandomNumbers() -> [Int] {
@@ -41,31 +67,74 @@ func getRandomNumbers() -> [Int] {
     return randomNumbers
 }
 
-func compareToRandomNumbers(randomNumbers: [Int]) {
-    let myBaseballNumbers: [Int] = getRandomNumbers()
+func playingGame(_ randomNumbers: [Int]) {
+    
+    while true {
+        if remainTryCount == 0 {
+            print("컴퓨터의 승리...!")
+            break
+        } else if !isResultCheck {
+            print("사용자의 승리...!")
+            break
+        }
+        
+        let inputNumbers = checkInputData()
+        
+        if inputNumbers != [] {
+            compare(randomNumbers, to: inputNumbers)
+        }
+    }
+}
+
+func compare(_ randomNumbers: [Int], to myBaseballNumbers: [Int]) {
     var strikeCount: Int = 0
     var ballCount: Int = 0
     
     if myBaseballNumbers == randomNumbers {
-        print("사용자의 승리...!")
-        resultCheck = false
+        isResultCheck = false
         return
     }
     
-    print("임의의 수: ", terminator: "")
-
-    for elements in 0...2 {
-        print("\(myBaseballNumbers[elements]) ", terminator: "")
-        if randomNumbers[elements] == myBaseballNumbers[elements] {
+    for ( index, number ) in myBaseballNumbers.enumerated() {
+        if randomNumbers[index] == number {
             strikeCount += 1
-        } else if randomNumbers.contains(myBaseballNumbers[elements]) {
+        } else if randomNumbers.contains(number) {
             ballCount += 1
         }
     }
-    print("")
+    
+    remainTryCount -= 1
     
     print("\(strikeCount) 스트라이크, \(ballCount) 볼")
+    print("남은 기회 : \(remainTryCount)")
+}
+
+func checkInputData() -> [Int] {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요")
+    print("중복숫자는 허용하지 않습니다")
+    print("입력 : ", terminator: "")
     
-    tryCount -= 1
-    print("남은 기회 : \(tryCount)")
+    let inputData = inputData()
+    let splitInputData = inputData.components(separatedBy: " ")
+    var inputNumbers: [Int] = []
+    
+    for index in 0...splitInputData.count - 1 {
+        guard let number = Int(splitInputData[index]) else {
+            print("입력이 잘못되었습니다")
+            return []
+        }
+        
+        if (1...9).contains(number) {
+            inputNumbers.append(number)
+        }
+    }
+    
+    let setInputNumbers = Set(inputNumbers)
+    
+    if setInputNumbers.count != 3 {
+        print("입력이 잘못되었습니다")
+        return []
+    }
+    
+    return inputNumbers
 }
