@@ -12,7 +12,6 @@ func mainLoop() {
     var chance = 9
     randomNumbers = makeRandomNumber()
     userRandomNumbers = makeUserRandomNumber()
-    print(randomNumbers)
     print("임의의 수 : \(userRandomNumbers)")
     compareNumbers(userNumbers: randomNumbers, randomNumbers: userRandomNumbers)
     
@@ -47,7 +46,7 @@ func checkStrike(userNumbers: [Int], randomNumbers: [Int]) -> Int {
             ball += checkBall(userNumber: number, randomNumbers: randomNumbers)
         }
     }
-    print(strike, ball)
+    print("\(strike) 스트라이크, \(ball) 볼")
     return strike
 }
 
