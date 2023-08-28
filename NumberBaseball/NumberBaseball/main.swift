@@ -37,18 +37,35 @@ func makeUserRandomNumber() -> [Int] {
     return numbers.map { Int($0) }
 }
 
-func compareNumbers(userNumbers: [Int], randomNumbers: [Int]) -> Int {
+func checkStrike(userNumbers: [Int], randomNumbers: [Int]) -> Int {
     var strike = 0
-    if userNumbers[0] == randomNumbers[0] {
-        strike += 1
+    var ball = 0
+    for (index, number) in userNumbers.enumerated() {
+        if number == randomNumbers[index] {
+            strike += 1
+        } else {
+            ball += checkBall(userNumber: number, randomNumbers: randomNumbers)
+        }
     }
-    if userNumbers[1] == randomNumbers[1] {
-        strike += 1
+    print(strike, ball)
+    return strike
+}
+
+func checkBall(userNumber: Int, randomNumbers: [Int]) -> Int {
+    var ball = 0
+    
+    for randomNumber in randomNumbers {
+        if userNumber == randomNumber {
+            ball += 1
+            break
+        }
     }
-    if userNumbers[2] == randomNumbers[2] {
-        strike += 1
-    }
-    print(strike)
+    
+    return ball
+}
+
+func compareNumbers(userNumbers: [Int], randomNumbers: [Int]) -> Int {
+    checkStrike(userNumbers: userNumbers, randomNumbers: randomNumbers)
     return 0
 }
 
