@@ -6,19 +6,41 @@
 
 import Foundation
 
-func mainLoop() {
+/*func runProgram() {
+    var run: Bool = true
+    while run == true {
+        mainLoop()
+        
+        
+    }
+}*/
+
+func mainLoop(run: inout Bool) {
     var randomNumbers: [Int] = []
     var userRandomNumbers: [Int] = []
     var chance = 9
     randomNumbers = makeRandomNumber()
-    userRandomNumbers = makeUserRandomNumber()
-    print("임의의 수 : \(userRandomNumbers)")
-    compareNumbers(userNumbers: randomNumbers, randomNumbers: userRandomNumbers)
     
-    /*while chance != 0 {
-        
-    }*/
+    while chance != 0 {
+        userRandomNumbers = makeUserRandomNumber()
+        print("임의의 수 : \(userRandomNumbers)")
+
+        compareNumbers(userNumbers: randomNumbers, randomNumbers: userRandomNumbers)
+        chance -= 1
+        print("남은 기회 : \(chance)")
+    }
+    print("컴퓨터 승리...!")
 }
+
+/*func lifeCount(life: Int) {
+    var restLife = life
+    
+    while restLife != 0 {
+        
+        
+        restLife -= 1
+    }
+}*/
 
 func makeRandomNumber() -> [Int] {
     var numbers: Set<Int> = []
