@@ -14,7 +14,7 @@ func playNumberBaseBallGame() {
     while chance != 0 {
         userRandomNumbers = generateRandomNumber()
         print("임의의 수 : \(userRandomNumbers.map { String($0) }.joined(separator: " "))")
-        let (strike, ball) = checkStrikeAndBall(userNumbers: randomNumbers, randomNumbers: userRandomNumbers)
+        let (strike, ball) = checkStrikeAndBall(userNumbers: userRandomNumbers, randomNumbers: randomNumbers)
         print("\(strike) 스트라이크, \(ball) 볼")
         if strike == 3 {
             print("사용자 승리!")
