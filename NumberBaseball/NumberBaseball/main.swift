@@ -6,74 +6,52 @@
 
 import Foundation
 
-/*func runProgram() {
-    var run: Bool = true
-    while run == true {
-        mainLoop()
-        
-        
-    }
-}*/
-
-func mainLoop(run: inout Bool) {
-    var randomNumbers: [Int] = []
+func playNumberBaseBallGame() {
+    var randomNumbers: [Int] = generateRandomNumber()
     var userRandomNumbers: [Int] = []
-    var chance = 9
-    randomNumbers = makeRandomNumber()
+    var chance: Int = 9
     
     while chance != 0 {
-        userRandomNumbers = makeUserRandomNumber()
-        print("임의의 수 : \(userRandomNumbers)")
-
-        compareNumbers(userNumbers: randomNumbers, randomNumbers: userRandomNumbers)
+        userRandomNumbers = generateRandomNumber()
+        print("임의의 수 : \(userRandomNumbers.map { String($0) }.joined(separator: " "))")
+        let (strike, ball) = checkStrikeAndBall(userNumbers: randomNumbers, randomNumbers: userRandomNumbers)
+        print("\(strike) 스트라이크, \(ball) 볼")
+        if strike == 3 {
+            print("사용자 승리!")
+        }
         chance -= 1
         print("남은 기회 : \(chance)")
     }
     print("컴퓨터 승리...!")
 }
 
-/*func lifeCount(life: Int) {
-    var restLife = life
+func generateRandomNumber() -> [Int] {
+    var numbers: Set<Int> = []
     
-    while restLife != 0 {
-        
-        
-        restLife -= 1
-    }
-}*/
-
-func makeRandomNumber() -> [Int] {
-    var numbers: Set<Int> = []
     while numbers.count < 3 {
         numbers.insert(Int.random(in: 1...9))
     }
+    
     return numbers.map { Int($0) }
 }
 
-func makeUserRandomNumber() -> [Int] {
-    var numbers: Set<Int> = []
-    while numbers.count < 3 {
-        numbers.insert(Int.random(in: 1...9))
-    }
-    return numbers.map { Int($0) }
-}
-
-func checkStrike(userNumbers: [Int], randomNumbers: [Int]) -> Int {
-    var strike = 0
-    var ball = 0
+func checkStrikeAndBall(userNumbers: [Int], randomNumbers: [Int]) -> (Int, Int) {
+    var strike: Int = 0
+    var ball: Int = 0
+    
     for (index, number) in userNumbers.enumerated() {
         if number == randomNumbers[index] {
             strike += 1
         } else {
-            ball += checkBall(userNumber: number, randomNumbers: randomNumbers)
+            ball = checkBallForNumber(userNumber: number, randomNumbers: randomNumbers)
         }
     }
-    print("\(strike) 스트라이크, \(ball) 볼")
-    return strike
+
+    return (strike, ball)
 }
 
-func checkBall(userNumber: Int, randomNumbers: [Int]) -> Int {
-    var ball = 0
+func checkBallForNumber(userNumber: Int, randomNumbers: [Int]) -> Int {
+    var ball: Int = 0
     
     for randomNumber in randomNumbers {
         if userNumber == randomNumber {
@@ -85,9 +63,4 @@ func checkBall(userNumber: Int, randomNumbers: [Int]) -> Int {
     return ball
 }
 
-func compareNumbers(userNumbers: [Int], randomNumbers: [Int]) -> Int {
-    checkStrike(userNumbers: userNumbers, randomNumbers: randomNumbers)
-    return 0
-}
-
-mainLoop()
+playNumberBaseBallGame()
