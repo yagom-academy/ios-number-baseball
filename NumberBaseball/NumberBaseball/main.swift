@@ -7,7 +7,7 @@
 import Foundation
 
 func playNumberBaseBallGame() {
-    var randomNumbers: [Int] = generateRandomNumber()
+    let randomNumbers: [Int] = generateRandomNumber()
     var userRandomNumbers: [Int] = []
     var chance: Int = 9
     
@@ -42,25 +42,22 @@ func checkStrikeAndBall(userNumbers: [Int], randomNumbers: [Int]) -> (Int, Int) 
     for (index, number) in userNumbers.enumerated() {
         if number == randomNumbers[index] {
             strike += 1
-        } else {
-            ball = checkBallForNumber(userNumber: number, randomNumbers: randomNumbers)
+        } else if checkBallForNumber(userNumber: number, randomNumbers: randomNumbers) {
+            ball += 1
         }
     }
 
     return (strike, ball)
 }
 
-func checkBallForNumber(userNumber: Int, randomNumbers: [Int]) -> Int {
-    var ball: Int = 0
-    
+func checkBallForNumber(userNumber: Int, randomNumbers: [Int]) -> Bool {
     for randomNumber in randomNumbers {
         if userNumber == randomNumber {
-            ball += 1
-            break
+            return true
         }
     }
     
-    return ball
+    return false
 }
 
 playNumberBaseBallGame()
