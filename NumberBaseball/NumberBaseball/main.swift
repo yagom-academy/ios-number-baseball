@@ -23,3 +23,14 @@ func getRandomNumbers() -> [Int] {
     return numbers
 }
 
+func getResult(userNumbers: [Int]) -> (Int, Int) {
+    var (strike, ball) = (0,0)
+    for index in 0..<userNumbers.count where computerNumbers.contains(userNumbers[index]){
+        if computerNumbers[index] == userNumbers[index]{
+            strike += 1
+        }else{
+            ball += 1
+        }
+    }
+    return (strike, ball)
+}
