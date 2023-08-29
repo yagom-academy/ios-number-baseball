@@ -19,3 +19,27 @@ func generateRandomNumbers() -> [Int] {
     }
     return numbers
 }
+
+func compareNumbersAndReturnResult() -> [Int] {
+    let userNumbers = generateRandomNumbers()
+    var ballAndStrikeCount: [Int] = []
+    
+    var ballCount = 0
+    var strikeCount = 0
+    
+    for index in 0...2 {
+        if userNumbers[index] == randomComputerNumbers[index] {
+            strikeCount += 1
+            ballCount -= 1
+        }
+        
+        if userNumbers.contains(randomComputerNumbers[index]) {
+            ballCount += 1
+        }
+    }
+    
+    ballAndStrikeCount.append(ballCount)
+    ballAndStrikeCount.append(strikeCount)
+    
+    return ballAndStrikeCount
+}
