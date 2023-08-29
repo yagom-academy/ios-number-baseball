@@ -6,7 +6,7 @@
 
 import Foundation
 
-var randomComputerNumbers: [Int] = []
+var randomComputerNumbers = generateRandomNumbers()
 var remainsChance = 9
 
 func generateRandomNumbers() -> [Int] {
