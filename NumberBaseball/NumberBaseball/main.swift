@@ -18,7 +18,7 @@ func makeRandomNumbers() -> [Int] {
     return Array(numbers)
 }
 
-func strikeCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
+func countStrike(computerNumbers: [Int], userNumbers: [Int]) -> Int {
     var strike = 0
     
     for index in 0..<userNumbers.count {
@@ -29,7 +29,7 @@ func strikeCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
     return strike
 }
 
-func ballCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
+func countBall(computerNumbers: [Int], userNumbers: [Int]) -> Int {
     var ball = 0
     
     for index in 0..<userNumbers.count {
@@ -40,19 +40,6 @@ func ballCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
         }
     }
     return ball
-}
-
-func playNumberBaseBall() {
-    var remainingCount: Int = 9
-    let computerNumbers = makeRandomNumbers()
-    
-    while remainingCount > 0 {
-        let userNumbers = makeRandomNumbers()
-        let strike = strikeCount(computerNumbers: computerNumbers, userNumbers: userNumbers)
-        let ball = ballCount(computerNumbers: computerNumbers, userNumbers: userNumbers)
-        showRandomNumber(userNumbers: userNumbers)
-        showResult(strike: strike, ball: ball, remainingCount: &remainingCount)
-    }
 }
 
 func showRandomNumber (userNumbers: [Int]) {
@@ -78,6 +65,20 @@ func showResult (strike: Int , ball: Int, remainingCount: inout Int) {
         return
     } else {
         print("남은 기회 : \(remainingCount)")
+    }
+}
+
+func playNumberBaseBall() {
+    var remainingCount: Int = 9
+    let computerNumbers = makeRandomNumbers()
+    
+    while remainingCount > 0 {
+        let userNumbers = makeRandomNumbers()
+        let strike = countStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
+        let ball = countBall(computerNumbers: computerNumbers, userNumbers: userNumbers)
+        
+        showRandomNumber(userNumbers: userNumbers)
+        showResult(strike: strike, ball: ball, remainingCount: &remainingCount)
     }
 }
 
