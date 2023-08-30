@@ -5,4 +5,5 @@
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
 
-![number_baseball](https://github.com/Hi-sop/ios-number-baseball/assets/69287436/2575ffe1-0146-40a5-b097-d0a6cd0d5f86)
+![STEP1](https://github.com/Hi-sop/ios-number-baseball/assets/69287436/ca40b895-e218-4249-a26f-d7633e34126c)
+
