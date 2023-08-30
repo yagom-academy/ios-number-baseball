@@ -6,11 +6,10 @@
 
 import Foundation
 
-var tryCount = 9
+var remainChance = 9
+var computerChoice = makeRandomNumber()
 
-
-
-func makeUserRandomNumber() -> [Int] {
+func makeRandomNumber() -> Array<Int> {
     var randomNum: Set<Int> = Set<Int>()
     
     while randomNum.count < 3 {
@@ -19,43 +18,28 @@ func makeUserRandomNumber() -> [Int] {
     return Array(randomNum)
 }
 
-func makeComputerRandomNumber() -> [Int] {
-    var randomNum: Set<Int> = Set<Int>()
-    
-    while randomNum.count < 3 {
-        randomNum.insert(Int.random(in: 1...9))
-    }
-    return Array(randomNum)
-}
-
-var computerChoice = makeComputerRandomNumber()
-
-
-
-
-func compariseRandomNumber(answer: [Int]) -> [Int] {
+func compareRandomNumber(randomNumber: [Int]) -> [Int] {
     var strike = 0
     var ball = 0
     
-    for (index, number) in answer.enumerated() {
+    for (index, number) in randomNumber.enumerated() {
         if index == computerChoice.firstIndex(of: number) {
             strike += 1
-        } else if computerChoice.contains(number){
+        } else if computerChoice.contains(number) {
             ball += 1
         }
     }
     return [ball, strike]
 }
 
-
 func startGame() {
-    while tryCount >= 0 {
-        let userNumber = makeUserRandomNumber()
-        let result = compariseRandomNumber(answer: userNumber)
+    while remainChance >= 0 {
+        let userNumber = makeRandomNumber()
+        let result = compareRandomNumber(randomNumber: userNumber)
         print("임의의 수 :\(userNumber.map{String($0)}.joined(separator: " "))")
         print("\(result[1]) 스트라이크, \(result[0]) 볼")
-        if tryCount != 0 {
-            print("남은 기회 : \(tryCount)")
+        if remainChance != 0 {
+            print("남은 기회 : \(remainChance)")
         } else {
             print("컴퓨터 승리")
         }
@@ -63,8 +47,7 @@ func startGame() {
             print("사용자 승리")
             break
         }
-        tryCount -= 1
-        
+        remainChance -= 1
     }
 }
 startGame()
