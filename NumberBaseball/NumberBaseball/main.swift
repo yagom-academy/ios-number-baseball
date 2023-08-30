@@ -6,21 +6,19 @@
 
 import Foundation
 
-func getRandomNumbers() -> [Int] {
-    var numbers: [Int] = []
+func makeRandomNumbers() -> [Int] {
+    var numbers: Set<Int> = []
     
     while numbers.count < 3 {
         let randomNumber = Int.random(in: 1...9)
         
-        if !numbers.contains(randomNumber) {
-            numbers.append(randomNumber)
-        }
+        numbers.insert(randomNumber)
     }
     
-    return numbers
+    return Array(numbers)
 }
 
-func getResult(computerNumbers:[Int], userNumbers: [Int]) -> (Int, Int) {
+func makeResult(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
     var (strike, ball) = (0,0)
     
     for index in 0..<userNumbers.count where computerNumbers.contains(userNumbers[index]) {
@@ -36,11 +34,12 @@ func getResult(computerNumbers:[Int], userNumbers: [Int]) -> (Int, Int) {
 
 func playNumberBaseBall() {
     var remainingCount: Int = 9
-    var computerNumbers = getRandomNumbers()
+    let computerNumbers = makeRandomNumbers()
     
     while remainingCount > 0 {
-        let userNumbers = getRandomNumbers()
-        let (strike, ball) = getResult(computerNumbers: computerNumbers, userNumbers: userNumbers)
+        print(computerNumbers)
+        let userNumbers = makeRandomNumbers()
+        let (strike, ball) = makeResult(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
         print("임의의 수 : ", terminator: "")
         for number in userNumbers {
