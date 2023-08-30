@@ -6,56 +6,58 @@
 
 import Foundation
 
-enum UserInputError: LocalizedError {
-    case userInputError
-    
-    var errorDescription: String? {
-        switch self {
-        case.userInputError:
-            return "입력이 잘못되었습니다"
-        }
-    }
-}
 
-func runProgram() throws {
-    var run: Bool = true
-    while run == true {
-        do {
-            try printMenu(statement: &run)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-}
-
-func printMenu(statement: inout Bool) throws {
+func printMenu() {
     print("1. 게임 시작")
     print("2. 게임 종료")
-    print("원하는 기능을 선택해주세요", terminator: " : ")
-    
-    guard let userInput = readLine() else {
-        throw UserInputError.userInputError
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+}
+
+func runProgram() {
+    while true {
+        printMenu()
+        guard let userInput = readLine() else {
+            continue
+        }
+        switch userInput {
+        case "1":
+            playNumberBaseBallGame()
+        case "2":
+            break
+        default:
+            print("입력이 잘못되었습니다.")
+        }
     }
-    
-    switch userInput {
-    case "1":
-        playNumberBaseBallGame()
-    case "2":
-        statement = false
-    default:
-        throw UserInputError.userInputError
-    }
+}
+
+func printGameMenu() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+}
+
+func prepareInput(userInput: String) -> [Int] {
+    return userInput.split(separator: " ").map { Int($0)! }
+}
+
+func inputValidator(userInput: String) -> [Int] {
+    print(prepareInput(userInput: userInput))
+    return []
 }
 
 func playNumberBaseBallGame() {
     let computerRandomNumbers: [Int] = generateRandomNumber()
-    var userRandomNumbers: [Int] = []
+    var userNumbers: [Int] = []
     var chance: Int = 9
 
     while chance != 0 {
-        userRandomNumbers = generateRandomNumber()
-        print("임의의 수 : \(userRandomNumbers.map { String($0) }.joined(separator: " "))")
-        let (strike, ball) = checkStrikeAndBall(userNumbers: userRandomNumbers, randomNumbers: computerRandomNumbers)
+        printGameMenu()
+        guard let userInput = readLine() else {
+            continue
+        }
+        userNumbers = inputValidator(userInput: userInput)
+        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
+        let (strike, ball) = checkStrikeAndBall(userNumbers: userNumbers, randomNumbers: computerRandomNumbers)
 
         print("\(strike) 스트라이크, \(ball) 볼")
         if strike == 3 {
@@ -96,5 +98,5 @@ func checkStrikeAndBall(userNumbers: [Int], randomNumbers: [Int]) -> (Int, Int) 
     return (strike, ball)
 }
 
-try runProgram()
-//playNumberBaseBallGame()
+runProgram()
+
