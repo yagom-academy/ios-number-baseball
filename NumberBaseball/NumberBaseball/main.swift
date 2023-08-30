@@ -69,3 +69,15 @@ func menu() {
         }
     }
 }
+
+func verifyingUserNumber(number: String?) -> [Int]? {
+    var intArray: [Int] = []
+    guard let number else { return nil }
+    var result = number.components(separatedBy: " ")
+    
+    for i in result {
+        guard let changeInt = Int(i) else { return nil }
+        intArray.append(changeInt)
+    }
+    return intArray
+}
