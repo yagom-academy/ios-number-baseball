@@ -6,7 +6,7 @@
 
 import Foundation
 
-var randomComputerNumbers = generateRandomNumbers()
+let randomComputerNumbers = generateRandomNumbers()
 var remainsChance = 9
 var userNumbers = [Int]()
 
@@ -24,37 +24,38 @@ func generateRandomNumbers() -> [Int] {
     return numbers
 }
 
-func compareNumbersAndReturnResult() -> [Int] {
-    var ballAndStrikeCount: [Int] = []
-    userNumbers = generateRandomNumbers()
-    
+func calculateBallCount(userNumbers: [Int]) -> Int {
     var ballCount = 0
+    
+    for index in 0...2 {
+        if userNumbers.contains(randomComputerNumbers[index]), userNumbers[index] != randomComputerNumbers[index] {
+            ballCount += 1
+        }
+    }
+    
+    return ballCount
+}
+
+func calculateStrikeCount(userNumbers: [Int]) -> Int {
     var strikeCount = 0
     
     for index in 0...2 {
         if userNumbers[index] == randomComputerNumbers[index] {
             strikeCount += 1
-            ballCount -= 1
-        }
-        
-        if userNumbers.contains(randomComputerNumbers[index]) {
-            ballCount += 1
         }
     }
     
-    ballAndStrikeCount.append(ballCount)
-    ballAndStrikeCount.append(strikeCount)
-    
-    return ballAndStrikeCount
+    return strikeCount
 }
 
 func playGame() {
-    while true {
-        let resultGameNumbers = compareNumbersAndReturnResult()
-        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
-        print("\(resultGameNumbers[1]) 스트라이크, \(resultGameNumbers[0]) 볼")
+    while remainsChance > 0 {
+        userNumbers = generateRandomNumbers()
         
-        if resultGameNumbers[1] == 3 {
+        print("임의의 수 : \(userNumbers[0]) \(userNumbers[1]) \(userNumbers[2])")
+        print("\(calculateStrikeCount(userNumbers: userNumbers)) 스트라이크, \(calculateBallCount(userNumbers: userNumbers)) 볼")
+        
+        if calculateStrikeCount(userNumbers: userNumbers) == 3 {
             print("사용자 승리!")
             break
         } else {
