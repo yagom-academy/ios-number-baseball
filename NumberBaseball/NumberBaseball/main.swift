@@ -4,6 +4,48 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+import Foundation
+
+enum UserInputError: LocalizedError {
+    case userInputError
+    
+    var errorDescription: String? {
+        switch self {
+        case.userInputError:
+            return "입력이 잘못되었습니다"
+        }
+    }
+}
+
+func runProgram() throws {
+    var run: Bool = true
+    while run == true {
+        do {
+            try printMenu(statement: &run)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+func printMenu(statement: inout Bool) throws {
+    print("1. 게임 시작")
+    print("2. 게임 종료")
+    print("원하는 기능을 선택해주세요", terminator: " : ")
+    
+    guard let userInput = readLine() else {
+        throw UserInputError.userInputError
+    }
+    
+    switch userInput {
+    case "1":
+        playNumberBaseBallGame()
+    case "2":
+        statement = false
+    default:
+        throw UserInputError.userInputError
+    }
+}
 
 func playNumberBaseBallGame() {
     let computerRandomNumbers: [Int] = generateRandomNumber()
@@ -54,4 +96,5 @@ func checkStrikeAndBall(userNumbers: [Int], randomNumbers: [Int]) -> (Int, Int) 
     return (strike, ball)
 }
 
-playNumberBaseBallGame()
+try runProgram()
+//playNumberBaseBallGame()
