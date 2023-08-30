@@ -17,10 +17,16 @@ func printMenu() {
     print("원하는 기능을 선택해주세요 : ", terminator: "")
 }
 
+func printGameMenu() {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+}
+
 func runProgram() {
-    var statement: Bool = true
+    var isRunning: Bool = true
     
-    while statement {
+    while isRunning {
         printMenu()
         guard let userInput = readLine() else {
             continue
@@ -29,31 +35,14 @@ func runProgram() {
         case "1":
             playNumberBaseBallGame()
         case "2":
-            statement = false
+            isRunning = false
         default:
-            print("입력이 잘못되었습니다.")
+            print("입력이 잘못되었습니다")
         }
     }
 }
 
-func printGameMenu() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
-}
-
-//func isValidInput(number: String) -> Bool {
-//    guard number.allSatisfy({ $0.isNumber }) else {
-//        return false
-//    }
-//
-//    return true
-//}
-
-func prepareInput(userInput: String) throws -> [Int] {
-//    guard isValidInput(number: userInput) else {
-//        throw UserInputError.userInputError
-//    }
+func prepareUserInput(userInput: String) throws -> [Int] {
     let splitUserInput: [Substring] = userInput.split(separator: " ")
     var userNumbers: [Int] = []
     
@@ -63,7 +52,6 @@ func prepareInput(userInput: String) throws -> [Int] {
         }
         userNumbers.append(number)
     }
-   
     return userNumbers
 }
 
@@ -71,7 +59,7 @@ func inputValidator(userInput: String) throws -> [Int] {
     var preparedInput: [Int] = []
     
     do {
-        try preparedInput = prepareInput(userInput: userInput)
+        try preparedInput = prepareUserInput(userInput: userInput)
     } catch {
         throw UserInputError.notNumberError
     }
@@ -102,19 +90,10 @@ func playNumberBaseBallGame() {
         }
         do {
             try userNumbers = inputValidator(userInput: userInput)
-            //        } catch UserInputError.userInputError {
-            //            print("잘못된 입력")
-            //        } catch UserInputError.outOfRangeNumberError {
-            //            print("범위")
-            //        } catch UserInputError.duplicateNumberError {
-            //            print("중복")
-            //        } catch UserInputError.notNumberError {
-            //            print("노숫자")
         } catch {
             print("입력이 잘못되었습니다")
             continue
         }
-        
         let (strike, ball) = checkStrikeAndBall(userNumbers: userNumbers, randomNumbers: computerRandomNumbers)
 
         print("\(strike) 스트라이크, \(ball) 볼")
