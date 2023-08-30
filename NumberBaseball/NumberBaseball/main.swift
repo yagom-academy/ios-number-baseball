@@ -18,18 +18,28 @@ func makeRandomNumbers() -> [Int] {
     return Array(numbers)
 }
 
-func makeResult(computerNumbers: [Int], userNumbers: [Int]) -> (Int, Int) {
-    var (strike, ball) = (0,0)
+func strikeCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
+    var strike = 0
     
-    for index in 0..<userNumbers.count where computerNumbers.contains(userNumbers[index]) {
+    for index in 0..<userNumbers.count {
         if computerNumbers[index] == userNumbers[index] {
             strike += 1
-        } else {
+        }
+    }
+    return strike
+}
+
+func ballCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
+    var ball = 0
+    
+    for index in 0..<userNumbers.count {
+        let userNumber = userNumbers[index]
+        
+        if computerNumbers[index] != userNumber && computerNumbers.contains(userNumber) {
             ball += 1
         }
     }
-    
-    return (strike, ball)
+    return ball
 }
 
 func playNumberBaseBall() {
@@ -37,9 +47,9 @@ func playNumberBaseBall() {
     let computerNumbers = makeRandomNumbers()
     
     while remainingCount > 0 {
-        print(computerNumbers)
         let userNumbers = makeRandomNumbers()
-        let (strike, ball) = makeResult(computerNumbers: computerNumbers, userNumbers: userNumbers)
+        let strike = strikeCount(computerNumbers: computerNumbers, userNumbers: userNumbers)
+        let ball = ballCount(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
         print("임의의 수 : ", terminator: "")
         for number in userNumbers {
