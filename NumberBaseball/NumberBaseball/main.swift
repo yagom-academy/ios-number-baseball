@@ -97,9 +97,9 @@ func playNumberBaseBallGame() {
         let (strike, ball) = checkStrikeAndBall(userNumbers: userNumbers, randomNumbers: computerRandomNumbers)
 
         print("\(strike) 스트라이크, \(ball) 볼")
-        if strike == 3 {
+        guard strike != 3 else {
             print("사용자 승리!")
-
+            
             return
         }
         chance -= 1
