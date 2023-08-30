@@ -9,8 +9,8 @@ import Foundation
 var remainChance = 9
 var computerChoice = makeRandomNumber()
 
-func makeRandomNumber() -> Array<Int> {
-    var randomNum: Set<Int> = Set<Int>()
+func makeRandomNumber() -> [Int] {
+    var randomNum: Set<Int> = []
     
     while randomNum.count < 3 {
         randomNum.insert(Int.random(in: 1...9))
@@ -36,7 +36,7 @@ func startGame() {
     while remainChance >= 0 {
         let userNumber = makeRandomNumber()
         let result = compareRandomNumber(randomNumber: userNumber)
-        print("임의의 수 :\(userNumber.map{String($0)}.joined(separator: " "))")
+        print("임의의 수 :\(userNumber.map { String($0) }.joined(separator: " "))")
         print("\(result[1]) 스트라이크, \(result[0]) 볼")
         if remainChance != 0 {
             print("남은 기회 : \(remainChance)")
