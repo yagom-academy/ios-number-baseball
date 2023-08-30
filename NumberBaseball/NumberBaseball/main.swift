@@ -50,27 +50,34 @@ func playNumberBaseBall() {
         let userNumbers = makeRandomNumbers()
         let strike = strikeCount(computerNumbers: computerNumbers, userNumbers: userNumbers)
         let ball = ballCount(computerNumbers: computerNumbers, userNumbers: userNumbers)
-        
-        print("임의의 수 : ", terminator: "")
-        for number in userNumbers {
-            print("\(number) ", terminator: "")
-        }
-        print("")
-        print("\(strike) 스트라이크, \(ball) 볼")
-        
-        if strike == 3 {
-            print("유저의 승리...!")
-            return
-        } else {
-            remainingCount -= 1
-        }
-        
-        if remainingCount == 0 {
-            print("컴퓨터의 승리...!")
-            return
-        } else {
-            print("남은 기회 : \(remainingCount)")
-        }
+        showRandomNumber(userNumbers: userNumbers)
+        showResult(strike: strike, ball: ball, remainingCount: &remainingCount)
+    }
+}
+
+func showRandomNumber (userNumbers: [Int]) {
+    print("임의의 수 : ", terminator: "")
+    for number in userNumbers {
+        print("\(number) ", terminator: "")
+    }
+}
+
+func showResult (strike: Int , ball: Int, remainingCount: inout Int) {
+    print("\n\(strike) 스트라이크, \(ball) 볼")
+    
+    if strike == 3 {
+        print("유저의 승리...!")
+        remainingCount = 0
+        return
+    } else {
+        remainingCount -= 1
+    }
+    
+    if remainingCount == 0 {
+        print("컴퓨터의 승리...!")
+        return
+    } else {
+        print("남은 기회 : \(remainingCount)")
     }
 }
 
