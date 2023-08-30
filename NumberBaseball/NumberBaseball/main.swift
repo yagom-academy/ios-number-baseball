@@ -4,8 +4,9 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-import Foundation
-
+enum UserInputError: Error {
+    case userInputError
+}
 
 func printMenu() {
     print("1. 게임 시작")
@@ -14,7 +15,9 @@ func printMenu() {
 }
 
 func runProgram() {
-    while true {
+    var statement: Bool = true
+    
+    while statement {
         printMenu()
         guard let userInput = readLine() else {
             continue
@@ -23,7 +26,7 @@ func runProgram() {
         case "1":
             playNumberBaseBallGame()
         case "2":
-            break
+            statement = false
         default:
             print("입력이 잘못되었습니다.")
         }
@@ -36,12 +39,25 @@ func printGameMenu() {
     print("입력 : ", terminator: "")
 }
 
-func prepareInput(userInput: String) -> [Int] {
-    return userInput.split(separator: " ").map { Int($0)! }
+func isValidInput(number: String) -> Bool {
+    guard number.allSatisfy({ $0.isNumber }) else {
+        return false
+    }
+    
+    return true
+}
+
+func prepareInput(userInput: String) throws -> [Int] {
+    guard isValidInput(number: userInput) else {
+        throw UserInputError.userInputError
+    }
+   
+    return []
+    //return userInput.split(separator: " ").map { Int($0) }
 }
 
 func inputValidator(userInput: String) -> [Int] {
-    print(prepareInput(userInput: userInput))
+    //print(prepareInput(userInput: userInput))
     return []
 }
 
