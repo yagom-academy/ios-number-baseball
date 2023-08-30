@@ -5,6 +5,9 @@
 //
 
 enum UserInputError: Error {
+    case duplicateNumberError
+    case outOfRangeNumberError
+    case notNumberError
     case userInputError
 }
 
@@ -39,26 +42,52 @@ func printGameMenu() {
     print("입력 : ", terminator: "")
 }
 
-func isValidInput(number: String) -> Bool {
-    guard number.allSatisfy({ $0.isNumber }) else {
-        return false
-    }
-    
-    return true
-}
+//func isValidInput(number: String) -> Bool {
+//    guard number.allSatisfy({ $0.isNumber }) else {
+//        return false
+//    }
+//
+//    return true
+//}
 
 func prepareInput(userInput: String) throws -> [Int] {
-    guard isValidInput(number: userInput) else {
-        throw UserInputError.userInputError
+//    guard isValidInput(number: userInput) else {
+//        throw UserInputError.userInputError
+//    }
+    let splitUserInput: [Substring] = userInput.split(separator: " ")
+    var userNumbers: [Int] = []
+    
+    for userNumber in splitUserInput {
+        guard let number = Int(userNumber) else {
+            throw UserInputError.notNumberError
+        }
+        userNumbers.append(number)
     }
    
-    return []
-    //return userInput.split(separator: " ").map { Int($0) }
+    return userNumbers
 }
 
-func inputValidator(userInput: String) -> [Int] {
-    //print(prepareInput(userInput: userInput))
-    return []
+func inputValidator(userInput: String) throws -> [Int] {
+    var preparedInput: [Int] = []
+    
+    do {
+        try preparedInput = prepareInput(userInput: userInput)
+    } catch {
+        throw UserInputError.notNumberError
+    }
+    guard preparedInput.count == 3 else {
+        throw UserInputError.userInputError
+    }
+    for value in preparedInput {
+        guard preparedInput.filter ({ $0 == value }).count == 1 else {
+            throw UserInputError.duplicateNumberError
+        }
+    }
+    guard preparedInput.filter ({ 1 <= $0 && $0 <= 9 }).count == 3 else {
+        throw UserInputError.outOfRangeNumberError
+    }
+    
+    return preparedInput
 }
 
 func playNumberBaseBallGame() {
@@ -71,8 +100,21 @@ func playNumberBaseBallGame() {
         guard let userInput = readLine() else {
             continue
         }
-        userNumbers = inputValidator(userInput: userInput)
-        print("임의의 수 : \(userNumbers.map { String($0) }.joined(separator: " "))")
+        do {
+            try userNumbers = inputValidator(userInput: userInput)
+            //        } catch UserInputError.userInputError {
+            //            print("잘못된 입력")
+            //        } catch UserInputError.outOfRangeNumberError {
+            //            print("범위")
+            //        } catch UserInputError.duplicateNumberError {
+            //            print("중복")
+            //        } catch UserInputError.notNumberError {
+            //            print("노숫자")
+        } catch {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+        
         let (strike, ball) = checkStrikeAndBall(userNumbers: userNumbers, randomNumbers: computerRandomNumbers)
 
         print("\(strike) 스트라이크, \(ball) 볼")
