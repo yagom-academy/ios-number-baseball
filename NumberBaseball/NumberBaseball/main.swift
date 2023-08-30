@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+//import Foundation
 
 func playNumberBaseBallGame() {
     let randomNumbers: [Int] = generateRandomNumber()
@@ -42,22 +42,12 @@ func checkStrikeAndBall(userNumbers: [Int], randomNumbers: [Int]) -> (Int, Int) 
     for (index, number) in userNumbers.enumerated() {
         if number == randomNumbers[index] {
             strike += 1
-        } else if checkBallForNumber(userNumber: number, randomNumbers: randomNumbers) {
+        } else if randomNumbers.contains(number) {
             ball += 1
         }
     }
 
     return (strike, ball)
-}
-
-func checkBallForNumber(userNumber: Int, randomNumbers: [Int]) -> Bool {
-    for randomNumber in randomNumbers {
-        if userNumber == randomNumber {
-            return true
-        }
-    }
-    
-    return false
 }
 
 playNumberBaseBallGame()
