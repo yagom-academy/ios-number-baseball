@@ -50,4 +50,22 @@ func startGame() {
         remainChance -= 1
     }
 }
-startGame()
+
+func menu() {
+    while true {
+        print("1. 게임시작")
+        print("2. 게임종료")
+        print("원하는 기능을 선택해 주세요 :", terminator: " ")
+        let input = readLine()
+        guard let input, let input = Int(input) else { return }
+        if input == 1 {
+            print("게임시작")
+        } else if input == 2 {
+            print("게임종료")
+            break
+        } else {
+            print("입력이 잘못되었습니다")
+            continue
+        }
+    }
+}
