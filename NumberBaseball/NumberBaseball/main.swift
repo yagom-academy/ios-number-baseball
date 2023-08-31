@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
 func makeRandomNumbers() -> [Int] {
     var numbers: Set<Int> = []
     
@@ -14,7 +12,6 @@ func makeRandomNumbers() -> [Int] {
         
         numbers.insert(randomNumber)
     }
-    
     return Array(numbers)
 }
 
@@ -42,14 +39,14 @@ func countBall(computerNumbers: [Int], userNumbers: [Int]) -> Int {
     return ball
 }
 
-func showRandomNumber (userNumbers: [Int]) {
+func showRandomNumber(userNumbers: [Int]) {
     print("임의의 수 : ", terminator: "")
     for number in userNumbers {
         print("\(number) ", terminator: "")
     }
 }
 
-func showResult (strike: Int , ball: Int, remainingCount: inout Int) {
+func showResult(strike: Int, ball: Int, remainingCount: inout Int) {
     print("\n\(strike) 스트라이크, \(ball) 볼")
     
     if strike == 3 {
