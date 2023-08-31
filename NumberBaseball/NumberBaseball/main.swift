@@ -5,67 +5,52 @@
 //
 
 func printMenu() {
-    print("1. 게임 시작")
-    print("2. 게임 종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    print("""
+        1. 게임 시작
+        2. 게임 종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: " ")
 }
 
 func printGameMenu() {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
+    print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: " ")
+    
 }
 
 func runProgram() {
-    var isRunning: Bool = true
-    
-    while isRunning {
+    while true {
         printMenu()
-        guard let userInput = readLine() else {
-            continue
-        }
-        switch userInput {
+        switch readLine() {
         case "1":
             playNumberBaseBallGame()
         case "2":
-            isRunning = false
+            return
         default:
             print("입력이 잘못되었습니다")
         }
     }
 }
 
-func prepareUserInput(userInput: String) -> [Int]? {
-    let splitUserInput: [Substring] = userInput.split(separator: " ")
-    var userNumbers: [Int] = []
+func inputValidate(userInput: String) -> [Int]? {
+    let userNumbers = userInput.split(separator: " ").compactMap { Int($0) }
     
-    for userNumber in splitUserInput {
-        guard let number = Int(userNumber) else {
+    guard userNumbers.count == 3 else {
+        return nil
+    }
+    for value in userNumbers {
+        guard userNumbers.filter ({ $0 == value }).count == 1 else {
             return nil
         }
-        userNumbers.append(number)
+    }
+    guard userNumbers.filter ({ 1 <= $0 && $0 <= 9 }).count == 3 else {
+        return nil
     }
     
     return userNumbers
-}
-
-func inputValidator(userInput: String) -> [Int]? {
-    guard let preparedInput = prepareUserInput(userInput: userInput) else {
-        return nil
-    }
-    guard preparedInput.count == 3 else {
-        return nil
-    }
-    for value in preparedInput {
-        guard preparedInput.filter ({ $0 == value }).count == 1 else {
-            return nil
-        }
-    }
-    guard preparedInput.filter ({ 1 <= $0 && $0 <= 9 }).count == 3 else {
-        return nil
-    }
-    
-    return preparedInput
 }
 
 func playNumberBaseBallGame() {
@@ -77,7 +62,7 @@ func playNumberBaseBallGame() {
         guard let userInput = readLine() else {
             continue
         }
-        guard let userNumbers = inputValidator(userInput: userInput) else {
+        guard let userNumbers = inputValidate(userInput: userInput) else {
             print("입력이 잘못되었습니다")
             continue
         }
