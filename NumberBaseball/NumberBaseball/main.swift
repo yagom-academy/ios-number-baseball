@@ -47,23 +47,30 @@ func inputValidate(userInput: String?) -> [Int]? {
     return userNumbers
 }
 
+func gameResult(userNumbers: [Int], computerRandomNumbers: [Int]) -> Bool {
+    let (strike, ball) = checkStrikeAndBall(userNumbers: userNumbers, randomNumbers: computerRandomNumbers)
+
+    print("\(strike) 스트라이크, \(ball) 볼")
+    guard strike != 3 else {
+        return false
+    }
+    
+    return true
+    
+}
+
 func playNumberBaseBallGame() {
     let computerRandomNumbers: [Int] = generateRandomNumber()
     var chance: Int = 9
     
     while chance != 0 {
         printGameMenu()
-
         guard let userNumbers = inputValidate(userInput: readLine()) else {
             print("입력이 잘못되었습니다")
             continue
         }
-        let (strike, ball) = checkStrikeAndBall(userNumbers: userNumbers, randomNumbers: computerRandomNumbers)
-
-        print("\(strike) 스트라이크, \(ball) 볼")
-        guard strike != 3 else {
+        guard gameResult(userNumbers: userNumbers, computerRandomNumbers: computerRandomNumbers) else {
             print("사용자 승리!")
-            
             return
         }
         chance -= 1
