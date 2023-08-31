@@ -1,8 +1,8 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -48,7 +48,7 @@ func calculateStrikeCount(userNumbers: [Int]) -> Int {
 }
 
 func playGame() {
-    var remainsChance = 3
+    var remainsChance = 9
     
     while remainsChance > 0 {
         
@@ -106,7 +106,6 @@ func inputGameNumbers() {
         
         if let userInputNumbers = readLine() {
             validateInput(userInput: userInputNumbers)
-            userNumbers = userInputNumbers.split(separator:" ").compactMap { Int($0) }
         }
         
         if userNumbers.count == 3 {
@@ -116,14 +115,14 @@ func inputGameNumbers() {
 }
 
 func validateInput(userInput: String) {
-    guard userInput.isEmpty == false else {
-        print("입력이 잘못되었습니다.")
-        return
-    }
+    userNumbers = userInput.split(separator: " ").compactMap({ Int($0) }).filter {$0 < 10}
     
-    guard userInput.split(separator: " ").compactMap({ Int($0) }).count == 3 else {
-        print("입력이 잘못되었습니다.")
-        return
+    guard userInput.isEmpty == false,
+         userInput.split(separator: " ").compactMap({ Int($0) }).count == 3,
+         Set(userNumbers).count > 2 else {
+       userNumbers = []
+       print("입력이 잘못되었습니다.")
+       return
     }
 }
 
