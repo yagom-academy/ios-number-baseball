@@ -1,15 +1,8 @@
 //
 //  NumberBaseball - main.swift
-//  Created by yagom.
+//  Created by Kiseok, Hisop.
 //  Copyright © yagom academy. All rights reserved.
 //
-
-enum UserInputError: Error {
-    case duplicateNumberError
-    case outOfRangeNumberError
-    case notNumberError
-    case userInputError
-}
 
 func printMenu() {
     print("1. 게임 시작")
@@ -42,37 +35,34 @@ func runProgram() {
     }
 }
 
-func prepareUserInput(userInput: String) throws -> [Int] {
+func prepareUserInput(userInput: String) -> [Int]? {
     let splitUserInput: [Substring] = userInput.split(separator: " ")
     var userNumbers: [Int] = []
     
     for userNumber in splitUserInput {
         guard let number = Int(userNumber) else {
-            throw UserInputError.notNumberError
+            return nil
         }
         userNumbers.append(number)
     }
+    
     return userNumbers
 }
 
-func inputValidator(userInput: String) throws -> [Int] {
-    var preparedInput: [Int] = []
-    
-    do {
-        try preparedInput = prepareUserInput(userInput: userInput)
-    } catch {
-        throw UserInputError.notNumberError
+func inputValidator(userInput: String) -> [Int]? {
+    guard let preparedInput = prepareUserInput(userInput: userInput) else {
+        return nil
     }
     guard preparedInput.count == 3 else {
-        throw UserInputError.userInputError
+        return nil
     }
     for value in preparedInput {
         guard preparedInput.filter ({ $0 == value }).count == 1 else {
-            throw UserInputError.duplicateNumberError
+            return nil
         }
     }
     guard preparedInput.filter ({ 1 <= $0 && $0 <= 9 }).count == 3 else {
-        throw UserInputError.outOfRangeNumberError
+        return nil
     }
     
     return preparedInput
@@ -80,7 +70,6 @@ func inputValidator(userInput: String) throws -> [Int] {
 
 func playNumberBaseBallGame() {
     let computerRandomNumbers: [Int] = generateRandomNumber()
-    var userNumbers: [Int] = []
     var chance: Int = 9
 
     while chance != 0 {
@@ -88,9 +77,7 @@ func playNumberBaseBallGame() {
         guard let userInput = readLine() else {
             continue
         }
-        do {
-            try userNumbers = inputValidator(userInput: userInput)
-        } catch {
+        guard let userNumbers = inputValidator(userInput: userInput) else {
             print("입력이 잘못되었습니다")
             continue
         }
