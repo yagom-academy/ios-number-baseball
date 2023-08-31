@@ -79,4 +79,19 @@ func playNumberBaseBall() {
     }
 }
 
-playNumberBaseBall()
+func selectMenu() -> String {
+    while true {
+        print("1. 게임 시작")
+        print("2. 게임 종료")
+        print("원하는 기능을 선택해주세요 : ", terminator: "")
+        guard let selectNumber = readLine() else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        if selectNumber != "1" && selectNumber != "2" {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        return selectNumber
+    }
+}
