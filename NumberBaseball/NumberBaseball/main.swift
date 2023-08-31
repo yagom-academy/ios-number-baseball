@@ -32,6 +32,32 @@ func compareRandomNumber(randomNumber: [Int]) -> [Int] {
     return [ball, strike]
 }
 
+func verifyingUserNumber(number: String?) -> [Int]? {
+    var intArray: [Int] = []
+    guard let number else { return nil }
+    var result = number.components(separatedBy: " ")
+    
+    if result.count == 3 {
+        for num in result {
+            guard let changeInt = Int(num) else { return nil }
+            intArray.append(changeInt)
+        }
+    } else {
+        print("입력이 잘못되었습니다.")
+        return nil
+    }
+    
+    var changeSet = Set(intArray)
+    var verifyingNumberArray = intArray.count == changeSet.count
+    
+    if verifyingNumberArray {
+        return intArray
+    } else {
+        print("입력이 잘못되었습니다.")
+        return nil
+    }
+}
+
 func playingGame() {
     while remainChance >= 0 {
         var result: [Int] = []
@@ -70,15 +96,12 @@ func playingGame() {
 
 func menu() {
     while true {
-        print("1. 게임시작")
-        print("2. 게임종료")
         print("원하는 기능을 선택해 주세요 :", terminator: " ")
         let input = readLine()
         guard let input, let input = Int(input) else { return }
         if input == 1 {
-            print("게임시작")
+            playingGame()
         } else if input == 2 {
-            print("게임종료")
             break
         } else {
             print("입력이 잘못되었습니다")
@@ -87,28 +110,10 @@ func menu() {
     }
 }
 
-func verifyingUserNumber(number: String?) -> [Int]? {
-    var intArray: [Int] = []
-    guard let number else { return nil }
-    var result = number.components(separatedBy: " ")
-    
-    if result.count == 3 {
-        for i in result {
-            guard let changeInt = Int(i) else { return nil }
-            intArray.append(changeInt)
-        }
-    } else {
-        print("입력이 잘못되었습니다.")
-        return nil
-    }
-    
-    var changeSet = Set(intArray)
-    var verifyingNumberArray = intArray.count == changeSet.count
-    
-    if verifyingNumberArray {
-        return intArray
-    } else {
-        print("입력이 잘못되었습니다.")
-        return nil
-    }
+func startGame() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    menu()
 }
+
+startGame()
