@@ -65,7 +65,60 @@ func showResult(strike: Int, ball: Int, remainingCount: inout Int) {
     }
 }
 
+func selectMenu() {
+    var isPlaying: Bool = true
+    
+    while isPlaying {
+        print("""
+        1. 게임 시작
+        2. 게임 종료
+        원하는 기능을 선택해주세요 :
+        """, terminator: "")
+
+        guard let selectNumber = readLine() else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        
+        switch selectNumber {
+        case "1":
+            playNumberBaseBall()
+        case "2":
+            isPlaying = false
+        default:
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+    }
+}
+
+func selectUserNumbers() -> [Int] {
+    var isIncorrect: Bool = true
+    while isIncorrect {
+        print("""
+        숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+        중복 숫자는 허용하지 않습니다.
+        입력 :
+        """, terminator: "")
+        
+        guard let userInput = readLine() else {
+            print("입력이 잘못되었습니다.")
+            continue
+        }
+        let userNumbers: [Int] = userInput.split(separator: " ").map{Int($0) ?? 10}
+        
+        if vaildate(userNumbers: userNumbers){
+            
+            isIncorrect = false
+        }else{
+            continue
+        }
+    }
+    return userNumbers
+}
+
 func playNumberBaseBall() {
+    
     var remainingCount: Int = 9
     let computerNumbers = makeRandomNumbers()
     
@@ -76,22 +129,5 @@ func playNumberBaseBall() {
         
         showRandomNumber(userNumbers: userNumbers)
         showResult(strike: strike, ball: ball, remainingCount: &remainingCount)
-    }
-}
-
-func selectMenu() -> String {
-    while true {
-        print("1. 게임 시작")
-        print("2. 게임 종료")
-        print("원하는 기능을 선택해주세요 : ", terminator: "")
-        guard let selectNumber = readLine() else {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
-        if selectNumber != "1" && selectNumber != "2" {
-            print("입력이 잘못되었습니다.")
-            continue
-        }
-        return selectNumber
     }
 }
