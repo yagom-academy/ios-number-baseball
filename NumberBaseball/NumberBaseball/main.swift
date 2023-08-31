@@ -40,7 +40,6 @@ func playNumberBaseBall() {
         let strike = countStrike(computerNumbers: computerNumbers, userNumbers: userNumbers)
         let ball = countBall(computerNumbers: computerNumbers, userNumbers: userNumbers)
         
-        showRandomNumber(userNumbers: userNumbers)
         showResult(strike: strike, ball: ball, remainingCount: &remainingCount)
     }
 }
@@ -128,15 +127,8 @@ func countBall(computerNumbers: [Int], userNumbers: [Int]) -> Int {
     return ball
 }
 
-func showRandomNumber(userNumbers: [Int]) {
-    print("임의의 수 : ", terminator: "")
-    for number in userNumbers {
-        print("\(number) ", terminator: "")
-    }
-}
-
 func showResult(strike: Int, ball: Int, remainingCount: inout Int) {
-    print("\n\(strike) 스트라이크, \(ball) 볼")
+    print("\(strike) 스트라이크, \(ball) 볼")
     
     if strike == 3 {
         print("유저의 승리...!")
