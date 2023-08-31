@@ -56,7 +56,6 @@ func gameResult(userNumbers: [Int], computerRandomNumbers: [Int]) -> Bool {
     }
     
     return true
-    
 }
 
 func playNumberBaseBallGame() {
