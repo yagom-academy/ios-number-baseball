@@ -34,16 +34,14 @@ func runProgram() {
     }
 }
 
-func inputValidate(userInput: String) -> [Int]? {
-    let userNumbers = userInput.split(separator: " ").compactMap { Int($0) }
-    
-    guard userNumbers.count == 3 && userNumbers.filter({ 1 <= $0 && $0 <= 9 }).count == 3 else {
+func inputValidate(userInput: String?) -> [Int]? {
+    guard let userInput else {
         return nil
     }
-    for value in userNumbers {
-        guard userNumbers.filter ({ $0 == value }).count == 1 else {
-            return nil
-        }
+    let userNumbers = userInput.split(separator: " ").compactMap { Int($0) }
+    
+    guard Set(userNumbers).count == 3 && userNumbers.filter({ 1...9 ~= $0 }).count == 3 else {
+        return nil
     }
     
     return userNumbers
@@ -52,13 +50,11 @@ func inputValidate(userInput: String) -> [Int]? {
 func playNumberBaseBallGame() {
     let computerRandomNumbers: [Int] = generateRandomNumber()
     var chance: Int = 9
-
+    
     while chance != 0 {
         printGameMenu()
-        guard let userInput = readLine() else {
-            continue
-        }
-        guard let userNumbers = inputValidate(userInput: userInput) else {
+
+        guard let userNumbers = inputValidate(userInput: readLine()) else {
             print("입력이 잘못되었습니다")
             continue
         }
