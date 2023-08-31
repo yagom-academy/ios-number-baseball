@@ -18,7 +18,6 @@ func printGameMenu() {
         중복 숫자는 허용하지 않습니다.
         입력 :
         """, terminator: " ")
-    
 }
 
 func runProgram() {
@@ -38,16 +37,13 @@ func runProgram() {
 func inputValidate(userInput: String) -> [Int]? {
     let userNumbers = userInput.split(separator: " ").compactMap { Int($0) }
     
-    guard userNumbers.count == 3 else {
+    guard userNumbers.count == 3 && userNumbers.filter({ 1 <= $0 && $0 <= 9 }).count == 3 else {
         return nil
     }
     for value in userNumbers {
         guard userNumbers.filter ({ $0 == value }).count == 1 else {
             return nil
         }
-    }
-    guard userNumbers.filter ({ 1 <= $0 && $0 <= 9 }).count == 3 else {
-        return nil
     }
     
     return userNumbers
