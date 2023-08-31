@@ -75,9 +75,23 @@ func verifyingUserNumber(number: String?) -> [Int]? {
     guard let number else { return nil }
     var result = number.components(separatedBy: " ")
     
-    for i in result {
-        guard let changeInt = Int(i) else { return nil }
-        intArray.append(changeInt)
+    if result.count == 3 {
+        for i in result {
+            guard let changeInt = Int(i) else { return nil }
+            intArray.append(changeInt)
+        }
+    } else {
+        print("입력이 잘못되었습니다.")
+        return nil
     }
-    return intArray
+    
+    var changeSet = Set(intArray)
+    var verifyingNumberArray = intArray.count == changeSet.count
+    
+    if verifyingNumberArray {
+        return intArray
+    } else {
+        print("입력이 잘못되었습니다.")
+        return nil
+    }
 }
