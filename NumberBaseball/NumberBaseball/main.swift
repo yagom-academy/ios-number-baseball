@@ -33,6 +33,7 @@ func compareRandomNumber(randomNumber: [Int]) -> [Int] {
 }
 
 func verifyingUserNumber(number: String?) -> [Int]? {
+    var stringArray: [String] = []
     var intArray: [Int] = []
     
     guard let number else { return nil }
@@ -40,12 +41,20 @@ func verifyingUserNumber(number: String?) -> [Int]? {
     
     if result.count == 3 {
         for num in result {
-            guard let changeInt = Int(num) else { return nil }
-            intArray.append(changeInt)
+            stringArray.append(num)
         }
     } else {
         print("입력이 잘못되었습니다.")
         return nil
+    }
+    
+    for num in stringArray {
+        if let changInt = Int(num) {
+            intArray.append(changInt)
+        } else {
+            print("입력이 잘못되었습니다.")
+            return nil
+        }
     }
     
     let changeSet = Set(intArray)
@@ -66,6 +75,7 @@ func printMenu() {
 func playingGame() {
     while remainChance >= 0 {
         var result: [Int] = []
+        remainChance -= 1
         
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 혀용하지 않습니다.")
@@ -94,7 +104,6 @@ func playingGame() {
             computerChoice = makeRandomNumber()
             break
         }
-        remainChance -= 1
     }
 }
 
