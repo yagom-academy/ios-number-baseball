@@ -27,8 +27,9 @@ func calculateBallCount(userNumbers: [Int]) -> Int {
     var ballCount = 0
     
     for index in 0...2 {
-        if userNumbers.contains(randomComputerNumbers[index]), userNumbers[index] != randomComputerNumbers[index] {
-            ballCount += 1
+        if userNumbers.contains(randomComputerNumbers[index]),
+           userNumbers[index] != randomComputerNumbers[index] {
+           ballCount += 1
         }
     }
     
