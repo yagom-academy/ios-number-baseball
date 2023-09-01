@@ -35,7 +35,7 @@ func compareRandomNumber(randomNumber: [Int]) -> [Int] {
 func verifyingUserNumber(number: String?) -> [Int]? {
     var intArray: [Int] = []
     guard let number else { return nil }
-    var result = number.components(separatedBy: " ")
+    let result = number.components(separatedBy: " ")
     
     if result.count == 3 {
         for num in result {
@@ -47,8 +47,8 @@ func verifyingUserNumber(number: String?) -> [Int]? {
         return nil
     }
     
-    var changeSet = Set(intArray)
-    var verifyingNumberArray = intArray.count == changeSet.count
+    let changeSet = Set(intArray)
+    let verifyingNumberArray = intArray.count == changeSet.count
     
     if verifyingNumberArray {
         return intArray
@@ -68,7 +68,7 @@ func playingGame() {
         
         let userNumber = verifyingUserNumber(number: readLine())
         if let userNumber {
-            let result = compareRandomNumber(randomNumber: userNumber)
+            result = compareRandomNumber(randomNumber: userNumber)
             print("\(result[1]) 스트라이크, \(result[0]) 볼")
         } else {
             continue
@@ -98,13 +98,15 @@ func menu() {
     while true {
         print("원하는 기능을 선택해 주세요 :", terminator: " ")
         let input = readLine()
-        guard let input, let input = Int(input) else { return }
-        if input == 1 {
+        guard let input else { return }
+        if input == "1" {
             playingGame()
-        } else if input == 2 {
+        } else if input == "2" {
             break
         } else {
             print("입력이 잘못되었습니다")
+            print("1. 게임시작")
+            print("2. 게임종료")
             continue
         }
     }
