@@ -75,7 +75,6 @@ func printMenu() {
 func playingGame() {
     while remainChance >= 0 {
         var result: [Int] = []
-        remainChance -= 1
         
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 혀용하지 않습니다.")
@@ -84,6 +83,7 @@ func playingGame() {
         let userNumber = verifyingUserNumber(number: readLine())
         
         if let userNumber {
+            remainChance -= 1
             result = compareRandomNumber(randomNumber: userNumber)
             print("\(result[1]) 스트라이크, \(result[0]) 볼")
         } else {
