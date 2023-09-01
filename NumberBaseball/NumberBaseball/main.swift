@@ -34,6 +34,7 @@ func compareRandomNumber(randomNumber: [Int]) -> [Int] {
 
 func verifyingUserNumber(number: String?) -> [Int]? {
     var intArray: [Int] = []
+    
     guard let number else { return nil }
     let result = number.components(separatedBy: " ")
     
@@ -48,14 +49,18 @@ func verifyingUserNumber(number: String?) -> [Int]? {
     }
     
     let changeSet = Set(intArray)
-    let verifyingNumberArray = intArray.count == changeSet.count
     
-    if verifyingNumberArray {
+    if intArray.count == changeSet.count {
         return intArray
     } else {
         print("입력이 잘못되었습니다.")
         return nil
     }
+}
+
+func printMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
 }
 
 func playingGame() {
@@ -64,9 +69,10 @@ func playingGame() {
         
         print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
         print("중복 숫자는 혀용하지 않습니다.")
-        print("입력 :",terminator: " ")
+        print("입력 :", terminator: " ")
         
         let userNumber = verifyingUserNumber(number: readLine())
+        
         if let userNumber {
             result = compareRandomNumber(randomNumber: userNumber)
             print("\(result[1]) 스트라이크, \(result[0]) 볼")
@@ -78,15 +84,13 @@ func playingGame() {
             print("남은 기회 : \(remainChance)")
         } else {
             print("컴퓨터 승리")
-            print("1. 게임시작")
-            print("2. 게임종료")
+            printMenu()
             computerChoice = makeRandomNumber()
             break
         }
         if result[1] == 3 {
             print("사용자 승리")
-            print("1. 게임시작")
-            print("2. 게임종료")
+            printMenu()
             computerChoice = makeRandomNumber()
             break
         }
@@ -94,10 +98,11 @@ func playingGame() {
     }
 }
 
-func menu() {
+func selectMenu() {
     while true {
         print("원하는 기능을 선택해 주세요 :", terminator: " ")
         let input = readLine()
+        
         guard let input else { return }
         if input == "1" {
             playingGame()
@@ -105,17 +110,15 @@ func menu() {
             break
         } else {
             print("입력이 잘못되었습니다")
-            print("1. 게임시작")
-            print("2. 게임종료")
+            printMenu()
             continue
         }
     }
 }
 
 func startGame() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    menu()
+    printMenu()
+    selectMenu()
 }
 
 startGame()
