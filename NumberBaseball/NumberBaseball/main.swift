@@ -5,7 +5,7 @@
 //
 
 func selectMenu() {
-    var isPlaying: Bool = true
+    let isPlaying: Bool = true
     
     while isPlaying {
         print("""
@@ -23,7 +23,7 @@ func selectMenu() {
         case "1":
             playNumberBaseBall()
         case "2":
-            isPlaying = false
+            return
         default:
             print("입력이 잘못되었습니다.")
             continue
@@ -70,35 +70,41 @@ func selectUserNumbers() -> [Int] {
             continue
         }
         
-        let userNumbers: [Int] = userInput.split(separator: " ").map{Int($0) ?? 10}
+        let userNumbers: [Substring] = userInput.split(separator: " ")
         
-        if validate(userNumbers: userNumbers) {
-            isIncorrect = false
-        } else {
-            continue
-        }
-        return userNumbers
+        guard validate(userNumbers: userNumbers) else { continue }
+        
+        isIncorrect = false
+        let correctNumbers = userNumbers.compactMap{Int($0)}
+        return correctNumbers
     }
 }
 
-func validate(userNumbers: [Int]) -> Bool {
-    if userNumbers.count != 3 {
-        print("입력이 잘못되었습니다.")
+func validate(userNumbers: [Substring]) -> Bool {
+    let requiredCount = 3
+    
+    guard userNumbers.count == requiredCount else {
+        print("입력한 값이 3개가 아닙니다.")
         return false
     }
     
-    let numbersSetList = Array(Set(userNumbers))
-    
-    if numbersSetList.count != 3 {
-        print("입력이 잘못되었습니다.")
-        return false
-    }
-    
-    for number in numbersSetList{
-        if number > 9 || number < 1 {
-            print("입력이 잘못되었습니다.")
+    for number in userNumbers {
+        guard let number = Int(number) else {
+            print("숫자가 아닌 값이 있습니다.")
             return false
         }
+        
+        guard 1...9 ~= number else {
+            print("1 ~ 9사이 숫자만 입력해주세요.")
+            return false
+        }
+    }
+    
+    let numbersSetList = Set(userNumbers.compactMap{Int($0)})
+    
+    guard numbersSetList.count == requiredCount else {
+        print("중복된 숫자가 있습니다.")
+        return false
     }
     return true
 }
