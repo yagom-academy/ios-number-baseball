@@ -7,3 +7,4 @@
 import Foundation
 
 var computerNumbers: [Int] = []
+var remainedInnings = 9
