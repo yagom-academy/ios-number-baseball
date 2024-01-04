@@ -13,21 +13,22 @@ func getRandomNumbers() -> [Int] {
     return Array(Array(1...9).shuffled()[0..<3])
 }
 
-func calcRoundResult(_ playerNumbers: [Int]) -> (Int, Int) {
-    var strikeNumbers = 0
-    var ballNumbers = 0
+func calcRoundResult(_ computerNumbers: [Int], _ playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
+    let computerNumbersSet = Set(computerNumbers)
+    let playerNumebersSet = Set(playerNumbers)
+    
+    var strikeCount = 0
+    var ballCount = 0
     
     for i in 0..<3 {
-        for j in 0..<3 where playerNumbers[i] == computerNumbers[j] {
-            if (i == j) {
-                strikeNumbers += 1
-            } else {
-                ballNumbers += 1
-            }
+        if computerNumbers[i] == playerNumbers[i] {
+            strikeCount += 1
         }
     }
     
-    return (strikeNumbers, ballNumbers)
+    ballCount = computerNumbersSet.intersection(playerNumebersSet).count - strikeCount
+    
+    return (strikeCount, ballCount)
 }
 
 func runGame() {
@@ -38,7 +39,7 @@ func runGame() {
         
         print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
         
-        let roundResult = calcRoundResult(playerNumbers)
+        let roundResult = calcRoundResult(computerNumbers, playerNumbers)
         let strikeCount = roundResult.0
         let ballCount = roundResult.1
         
