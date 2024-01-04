@@ -9,11 +9,8 @@ import Foundation
 
 extension NumberBaseBall {
     func gameStart(){
-                
         generateNumber()
         userInputNumber()
-        
-        
     }
 }
 

@@ -11,7 +11,6 @@
 		2E66896B2B464B1A009123FF /* UserInputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E66896A2B464B1A009123FF /* UserInputNumber.swift */; };
 		2E66896D2B464B88009123FF /* CheckStrikeAndBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E66896C2B464B88009123FF /* CheckStrikeAndBall.swift */; };
 		2E66896F2B464C1B009123FF /* GameStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E66896E2B464C1B009123FF /* GameStart.swift */; };
-		2E6689712B464C25009123FF /* GameEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6689702B464C25009123FF /* GameEnd.swift */; };
 		2E6689732B464FC4009123FF /* ExcuteGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6689722B464FC4009123FF /* ExcuteGame.swift */; };
 		C7A29CFC2551372B00CAC77A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A29CFB2551372B00CAC77A /* main.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +32,6 @@
 		2E66896A2B464B1A009123FF /* UserInputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputNumber.swift; sourceTree = "<group>"; };
 		2E66896C2B464B88009123FF /* CheckStrikeAndBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckStrikeAndBall.swift; sourceTree = "<group>"; };
 		2E66896E2B464C1B009123FF /* GameStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStart.swift; sourceTree = "<group>"; };
-		2E6689702B464C25009123FF /* GameEnd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnd.swift; sourceTree = "<group>"; };
 		2E6689722B464FC4009123FF /* ExcuteGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcuteGame.swift; sourceTree = "<group>"; };
 		8BA1F3BF2B46562C00D80796 /* FlowChar_Baseball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlowChar_Baseball.png; sourceTree = "<group>"; };
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +71,6 @@
 				C7A29CFB2551372B00CAC77A /* main.swift */,
 				2E6689722B464FC4009123FF /* ExcuteGame.swift */,
 				2E66896E2B464C1B009123FF /* GameStart.swift */,
-				2E6689702B464C25009123FF /* GameEnd.swift */,
 				2E6689682B464B00009123FF /* GenerateNumber.swift */,
 				2E66896A2B464B1A009123FF /* UserInputNumber.swift */,
 				2E66896C2B464B88009123FF /* CheckStrikeAndBall.swift */,
@@ -145,7 +142,6 @@
 				2E66896D2B464B88009123FF /* CheckStrikeAndBall.swift in Sources */,
 				2E6689732B464FC4009123FF /* ExcuteGame.swift in Sources */,
 				2E66896F2B464C1B009123FF /* GameStart.swift in Sources */,
-				2E6689712B464C25009123FF /* GameEnd.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

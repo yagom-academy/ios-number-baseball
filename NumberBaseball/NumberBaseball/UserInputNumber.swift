@@ -14,21 +14,18 @@ extension NumberBaseBall {
         var flag: Bool = true
         
         while flag {
-                        
             guard let randomNum = readLine() else {
                 return
             }
             
-            var splitUserInput = randomNum.components(separatedBy: " ")
+            let splitUserInput = randomNum.components(separatedBy: " ")
             
             if splitUserInput[0] != splitUserInput[1] && splitUserInput[0] != splitUserInput[2] && splitUserInput[1] != splitUserInput[2] {
                 flag = false
                 userNumList = splitUserInput
             }
         }
-        
         compare()
-        
     }
 }
 

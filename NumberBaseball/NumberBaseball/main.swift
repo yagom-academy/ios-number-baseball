@@ -15,7 +15,6 @@ class NumberBaseBall {
         self.comNumList = comNumList
         self.userNumList = userNumList
     }
-    
 }
 
 let numberBaseball = NumberBaseBall(comNumList: [], userNumList: [])

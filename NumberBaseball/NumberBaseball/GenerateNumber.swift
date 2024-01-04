@@ -12,9 +12,9 @@ extension NumberBaseBall {
         comNumList = []
         
         while comNumList.count < 3 {
-            var randomNum = Int.random(in: 1...9)
+            let randomNum = Int.random(in: 1...9)
             
-            var randomNumStr = String(randomNum)
+            let randomNumStr = String(randomNum)
             
             if !comNumList.contains(randomNumStr) {
                 comNumList.append(randomNumStr)
@@ -23,8 +23,6 @@ extension NumberBaseBall {
         }
         
         print(comNumList)
-        
     }
-
 }
 

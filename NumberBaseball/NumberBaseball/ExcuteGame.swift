@@ -14,16 +14,15 @@ extension NumberBaseBall {
     }
 
     func execute() {
-        
         var flag: Bool = true
         
-        repeat {
+        while flag {
             print("1. 게임시작")
             print("2. 게임종료")
             print("원하는 기능을 선택해주세요: ", terminator: "")
             
             guard let input = readLine(), !input.isEmpty else {
-                //execute()
+                print("입력이 잘못 되었습니다.")
                 continue
             }
             
@@ -35,11 +34,8 @@ extension NumberBaseBall {
             case .start:
                 gameStart()
             case .end:
-                //gameEnd()
                 flag = false
-                print("")
             }
-        } while (flag)
-        
+        }
     }
 }
