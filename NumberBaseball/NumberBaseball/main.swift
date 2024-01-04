@@ -16,9 +16,4 @@ class NumberBaseBall {
 }
 
 let numberBaseball = NumberBaseBall(comNumList: [], userNumList: [])
-numberBaseball.execute() 
-
-
-
-
-
+numberBaseball.execute()

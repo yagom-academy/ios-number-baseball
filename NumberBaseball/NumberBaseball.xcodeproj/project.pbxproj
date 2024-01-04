@@ -35,6 +35,7 @@
 		2E66896E2B464C1B009123FF /* GameStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStart.swift; sourceTree = "<group>"; };
 		2E6689702B464C25009123FF /* GameEnd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnd.swift; sourceTree = "<group>"; };
 		2E6689722B464FC4009123FF /* ExcuteGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcuteGame.swift; sourceTree = "<group>"; };
+		8BA1F3BF2B46562C00D80796 /* FlowChar_Baseball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlowChar_Baseball.png; sourceTree = "<group>"; };
 		C7A29CF82551372B00CAC77A /* NumberBaseball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NumberBaseball; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A29CFB2551372B00CAC77A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,6 +77,7 @@
 				2E6689682B464B00009123FF /* GenerateNumber.swift */,
 				2E66896A2B464B1A009123FF /* UserInputNumber.swift */,
 				2E66896C2B464B88009123FF /* CheckStrikeAndBall.swift */,
+				8BA1F3BF2B46562C00D80796 /* FlowChar_Baseball.png */,
 			);
 			path = NumberBaseball;
 			sourceTree = "<group>";
