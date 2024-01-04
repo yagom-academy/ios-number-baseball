@@ -9,14 +9,36 @@ import Foundation
 
 extension NumberBaseBall {
     func compare(){
-                
+        
         var strike: Int = 0
         var ball: Int = 0
         
-        while strike != 3 {
+        while repeatTime > 0 {
+            
+            strike = checkStrike()
+            ball = checkIfBall()
+            
+            print("\(strike) 스트라이크, \(ball) 볼")
+            
+            if strike == 3 {
+                print("사용자 승리..!")
+                repeatTime = 9
+                break
+            }
+            repeatTime -= 1
+            print("남은 기회는 \(repeatTime)")
+            
+            if repeatTime == 0 {
+                print("컴퓨터 승리...!")
+                repeatTime = 9
+                break
+            }
+            
+            userInputNumber()
             
         }
         
+        execute()
         
     }
     
