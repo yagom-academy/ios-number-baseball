@@ -22,7 +22,8 @@ func generateRandomNumbers() {
     print(goalNumbers)
 }
 
-func judgeResult() {
+func judgeResult(val: [Int]) -> (countStrike: Int, countBall: Int) {
+
     var countStrike = 0
     var countBall = 0
     
@@ -57,10 +58,27 @@ func judgeResult() {
     }
     
     print("Strike = \(countStrike), ball = \(countBall)")
+    return (countStrike, countBall)
 }
 
-print("???")
+//var goalNumbers = [Int]()
+//var attemp = 9
+//var userNumbers = [1,2,3]
 
-generateRandomNumbers()
-print("user = \(userNumbers)")
-judgeResult()
+func startGame() {
+    generateRandomNumbers()
+    print("Computer: \(goalNumbers)")
+    print("User: \(userNumbers)")
+    
+    while attemp > 0 {
+        let result = judgeResult(val: userNumbers)
+        if result.countStrike == 3 {
+            print("WIN!")
+            
+            return
+        }
+        attemp -= 1
+    }
+}
+
+startGame()
