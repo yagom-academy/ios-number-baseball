@@ -56,3 +56,5 @@ func runGame() {
     
     print("컴퓨터 승리...!")
 }
+
+runGame()
