@@ -59,7 +59,7 @@ func judgeResult() {
     print("Strike = \(countStrike), ball = \(countBall)")
 }
 
-print("???")
+//print("???")
 
 generateRandomNumbers()
 print("user = \(userNumbers)")
