@@ -20,8 +20,7 @@ extension NumberBaseBall {
                 comNumList.append(randomNumStr)
             }
         }
-        
-        print(comNumList)
+        print("comNumList - \(comNumList)")
     }
 }
 
