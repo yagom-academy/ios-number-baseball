@@ -9,7 +9,7 @@ import Foundation
 var computerNumbers: [Int] = []
 var remainedInnings = 9
 
-func getRandomNumbers() -> [Int] {
+func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
 }
 
@@ -32,10 +32,10 @@ func calcRoundResult(_ computerNumbers: [Int], _ playerNumbers: [Int]) -> (strik
 }
 
 func runGame() {
-    computerNumbers = getRandomNumbers()
+    computerNumbers = generateRandomNumbers()
     
     while remainedInnings > 0 {
-        let playerNumbers = getRandomNumbers()
+        let playerNumbers = generateRandomNumbers()
         
         print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
         
