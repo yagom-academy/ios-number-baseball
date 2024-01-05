@@ -12,7 +12,7 @@ func generateRandomNumbers() -> [Int] {
 
 func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     let computerNumbersSet = Set(computerNumbers)
-    let playerNumebersSet = Set(playerNumbers)
+    let playerNumbersSet = Set(playerNumbers)
     
     var strikeCount = 0
     var ballCount = 0
@@ -23,7 +23,7 @@ func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (stri
         }
     }
     
-    ballCount = computerNumbersSet.intersection(playerNumebersSet).count - strikeCount
+    ballCount = computerNumbersSet.intersection(playerNumbersSet).count - strikeCount
     
     return (strikeCount: strikeCount, ballCount: ballCount)
 }
