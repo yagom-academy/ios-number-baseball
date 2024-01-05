@@ -14,7 +14,6 @@ extension NumberBaseBall {
         var flag: Bool = true
         
         while flag {
-            
             print("입력해주세요 : ", terminator: "")
             
             guard let randomNum = readLine() else {
@@ -30,7 +29,7 @@ extension NumberBaseBall {
             
             let deleteSameNumber: Array<String> = []
             
-            for i in 0...2 {
+            for i in 0...(splitUserInput.count - 1) {
                 let deleteSameNumber = splitUserInput.filter({$0 == splitUserInput[i]})
             }
             
@@ -40,13 +39,6 @@ extension NumberBaseBall {
             } else if deleteSameNumber.count > 3{
                 print("중복 숫자는 허용하지 않습니다.")
             }
-            
-            /*
-            if splitUserInput[0] != splitUserInput[1] && splitUserInput[0] != splitUserInput[2] && splitUserInput[1] != splitUserInput[2] {
-                flag = false
-                userNumList = splitUserInput
-            }
-            */
         }
         compare()
     }

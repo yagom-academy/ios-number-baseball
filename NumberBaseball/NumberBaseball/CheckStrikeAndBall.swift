@@ -32,7 +32,7 @@ extension NumberBaseBall {
     func checkStrike () -> Int {
         var numberOfStrike: Int = 0
         
-        for i in 0...2 {
+        for i in 0...(userNumList.count - 1) {
             if comNumList[i] == userNumList[i] {
                 numberOfStrike += 1
             }
