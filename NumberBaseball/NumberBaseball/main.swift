@@ -6,9 +6,6 @@
 
 import Foundation
 
-var computerNumbers: [Int] = []
-var remainedInnings = 9
-
 func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
 }
@@ -32,7 +29,8 @@ func calcRoundResult(_ computerNumbers: [Int], _ playerNumbers: [Int]) -> (strik
 }
 
 func runGame() {
-    computerNumbers = generateRandomNumbers()
+    var computerNumbers = generateRandomNumbers()
+    var remainedInnings = 9
     
     while remainedInnings > 0 {
         let playerNumbers = generateRandomNumbers()
