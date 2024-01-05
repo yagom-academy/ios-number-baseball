@@ -10,7 +10,7 @@ var computerNumbers: [Int] = []
 var remainedInnings = 9
 
 func getRandomNumbers() -> [Int] {
-    return Array(Array(1...9).shuffled()[0..<3])
+    return Array((1...9).shuffled()[0..<3])
 }
 
 func calcRoundResult(_ computerNumbers: [Int], _ playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
