@@ -19,7 +19,6 @@ extension NumberBaseBall {
             if !comNumList.contains(randomNumStr) {
                 comNumList.append(randomNumStr)
             }
-    
         }
         
         print(comNumList)
