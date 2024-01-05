@@ -55,16 +55,26 @@ func runGame() {
     print("컴퓨터 승리...!")
 }
 
+func verifyMenuInput(input: String?) -> Bool {
+    if input == "1" || input == "2" {
+        return true
+    } else {
+        return false
+    }
+}
+
 func selectMenu() {
     print("1. 게임시작")
     print("2. 게임종료")
     print("원하는 기능을 선택해주세요 : ", terminator: "")
     
-    if let userInput = readLine(), userInput == "1" || userInput == "2" {
-        if userInput == "1" {
+    let menuInput = readLine()
+    
+    if verifyMenuInput(input: menuInput) {
+        if menuInput == "1" {
             runGame()
             selectMenu()
-        } else {
+        } else if menuInput == "2" {
             return
         }
     } else {
