@@ -33,7 +33,7 @@ func runGame() {
     var remainedInnings = 9
     
     while remainedInnings > 0 {
-        let playerNumbers = generateRandomNumbers()
+        let playerNumbers = readPlayerNumbers()
         
         print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
         
