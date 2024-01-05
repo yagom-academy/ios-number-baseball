@@ -15,8 +15,8 @@ func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (stri
     var strikeCount = 0
     var ballCount = 0
     
-    for i in 0..<3 {
-        if computerNumbers[i] == playerNumbers[i] {
+    for index in 0..<3 {
+        if computerNumbers[index] == playerNumbers[index] {
             strikeCount += 1
         }
     }
