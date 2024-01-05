@@ -10,7 +10,7 @@ func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
 }
 
-func calcRoundResult(_ computerNumbers: [Int], _ playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
+func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     let computerNumbersSet = Set(computerNumbers)
     let playerNumebersSet = Set(playerNumbers)
     
@@ -37,7 +37,7 @@ func runGame() {
         
         print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
         
-        let roundResult = calcRoundResult(computerNumbers, playerNumbers)
+        let roundResult = calculateRoundResult(computerNumbers: computerNumbers, playerNumbers: playerNumbers)
         let strikeCount = roundResult.strikeCount
         let ballCount = roundResult.ballCount
         
