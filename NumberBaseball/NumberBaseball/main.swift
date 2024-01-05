@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
 func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
 }
