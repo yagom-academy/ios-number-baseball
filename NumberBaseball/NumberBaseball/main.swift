@@ -83,32 +83,37 @@ func selectMenu() {
     }
 }
 
+func verifyPlayerNumberInput(input: String?) -> Bool {
+    guard let safeInput = input else {
+        return false
+    }
+    
+    guard let regex = try? NSRegularExpression(pattern: "^[1-9] [1-9] [1-9]$") else {
+        return false
+    }
+    
+    let matches = regex.matches(in: safeInput, range: NSRange(0..<safeInput.count))
+    
+    if matches.isEmpty {
+        return false
+    }
+    
+    return Set(safeInput.split(separator: " ").compactMap { Int($0) }).count == 3 ? true : false
+}
+
 func readPlayerNumbers() -> [Int] {
     print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
     print("중복 숫자는 허용하지 않습니다.")
     print("입력 : ", terminator: "")
     
-    guard let input = readLine() else {
-        print("입력이 잘못되었습니다.")
-        return readPlayerNumbers()
-    }
+    let playerNumberInput = readLine()
     
-    guard let regex = try? NSRegularExpression(pattern: "^[1-9] [1-9] [1-9]$") else {
-        print("유효하지 않은 패턴입니다.")
-        return readPlayerNumbers()
-    }
-    
-    let matchResults = regex.matches(in: input, range: NSRange(0..<input.count))
-    
-    if matchResults.isEmpty {
-        print("입력이 잘못되었습니다.")
-        return readPlayerNumbers()
-    }
-    
-    let playerNumbers = input.split(separator: " ").compactMap { Int($0) }
-    
-    if Set(playerNumbers).count == 3 {
-        return playerNumbers
+    if verifyPlayerNumberInput(input: playerNumberInput) {
+        guard let safePlayerNumberInput = playerNumberInput else {
+            return readPlayerNumbers()
+        }
+        
+        return safePlayerNumberInput.split(separator: " ").compactMap { Int($0) }
     } else {
         print("입력이 잘못되었습니다.")
         return readPlayerNumbers()
