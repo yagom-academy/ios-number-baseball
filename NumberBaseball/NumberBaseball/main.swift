@@ -27,7 +27,7 @@ func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (stri
 }
 
 func runGame() {
-    var computerNumbers = generateRandomNumbers()
+    let computerNumbers = generateRandomNumbers()
     var remainedInnings = 9
     
     while remainedInnings > 0 {
