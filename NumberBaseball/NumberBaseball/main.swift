@@ -53,4 +53,20 @@ func runGame() {
     print("컴퓨터 승리...!")
 }
 
-runGame()
+func selectMenu() {
+    print("1. 게임시작")
+    print("2. 게임종료")
+    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    
+    if let userInput = readLine(), userInput == "1" || userInput == "2" {
+        if userInput == "1" {
+            runGame()
+        } else {
+            return
+        }
+    } else {
+        print("입력이 잘못되었습니다.")
+    }
+}
+
+selectMenu()
