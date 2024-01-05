@@ -63,6 +63,7 @@ func selectMenu() {
     if let userInput = readLine(), userInput == "1" || userInput == "2" {
         if userInput == "1" {
             runGame()
+            selectMenu()
         } else {
             return
         }
