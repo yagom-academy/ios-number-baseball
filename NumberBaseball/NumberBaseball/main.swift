@@ -4,6 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+import Foundation
+
 func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
 }
@@ -66,6 +68,38 @@ func selectMenu() {
         }
     } else {
         print("입력이 잘못되었습니다.")
+    }
+}
+
+func readPlayerNumbers() -> [Int] {
+    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
+    print("중복 숫자는 허용하지 않습니다.")
+    print("입력 : ", terminator: "")
+    
+    guard let input = readLine() else {
+        print("입력이 잘못되었습니다.")
+        return readPlayerNumbers()
+    }
+    
+    guard let regex = try? NSRegularExpression(pattern: "^[1-9] [1-9] [1-9]$") else {
+        print("유효하지 않은 패턴입니다.")
+        return readPlayerNumbers()
+    }
+    
+    let matchResults = regex.matches(in: input, range: NSRange(0..<input.count))
+    
+    if matchResults.isEmpty {
+        print("입력이 잘못되었습니다.")
+        return readPlayerNumbers()
+    }
+    
+    let playerNumbers = input.split(separator: " ").compactMap { Int($0) }
+    
+    if Set(playerNumbers).count == 3 {
+        return playerNumbers
+    } else {
+        print("입력이 잘못되었습니다.")
+        return readPlayerNumbers()
     }
 }
 
