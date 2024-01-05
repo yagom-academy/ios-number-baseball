@@ -28,7 +28,7 @@ func calcRoundResult(_ computerNumbers: [Int], _ playerNumbers: [Int]) -> (strik
     
     ballCount = computerNumbersSet.intersection(playerNumebersSet).count - strikeCount
     
-    return (strikeCount, ballCount)
+    return (strikeCount: strikeCount, ballCount: ballCount)
 }
 
 func runGame() {
@@ -40,8 +40,8 @@ func runGame() {
         print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
         
         let roundResult = calcRoundResult(computerNumbers, playerNumbers)
-        let strikeCount = roundResult.0
-        let ballCount = roundResult.1
+        let strikeCount = roundResult.strikeCount
+        let ballCount = roundResult.ballCount
         
         print("\(strikeCount) 스트라이크, \(ballCount) 볼")
         
