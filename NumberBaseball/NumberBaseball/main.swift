@@ -56,9 +56,10 @@ func runGame() {
 }
 
 func verifyMenuInput(input: String?) -> Bool {
-    if input == "1" || input == "2" {
+    switch input {
+    case "1", "2":
         return true
-    } else {
+    default:
         return false
     }
 }
