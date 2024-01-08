@@ -4,8 +4,51 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+import Foundation
+
 func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
+}
+
+func verifyPlayerNumberInput(input: String?) -> Bool {
+    guard let safeInput = input else {
+        return false
+    }
+    
+    guard let regex = try? NSRegularExpression(pattern: "^[1-9] [1-9] [1-9]$") else {
+        return false
+    }
+    
+    let matches = regex.matches(in: safeInput, range: NSRange(0..<safeInput.count))
+    
+    if matches.isEmpty {
+        return false
+    }
+    
+    return Set(safeInput.split(separator: " ").compactMap { Int($0) }).count == 3 ? true : false
+}
+
+func readPlayerNumbers() -> [Int] {
+    let messageToPrint = """
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """
+    
+    print(messageToPrint, terminator: " ")
+    
+    let playerNumberInput = readLine()
+    
+    if verifyPlayerNumberInput(input: playerNumberInput) {
+        guard let safePlayerNumberInput = playerNumberInput else {
+            return readPlayerNumbers()
+        }
+        
+        return safePlayerNumberInput.split(separator: " ").compactMap { Int($0) }
+    } else {
+        print("입력이 잘못되었습니다.")
+        return readPlayerNumbers()
+    }
 }
 
 func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
@@ -31,7 +74,7 @@ func runGame() {
     var remainedInnings = 9
     
     while remainedInnings > 0 {
-        let playerNumbers = generateRandomNumbers()
+        let playerNumbers = readPlayerNumbers()
         
         print("임의의 수 : \(playerNumbers[0]) \(playerNumbers[1]) \(playerNumbers[2])")
         
@@ -53,4 +96,37 @@ func runGame() {
     print("컴퓨터 승리...!")
 }
 
-runGame()
+func verifyMenuInput(input: String?) -> Bool {
+    switch input {
+    case "1", "2":
+        return true
+    default:
+        return false
+    }
+}
+
+func selectMenu() {
+    let messageToPrint = """
+    1. 게임시작
+    2. 게임종료
+    원하는 기능을 선택해주세요 :
+    """
+    
+    print(messageToPrint, terminator: " ")
+    
+    let menuInput = readLine()
+    
+    if verifyMenuInput(input: menuInput) {
+        if menuInput == "1" {
+            runGame()
+            return selectMenu()
+        } else if menuInput == "2" {
+            return
+        }
+    } else {
+        print("입력이 잘못되었습니다.")
+        return selectMenu()
+    }
+}
+
+selectMenu()
