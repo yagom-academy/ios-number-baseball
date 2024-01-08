@@ -64,9 +64,13 @@ func verifyMenuInput(input: String?) -> Bool {
 }
 
 func selectMenu() {
-    print("1. 게임시작")
-    print("2. 게임종료")
-    print("원하는 기능을 선택해주세요 : ", terminator: "")
+    let messageToPrint = """
+    1. 게임시작
+    2. 게임종료
+    원하는 기능을 선택해주세요 :
+    """
+    
+    print(messageToPrint, terminator: " ")
     
     let menuInput = readLine()
     
@@ -102,9 +106,13 @@ func verifyPlayerNumberInput(input: String?) -> Bool {
 }
 
 func readPlayerNumbers() -> [Int] {
-    print("숫자 3개를 띄어쓰기로 구분하여 입력해주세요.")
-    print("중복 숫자는 허용하지 않습니다.")
-    print("입력 : ", terminator: "")
+    let messageToPrint = """
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """
+    
+    print(messageToPrint, terminator: " ")
     
     let playerNumberInput = readLine()
     
