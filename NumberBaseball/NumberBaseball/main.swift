@@ -10,6 +10,47 @@ func generateRandomNumbers() -> [Int] {
     return Array((1...9).shuffled()[0..<3])
 }
 
+func verifyPlayerNumberInput(input: String?) -> Bool {
+    guard let safeInput = input else {
+        return false
+    }
+    
+    guard let regex = try? NSRegularExpression(pattern: "^[1-9] [1-9] [1-9]$") else {
+        return false
+    }
+    
+    let matches = regex.matches(in: safeInput, range: NSRange(0..<safeInput.count))
+    
+    if matches.isEmpty {
+        return false
+    }
+    
+    return Set(safeInput.split(separator: " ").compactMap { Int($0) }).count == 3 ? true : false
+}
+
+func readPlayerNumbers() -> [Int] {
+    let messageToPrint = """
+    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
+    중복 숫자는 허용하지 않습니다.
+    입력 :
+    """
+    
+    print(messageToPrint, terminator: " ")
+    
+    let playerNumberInput = readLine()
+    
+    if verifyPlayerNumberInput(input: playerNumberInput) {
+        guard let safePlayerNumberInput = playerNumberInput else {
+            return readPlayerNumbers()
+        }
+        
+        return safePlayerNumberInput.split(separator: " ").compactMap { Int($0) }
+    } else {
+        print("입력이 잘못되었습니다.")
+        return readPlayerNumbers()
+    }
+}
+
 func calculateRoundResult(computerNumbers: [Int], playerNumbers: [Int]) -> (strikeCount: Int, ballCount: Int) {
     let computerNumbersSet = Set(computerNumbers)
     let playerNumbersSet = Set(playerNumbers)
@@ -85,47 +126,6 @@ func selectMenu() {
     } else {
         print("입력이 잘못되었습니다.")
         return selectMenu()
-    }
-}
-
-func verifyPlayerNumberInput(input: String?) -> Bool {
-    guard let safeInput = input else {
-        return false
-    }
-    
-    guard let regex = try? NSRegularExpression(pattern: "^[1-9] [1-9] [1-9]$") else {
-        return false
-    }
-    
-    let matches = regex.matches(in: safeInput, range: NSRange(0..<safeInput.count))
-    
-    if matches.isEmpty {
-        return false
-    }
-    
-    return Set(safeInput.split(separator: " ").compactMap { Int($0) }).count == 3 ? true : false
-}
-
-func readPlayerNumbers() -> [Int] {
-    let messageToPrint = """
-    숫자 3개를 띄어쓰기로 구분하여 입력해주세요.
-    중복 숫자는 허용하지 않습니다.
-    입력 :
-    """
-    
-    print(messageToPrint, terminator: " ")
-    
-    let playerNumberInput = readLine()
-    
-    if verifyPlayerNumberInput(input: playerNumberInput) {
-        guard let safePlayerNumberInput = playerNumberInput else {
-            return readPlayerNumbers()
-        }
-        
-        return safePlayerNumberInput.split(separator: " ").compactMap { Int($0) }
-    } else {
-        print("입력이 잘못되었습니다.")
-        return readPlayerNumbers()
     }
 }
 
